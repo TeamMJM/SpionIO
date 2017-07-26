@@ -7,11 +7,12 @@
   "author": "Team Duckasauracs",
   "license": "MIT",
   "scripts": {
-    "start":"nodemon server.js"
+    "start": "nodemon server.js"
   },
   "dependencies": {
     "express": "^4.15.3",
     "jquery": "^3.2.1",
+    "mongoose": "^4.11.4",
     "nodemon": "^1.11.0"
   }
 }
