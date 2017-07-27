@@ -1,6 +1,6 @@
 {
   "name": "Private-I",
-  "version": "0.01",
+  "version": "1.0.0",
   "description": "Web Analysis Application",
   "main": "server.js",
   "repository": "https://github.com/Duckasaurus/private-i.git",

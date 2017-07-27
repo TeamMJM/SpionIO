@@ -6,6 +6,6 @@ const clickSchema = Schema({
     clickY: Number
 })
 
-let Click = mongoose.model('Click',clickSchema,'Clicks');
+let Click = mongoose.model('Click', clickSchema);
 
 module.exports = Click;

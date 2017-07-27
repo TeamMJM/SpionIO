@@ -4,7 +4,7 @@ $(document).ready(() =>{
         const click = JSON.stringify({clickX : e.pageX, clickY: e.pageY}); 
         $.ajax({
             method: "POST",
-            url:"storeClick",
+            url:"/storeClick",
             contentType: "application/json",
             data:click,
             dataType:'json',
@@ -17,4 +17,11 @@ $(document).ready(() =>{
         })
     })
 
+    $(document).scroll((e) => {
+        let sc = $(document).scrollTop();
+        let bot = $(window).height() + sc;
+        let pageScroll = Math.floor((bot / $(document).height()) * 100);
+
+        console.log("You've scrolled " + pageScroll + "% of the page");
+    });
 })
