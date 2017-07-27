@@ -1,20 +1,20 @@
 $(document).ready(() =>{
+
     $(window).on("click",(e) =>{
-        console.log(e.pageX + ',' + e.pageY);
+        const click = JSON.stringify({clickX : e.pageX, clickY: e.pageY}); 
         $.ajax({
-            methold: "POST",
+            method: "POST",
             url:"storeClick",
             contentType: "application/json",
-            data:{clickX : e.pageX, clickY: e.pageY},
+            data:click,
             dataType:'json',
             success:() =>{
                 console.log("Post Sucessful")   
             },
-            error:() =>{
-                console.log("Failed Post");
+            error:(err) =>{
+                console.log(err);
             }
         })
     })
 
-    $(window).scroll
 })

@@ -1,17 +1,22 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser')
+const clickController = require('./Database/Controller/clickController.js');
 
-app.get('/', function(req, res) {
+
+app.use(bodyParser.json());
+app.get('/', (req,res,next) => {
     res.sendfile('./index.html');
 });
 
-app.get('/script.js',function(req,res){
+app.get('/script.js',(req,res,next) =>{
     res.sendfile('./script.js');
 })
 
-app.post('/storeClick',function(req,res){
+app.post('/storeClick',(req,res,next) =>{
+    clickController.createClick(req,res,next)
 })
 
-app.listen(3000, function() {
+app.listen(3000, () =>{
     console.log('App listening on port 3000!');
 });
