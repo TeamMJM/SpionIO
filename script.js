@@ -1,3 +1,6 @@
+var $ = require('jquery-browserify')
+$("img[attr$='png']").hide()
+
 $(document).ready(() => {
 
     $(window).on("click", (e) => {
