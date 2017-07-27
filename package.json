@@ -1,16 +1,18 @@
 {
   "name": "Private-I",
-  "version": "0.01",
+  "version": "1.0.0",
   "description": "Web Analysis Application",
   "main": "server.js",
   "repository": "https://github.com/Duckasaurus/private-i.git",
   "author": "Team Duckasauracs",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "nodemon server.js",
+    "electron": "electron electron/main.js"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
+    "electron": "^1.6.11",
     "express": "^4.15.3",
     "jquery": "^3.2.1",
     "mongoose": "^4.11.4",

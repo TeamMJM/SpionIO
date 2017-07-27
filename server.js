@@ -3,7 +3,10 @@ const app = express();
 const bodyParser = require('body-parser')
 const clickController = require('./Database/Controller/clickController.js');
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://jerry:123@ds125623.mlab.com:25623/userevents')
+
+let mongoURI = 'mongodb://jerry:123@ds125623.mlab.com:25623/userevents';
+
+mongoose.connect(mongoURI);
 
 
 app.use(bodyParser.json());
