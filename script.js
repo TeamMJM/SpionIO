@@ -10,11 +10,7 @@ $(document).ready(() => {
         console.log(click);
         $.ajax({
             method: "POST",
-<<<<<<< HEAD
-            url:"/storeClick",
-=======
             url: "storeClick",
->>>>>>> 2cb11892332b635d097ae74178528e20f979932c
             contentType: "application/json",
             data: click,
             dataType: 'json',

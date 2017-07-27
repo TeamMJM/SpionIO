@@ -22,21 +22,6 @@ clickController.mapClick = (req, res, next) => {
 }
 
 clickController.createClick = (req, res, next) => {
-<<<<<<< HEAD
-    console.log(req.body)
-    let newClick = new Click(req.body);
-    newClick.save((err, click) => {
-        if (err) return console.error(err);
-        res.send(click);
-    })
-        // .then((click) =>{
-        //     console.log(click);
-        //     res.send(click);
-        // })
-        // .catch((err) =>{
-        //     res.send(err)
-        // })
-=======
     Click.create({
             clickX: req.body.clickX,
             clickY: req.body.clickY
@@ -47,6 +32,5 @@ clickController.createClick = (req, res, next) => {
         .catch((err) => {
             res.send(err)
         })
->>>>>>> 2cb11892332b635d097ae74178528e20f979932c
 }
 module.exports = clickController;
