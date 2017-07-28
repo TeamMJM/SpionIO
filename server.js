@@ -1,10 +1,11 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
-const clickController = require('./Database/Controller/clickController.js');
+const clickController = require('./database/controller/clickController.js');
+const scrollController = require('./database/controller/scrollController.js');
 const mongoose = require('mongoose');
 
-let mongoURI = 'mongodb://jerry:123@ds125623.mlab.com:25623/userevents';
+let mongoURI = 'mongodb://jerryjong:codesmith123@ds127173.mlab.com:27173/private-i';
 
 mongoose.connect(mongoURI);
 
@@ -14,6 +15,10 @@ app.use(bodyParser.json());
 app.post('/storeClick',
     clickController.mapClick,
     clickController.createClick
+)
+
+app.post('/storeScroll',
+    scrollController.createScroll
 )
 
 app.listen(3000, () => {
