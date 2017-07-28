@@ -4,8 +4,8 @@ window.onload = (() => {
             const click = JSON.stringify({
                 clickX: e.clientX,
                 clickY: e.clientY,
-                width: document.width,
-                height: document.height
+                width: document.documentElement.clientWidth,
+                height: document.documentElement.clientHeight
             });
             console.log(click);
             let request = new XMLHttpRequest();

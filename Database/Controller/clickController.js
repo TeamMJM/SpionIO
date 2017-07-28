@@ -4,9 +4,10 @@ const appWidth = 900;
 const appHeight = 900;
 
 clickController.mapClick = (req, res, next) => {
+    console.log("MAP",req.body,'\n')
     if (req.body.width < appWidth) {
         //scale down width
-        req.body.clickx *= appWidth / req.body.width;
+        req.body.clickX *= appWidth / req.body.width;
     } else {
         //scale up width
         req.body.clickX /= req.body.width / appWidth
@@ -18,10 +19,12 @@ clickController.mapClick = (req, res, next) => {
         //scale up height
         req.body.clickY /= req.body.height / appHeight;
     }
+    console.log("AFTER",req.body,'\n')
     next();
 }
 
 clickController.createClick = (req, res, next) => {
+    console.log("BODY",req.body,'\n')
     Click.create({
             clickX: req.body.clickX,
             clickY: req.body.clickY
