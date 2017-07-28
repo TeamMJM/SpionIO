@@ -1,6 +1,6 @@
 window.onload = (() => {
     var xhr = new XMLHttpRequest();
-    const io;
+    const io = null;
     xhr.onreadystatechange = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
             io = xhr.responseText;
