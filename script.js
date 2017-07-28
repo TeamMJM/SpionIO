@@ -1,7 +1,7 @@
 const io = 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js'
-
+const socket = io.connect("http://localhost:3000/");
 window.onload = (() => {
-    const socket = io.connect("http://localhost:3000/");
+    
     socket.on('connect',(data)=>{
         socket.emit('join',"Hello server");
     });

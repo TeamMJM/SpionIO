@@ -21,6 +21,14 @@ app.use(function(req, res, next) {
 
 app.use(bodyParser.json());
 
+io.on('connection',(client) =>{
+    console.log('Client connected...');
+    client.on('join',(data)=>{
+        console.log(data)
+        client.emit('messages','Hello from server');
+    })
+})
+
 app.post('/storeClick',
     clickController.mapClick,
     clickController.createClick
