@@ -20,7 +20,7 @@ window.onload = (() => {
         }, false);
 
         document.addEventListener("scroll", (e) => {
-            let sc = document.scrollTop;
+            let sc = document.documentElement.scrollTop;
             let bot = window.height + sc;
             let pageScroll = Math.floor((bot / document.height) * 100);
             console.log("You've scrolled " + pageScroll + "% of the page");
