@@ -7,12 +7,10 @@
   "author": "Team Duckasauracs",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server.js",
-    "electron": "electron electron/main.js"
+    "start": "nodemon server.js"
   },
   "dependencies": {
     "body-parser": "^1.17.2",
-    "electron": "^1.6.11",
     "express": "^4.15.3",
     "jquery": "^3.2.1",
     "jquery-browserify": "^1.8.1",
