@@ -22,7 +22,7 @@ window.onload = (() => {
         document.addEventListener("scroll", (e) => {
             let sc = document.documentElement.scrollTop;
             let bot = window.height + sc;
-            let pageScroll = Math.floor((bot / document.height) * 100);
+            let pageScroll = Math.floor((bot / document.documentElement.clientHeight) * 100);
             console.log("You've scrolled " + pageScroll + "% of the page");
         }, false);
     }
