@@ -13,7 +13,7 @@ $(document).ready(() => {
         console.log(click);
         $.ajax({
             method: "POST",
-            url: "storeClick",
+            url: "http://localhost:3000/storeClick",
             contentType: "application/json",
             data: click,
             dataType: 'json',
