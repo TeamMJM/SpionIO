@@ -21,6 +21,7 @@ window.onload = (() => {
 
         document.addEventListener("scroll", (e) => {
             console.log(screen.height)
+            console.log(document.documentElement.clientHeight)
             console.log(window.pageYOffset);
             let sc = window.pageYOffset;
             let bot = screen.height + sc;
