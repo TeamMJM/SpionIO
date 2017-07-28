@@ -14,6 +14,8 @@ mongoose.connect(mongoURI);
 //   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
 //   next();
 // });
+app.use('/', express.static(__dirname + './../'));
+
 
 app.get('/', (req, res) => {
     res.sendfile('index.html')
@@ -21,6 +23,10 @@ app.get('/', (req, res) => {
 
  app.get('/script.js',(req,res,next) =>{
       res.sendfile('./script.js');
+  })
+
+  app.get('/build/bundle.js', (req,res,next) =>{
+      res.sendfile('./build/bundle.js');
   })
 
 app.use(bodyParser.json());
