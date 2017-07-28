@@ -1,21 +1,22 @@
 window.onload = (() => {
     var xhr = new XMLHttpRequest();
     let io = null;
+    let socket = null
     xhr.onreadystatechange = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
             io = xhr.responseText;
+            socket = io.connect('http://localhost:3000/')
+            socket.on('connect', (data) => {
+                socket.emit('join', "Hello server");
+            });
+            socket.on('messages', (data) => {
+                alert(data);
+            })
         }
     }
     xhr.open('GET', 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js', true);
     xhr.send(null);
-    const socket = io.connect('http://localhost:3000/')
-    socket.on('connect', (data) => {
-        socket.emit('join', "Hello server");
-    });
-    socket.on('messages', (data) => {
-        alert(data);
-    })
-    
+
     if (document.readyState === 'complete') {
         window.addEventListener("click", (e) => {
             const click = JSON.stringify({
