@@ -1,4 +1,13 @@
+const io = 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js'
+
 window.onload = (() => {
+    const socket = io.connect("http://localhost:3000/");
+    socket.on('connect',(data)=>{
+        socket.emit('join',"Hello server");
+    });
+    socket.on('messages',(data)=>{
+        alert(data);
+    })
     if (document.readyState === 'complete') {
         window.addEventListener("click", (e) => {
             const click = JSON.stringify({
@@ -8,6 +17,7 @@ window.onload = (() => {
                 height: document.documentElement.clientHeight
             });
             console.log(click);
+            
             let request = new XMLHttpRequest();
             request.open('POST', "http://localhost:3000/storeClick", true);
             request.setRequestHeader("Content-type", "application/json");
