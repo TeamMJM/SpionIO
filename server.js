@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser')
-const clickController = require('./database/controller/clickController.js');
-const scrollController = require('./database/controller/scrollController.js');
+const clickController = require('./Database/Controller/clickController.js');
+const scrollController = require('./Database/Controller/scrollController.js');
 const mongoose = require('mongoose');
 
 let mongoURI = 'mongodb://jerryjong:codesmith123@ds127173.mlab.com:27173/private-i';

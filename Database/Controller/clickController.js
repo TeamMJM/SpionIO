@@ -6,7 +6,7 @@ const appHeight = 900;
 clickController.mapClick = (req, res, next) => {
     if (req.body.width < appWidth) {
         //scale down width
-        req.body.clickx *= appWidth / req.body.width;
+        req.body.clickX *= appWidth / req.body.width;
     } else {
         //scale up width
         req.body.clickX /= req.body.width / appWidth
