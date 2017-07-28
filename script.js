@@ -13,7 +13,7 @@ window.onload = (() => {
             request.setRequestHeader("Content-type", "application/json");
             request.onreadystatechange = function () {
                 if (request.readyState > 3 && request.status == 200) {
-                    console.log(request.responseText;
+                    console.log(request.responseText);
                 }
             };
             request.send(click);
