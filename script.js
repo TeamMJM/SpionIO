@@ -1,12 +1,12 @@
 window.onload = (() => {
     var xhr = new XMLHttpRequest();
-    const io = null;
+    let io = null;
     xhr.onreadystatechange = function () {
         if (xhr.readyState == XMLHttpRequest.DONE) {
             io = xhr.responseText;
         }
     }
-    xhr.open('GET', 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js', false);
+    xhr.open('GET', 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js', true);
     xhr.send(null);
     const socket = io.connect('http://localhost:3000/')
     socket.on('connect', (data) => {
