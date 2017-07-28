@@ -1,4 +1,4 @@
-const Scroll = require('./../model/scrollModel.js');
+const Scroll = require('./../Model/scrollModel.js');
 const scrollController = {};
 
 scrollController.createScroll = (req, res) => {
