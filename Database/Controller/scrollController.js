@@ -1,15 +1,15 @@
 const Scroll = require('./../Model/scrollModel.js');
 const scrollController = {};
 
-scrollController.createScroll = (req, res) => {
+scrollController.createScroll = (data) => {
   Scroll.create({
-    scrollPercent: req.body.scrollPercent
+    scrollPercent: data.scrollPercent
   })
   .then((scroll) => {
-    res.send(scroll);
+    return scroll
   })
   .catch((err) => {
-    res.send(err);
+    return err;
   })
 }
 

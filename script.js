@@ -4,7 +4,13 @@ window.onload = (() => {
         socket.emit('join',"Hello server");
     });
     socket.on('messages',(data)=>{
-        alert(data);
+        console.log('message',data);
+    })
+    socket.on('clickResponse',(data)=>{
+        console.log('clickResponse',data);
+    })
+    socket.on('scrollResponse',(data)=>{
+        console.log('scrollResponse',data);
     })
     if (document.readyState === 'complete') {
         window.addEventListener("click", (e) => {
@@ -15,16 +21,7 @@ window.onload = (() => {
                 height: document.documentElement.clientHeight
             });
             console.log(click);
-            
-            let request = new XMLHttpRequest();
-            request.open('POST', "http://localhost:3000/storeClick", true);
-            request.setRequestHeader("Content-type", "application/json");
-            request.onreadystatechange = function () {
-                if (request.readyState > 3 && request.status == 200) {
-                    console.log(request.responseText);
-                }
-            };
-            request.send(click);
+            socket.emit('storeClick',click)
         }, false);
 
         document.addEventListener("scroll", (e) => {
@@ -35,6 +32,7 @@ window.onload = (() => {
             let bot = screen.height + sc;
             let pageScroll = Math.floor((bot / document.documentElement.clientHeight) * 100);
             console.log("You've scrolled " + pageScroll + "% of the page");
+            socket.emit('storeScroll',pageScroll);
         }, false);
     }
 })

@@ -22,20 +22,20 @@ app.use(function(req, res, next) {
 app.use(bodyParser.json());
 
 io.on('connection',(client) =>{
-    console.log('Client connected...');
     client.on('join',(data)=>{
         console.log(data)
         client.emit('messages','Hello from server');
     })
+    client.on('storeClick',(data) =>{
+        let mappedClick = clickController.mapClick(data);
+        let response = clickController.createClick(mappedClick);
+        client.emit('clickResponse',response);
+    })
+    client.on('storeScroll',(data)=>{
+        let response = clickController.createScroll(data)
+        client.emit('scrollResponse',response);
+    })
 })
 
-app.post('/storeClick',
-    clickController.mapClick,
-    clickController.createClick
-)
-
-app.post('/storeScroll',
-    scrollController.createScroll
-)
 
 server.listen(3000);
