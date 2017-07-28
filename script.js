@@ -20,6 +20,8 @@ window.onload = (() => {
         }, false);
 
         document.addEventListener("scroll", (e) => {
+            console.log(window.height)
+            console.log(document.documentElement.scrollTop);
             let sc = document.documentElement.scrollTop;
             let bot = window.height + sc;
             let pageScroll = Math.floor((bot / document.documentElement.clientHeight) * 100);
