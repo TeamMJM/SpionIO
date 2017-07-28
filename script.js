@@ -11,14 +11,19 @@ window.onload = (() => {
             let request = new XMLHttpRequest();
             request.open('POST', "http://localhost:3000/storeClick", true);
             request.setRequestHeader("Content-type", "application/json");
+            request.onreadystatechange = function () {
+                if (request.readyState > 3 && request.status == 200) {
+                    success(request.responseText);
+                }
+            };
             request.send(click);
         }, false);
 
-        document.addEventListener("scroll",(e) => {
+        document.addEventListener("scroll", (e) => {
             let sc = document.scrollTop;
             let bot = window.height + sc;
             let pageScroll = Math.floor((bot / document.height) * 100);
             console.log("You've scrolled " + pageScroll + "% of the page");
-        },false);
+        }, false);
     }
 })
