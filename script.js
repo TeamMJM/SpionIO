@@ -1,13 +1,21 @@
-const io = 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js'
-const socket = io.connect("http://localhost:3000/");
 window.onload = (() => {
-    
-    socket.on('connect',(data)=>{
-        socket.emit('join',"Hello server");
+    var xhr = new XMLHttpRequest();
+    const io;
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == XMLHttpRequest.DONE) {
+            io = xhr.responseText;
+        }
+    }
+    xhr.open('GET', 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js', false);
+    xhr.send(null);
+    const socket = io.connect('http://localhost:3000/')
+    socket.on('connect', (data) => {
+        socket.emit('join', "Hello server");
     });
-    socket.on('messages',(data)=>{
+    socket.on('messages', (data) => {
         alert(data);
     })
+    
     if (document.readyState === 'complete') {
         window.addEventListener("click", (e) => {
             const click = JSON.stringify({
@@ -17,16 +25,16 @@ window.onload = (() => {
                 height: document.documentElement.clientHeight
             });
             console.log(click);
-            
-            let request = new XMLHttpRequest();
-            request.open('POST', "http://localhost:3000/storeClick", true);
-            request.setRequestHeader("Content-type", "application/json");
-            request.onreadystatechange = function () {
-                if (request.readyState > 3 && request.status == 200) {
-                    console.log(request.responseText);
-                }
-            };
-            request.send(click);
+
+            // let request = new XMLHttpRequest();
+            // request.open('POST', "http://localhost:3000/storeClick", true);
+            // request.setRequestHeader("Content-type", "application/json");
+            // request.onreadystatechange = function () {
+            //     if (request.readyState > 3 && request.status == 200) {
+            //         console.log(request.responseText);
+            //     }
+            // };
+            // request.send(click);
         }, false);
 
         document.addEventListener("scroll", (e) => {
