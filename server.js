@@ -10,16 +10,6 @@ mongoose.connect(mongoURI);
 
 
 app.use(bodyParser.json());
-app.get('/', (req, res, next) => {
-    res.sendfile('./index.html');
-})
-app.get('/script.js', (req, res, next) => {
-    res.sendfile('./script.js');
-})
-
-app.get('/style.css', (req, res, next) => {
-    res.sendfile('./style.css')
-})
 
 app.post('/storeClick',
     clickController.mapClick,

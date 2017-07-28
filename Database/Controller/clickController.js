@@ -21,7 +21,7 @@ clickController.mapClick = (req, res, next) => {
     next();
 }
 
-clickController.createClick = (req, res, next) => {
+clickController.createClick = (req, res, next) => {z
     Click.create({
             clickX: req.body.clickX,
             clickY: req.body.clickY
