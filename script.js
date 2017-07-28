@@ -1,4 +1,4 @@
-document.onload(() => {
+document.onload = (() => {
     window.addEventListener("click", (e) => {
         const click = JSON.stringify({
             clickX: e.clientX,
