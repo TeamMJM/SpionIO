@@ -12,13 +12,13 @@ window.onload = (() => {
             request.open('POST', "http://localhost:3000/storeClick", true);
             request.setRequestHeader("Content-type", "application/json");
             request.send(click);
-        }, false)
+        }, false);
 
-        document.addEventListener((e) => {
+        document.addEventListener("scroll",(e) => {
             let sc = document.scrollTop;
             let bot = window.height + sc;
             let pageScroll = Math.floor((bot / document.height) * 100);
             console.log("You've scrolled " + pageScroll + "% of the page");
-        });
+        },false);
     }
 })
