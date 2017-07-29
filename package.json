@@ -8,27 +8,39 @@
   "license": "MIT",
   "scripts": {
     "start": "nodemon server.js",
-    "electron": "electron electron/main.js"
+    "webpack": "./node_modules/.bin/webpack -w"
   },
   "dependencies": {
-    "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
-    "cookie-parser": "^1.4.3",
     "cookies": "^0.7.0",
-    "electron": "^1.6.11",
+    "babel": "^6.23.0",
+    "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "global": "^4.3.2",
-    "jquery": "^3.2.1",
-    "jquery-browserify": "^1.8.1",
     "jsonwebtoken": "^7.4.1",
-    "lodash": "^4.17.4",
     "mongoose": "^4.11.4",
-    "njwt": "^0.4.0",
     "nodemon": "^1.11.0",
-    "passport": "^0.3.2",
-    "passport-jwt": "^2.2.1",
     "socket.io": "^2.0.3",
     "socketio-jwt": "^4.5.0",
-    "uuid": "^3.1.0"
+    "nodemon": "^1.11.0",
+    "path": "^0.12.7",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-router": "^4.1.2",
+    "react-router-dom": "^4.1.2",
+    "react-tap-event-plugin": "^2.0.1",
+    "sass": "^1.0.0-beta.2",
+    "semantic-ui-react": "^0.71.2"
+  },
+  "devDependencies": {
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "css-loader": "^0.28.4",
+    "node-sass": "^4.5.3",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "webpack": "^3.4.1"
   }
 }

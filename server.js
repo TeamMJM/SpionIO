@@ -20,6 +20,21 @@ app.use(function (req, res, next) {
     next();
 });
 
+app.use('/', express.static(__dirname + './../'));
+
+
+app.get('/', (req, res) => {
+    res.sendfile('index.html')
+})
+
+app.get('/script.js',(req,res,next) =>{
+    res.sendfile('./script.js');
+})
+
+app.get('/build/bundle.js', (req,res,next) =>{
+    res.sendfile('./build/bundle.js');
+})
+
 app.use(bodyParser.json());
 
 io.on('connection', (client) => {

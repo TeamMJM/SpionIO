@@ -1,0 +1,16 @@
+.App-title, h3{
+  text-align: center;
+  color: gray;
+  padding-top: 60px;
+}
+
+h1 {
+  display: inline;
+}
+
+.covered {
+  font-style: italic;
+}
+html, body {
+  margin: 0;
+}

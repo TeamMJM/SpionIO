@@ -1,0 +1,34 @@
+.nav {
+  display: inline;
+  padding-left: 15px;
+}
+
+#first {
+  padding-left:600px;
+}
+
+
+.topnav {
+    background-color: white;
+    overflow: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/*.topnav-content {
+  margin: 0px auto;
+  width: 960px;
+}*/
+ul {
+  margin-left: 0;
+  padding-left: 0;
+}
+
+#title {
+  font-size: 1.7em;
+  color: #2E5266;
+}
+
+
+
