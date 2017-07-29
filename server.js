@@ -27,33 +27,43 @@ io.use(socketioJwt.authorize({
     handshake: true
 }));
 
-io.on('connection', (client) => {
-    console.log('hello! ', client.decoded_token.name);
-    client.on('join', (data) => {
-        console.log(data)
-        client.emit('messages', 'Hello from server');
-    })
-    client.on('storeClick', (data) => {
-        let mappedClick = clickController.mapClick(data);
-        clickController.createClick(mappedClick)
-            .then((response) => {
-                client.emit('clickResponse', response);
-            })
-            .catch((response) => {
-                client.emit('clickResponse', response);
-            })
-    })
-    client.on('storeScroll', (data) => {
-        let response = scrollController.createScroll(data)
-        client.emit('scrollResponse', response)
-            .then((scroll) => {
-                client.emit('scrollResponse', response);
-            })
-            .catch((err) => {
-                client.emit('scrollResponse', response);
-            })
-    })
-})
+
+io.sockets
+  .on('connection', socketioJwt.authorize({
+    secret: 'your secret or public key',
+    timeout: 15000 // 15 seconds to send the authentication message
+  })).on('authenticated', function(socket) {
+    //this socket is authenticated, we are good to handle more events from it.
+    console.log('hello! ' + socket.decoded_token.name);
+  });
+
+// io.on('connection', (client) => {
+//     console.log('hello! ', client.decoded_token.name);
+//     client.on('join', (data) => {
+//         console.log(data)
+//         client.emit('messages', 'Hello from server');
+//     })
+//     client.on('storeClick', (data) => {
+//         let mappedClick = clickController.mapClick(data);
+//         clickController.createClick(mappedClick)
+//             .then((response) => {
+//                 client.emit('clickResponse', response);
+//             })
+//             .catch((response) => {
+//                 client.emit('clickResponse', response);
+//             })
+//     })
+//     client.on('storeScroll', (data) => {
+//         let response = scrollController.createScroll(data)
+//         client.emit('scrollResponse', response)
+//             .then((scroll) => {
+//                 client.emit('scrollResponse', response);
+//             })
+//             .catch((err) => {
+//                 client.emit('scrollResponse', response);
+//             })
+//     })
+// })
 
 
 server.listen(3000);

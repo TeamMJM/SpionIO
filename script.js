@@ -1,19 +1,33 @@
 window.onload = (() => {
-    const socket = io.connect("http://localhost:3000/", {
-        'query': 'token=' + 'cat'
+    var socket = io.connect('http://localhost:3000');
+    socket.on('connect', function () {
+        socket
+            .emit('authenticate', {
+                token: jwt
+            }) //send the jwt
+            .on('authenticated', function () {
+                //do other things
+            })
+            .on('unauthorized', function (msg) {
+                console.log("unauthorized: " + JSON.stringify(msg.data));
+                throw new Error(msg.data.type);
+            })
     });
-    socket.on('connect', (data) => {
-        socket.emit('join', document.getElementsByTagName('html')[0].innerHTML);
-    });
-    socket.on('messages', (data) => {
-        console.log('message', data);
-    })
-    socket.on('clickResponse', (data) => {
-        console.log('clickResponse', data);
-    })
-    socket.on('scrollResponse', (data) => {
-        console.log('scrollResponse', data);
-    })
+    // const socket = io.connect("http://localhost:3000/", {
+    //     'query': 'token=' + 'cat'
+    // });
+    // socket.on('connect', (data) => {
+    //     socket.emit('join', document.getElementsByTagName('html')[0].innerHTML);
+    // });
+    // socket.on('messages', (data) => {
+    //     console.log('message', data);
+    // })
+    // socket.on('clickResponse', (data) => {
+    //     console.log('clickResponse', data);
+    // })
+    // socket.on('scrollResponse', (data) => {
+    //     console.log('scrollResponse', data);
+    // })
     if (document.readyState === 'complete') {
         window.addEventListener("click", (e) => {
             const click = {
