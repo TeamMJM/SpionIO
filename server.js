@@ -22,13 +22,7 @@ app.use(function (req, res, next) {
 
 app.use(bodyParser.json());
 
-io.use(socketioJwt.authorize({
-    secret: 'your secret or public key',
-    handshake: true
-}));
-
 io.on('connection', (client) => {
-    console.log('hello! ', client.decoded_token.name);
     client.on('join', (data) => {
         console.log(data)
         client.emit('messages', 'Hello from server');

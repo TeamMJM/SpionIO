@@ -1,7 +1,5 @@
 window.onload = (() => {
-    const socket = io.connect("http://localhost:3000/", {
-        'query': 'token=' + "your_jwt"
-    });
+    const socket = io.connect("http://localhost:3000/");
     socket.on('connect', (data) => {
         socket.emit('join', document.getElementsByTagName('html')[0].innerHTML);
     });
