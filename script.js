@@ -1,6 +1,6 @@
 window.onload = (() => {
     $.get("http://localhost:3000",(data)=>{
-        console.log(data)
+        console.log("DOne")
     })
     // const socket = io.connect("http://localhost:3000/", {
     //     'query': 'token=' + 'cat'
