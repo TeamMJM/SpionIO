@@ -14,12 +14,12 @@ window.onload = (() => {
     })
     if (document.readyState === 'complete') {
         window.addEventListener("click", (e) => {
-            const click = JSON.stringify({
+            const click = {
                 clickX: e.clientX,
                 clickY: e.clientY,
                 width: document.documentElement.clientWidth,
                 height: document.documentElement.clientHeight
-            });
+            };
             console.log(click);
             socket.emit('storeClick',click)
         }, false);

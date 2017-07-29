@@ -22,15 +22,9 @@ clickController.mapClick = (data) => {
 }
 
 clickController.createClick = (data) => {
-    Click.create({
+    return Click.create({
             clickX: data.clickX,
             clickY: data.clickY
-        })
-        .then((click) => {
-            return click;
-        })
-        .catch((err) => {
-            return err;
         })
 }
 module.exports = clickController;

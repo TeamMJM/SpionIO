@@ -27,14 +27,23 @@ io.on('connection',(client) =>{
         client.emit('messages','Hello from server');
     })
     client.on('storeClick',(data) =>{
+        console.log("STORECLICK",data,'\n')
         let mappedClick = clickController.mapClick(data);
-        let response = clickController.createClick(mappedClick);
-        client.emit('clickResponse',response);
+        console.log(mappedClick);
+        clickController.createClick(mappedClick)
+            .then((response)=>{
+                console.log("RESPONSE",response,'\n');
+                client.emit('clickResponse',response);
+            })
+            .catch((response) =>{
+                console.log("ERR RESPONSE",response,'\n');
+                client.emit('clickResponse',response);
+            })
     })
-    client.on('storeScroll',(data)=>{
-        let response = clickController.createScroll(data)
-        client.emit('scrollResponse',response);
-    })
+    // client.on('storeScroll',(data)=>{
+    //     let response = clickController.createScroll(data)
+    //     client.emit('scrollResponse',response);
+    // })
 })
 
 

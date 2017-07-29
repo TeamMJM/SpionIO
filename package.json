@@ -11,6 +11,7 @@
     "electron": "electron electron/main.js"
   },
   "dependencies": {
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "electron": "^1.6.11",
     "express": "^4.15.3",
