@@ -26,16 +26,13 @@ io.use(socketioJwt.authorize({
     secret: 'your secret or public key',
     handshake: true
 }));
+io.on('connection', function (socket) {
+    // in socket.io < 1.0
+    console.log('hello!', socket.handshake.decoded_token.name);
 
-
-io.sockets
-  .on('connection', socketioJwt.authorize({
-    secret: 'your secret or public key',
-    timeout: 15000 // 15 seconds to send the authentication message
-  })).on('authenticated', function(socket) {
-    //this socket is authenticated, we are good to handle more events from it.
-    console.log('hello! ' + socket.decoded_token.name);
-  });
+    // in socket.io 1.0
+    console.log('hello! ', socket.decoded_token.name);
+})
 
 // io.on('connection', (client) => {
 //     console.log('hello! ', client.decoded_token.name);
