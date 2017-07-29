@@ -1,16 +1,18 @@
 window.onload = (() => {
-    const socket = io.connect("http://localhost:3000/");
-    socket.on('connect',(data)=>{
-        socket.emit('join',document.getElementsByTagName('html')[0].innerHTML);
+    const socket = io.connect("http://localhost:3000/", {
+        'query': 'token=' + your_jwt
     });
-    socket.on('messages',(data)=>{
-        console.log('message',data);
+    socket.on('connect', (data) => {
+        socket.emit('join', document.getElementsByTagName('html')[0].innerHTML);
+    });
+    socket.on('messages', (data) => {
+        console.log('message', data);
     })
-    socket.on('clickResponse',(data)=>{
-        console.log('clickResponse',data);
+    socket.on('clickResponse', (data) => {
+        console.log('clickResponse', data);
     })
-    socket.on('scrollResponse',(data)=>{
-        console.log('scrollResponse',data);
+    socket.on('scrollResponse', (data) => {
+        console.log('scrollResponse', data);
     })
     if (document.readyState === 'complete') {
         window.addEventListener("click", (e) => {
@@ -21,7 +23,7 @@ window.onload = (() => {
                 height: document.documentElement.clientHeight
             };
             console.log(click);
-            socket.emit('storeClick',click)
+            socket.emit('storeClick', click)
         }, false);
 
         document.addEventListener("scroll", (e) => {
@@ -32,7 +34,7 @@ window.onload = (() => {
             let bot = screen.height + sc;
             let pageScroll = Math.floor((bot / document.documentElement.clientHeight) * 100);
             console.log("You've scrolled " + pageScroll + "% of the page");
-            socket.emit('storeScroll',pageScroll);
+            socket.emit('storeScroll', pageScroll);
         }, false);
     }
 })
