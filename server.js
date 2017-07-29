@@ -13,37 +13,40 @@ let mongoURI = 'mongodb://jerryjong:codesmith123@ds127173.mlab.com:27173/private
 
 mongoose.connect(mongoURI);
 
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
 });
 
 app.use(bodyParser.json());
 
-io.on('connection',(client) =>{
-    client.on('join',(data)=>{
+io.on('connection', (client) => {
+    client.on('join', (data) => {
         console.log(data)
-        client.emit('messages','Hello from server');
+        client.emit('messages', 'Hello from server');
     })
-    client.on('storeClick',(data) =>{
-        console.log("STORECLICK",data,'\n')
+    client.on('storeClick', (data) => {
+        s
         let mappedClick = clickController.mapClick(data);
-        console.log(mappedClick);
         clickController.createClick(mappedClick)
-            .then((response)=>{
-                console.log("RESPONSE",response,'\n');
-                client.emit('clickResponse',response);
+            .then((response) => {
+                client.emit('clickResponse', response);
             })
-            .catch((response) =>{
-                console.log("ERR RESPONSE",response,'\n');
-                client.emit('clickResponse',response);
+            .catch((response) => {
+                client.emit('clickResponse', response);
             })
     })
-    // client.on('storeScroll',(data)=>{
-    //     let response = clickController.createScroll(data)
-    //     client.emit('scrollResponse',response);
-    // })
+    client.on('storeScroll', (data) => {
+        let response = scrollController.createScroll(data)
+        client.emit('scrollResponse', response)
+            .then((scroll) => {
+                client.emit('scrollResponse', response);
+            })
+            .catch((err) => {
+                client.emit('scrollResponse', response);
+            })
+    })
 })
 
 
