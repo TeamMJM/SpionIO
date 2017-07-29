@@ -1,6 +1,7 @@
 window.onload = (() => {
     const socket = io.connect("http://localhost:3000/", {
         'query': 'token=' + 'cat'
+    });
     socket.on('connect', (data) => {
         socket.emit('join', document.getElementsByTagName('html')[0].innerHTML);
     });
