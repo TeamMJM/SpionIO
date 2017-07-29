@@ -2,9 +2,10 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const scrollSchema = Schema({
-  scrollPercent: Number,
+  _id:Number,
+  scrollPercent: Number
 })
 
-let Scroll = mongoose.model('Scroll', scrollSchema);
+let Scroll = mongoose.model('Scroll', scrollSchema,'Scrolls');
 
 module.exports = Scroll;

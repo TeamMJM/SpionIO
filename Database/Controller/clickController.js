@@ -3,34 +3,28 @@ const clickController = {};
 const appWidth = 900;
 const appHeight = 900;
 
-clickController.mapClick = (req, res, next) => {
-    if (req.body.width < appWidth) {
+clickController.mapClick = (data) => {
+    if (data.width < appWidth) {
         //scale down width
-        req.body.clickX *= appWidth / req.body.width;
+        data.clickX *= appWidth / data.width;
     } else {
         //scale up width
-        req.body.clickX /= req.body.width / appWidth
+        data.clickX /= data.width / appWidth
     }
-    if (req.body.height < appHeight) {
+    if (data.height < appHeight) {
         //scale down height
-        req.body.clickY *= appHeight / req.body.height;
+        data.clickY *= appHeight / data.height;
     } else {
         //scale up height
-        req.body.clickY /= req.body.height / appHeight;
+        data.clickY /= data.height / appHeight;
     }
-    next();
+    return data;
 }
 
-clickController.createClick = (req, res, next) => {
-    Click.create({
-            clickX: req.body.clickX,
-            clickY: req.body.clickY
-        })
-        .then((click) => {
-            res.send(click);
-        })
-        .catch((err) => {
-            res.send(err)
+clickController.createClick = (data) => {
+    return Click.create({
+            clickX: data.clickX,
+            clickY: data.clickY
         })
 }
 module.exports = clickController;

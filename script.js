@@ -1,25 +1,28 @@
 window.onload = (() => {
+    const socket = io.connect("http://localhost:3000/");
+    socket.on('connect', (data) => {
+        socket.emit('join', document.getElementsByTagName('html')[0].innerHTML);
+    });
+    socket.on('messages', (data) => {
+        console.log('message', data);
+    })
+    socket.on('clickResponse', (data) => {
+        console.log('clickResponse', data);
+    })
+    socket.on('scrollResponse', (data) => {
+        console.log('scrollResponse', data);
+    })
     if (document.readyState === 'complete') {
         //////////////////// click data retrieval ////////////////////
         window.addEventListener("click", (e) => {
-            const click = JSON.stringify({
+            const click = {
                 clickX: e.clientX,
                 clickY: e.clientY,
                 width: document.documentElement.clientWidth,
                 height: document.documentElement.clientHeight
-            });
-            console.log(click);
-
-            //////////////////// click data storage ////////////////////
-            let request = new XMLHttpRequest();
-            request.open('POST', "http://localhost:3000/storeClick", true);
-            request.setRequestHeader("Content-type", "application/json");
-            request.onreadystatechange = function () {
-                if (request.readyState > 3 && request.status == 200) {
-                    console.log(request.responseText);
-                }
             };
-            request.send(click);
+            console.log(click);
+            socket.emit('storeClick', click)
         }, false);
 
 
@@ -32,6 +35,10 @@ window.onload = (() => {
         let pageScroll = 0;
         document.addEventListener("scroll", (e) => {
             let sc = window.pageYOffset;
+            let pageScroll = Math.floor((bot / document.documentElement.clientHeight) * 100);
+            console.log("You've scrolled " + pageScroll + "% of the page");
+            socket.emit('storeScroll', pageScroll);
+
             let bot = document.documentElement.clientHeight + sc;
             if (pageScroll < Math.floor((bot / height) * 100)) {
                 pageScroll = Math.floor((bot / height) * 100);
