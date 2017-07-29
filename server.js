@@ -27,7 +27,6 @@ io.on('connection', (client) => {
         client.emit('messages', 'Hello from server');
     })
     client.on('storeClick', (data) => {
-        s
         let mappedClick = clickController.mapClick(data);
         clickController.createClick(mappedClick)
             .then((response) => {
