@@ -1,7 +1,6 @@
 window.onload = (() => {
-    var socket = io.connect('http://localhost:3000', {
-        'query': 'token=' + 'your_jwt'
-    });
+    $.get("http://localhost:3000",(data)=>{
+    })
     // const socket = io.connect("http://localhost:3000/", {
     //     'query': 'token=' + 'cat'
     // });

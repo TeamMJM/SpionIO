@@ -3,10 +3,15 @@ const app = express();
 const bodyParser = require('body-parser')
 const clickController = require('./Database/Controller/clickController.js');
 const scrollController = require('./Database/Controller/scrollController.js');
-
+const uuid = require('uuid');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-var socketioJwt = require("socketio-jwt");
+const Cookies = require('cookies');
+
+
+const secret = uuid.v4();
+const jwt = nJwt.create(claims, secret);
+const token = jwt.compact();
 
 const mongoose = require('mongoose');
 
@@ -22,16 +27,11 @@ app.use(function (req, res, next) {
 
 app.use(bodyParser.json());
 
-io.use(socketioJwt.authorize({
-    secret: 'your secret or public key',
-    handshake: true
-}));
-io.on('connection', function (socket) {
-    // in socket.io < 1.0
-    console.log('hello!', socket.handshake.decoded_token.name);
-
-    // in socket.io 1.0
-    console.log('hello! ', socket.decoded_token.name);
+app.use('/', (req, res, next) => {
+    new Cookies(req, res).set('access_token', token, {
+        httpOnly: true,
+        secure: true // for your production environment
+    });
 })
 
 // io.on('connection', (client) => {
