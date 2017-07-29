@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
 import { HashRouter, Switch, Route, Link } from 'react-router-dom';
 
-const style = {
-  fontSize: '1em',
-  color: '#2E5266',
-  margin: '0',
-};
+/////////// import stylesheets ///////////
+import './../styles/Header.css';
+
+/////////// import UI ///////////
+import { Button } from 'semantic-ui-react';
 
 const Header = () => (
   <header>
     <div className="topnav" id="myTopnav">
       <div className="topnav-content">
-      <ul>
-        <li className="nav" id="title"><Link to='/'>P-I</Link></li>
-         <li className="nav" id="first"><Link to='/signin'>Sign In</Link></li>
-        {/* <li className="nav"><Link to='/signup'></Link></li>
-        <li className="nav"><Link to='/home'></Link></li>
-        <li className="nav"><Link to='/original'></Link></li>  */}
-      </ul>     
+        <li className="nav" id="title"><Link to='/'><Button floated='left'>Private-I</Button></Link></li>
+         <li className="nav" id="first"><Link to='/signin'><Button secondary floated='right'>Sign In</Button></Link></li>
+        {/* <li className="nav"><Link to='/signup'><Button secondary>Sign Up</Button></Link></li> */}  
     </div>
     </div>
   </header>

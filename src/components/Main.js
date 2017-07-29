@@ -15,12 +15,8 @@ const Main = () => (
     <Switch>
       <Route exact path='/' component={Welcome}/>
       <Route path='/signin' component={SignIn}/>
+      {/* <Route path='/signup' component={SignUp}/> */}
     </Switch>
   </main>
 )
-
-      // <Route path='/home' component={Home}/>
-      // <Route path='/signup' component={SignUp}/>
-      // <Route path='/original' component={Original}/> 
-
 export default Main;
