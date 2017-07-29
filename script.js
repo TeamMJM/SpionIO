@@ -1,7 +1,7 @@
 window.onload = (() => {
     const socket = io.connect("http://localhost:3000/");
     socket.on('connect',(data)=>{
-        socket.emit('join',document.documentElement);
+        socket.emit('join',document.getElementsByTagName('html')[0].innerHTML);
     });
     socket.on('messages',(data)=>{
         console.log('message',data);
