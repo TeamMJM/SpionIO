@@ -1,22 +1,19 @@
 window.onload = (() => {
-    $.get("http://localhost:3000",(data)=>{
-        console.log("DOne")
+    const socket = io.connect("http://localhost:3000/", {
+        'query': 'token=' + "your_jwt"
+    });
+    socket.on('connect', (data) => {
+        socket.emit('join', document.getElementsByTagName('html')[0].innerHTML);
+    });
+    socket.on('messages', (data) => {
+        console.log('message', data);
     })
-    // const socket = io.connect("http://localhost:3000/", {
-    //     'query': 'token=' + 'cat'
-    // });
-    // socket.on('connect', (data) => {
-    //     socket.emit('join', document.getElementsByTagName('html')[0].innerHTML);
-    // });
-    // socket.on('messages', (data) => {
-    //     console.log('message', data);
-    // })
-    // socket.on('clickResponse', (data) => {
-    //     console.log('clickResponse', data);
-    // })
-    // socket.on('scrollResponse', (data) => {
-    //     console.log('scrollResponse', data);
-    // })
+    socket.on('clickResponse', (data) => {
+        console.log('clickResponse', data);
+    })
+    socket.on('scrollResponse', (data) => {
+        console.log('scrollResponse', data);
+    })
     if (document.readyState === 'complete') {
         window.addEventListener("click", (e) => {
             const click = {
