@@ -4,8 +4,7 @@ const Schema = mongoose.Schema;
 const clickSchema = Schema({
     _id:Number,
     clickX: Number,
-    clickY: Number,
-    timeStamp : Date.now()
+    clickY: Number
 })
 
 let Click = mongoose.model('Click', clickSchema,'Clicks');
