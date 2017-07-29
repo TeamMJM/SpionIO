@@ -1,17 +1,16 @@
 window.onload = (() => {
     var socket = io.connect('http://localhost:3000');
     socket.on('connect', function () {
-        socket
-            .emit('authenticate', {
-                token: jwt
-            }) //send the jwt
-            .on('authenticated', function () {
-                //do other things
-            })
-            .on('unauthorized', function (msg) {
-                console.log("unauthorized: " + JSON.stringify(msg.data));
-                throw new Error(msg.data.type);
-            })
+        socket.emit('authenticate', {
+            token: jwt
+        }) //send the jwt
+        socket.on('authenticated', function () {
+            //do other things
+        })
+        socket.on('unauthorized', function (msg) {
+            console.log("unauthorized: " + JSON.stringify(msg.data));
+            throw new Error(msg.data.type);
+        })
     });
     // const socket = io.connect("http://localhost:3000/", {
     //     'query': 'token=' + 'cat'
