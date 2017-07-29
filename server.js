@@ -6,11 +6,10 @@ const scrollController = require('./Database/Controller/scrollController.js');
 const uuid = require('uuid');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-const Cookies = require('cookies');
-
-
+const nJwt = require('njwt');
+var cookieParser = require('cookie-parser');
 const secret = uuid.v4();
-const jwt = nJwt.create(claims, secret);
+const jwt = nJwt.create({}, secret);
 const token = jwt.compact();
 
 const mongoose = require('mongoose');
@@ -26,12 +25,16 @@ app.use(function (req, res, next) {
 });
 
 app.use(bodyParser.json());
-
+app.use(cookieParser());
 app.use('/', (req, res, next) => {
-    new Cookies(req, res).set('access_token', token, {
-        httpOnly: true,
-        secure: true // for your production environment
-    });
+    console.log("SDasd")
+    // res.cookie('access_token', token, {
+    //     httpOnly: true,
+    //     secure: false // for your production environment
+    // });
+    res.cookie('duck','1');
+    res.status(200);
+    res.send();
 })
 
 // io.on('connection', (client) => {
@@ -49,7 +52,7 @@ app.use('/', (req, res, next) => {
 //             .catch((response) => {
 //                 client.emit('clickResponse', response);
 //             })
-//     })
+//     })'/
 //     client.on('storeScroll', (data) => {
 //         let response = scrollController.createScroll(data)
 //         client.emit('scrollResponse', response)
