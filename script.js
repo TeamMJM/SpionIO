@@ -1,18 +1,8 @@
 window.onload = (() => {
     var token = getCookie("token");
-    const socket = io.connect("http://localhost:3000/", {
-        'query': 'token=' + token
-    });
-    // socket.on('connect_error', (error) => {
-    //     console.log('error', error)
-    //     $.get("http://localhost:3000/guestauth", (data) => {
-    //         document.cookie = "token=" + data.token;
-    //         var token = getCookie("token");
-    //         const socket = io.connect("http://localhost:3000/", {
-    //             'query': 'token=' + token
-    //         });
-    //     })
-    // })
+    $.get("http://localhost:3000/guestauth",(data)=>{
+        document.cookie="token="+data.token;
+    })
 
     socket.on('connect', (data) => {
         $.get(document.getElementsByTagName('link')[0].href, (text) => {
@@ -47,42 +37,42 @@ window.onload = (() => {
         }, false);
 
 
-        // //////////////////// scroll data retrieval ////////////////////
-        // let body = document.body,
-        //     html = document.documentElement;
+        //////////////////// scroll data retrieval ////////////////////
+        let body = document.body,
+            html = document.documentElement;
 
-        // let height = Math.max(body.scrollHeight, body.offsetHeight,
-        //     html.clientHeight, html.scrollHeight, html.offsetHeight);
-        // let pageScroll = 0;
-        // document.addEventListener("scroll", (e) => {
-        //     let sc = window.pageYOffset;
-        //     let pageScroll = Math.floor((bot / document.documentElement.clientHeight) * 100);
-        //     console.log("You've scrolled " + pageScroll + "% of the page");
-        //     socket.emit('storeScroll', pageScroll);
+        let height = Math.max(body.scrollHeight, body.offsetHeight,
+            html.clientHeight, html.scrollHeight, html.offsetHeight);
+        let pageScroll = 0;
+        document.addEventListener("scroll", (e) => {
+            let sc = window.pageYOffset;
+            let pageScroll = Math.floor((bot / document.documentElement.clientHeight) * 100);
+            console.log("You've scrolled " + pageScroll + "% of the page");
+            socket.emit('storeScroll', pageScroll);
 
-        //     let bot = document.documentElement.clientHeight + sc;
-        //     if (pageScroll < Math.floor((bot / height) * 100)) {
-        //         pageScroll = Math.floor((bot / height) * 100);
-        //         console.log("You've scrolled " + pageScroll + "% of the page");
-        //     }
-        // }, false);
+            let bot = document.documentElement.clientHeight + sc;
+            if (pageScroll < Math.floor((bot / height) * 100)) {
+                pageScroll = Math.floor((bot / height) * 100);
+                console.log("You've scrolled " + pageScroll + "% of the page");
+            }
+        }, false);
 
-        // //////////////////// scroll data saving ////////////////////
-        // window.addEventListener("beforeunload", (e) => {
-        //     const scroll = JSON.stringify({
-        //         scrollPercent: pageScroll
-        //     });
-        //     console.log(scroll);
-        //     let request = new XMLHttpRequest();
-        //     request.open('POST', "http://localhost:3000/storeScroll", true);
-        //     request.setRequestHeader("Content-type", "application/json");
-        //     request.onreadystatechange = function () {
-        //         if (request.readyState > 3 && request.status == 200) {
-        //             console.log(request.responseText);
-        //         }
-        //     };
-        //     request.send(scroll);
-        // }, false);
+        //////////////////// scroll data saving ////////////////////
+        window.addEventListener("beforeunload", (e) => {
+            const scroll = JSON.stringify({
+                scrollPercent: pageScroll
+            });
+            console.log(scroll);
+            let request = new XMLHttpRequest();
+            request.open('POST', "http://localhost:3000/storeScroll", true);
+            request.setRequestHeader("Content-type", "application/json");
+            request.onreadystatechange = function () {
+                if (request.readyState > 3 && request.status == 200) {
+                    console.log(request.responseText);
+                }
+            };
+            request.send(scroll);
+        }, false);
     }
 })
 
@@ -90,7 +80,7 @@ function getCookie(cname) {
     var name = cname + "=";
     var decodedCookie = decodeURIComponent(document.cookie);
     var ca = decodedCookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
+    for(var i = 0; i <ca.length; i++) {
         var c = ca[i];
         while (c.charAt(0) == ' ') {
             c = c.substring(1);
