@@ -1,7 +1,7 @@
 window.onload = (() => {
     var token = getCookie("token");
     const socket = io.connect("http://localhost:3000/", {
-        'query': 'token=' + token
+        'query': 'token=sda'
     });
     socket.on('connect_error', (error) => {
         console.log(error)
