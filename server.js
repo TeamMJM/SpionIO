@@ -53,7 +53,12 @@ app.get('/gethtml',(req,res,next)=>{
     res.send(clientData)
 })
 
+io.use(socketioJwt.authorize({
+    secret:"cats",
+    handshake: true
+}));
 io.on('connection', (client) => {
+    console.log('hello',client.decoded_token.email);
     client.on('join', (data) => {
         clientData = data;
         client.emit('messages', 'Hello from server');
