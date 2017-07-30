@@ -37,6 +37,7 @@ app.get('/build/bundle.js', (req,res,next) =>{
 })
 
 app.get('/guestauth',(req,res,next)=>{
+    
     var profile = {
     first_name: 'John',
     last_name: 'Doe',
