@@ -3,12 +3,15 @@ window.onload = (() => {
     const socket = io.connect("http://localhost:3000/", {
         'query': 'token=' + token
     });
-    socket.on('connect_error',(error)=>{
+    socket.on('connect_error', (error) => {
         console.log(error)
     })
-    socket.on("unauthorized",(error)=>{
-        console.log('unauth',error)
-    })
+    socket.on("unauthorized", function (error) {
+        if (error.data.type == "UnauthorizedError" || error.data.code == "invalid_token") {
+            // redirect user to login page perhaps?
+            console.log("User's token has expired");
+        }
+    });
     // $.get("http://localhost:3000/guestauth", (data) => {
     //     document.cookie = "token=" + data.token;
     // })
