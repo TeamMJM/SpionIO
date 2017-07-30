@@ -6,6 +6,9 @@ window.onload = (() => {
     socket.on('connect_error',(error)=>{
         console.log(error)
     })
+    socket.on("unauthorized",(error)=>{
+        console.log('unauth',error)
+    })
     // $.get("http://localhost:3000/guestauth", (data) => {
     //     document.cookie = "token=" + data.token;
     // })
