@@ -20,6 +20,7 @@
     "global": "^4.3.2",
     "html-react-parser": "^0.3.5",
     "jsonwebtoken": "^7.4.1",
+    "mensch": "^0.3.3",
     "mongoose": "^4.11.4",
     "nodemon": "^1.11.0",
     "path": "^0.12.7",
