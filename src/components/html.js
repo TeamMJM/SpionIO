@@ -4,7 +4,7 @@ class Html extends Component {
   render() {
     return(
       <div >
-          {Parser(this.props.data)}
+          {Parser(this.props.data.body)}
       </div>
     )
   }
