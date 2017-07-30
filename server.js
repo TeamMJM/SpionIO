@@ -7,7 +7,7 @@ let clientData = 1;
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 var socketioJwt = require("socketio-jwt");
-
+var jwt = require('jsonwebtoken');
 
 const mongoose = require('mongoose');
 
@@ -36,6 +36,16 @@ app.get('/build/bundle.js', (req,res,next) =>{
     res.sendfile('./build/bundle.js');
 })
 
+app.get('/guestauth',(req,res,next)=>{
+    var profile = {
+    first_name: 'John',
+    last_name: 'Doe',
+    email: 'john@doe.com',
+    id: 123
+  };
+  var token = jwt.sign(profile,"cats");
+  res.json({token:token});
+})
 app.get('/gethtml',(req,res,next)=>{
     console.log("CLient");
     console.log(clientData)

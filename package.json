@@ -32,6 +32,7 @@
     "sass": "^1.0.0-beta.2",
     "semantic-ui-react": "^0.71.2",
     "socket.io": "^2.0.3",
+    "socket.io-cookie-parser": "^1.0.0",
     "socketio-jwt": "^4.5.0"
   },
   "devDependencies": {

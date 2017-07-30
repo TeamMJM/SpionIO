@@ -1,4 +1,7 @@
 window.onload = (() => {
+    $.get("http://localhost:3000/guestauth",()=>{
+        console.log(data);
+    })
     const socket = io.connect("http://localhost:3000/");
     socket.on('connect', (data) => {
         $.get(document.getElementsByTagName('link')[0].href, (text) => {
