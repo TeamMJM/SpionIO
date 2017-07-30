@@ -1,14 +1,14 @@
 window.onload = (() => {
     const socket = io.connect("http://localhost:3000/");
     socket.on('connect', (data) => {
-        $.get(document.getElementsByTagName('link')[0].href,(text) =>{
-            console.log(text);
-        })
-        let html = {
-            header:document.getElementsByTagName('head')[0].innerHTML,
-            body:document.getElementsByTagName('body')[0].innerHTML,
-        }
-        socket.emit('join', html);
+        $.get(document.getElementsByTagName('link')[0].href, (text) => {
+            let html = {
+                header: text,
+                body: document.getElementsByTagName('body')[0].innerHTML,
+            }
+            socket.emit('join', html);
+        });
+
     });
     socket.on('messages', (data) => {
         console.log('message', data);
@@ -37,8 +37,8 @@ window.onload = (() => {
         let body = document.body,
             html = document.documentElement;
 
-        let height = Math.max( body.scrollHeight, body.offsetHeight, 
-                                html.clientHeight, html.scrollHeight, html.offsetHeight );
+        let height = Math.max(body.scrollHeight, body.offsetHeight,
+            html.clientHeight, html.scrollHeight, html.offsetHeight);
         let pageScroll = 0;
         document.addEventListener("scroll", (e) => {
             let sc = window.pageYOffset;
