@@ -1,5 +1,5 @@
 window.onload = (() => {
-    $.get("http://localhost:3000/guestauth",()=>{
+    $.get("http://localhost:3000/guestauth",(data)=>{
         console.log(data);
     })
     const socket = io.connect("http://localhost:3000/");
