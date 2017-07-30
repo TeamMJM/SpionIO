@@ -3,7 +3,9 @@ window.onload = (() => {
     $.get("http://localhost:3000/guestauth",(data)=>{
         document.cookie="token="+data.token;
     })
-
+    const socket = io.connect("http://localhost:3000/",{
+        'query':'token='+ getCookie("token")
+    });
     socket.on('connect', (data) => {
         $.get(document.getElementsByTagName('link')[0].href, (text) => {
             let html = {
