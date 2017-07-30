@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const bodyParser = require('body-parser')
 const clickController = require('./Database/Controller/clickController.js');
 const scrollController = require('./Database/Controller/scrollController.js');
 let clientData = 1;
@@ -45,7 +44,7 @@ app.get('/guestauth',(req,res,next)=>{
     id: 123
   };
   var token = jwt.sign(profile,"cats");
-  res.cookie('server',token);
+
   res.json({token:token});
 })
 app.get('/gethtml',(req,res,next)=>{
@@ -53,7 +52,6 @@ app.get('/gethtml',(req,res,next)=>{
     console.log(clientData)
     res.send(clientData)
 })
-app.use(bodyParser.json());
 
 io.on('connection', (client) => {
     client.on('join', (data) => {
