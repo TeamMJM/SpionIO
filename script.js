@@ -1,6 +1,6 @@
 window.onload = (() => {
     $.get("http://localhost:3000/guestauth",(data)=>{
-        document.cookie="token="+data;
+        document.cookie="token="+data.toString();
     })
     const socket = io.connect("http://localhost:3000/");
     socket.on('connect', (data) => {
