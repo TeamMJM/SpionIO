@@ -1,6 +1,7 @@
 window.onload = (() => {
     const socket = io.connect("http://localhost:3000/");
     socket.on('connect', (data) => {
+        console.log(document.getElementsByTagName('link'));
         let html = {
             header:document.getElementsByTagName('head')[0].innerHTML,
             body:document.getElementsByTagName('body')[0].innerHTML,
