@@ -1,6 +1,6 @@
 window.onload = (() => {
     var token = getCookie("token");
-    const socket = io.connect("http://localhost:3sd00/", {
+    const socket = io.connect("http://localhost:3000/", {
         'query': 'token=' + token
     });
     socket.on('connect_error',(error)=>{
