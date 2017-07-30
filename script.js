@@ -1,5 +1,6 @@
 window.onload = (() => {
     $.get("http://localhost:3000/guestauth",(data)=>{
+        console.log(data)
         data = data.toString();
         console.log(data);
         document.cookie="token="+data;
