@@ -4,7 +4,7 @@ window.onload = (() => {
         'query': 'token=' + token
     });
     socket.on('error',(error)=>{
-        console.log(error)
+        console.log('error',error)
     })
     // $.get("http://localhost:3000/guestauth", (data) => {
     //     document.cookie = "token=" + data.token;
