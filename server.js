@@ -47,7 +47,6 @@ app.get('/guestauth',(req,res,next)=>{
   var token = jwt.sign(profile,"cats");
   res.cookie('server',token);
   res.json({token:token});
-
 })
 app.get('/gethtml',(req,res,next)=>{
     console.log("CLient");
