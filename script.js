@@ -1,14 +1,10 @@
 window.onload = (() => {
     var token = getCookie("token");
-    const socket = io.connect("http://localhost:3000/", {
-        'query': 'token=' + token
-    });
-    socket.on('connect_error',(error)=>{
-        console.log(error);
-    })
-    $.get("http://localhost:3000/guestauth", (data) => {
-        document.cookie = "token=" + data.token;
-    })
+
+    const socket = socketConnect(token);
+    // $.get("http://localhost:3000/guestauth", (data) => {
+    //     document.cookie = "token=" + data.token;
+    // })
 
     socket.on('connect', (data) => {
         $.get(document.getElementsByTagName('link')[0].href, (text) => {
@@ -96,4 +92,16 @@ function getCookie(cname) {
         }
     }
     return "";
+}
+
+async function socketConnect(token) {
+    try {
+        const socket = await io.connect("http://localhost:3000/", {
+            'query': 'token=' + token
+        });
+        return socket;
+    } catch (error) {
+        //invalid connection
+        console.log(error)
+    }
 }
