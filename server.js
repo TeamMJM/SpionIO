@@ -8,6 +8,7 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 var socketioJwt = require("socketio-jwt");
 var jwt = require('jsonwebtoken');
+var cookieParser = require('cookie-parser')
 
 const mongoose = require('mongoose');
 
@@ -22,7 +23,7 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', express.static(__dirname + './../'));
-
+app.use(cookieParser())
 
 app.get('/', (req, res) => {
     res.sendfile('index.html')
@@ -44,7 +45,9 @@ app.get('/guestauth',(req,res,next)=>{
     id: 123
   };
   var token = jwt.sign(profile,"cats");
+  res.cookie('server',token);
   res.json({token:token});
+
 })
 app.get('/gethtml',(req,res,next)=>{
     console.log("CLient");
