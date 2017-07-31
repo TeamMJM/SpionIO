@@ -1,7 +1,8 @@
 window.onload = (() => {
     var token = getCookie("token");
     $.post("http://localhost:3000/guestauth", {
-        token: token
+        token: token,
+        url:window.location.href 
     }, (data) => {
         if (data !== "preauth") {
             document.cookie = "token=" + data.token;
