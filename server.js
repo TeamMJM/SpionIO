@@ -43,19 +43,27 @@ app.post('/guestauth', (req, res, next) => {
     console.log("token",req.body.token);
     try {
         let token = jwt.verify(req.body.token, secret)
-        res.send("preauth");
+        if(token.url.indexOf(req.body.token) === -1){
+            token.url.push(req.body.token);
+            res.json({
+                token:jwt.sign(token,secret)
+            })
+        }
+        else{
+            res.send("preauth");
+        }
         //search database
     } catch (err) {
         //make new guest
         newGuest = {
             _id: uuid(),
             time: Date.now(),
-
         };
         Guest.create({
             newGuest
         }, (err, guest) => {
             if (guest) {
+                newGuest.page = [req.body.url];
                 var token = jwt.sign(newGuest, secret);
                 res.json({
                     token: token
