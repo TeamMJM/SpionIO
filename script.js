@@ -1,22 +1,13 @@
 window.onload = (() => {
     var token = getCookie("token");
-    const socket = io.connect("http://localhost:3000/", {
-        'query': 'token=sda'
+    $.post("http://localhost:3000/guestauth", {
+        token: token
+    }, (data) => {
+        document.cookie = "token=" + data.token;
+        io.connect("http://localhost:3000/");
     });
-    socket.on('connect_error', (error) => {
-        console.log(error)
-    })
-    socket.on("unauthorized", function (error) {
-        if (error.data.type == "UnauthorizedError" || error.data.code == "invalid_token") {
-            // redirect user to login page perhaps?
-            console.log("User's token has expired");
-        }
-    });
-    // $.get("http://localhost:3000/guestauth", (data) => {
-    //     document.cookie = "token=" + data.token;
-    // })
 
-    socket.on('connect', (data) => {
+    io.on('connect', (data) => {
         $.get(document.getElementsByTagName('link')[0].href, (text) => {
             let html = {
                 header: text,
@@ -26,13 +17,13 @@ window.onload = (() => {
         });
 
     });
-    socket.on('messages', (data) => {
+    io.on('messages', (data) => {
         console.log('message', data);
     })
-    socket.on('clickResponse', (data) => {
+    io.on('clickResponse', (data) => {
         console.log('clickResponse', data);
     })
-    socket.on('scrollResponse', (data) => {
+    io.on('scrollResponse', (data) => {
         console.log('scrollResponse', data);
     })
     if (document.readyState === 'complete') {
@@ -45,7 +36,7 @@ window.onload = (() => {
                 height: document.documentElement.clientHeight
             };
             console.log(click);
-            socket.emit('storeClick', click)
+            io.emit('storeClick', click)
         }, false);
 
 

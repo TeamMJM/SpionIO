@@ -5,10 +5,9 @@ const scrollController = require('./Database/Controller/scrollController.js');
 let clientData = 1;
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-var socketioJwt = require("socketio-jwt");
 var jwt = require('jsonwebtoken');
 var cookieParser = require('cookie-parser')
-
+const secret = "cats";
 const mongoose = require('mongoose');
 
 let mongoURI = 'mongodb://jerryjong:codesmith123@ds127173.mlab.com:27173/private-i';
@@ -28,38 +27,36 @@ app.get('/', (req, res) => {
     res.sendfile('index.html')
 })
 
-app.get('/script.js',(req,res,next) =>{
+app.get('/script.js', (req, res, next) => {
     res.sendfile('./script.js');
 })
 
-app.get('/build/bundle.js', (req,res,next) =>{
+app.get('/build/bundle.js', (req, res, next) => {
     res.sendfile('./build/bundle.js');
 })
+app.get('/checktoken', (req, res, next) => {
 
-app.get('/guestauth',(req,res,next)=>{
-    
-    var profile = {
-    first_name: 'John',
-    last_name: 'Doe',
-    email: 'john@doe.com',
-    id: 123
-  };
-  var token = jwt.sign(profile,"cats");
-
-  res.json({token:token});
 })
-app.get('/gethtml',(req,res,next)=>{
+app.post('/guestauth', (req, res, next) => {
+
+    try {
+        let token = jwt.verify(req.body.token, secret)
+        //search database
+    } catch (err) {
+        //make new database
+        var token = jwt.sign(profile, "cats");
+        res.json({
+            token: token
+        });
+    }
+})
+app.get('/gethtml', (req, res, next) => {
     console.log("CLient");
     console.log(clientData)
     res.send(clientData)
 })
 
-io.use(socketioJwt.authorize({
-    secret:"cats",
-    handshake: true
-}));
 io.on('connection', (client) => {
-    console.log('hello',client.decoded_token.email);
     client.on('join', (data) => {
         clientData = data;
         client.emit('messages', 'Hello from server');
