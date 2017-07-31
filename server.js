@@ -7,13 +7,17 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 var jwt = require('jsonwebtoken');
 var cookieParser = require('cookie-parser')
-const secret = "cats";
+
+const uuid = require('uuid/v4');
+const secret = uuid();
 const mongoose = require('mongoose');
 
 let mongoURI = 'mongodb://jerryjong:codesmith123@ds127173.mlab.com:27173/private-i';
 
 mongoose.connect(mongoURI);
 
+
+const Guest = require('./Database/Model/guestModel.js');
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -43,11 +47,17 @@ app.post('/guestauth', (req, res, next) => {
         let token = jwt.verify(req.body.token, secret)
         //search database
     } catch (err) {
-        //make new database
-        profile = {
-            name:"booby"
+        //make new guest
+        newGuest = {
+            _id:uuid(),
+            Time: Date.now(),
         };
-        var token = jwt.sign(profile, "cats");
+        Guest.create({newGuest},(err,guest) =>{
+            if(guest){
+                res.send(guest);
+            }
+        })
+        var token = jwt.sign(guest, "cats");
         res.json({
             token: token
         });
