@@ -4,10 +4,10 @@ window.onload = (() => {
         token: token
     }, (data) => {
         document.cookie = "token=" + data.token;
-        io.connect("http://localhost:3000/");
+        
     });
-
-    io.on('connect', (data) => {
+const socket = io.connect("http://localhost:3000/");
+    socket.on('connect', (data) => {
         $.get(document.getElementsByTagName('link')[0].href, (text) => {
             let html = {
                 header: text,
@@ -17,13 +17,13 @@ window.onload = (() => {
         });
 
     });
-    io.on('messages', (data) => {
+    socket.on('messages', (data) => {
         console.log('message', data);
     })
-    io.on('clickResponse', (data) => {
+    socket.on('clickResponse', (data) => {
         console.log('clickResponse', data);
     })
-    io.on('scrollResponse', (data) => {
+    socket.on('scrollResponse', (data) => {
         console.log('scrollResponse', data);
     })
     if (document.readyState === 'complete') {
@@ -36,7 +36,7 @@ window.onload = (() => {
                 height: document.documentElement.clientHeight
             };
             console.log(click);
-            io.emit('storeClick', click)
+            socket.emit('storeClick', click)
         }, false);
 
 

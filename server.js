@@ -44,6 +44,9 @@ app.post('/guestauth', (req, res, next) => {
         //search database
     } catch (err) {
         //make new database
+        profile = {
+            name:"booby"
+        };
         var token = jwt.sign(profile, "cats");
         res.json({
             token: token
