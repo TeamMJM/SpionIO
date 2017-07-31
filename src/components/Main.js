@@ -2,7 +2,6 @@ import React from 'react';
 import { HashRouter, Switch, Route, Link } from 'react-router-dom';
 import Welcome from './Welcome.js';
 import SignIn from './SignIn.js';
-import Dashboard from './Dashboard.js';
 // import SignUp from './SignUp.js';
 
 
@@ -16,7 +15,6 @@ const Main = () => (
     <Switch>
       <Route exact path='/' component={Welcome}/>
       <Route path='/signin' component={SignIn}/>
-      <Route path='/dashboard' component={Dashboard}/>
       {/* <Route path='/signup' component={SignUp}/>  */}
     </Switch>
   </main>

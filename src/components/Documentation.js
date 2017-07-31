@@ -16,8 +16,8 @@ import './../styles/App.css';
 // Documentation and Home page of our entire webpage, provided the client has not signed in
 const Documentation = () => (
   <div>
-      <Header />
-      <Main />
+    <Header />
+    <Main />
   </div>
 )
 

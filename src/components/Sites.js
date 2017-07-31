@@ -7,9 +7,17 @@ class Sites extends Component {
   render() {
     return(
       <div className="pusher">
-        <h2>Sites</h2>
-        <Link to='/dashboard/sites/pages'><Button>Dummy Site</Button></Link>
-      </div> 
+
+      Test
+      <div className='ui relaxed divided list'>
+        <div className='item'>
+          <Link to='/dashboard/sites/pages'>Dummy Site 1</Link>
+          <div className='description'>Checked 10 mins ago</div>
+        </div>
+      </div>        
+
+
+    </div>
     )
   }
 }

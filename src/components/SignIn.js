@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Redirect from 'react-router-dom';
 
 class SignIn extends Component {
   render() {
@@ -21,7 +22,7 @@ class SignIn extends Component {
                 <label>I agree to the Terms and Conditions</label>
               </div>
             </div>
-            <button className="ui button" type="submit">Submit</button>
+            <Redirect to='/dashboard'><button className="ui button" type="submit">Submit</button></Redirect>
           </form>
         </div>
       </div>
