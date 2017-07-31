@@ -7,7 +7,7 @@ const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 var jwt = require('jsonwebtoken');
 var cookieParser = require('cookie-parser')
-
+const bodyParser = require('body-parser');
 const uuid = require('uuid/v4');
 const secret = uuid();
 const mongoose = require('mongoose');
@@ -25,6 +25,7 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', express.static(__dirname + './../'));
+app.use(bodyParser());
 app.use(cookieParser())
 
 app.get('/', (req, res) => {
@@ -38,25 +39,24 @@ app.get('/script.js', (req, res, next) => {
 app.get('/build/bundle.js', (req, res, next) => {
     res.sendfile('./build/bundle.js');
 })
-app.get('/checktoken', (req, res, next) => {
-
-})
 app.post('/guestauth', (req, res, next) => {
+    console.log("token",req.body.token);
     try {
         let token = jwt.verify(req.body.token, secret)
-        
+        res.send("preauth");
         //search database
     } catch (err) {
         //make new guest
         newGuest = {
             _id: uuid(),
             time: Date.now(),
+
         };
         Guest.create({
             newGuest
         }, (err, guest) => {
             if (guest) {
-                var token = jwt.sign(newGuest, "cats");
+                var token = jwt.sign(newGuest, secret);
                 res.json({
                     token: token
                 });

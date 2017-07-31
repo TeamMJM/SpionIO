@@ -4,10 +4,14 @@ window.onload = (() => {
     $.post("http://localhost:3000/guestauth", {
         token: token
     }, (data) => {
-        document.cookie = "token=" + data.token;
-        
+        if (data !== "preauth") {
+            document.cookie = "token=" + data.token;
+        }else{
+            console.log(data);
+        }
+
     });
-const socket = io.connect("http://localhost:3000/");
+    const socket = io.connect("http://localhost:3000/");
     socket.on('connect', (data) => {
         $.get(document.getElementsByTagName('link')[0].href, (text) => {
             let html = {
