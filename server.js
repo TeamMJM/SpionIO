@@ -42,9 +42,9 @@ app.get('/checktoken', (req, res, next) => {
 
 })
 app.post('/guestauth', (req, res, next) => {
-
     try {
         let token = jwt.verify(req.body.token, secret)
+        
         //search database
     } catch (err) {
         //make new guest

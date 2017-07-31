@@ -1,5 +1,6 @@
 window.onload = (() => {
     var token = getCookie("token");
+    console.log(token)
     $.post("http://localhost:3000/guestauth", {
         token: token
     }, (data) => {
