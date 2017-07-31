@@ -48,10 +48,6 @@ const socket = io.connect("http://localhost:3000/");
             html.clientHeight, html.scrollHeight, html.offsetHeight);
         let pageScroll = 0;
         document.addEventListener("scroll", (e) => {
-            let sc = window.pageYOffset;
-            let pageScroll = Math.floor((bot / document.documentElement.clientHeight) * 100);
-            console.log("You've scrolled " + pageScroll + "% of the page");
-
             let bot = document.documentElement.clientHeight + sc;
             if (pageScroll < Math.floor((bot / height) * 100)) {
                 pageScroll = Math.floor((bot / height) * 100);

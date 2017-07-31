@@ -49,18 +49,19 @@ app.post('/guestauth', (req, res, next) => {
     } catch (err) {
         //make new guest
         newGuest = {
-            _id:uuid(),
-            Time: Date.now(),
+            _id: uuid(),
+            time: Date.now(),
         };
-        Guest.create({newGuest},(err,guest) =>{
-            if(guest){
-                res.send(guest);
+        Guest.create({
+            newGuest
+        }, (err, guest) => {
+            if (guest) {
+                var token = jwt.sign(newGuest, "cats");
+                res.json({
+                    token: token
+                });
             }
         })
-        var token = jwt.sign(guest, "cats");
-        res.json({
-            token: token
-        });
     }
 })
 app.get('/gethtml', (req, res, next) => {
@@ -85,14 +86,15 @@ io.on('connection', (client) => {
             })
     })
     client.on('storeScroll', (data) => {
-        let response = scrollController.createScroll(data)
-        client.emit('scrollResponse', response)
-            .then((scroll) => {
-                client.emit('scrollResponse', response);
+        scrollController.createScroll(data)
+            .then((response)=>{
+                client.emit('scrollResponse', response)
             })
-            .catch((err) => {
-                client.emit('scrollResponse', response);
+            .catch((response)=>{
+                client.emit('scrollResponse', response)
             })
+        
+
     })
 })
 
