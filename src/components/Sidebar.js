@@ -1,33 +1,28 @@
 import React, { Component } from 'react';
 import { HashRouter, Link, Switch, Route } from 'react-router-dom';
-
+import Drawer from 'material-ui/Drawer';
+import MenuItem from 'material-ui/MenuItem';
+import ActionDashboard from 'material-ui/svg-icons/action/dashboard.js';
+import FileFolder from 'material-ui/svg-icons/file/folder.js';
 
 ////////// Similar to Header.js but for Dashboard feature //////////
 class Sidebar extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {open: true};
+  }
+
+  // handletoggle = () => this.setState({open: !this.state.open });
+
+
   render() {
     return(
-        <div className="ui thin visible left demo vertical inverted sidebar labeled icon menu">
-          <a className="item">
-            <Link to='/dashboard'>
-              <i className="home icon"></i>
-              Home
-            </Link>
-          </a>
-          
-            <a className="item">
-            <Link to='/dashboard/sites'>
-              <i className="block layout icon"></i>
-              Sites
-            </Link>
-          </a> 
-
-          <a className="item">
-            <Link to='/dashboard/members'>
-              <i className="smile icon"></i>
-              Team Members
-            </Link>
-          </a> 
-        </div>
+      <div>
+        <Drawer open={this.state.open}>
+          <Link to='/dashboard'><MenuItem leftIcon={<ActionDashboard />}>Dashboard</MenuItem></Link>
+          <Link to='/dashboard/sites'><MenuItem leftIcon={<FileFolder />}>Sites</MenuItem></Link>
+        </Drawer>
+      </div>
     )
   }
 }

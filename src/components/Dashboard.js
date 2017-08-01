@@ -8,15 +8,10 @@ import { HashRouter, Switch, Route, Link } from 'react-router-dom';
 
 
 ////////// Separate component that is similar to App.js but for whne a client has successfully signed into his specific dashboard //////////
-class Dashboard extends Component {
-  render () {
-    return (
-      <div>
-        <Sidebar />
-        <DashboardMain />
-      </div>
-    )
-  }
-}
-
+const Dashboard = () => (
+  <div>
+    <Sidebar />
+    <DashboardMain />
+  </div>
+)
 export default Dashboard;
