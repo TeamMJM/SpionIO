@@ -8,7 +8,6 @@ const style = {
   height: '100%',
   width: '100%',
   // marginLeft: '300px',
-  paddingLeft: '260px',
   // width: '73%',
   textAlign: 'left',
   display: 'inline-block',
@@ -20,7 +19,7 @@ const style = {
 class Sites extends Component {
   render() {
     return(
-      <div className="pusher">
+      <div className='page-content'>
         <Paper style={style} zDepth={1}>
           <Card style={style.card}>
             <Link to='/dashboard/sites/pages'>

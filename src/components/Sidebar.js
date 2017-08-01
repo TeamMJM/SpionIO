@@ -18,7 +18,7 @@ class Sidebar extends Component {
   render() {
     return(
       <div>
-        <Drawer open={this.state.open}>
+        <Drawer docked={true}>
           <Link to='/dashboard'><MenuItem leftIcon={<ActionDashboard />}>Dashboard</MenuItem></Link>
           <Link to='/dashboard/sites'><MenuItem leftIcon={<FileFolder />}>Sites</MenuItem></Link>
         </Drawer>
