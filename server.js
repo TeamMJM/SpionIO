@@ -41,19 +41,24 @@ app.get('/build/bundle.js', (req, res, next) => {
 })
 app.post('/guestauth', (req, res, next) => {
     console.log("token",req.body.token);
-    try {
-        let token = jwt.verify(req.body.token, secret)
-        if(token.url.indexOf(req.body.token) === -1){
-            token.url.push(req.body.token);
+    console.log("url",req.body.url)
+    try { 
+        let token = jwt.verify(req.body.token,"cats")
+        console.log("json",token);
+        if(token.page[token.page.length-1] !== req.body.url){
+            console.log("inside");
+            token.page.push(req.body.url);
             res.json({
-                token:jwt.sign(token,secret)
+                token:jwt.sign(token,"cats")
             })
         }
         else{
+            console.log("Sdasd");
             res.send("preauth");
         }
         //search database
     } catch (err) {
+        console.log(err);
         //make new guest
         newGuest = {
             _id: uuid(),
@@ -64,7 +69,8 @@ app.post('/guestauth', (req, res, next) => {
         }, (err, guest) => {
             if (guest) {
                 newGuest.page = [req.body.url];
-                var token = jwt.sign(newGuest, secret);
+                console.log("newGURET",newGuest);
+                var token = jwt.sign(newGuest, "cats");
                 res.json({
                     token: token
                 });
