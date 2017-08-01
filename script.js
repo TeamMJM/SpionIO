@@ -1,7 +1,26 @@
 window.onload = (() => {
+    var token = getCookie("token");
+    $.post("http://localhost:3000/guestauth", {
+        token: token,
+        url:window.location.href 
+    }, (data) => {
+        if (data !== "preauth") {
+            document.cookie = "token=" + data.token;
+        }else{
+            console.log(data);
+        }
+
+    });
     const socket = io.connect("http://localhost:3000/");
     socket.on('connect', (data) => {
-        socket.emit('join', document.getElementsByTagName('html')[0].innerHTML);
+        $.get(document.getElementsByTagName('link')[0].href, (text) => {
+            let html = {
+                header: text,
+                body: document.getElementsByTagName('body')[0].innerHTML,
+            }
+            socket.emit('join', html);
+        });
+
     });
     socket.on('messages', (data) => {
         console.log('message', data);
@@ -30,15 +49,11 @@ window.onload = (() => {
         let body = document.body,
             html = document.documentElement;
 
-        let height = Math.max( body.scrollHeight, body.offsetHeight, 
-                                html.clientHeight, html.scrollHeight, html.offsetHeight );
+        let height = Math.max(body.scrollHeight, body.offsetHeight,
+            html.clientHeight, html.scrollHeight, html.offsetHeight);
         let pageScroll = 0;
         document.addEventListener("scroll", (e) => {
             let sc = window.pageYOffset;
-            let pageScroll = Math.floor((bot / document.documentElement.clientHeight) * 100);
-            console.log("You've scrolled " + pageScroll + "% of the page");
-            socket.emit('storeScroll', pageScroll);
-
             let bot = document.documentElement.clientHeight + sc;
             if (pageScroll < Math.floor((bot / height) * 100)) {
                 pageScroll = Math.floor((bot / height) * 100);
@@ -48,19 +63,23 @@ window.onload = (() => {
 
         //////////////////// scroll data saving ////////////////////
         window.addEventListener("beforeunload", (e) => {
-            const scroll = JSON.stringify({
-                scrollPercent: pageScroll
-            });
-            console.log(scroll);
-            let request = new XMLHttpRequest();
-            request.open('POST', "http://localhost:3000/storeScroll", true);
-            request.setRequestHeader("Content-type", "application/json");
-            request.onreadystatechange = function () {
-                if (request.readyState > 3 && request.status == 200) {
-                    console.log(request.responseText);
-                }
-            };
-            request.send(scroll);
+            socket.emit('storeScroll', pageScroll);
         }, false);
     }
 })
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var decodedCookie = decodeURIComponent(document.cookie);
+    var ca = decodedCookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(name) == 0) {
+            return c.substring(name.length, c.length);
+        }
+    }
+    return "";
+}

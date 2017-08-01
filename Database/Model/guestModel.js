@@ -6,7 +6,7 @@ const guestSchema = Schema({
     _id: Number,
     clickID:[{type:Schema.Types.ObjectId,ref:'Click'}],
     scrollID:[{type:Schema.Types.ObjectId,ref:'Scroll'}],
-    Time:Date.now()
+    time:{type: Date, default: Date.now}
 })
 
 let Guest = mongoose.model('Guest', guestSchema,'Guests');
