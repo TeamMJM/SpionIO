@@ -3,10 +3,11 @@ const app = express();
 const bodyParser = require('body-parser')
 const clickController = require('./Database/Controller/clickController.js');
 const scrollController = require('./Database/Controller/scrollController.js');
-
+let clientData = 1;
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 var socketioJwt = require("socketio-jwt");
+
 
 const mongoose = require('mongoose');
 
@@ -35,11 +36,16 @@ app.get('/build/bundle.js', (req,res,next) =>{
     res.sendfile('./build/bundle.js');
 })
 
+app.get('/gethtml',(req,res,next)=>{
+    console.log("CLient");
+    console.log(clientData)
+    res.send(clientData)
+})
 app.use(bodyParser.json());
 
 io.on('connection', (client) => {
     client.on('join', (data) => {
-        console.log(data)
+        clientData = data;
         client.emit('messages', 'Hello from server');
     })
     client.on('storeClick', (data) => {
@@ -66,3 +72,5 @@ io.on('connection', (client) => {
 
 
 server.listen(3000);
+
+module.exports = clientData;
