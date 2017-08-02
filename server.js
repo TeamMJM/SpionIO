@@ -1,6 +1,11 @@
 const express = require('express');
 const app = express();
+<<<<<<< HEAD
 const fs = require('fs');
+=======
+const path = require('path');
+const sitesController = require('./Database/Controller/sitesController.js');
+>>>>>>> 03899d280df2658431e285a54a281f530cad4070
 const clickController = require('./Database/Controller/clickController.js');
 const scrollController = require('./Database/Controller/scrollController.js');
 let clientData = 1;
@@ -30,14 +35,32 @@ app.use(bodyParser());
 app.use(cookieParser())
 
 app.get('/', (req, res) => {
-    res.sendfile('index.html')
+    res.sendFile(path.join(__dirname, '/index.html'));
 })
+
+app.get('/logo.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'logo.png'));
+
+})
+
+app.get('/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, '/index.html'));
+})
+
+app.get('/dashboard/sites', (req, res) => {
+    res.sendFile(path.join(__dirname, '/index.html'));
+})
+
+
+// app.get('*', (req, res) => {
+//     res.sendfile('index.html')
+// })
 
 app.get('/script.js', (req, res, next) => {
     res.sendfile('./script.js');
 })
 
-app.get('/build/bundle.js', (req, res, next) => {
+app.get('*/build/bundle.js', (req, res, next) => {
     res.sendfile('./build/bundle.js');
 })
 app.post('/guestauth', (req, res, next) => {
@@ -92,6 +115,11 @@ app.get('/deletehtml', (req, res, next) => {
     fs.unlinkSync("./src/styles/html.css")
     res.sendStatus(200);
 })
+
+app.get('/sites', sitesController.getSites);
+
+app.post('/sites', sitesController.createSites);
+
 
 io.on('connection', (client) => {
     client.on('join', (data) => {
