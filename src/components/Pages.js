@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './../styles/Home.css';
 import Html from './html.js';
+var mensch = require('mensch');
+var fs = require('browserify-fs');
 const axios = require('axios')
 
 class Pages extends Component {
@@ -19,11 +21,13 @@ class Pages extends Component {
   render() {
     if(this.state.data){
       return(
-        <Html data={this.state.data} />
+        <div  className="page-content">
+            <Html data={this.state.data} />
+        </div>
       )
     }
     return(
-      <div className="pusher">
+      <div className="page-content">
         Loading....
       </div>
     );

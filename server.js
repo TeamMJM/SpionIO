@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const fs = require('fs');
 const clickController = require('./Database/Controller/clickController.js');
 const scrollController = require('./Database/Controller/scrollController.js');
 let clientData = 1;
@@ -11,7 +12,7 @@ const bodyParser = require('body-parser');
 const uuid = require('uuid/v4');
 const secret = uuid();
 const mongoose = require('mongoose');
-
+var mensch = require('mensch');
 let mongoURI = 'mongodb://jerryjong:codesmith123@ds127173.mlab.com:27173/private-i';
 
 mongoose.connect(mongoURI);
@@ -81,6 +82,12 @@ app.post('/guestauth', (req, res, next) => {
 app.get('/gethtml', (req, res, next) => {
     console.log("CLient");
     console.log(clientData)
+    let css = mensch.parse(clientData.header)
+    let cssString = mensch.stringify(css)
+    fs.writeFileSync('x.txt','aas',(err)=>{
+        if(err) throw err;
+        else console.log("stored");
+    })
     res.send(clientData)
 })
 
