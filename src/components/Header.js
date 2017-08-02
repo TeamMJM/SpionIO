@@ -17,7 +17,7 @@ const style = {
   label: {
     fontSize: '24px',
     paddingRight: '5px',
-    color: '#37A7DF',
+    color: '#00BFFF',
   }
 };
 
