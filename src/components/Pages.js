@@ -1,28 +1,61 @@
 import React, { Component } from 'react';
 import './../styles/Home.css';
-// import Html from './html.js';
-const axios = require('axios')
+import Html from './html.js';
+import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 
-class Pages extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      data:null
-    };
-  }
+const Pages = () => (
+  <Card className="page-content" style={{width:500,disply:"inline"}}>
+    <CardHeader
+      title="URL Avatar"
+      subtitle="Subtitle"
 
-  // async componentDidMount() {
-  //   const htmlfetch = await axios.get('/gethtml');
-  //   this.setState({data:htmlfetch.data});
-  // }
+    />
+    <CardTitle title="Card title" subtitle="Card subtitle" />
+    <CardText>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+    </CardText>
+    <CardActions>
+      <FlatButton label="Action1" />
+      <FlatButton label="Action2" />
+    </CardActions>
+        <CardHeader
+      title="URL Avatar"
+      subtitle="Subtitle"
 
-  render() {
-    return(
-      <div className='page-content'>
-        Pages
-      </div>
-    );
-  }
-}
+    />
+    <CardTitle title="Card title" subtitle="Card subtitle" />
+    <CardText>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+    </CardText>
+    <CardActions>
+      <FlatButton label="Action1" />
+      <FlatButton label="Action2" />
+    </CardActions>
+        <CardHeader
+      title="URL Avatar"
+      subtitle="Subtitle"
+
+    />
+    <CardTitle title="Card title" subtitle="Card subtitle" />
+    <CardText>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi.
+      Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque.
+      Aliquam dui mauris, mattis quis lacus id, pellentesque lobortis odio.
+    </CardText>
+    <CardActions>
+      <FlatButton label="Action1" />
+      <FlatButton label="Action2" />
+    </CardActions>
+  </Card>
+  
+);
 
 export default Pages;
