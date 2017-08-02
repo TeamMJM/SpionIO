@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const sitesController = require('./Database/Controller/sitesController.js');
+const pagesController = require('./Database/Controller/pagesController.js');
 const clickController = require('./Database/Controller/clickController.js');
 const scrollController = require('./Database/Controller/scrollController.js');
 let clientData = 1;
@@ -48,9 +49,9 @@ app.get('/dashboard/sites', (req, res) => {
 })
 
 
-// app.get('*', (req, res) => {
-//     res.sendfile('index.html')
-// })
+app.get('/dashboard/sites/pages', (req, res) => {
+    res.sendfile('index.html')
+})
 
 app.get('/script.js', (req, res, next) => {
     res.sendfile('./script.js');
@@ -107,6 +108,10 @@ app.get('/gethtml', (req, res, next) => {
 app.get('/sites', sitesController.getSites);
 
 app.post('/sites', sitesController.createSites);
+
+app.get('/pages', pagesController.getPages);
+
+app.post('/pages', pagesController.createPages);
 
 
 io.on('connection', (client) => {

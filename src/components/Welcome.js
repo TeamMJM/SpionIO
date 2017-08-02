@@ -31,7 +31,7 @@ class Welcome extends Component {
             <Link className='a' activeClass="active" to="test1" spy={true} smooth={true} offset={50} duration={500} onSetActive={this.handleSetActive}>
               <span></span><span></span><span></span>
             </Link>
-            <br/><br/><br/><br/>Get Started
+            <br/><br/><br/><br/>GET STARTED
           </div>
 
           <br/><br/><br/><br/><br/><br/>
@@ -48,6 +48,8 @@ class Welcome extends Component {
             <div>Next Element</div>            
           </Element>
           </div>
+
+          
 
  
         </div>

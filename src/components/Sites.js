@@ -62,11 +62,11 @@ class Sites extends Component {
 
   getSites() {
     axios.get('/sites')
-    .then( res => {
+    .then((res) => {
       console.log(res);
       this.setState({ sites: res.data })
     })
-    .catch( err => {
+    .catch((err) => {
       console.log(err);
     })
   }
@@ -96,9 +96,10 @@ class Sites extends Component {
   }
 
   renderSites() {
-    let siteNodes = this.state.sites.map(site => {
+    let siteNodes = this.state.sites.map((site) => {
+      let url = '/dashboard/sites/' + site._id;
       return(
-        <Card style={style.card}><Link to='/dashboard/sites/pages'>{site.title}</Link></Card>
+        <Card style={style.card}><Link to={url}>{site.title}</Link></Card>
       )
     })
     return siteNodes;
