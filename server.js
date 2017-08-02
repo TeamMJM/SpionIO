@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const path = require('path');
+const sitesController = require('./Database/Controller/sitesController.js');
 const clickController = require('./Database/Controller/clickController.js');
 const scrollController = require('./Database/Controller/scrollController.js');
 let clientData = 1;
@@ -29,14 +31,32 @@ app.use(bodyParser());
 app.use(cookieParser())
 
 app.get('/', (req, res) => {
-    res.sendfile('index.html')
+    res.sendFile(path.join(__dirname, '/index.html'));
 })
+
+app.get('/logo.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'logo.png'));
+
+})
+
+app.get('/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, '/index.html'));
+})
+
+app.get('/dashboard/sites', (req, res) => {
+    res.sendFile(path.join(__dirname, '/index.html'));
+})
+
+
+// app.get('*', (req, res) => {
+//     res.sendfile('index.html')
+// })
 
 app.get('/script.js', (req, res, next) => {
     res.sendfile('./script.js');
 })
 
-app.get('/build/bundle.js', (req, res, next) => {
+app.get('*/build/bundle.js', (req, res, next) => {
     res.sendfile('./build/bundle.js');
 })
 app.post('/guestauth', (req, res, next) => {
@@ -83,6 +103,11 @@ app.get('/gethtml', (req, res, next) => {
     console.log(clientData)
     res.send(clientData)
 })
+
+app.get('/sites', sitesController.getSites);
+
+app.post('/sites', sitesController.createSites);
+
 
 io.on('connection', (client) => {
     client.on('join', (data) => {

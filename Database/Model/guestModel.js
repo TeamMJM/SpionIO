@@ -1,7 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Click = require('./clickModel.js');
-const Scroll = require('./scrollModel.js');
 const guestSchema = Schema({
     _id: Number,
     clickID:[{type:Schema.Types.ObjectId,ref:'Click'}],

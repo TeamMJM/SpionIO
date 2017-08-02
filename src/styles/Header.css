@@ -1,10 +1,9 @@
 .nav {
   display: inline;
-  padding-left: 15px;
 }
 
 #first {
-  padding-left:900px;
+  padding-left: 1200px;
 }
 
 
@@ -25,9 +24,12 @@ ul {
   padding-left: 0;
 }
 
-#title {
-  font-size: 1.7em;
-  color: #2E5266;
+
+.logo {
+  height: 50px;
+  width: 50px;
+  margin-left: 60px;
+  vertical-align: middle;
 }
 
 
