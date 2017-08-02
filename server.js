@@ -1,11 +1,7 @@
 const express = require('express');
 const app = express();
-<<<<<<< HEAD
-const fs = require('fs');
-=======
 const path = require('path');
 const sitesController = require('./Database/Controller/sitesController.js');
->>>>>>> 03899d280df2658431e285a54a281f530cad4070
 const clickController = require('./Database/Controller/clickController.js');
 const scrollController = require('./Database/Controller/scrollController.js');
 let clientData = 1;
