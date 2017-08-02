@@ -10,7 +10,7 @@ import { HashRouter, Switch, Route, Link } from 'react-router-dom';
 ////////// Separate component that is similar to App.js but for whne a client has successfully signed into his specific dashboard //////////
 const Dashboard = () => (
   <div>
-    <Sidebar />
+    <Sidebar /> 
     <DashboardMain />
   </div>
 )
