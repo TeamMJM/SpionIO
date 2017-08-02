@@ -5,7 +5,7 @@ import Home from './Home.js';
 import Sites from './Sites.js';
 import Pages from './Pages.js';
 import Settings from './Settings.js';
-
+import './../styles/App.css';
 // import Team from './Team.js';
 
 ////////// Routing for dashboard because of sidebar feature //////////

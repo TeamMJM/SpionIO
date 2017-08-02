@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 var Parser = require('html-react-parser');
-var mensch = require('mensch');
+// import './../styles/html.css';
+const axios = require('axios')
 class Html extends Component {
+  componentWillUnmount(){
+    axios.get('/deletehtml')
+  }
   render() {
-      console.log("string",this.props.data.header);
-      var css = mensch.parse(this.props.data.header);
-      console.log("css",css);
-      var csstring = mensch.stringify(css);
-      console.log("css-stringify",csstring)
-      // console.log(css.stylesheet.rules[0])
     return(
-      <div style={css}>
+      <div >
           {Parser(this.props.data.body)}
       </div>
     )

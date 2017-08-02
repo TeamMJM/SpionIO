@@ -84,11 +84,13 @@ app.get('/gethtml', (req, res, next) => {
     console.log(clientData)
     let css = mensch.parse(clientData.header)
     let cssString = mensch.stringify(css)
-    fs.writeFileSync('x.txt','aas',(err)=>{
-        if(err) throw err;
-        else console.log("stored");
-    })
+    fs.writeFileSync('./src/styles/html.css',cssString);
     res.send(clientData)
+})
+app.get('/deletehtml', (req, res, next) => {
+    console.log("delete");
+    fs.unlinkSync("./src/styles/html.css")
+    res.sendStatus(200);
 })
 
 io.on('connection', (client) => {
