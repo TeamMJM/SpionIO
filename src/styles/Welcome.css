@@ -1,7 +1,14 @@
 .App-title, h3{
   text-align: center;
-  color: gray;
+  color: #37A7DF;
   padding-top: 60px;
+}
+
+.App-logo {
+  margin-left: 750px;
+  margin-top: 100px;
+  height: 400px;
+  width: 400px;
 }
 
 h1 {
@@ -13,4 +20,33 @@ h1 {
 }
 html, body {
   margin: 0;
+}
+
+#section02 a {
+  padding-top: 800px;
+}
+#section02 a span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 46px;
+  height: 46px;
+  margin-left: -23px;
+  border: 1px solid #fff;
+  border-radius: 100%;
+  box-sizing: border-box;
+}
+#section02 a span::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  content: '';
+  width: 16px;
+  height: 16px;
+  margin: -12px 0 0 -8px;
+  border-left: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  box-sizing: border-box;
 }

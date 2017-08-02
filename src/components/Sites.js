@@ -30,11 +30,15 @@ const style = {
     textAlign: 'left',
     display: 'inline-block',
     verticalAlign: 'middle',
+    // bottom: '0',
+    // position: 'fixed',
   },
   button: {
     marginLeft: '20px',
     display: 'inline-block',
     verticalAlign: 'middle',
+    // bottom: '0',
+    // position: 'fixed',
   }
 };
 
@@ -54,7 +58,6 @@ class Sites extends Component {
   
   componentDidMount() {
     this.getSites();
-    // setInterval(this.getSites, 500)
   }
 
   getSites() {
@@ -81,6 +84,9 @@ class Sites extends Component {
       // this.setState({ sites: sites})
     })
     this.getSites();
+    this.setState({
+      text: '',
+    })
   }
 
   handleTextChange(e) {
@@ -110,13 +116,14 @@ class Sites extends Component {
         <div className='site-form'>
           <div className='submit'>
             <Paper style={style.submit} zDepth={1}>
-              <TextField onChange={this.handleTextChange} fullWidth={true} style={style.textField} hintText='Start tracking your sites...'/>
+              <TextField onChange={this.handleTextChange} value={this.state.text} fullWidth={true} style={style.textField} hintText='Start tracking your sites...'/>
             </Paper>
+          
 
             <FloatingActionButton style={style.button} onClick={this.handleSiteSubmit}>
               <ContentAdd/>
             </FloatingActionButton> 
-          </div>        
+          </div>
         </div>
       </div>
     )

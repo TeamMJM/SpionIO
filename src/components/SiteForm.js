@@ -9,12 +9,12 @@ const style = {
     width: '94%',
     textAlign: 'left',
     display: 'inline-block',
-    verticalAlign: 'middle',
+    verticalAlign: 'bottom',
   },
   button: {
     marginLeft: '20px',
     display: 'inline-block',
-    verticalAlign: 'middle',
+    verticalAlign: 'bottom',
   }
 }
 
@@ -31,9 +31,10 @@ class SiteForm extends Component {
       text: e.target.value
     })
   }
+  
+  
 
   render() {
-
 
     return(
       <div className='submit'>
