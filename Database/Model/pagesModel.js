@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const Guest = require('./guestModel.js');
 const pageSchema = Schema({
     _id: Number,
     IPHASH:[String],

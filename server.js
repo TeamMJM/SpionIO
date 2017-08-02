@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const sitesController = require('./Database/Controller/sitesController.js');
 const clickController = require('./Database/Controller/clickController.js');
 const scrollController = require('./Database/Controller/scrollController.js');
 let clientData = 1;
@@ -83,6 +84,11 @@ app.get('/gethtml', (req, res, next) => {
     console.log(clientData)
     res.send(clientData)
 })
+
+app.get('/sites', sitesController.getSites);
+
+app.post('/sites', sitesController.createSites);
+
 
 io.on('connection', (client) => {
     client.on('join', (data) => {
