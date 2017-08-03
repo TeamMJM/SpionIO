@@ -1,14 +1,16 @@
 window.onload = (() => {
     let pageInfo = {
+
+    };
+    console.log(pageInfo.url);    
+    $.post("http://localhost:3000/guestauth", {
         token: getCookie("token"),
         url: window.location.href,
         html: {
             header: document.getElementsByTagName('link')[0].href,
             body: document.getElementsByTagName('body')[0].innerHTML
         }
-    };
-    console.log(pageInfo.url);    
-    $.post("http://localhost:3000/guestauth", {pageInfo}, (response) => {
+    }, (response) => {
         if (response !== "preauth") {
             document.cookie = "token=" + response.token;
         } else {
