@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 const Site = require('./siteModel.js');
 
 const clientSchema = Schema({
-    _id: Number,
     name: String,
     password: String,
     mail: String,

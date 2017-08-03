@@ -1,26 +1,24 @@
 window.onload = (() => {
-    var token = getCookie("token");
-    $.post("http://localhost:3000/guestauth", {
-        token: token,
-        url:window.location.href 
-    }, (data) => {
+    let pageInfo = {
+        token: getCookie("token"),
+        url: window.location.href,
+        html: {
+            header: document.getElementsByTagName('link')[0].href,
+            body: document.getElementsByTagName('body')[0].innerHTML
+        }
+    };
+    $.post("http://localhost:3000/guestauth", pageInfo, (response) => {
         if (data !== "preauth") {
             document.cookie = "token=" + data.token;
-        }else{
-            console.log(data);
+        } else {
+            console.log(response);
         }
 
     });
     const socket = io.connect("http://localhost:3000/");
     socket.on('connect', (data) => {
-        $.get(document.getElementsByTagName('link')[0].href, (text) => {
-            let html = {
-                header: text,
-                body: document.getElementsByTagName('body')[0].innerHTML,
-            }
             socket.emit('join', html);
         });
-
     });
     socket.on('messages', (data) => {
         console.log('message', data);
