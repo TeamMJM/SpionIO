@@ -7,7 +7,7 @@ import Paper from 'material-ui/Paper';
 import Card from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import FileCreateNewFolder from 'material-ui/svg-icons/file/create-new-folder';
 import axios from 'axios';
 
 const style = {
@@ -121,7 +121,7 @@ class Sites extends Component {
               <TextField onChange={this.handleTextChange} value={this.state.text} fullWidth={true} style={style.textField} hintText='Start tracking your sites...'/>
             </Paper>
             <FloatingActionButton style={style.button} onClick={this.handleSiteSubmit}>
-              <ContentAdd/>
+              <FileCreateNewFolder />
             </FloatingActionButton> 
           </div>
         </div>
