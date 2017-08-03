@@ -44,8 +44,8 @@ class Welcome extends Component {
           <br/><br/><hr/>
 
           <div id='section2'>
-          <br/><br/><br/><br/>
-          <h1>HOW IT WORKS</h1>
+          <br/><br/><br/>
+          <h1>QUICK-START GUIDE</h1>
           <table>
             <tr>
               <td>
@@ -66,7 +66,7 @@ class Welcome extends Component {
             </tr>
           </table>
 
-          <br/><br/><br/><br/><hr width='75%'/>
+          <br/><br/><br/><br/><hr width='85%'/>
 
             
           </div> 
