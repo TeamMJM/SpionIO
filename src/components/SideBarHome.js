@@ -16,12 +16,17 @@ class SideBarHome extends Component {
     this.state = {
       open: true,
       sites: false,
+      settings: false,
       sitesData: [],
     };
-    this.renderPages = this.renderPages.bind(this);
+    this.renderSites = this.renderSites.bind(this);
     this.getSites = this.getSites.bind(this);
-    this.handleToggle = this.handleToggle.bind(this);
-    this.toggleIcon = this.toggleIcon.bind(this);
+    this.handleToggleSites = this.handleToggleSites.bind(this);
+    this.toggleIconSites = this.toggleIconSites.bind(this);
+    this.toggleIconSettings = this.toggleIconSettings.bind(this);
+    this.handleToggleSettings = this.handleToggleSettings.bind(this);
+    this.renderSettings = this.renderSettings.bind(this);
+    this.handleToggleDashboard = this.handleToggleDashboard.bind(this);
   }
 
   componentDidMount() {
@@ -39,17 +44,16 @@ class SideBarHome extends Component {
     })
   }
 
-  handleToggle(e) {
+  handleToggleSites(e) {
     if (this.state.sites) {
-      this.setState({sites: false})
+      this.setState({sites: false, settings: false})
     } else {
-      this.setState({sites: true})
+      this.setState({sites: true, settings: false})
     }
-    this.renderPages();
-    this.toggleIcon();
+    this.renderSites();
   }
 
-  toggleIcon(e) {
+  toggleIconSites(e) {
     if (this.state.sites) {
       return(
         <FileFolderOpen/>
@@ -61,8 +65,44 @@ class SideBarHome extends Component {
     }
   }
 
+  toggleIconSettings(e) {
+    if (this.state.settings) {
+      return(
+        <FileFolderOpen/>
+      )
+    } else {
+      return(
+        <FileFolder/>
+      )
+    }
+  }
+
+  handleToggleSettings(e) {
+    if (this.state.settings) {
+      this.setState({settings: false, sites: false})
+    } else {
+      this.setState({settings: true, sites: false})
+    }
+    this.renderSettings();
+  }
+
+  handleToggleDashboard(e) {
+    this.setState({sites: false, settings: false});
+    this.renderSettings();
+    this.renderSites();
+  }
+
+
+  renderSettings() {
+    if (this.state.settings) {
+      return(
+        <Link to='/dashboard/account'><MenuItem leftIcon={<ActionDashboard />}>Account</MenuItem></Link>          
+      )
+    }
+  }
+
   // handletoggle = () => this.setState({open: !this.state.open });
-  renderPages() {
+  renderSites() {
     let siteNodes;
     if (this.state.sites) {
       siteNodes = this.state.sitesData.map((site) => {
@@ -80,10 +120,11 @@ class SideBarHome extends Component {
     return(
       <div>
         <Drawer docked={true}>
-          <Link to='/dashboard'><MenuItem leftIcon={<ActionDashboard />}>Dashboard</MenuItem></Link>
-          <Link to='/dashboard/sites'><MenuItem onClick={this.handleToggle} leftIcon={this.toggleIcon()}>Sites</MenuItem></Link>
-          {this.renderPages()}
-          <Link to='/dashboard/settings'><MenuItem leftIcon={<FileFolder />}>Settings</MenuItem></Link>
+          <Link to='/dashboard'><MenuItem onClick={this.handleToggleDashboard} leftIcon={<ActionDashboard />}>Dashboard</MenuItem></Link>
+          <Link to='/dashboard/sites'><MenuItem onClick={this.handleToggleSites} leftIcon={this.toggleIconSites()}>Sites</MenuItem></Link>
+          {this.renderSites()}
+          <Link to='/dashboard/settings'><MenuItem onClick={this.handleToggleSettings} leftIcon={this.toggleIconSettings()}>Settings</MenuItem></Link>
+          {this.renderSettings()}
         </Drawer>
       </div>
     )
