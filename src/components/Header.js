@@ -29,7 +29,7 @@ const Header = () => (
       <div className="topnav-content">
         <img className='logo' src='./../../logo.png'/>
         <li className="nav" id="title"><Link to='/'><FlatButton hoverColor='white' labelStyle={style.label} label='Private-I' /></Link></li>
-        <li className="nav"><Link to='/'><FlatButton hoverColor='white' labelStyle={style.sub} label='/ OPEN BETA /' /></Link></li>
+        <li className="nav"><Link to='/'><FlatButton hoverColor='white' labelStyle={style.sub} label='/ PROTOTYPE v0.0.1 /' /></Link></li>
         <div id='first'>
         <li className="nav"><Link to='/login'><FlatButton label='Login' style={style}/></Link></li>
         <li className="nav"><Link to='/dashboard'><FlatButton label='Dashboard' style={style}/></Link></li>

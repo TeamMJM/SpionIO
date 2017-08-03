@@ -41,7 +41,10 @@ app.get('/', (req, res) => {
 
 app.get('/logo.png', (req, res) => {
     res.sendFile(path.join(__dirname, 'logo.png'));
+})
 
+app.get('/screenshot.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'screenshot.png'))
 })
 
 app.get('/dashboard', (req, res) => {
@@ -53,7 +56,7 @@ app.get('/dashboard/sites', (req, res) => {
 })
 
 
-app.get('/dashboard/sites/pages', (req, res) => {
+app.get('/dashboard/sites/:pages', (req, res) => {
     res.sendfile('index.html')
 })
 
