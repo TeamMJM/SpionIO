@@ -14,7 +14,7 @@ class SideBarDashboard extends Component {
       <div>
         <Route exact path='/dashboard' component={SideBarHome}/>
         <Route exact path='/dashboard/sites' component={SideBarSites}/>  
-        <Route exact path='/dashboard/sites/pages' component={SideBarPages}/> 
+        <Route exact path='/dashboard/sites/:pages' component={SideBarPages}/> 
         <Route exact path='/dashboard/settings' component={SideBarSettings}/> 
         {/* <Route path='dashboard/team' component={Team}/> */}
       </div>

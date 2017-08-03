@@ -6,7 +6,7 @@ sitesController.getSites = (req, res, next) => {
     if (err) res.send(err);
     res.json(site);
   })
-}
+} 
 
 sitesController.createSites = (req, res, next) => {
   const site = new Site();

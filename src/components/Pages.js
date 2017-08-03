@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './../styles/Home.css';
+import DialogExampleSimple from "./DialogExampleSimple.js"
 // import Html from './html.js';
 import axios from 'axios';
 
@@ -12,6 +13,9 @@ import { GridList, GridTile } from 'material-ui/GridList';
 import IconButton from 'material-ui/IconButton';
 import Subheader from 'material-ui/Subheader';
 import StarBorder from 'material-ui/svg-icons/toggle/star-border';
+import Dialog from 'material-ui/Dialog';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
 
 
 const style = {
@@ -57,13 +61,10 @@ class Pages extends Component {
   constructor(props){
     super(props);
     this.state = {
-      pages: [],
-      title: '',
-      text: '',
+      pages:[]
     };
     this.getPages = this.getPages.bind(this);
     this.handlePageSubmit = this.handlePageSubmit.bind(this);
-    this.handleTextChange = this.handleTextChange.bind(this);
   }
 
   componentDidMount() {
@@ -81,41 +82,17 @@ class Pages extends Component {
     })
   }
 
-  handlePageSubmit(e) {
-    console.log(e);
-    e.preventDefault();
-    let newPage = {
-      title: this.state.text
-    }
+  handlePageSubmit(newPage) {
+    console.log("newpage",newPage)
     axios.post('/pages', newPage)
     .catch( err => {
       console.error(err);
-      // this.setState({ sites: sites})
     })
     this.getPages();
-    this.setState({
-      text: '',
-    })
   }
-
-  handleTextChange(e) {
-    this.setState({
-      text: e.target.value
-    })
-  }
-
-  // renderPages() {
-  //   let pageNodes = this.state.pages.map((page)) => {
-  //     let url = '/dashboard/sites/:pages/' + page._id;
-  //     return(
-        
-  //     )
-  //   }
-  // }
-
-
 
   render() {
+    
     return(
       <div className='page-content'>
         <Paper style={style.paper} zDepth={1}>
@@ -131,19 +108,7 @@ class Pages extends Component {
             </GridList>
           </div>
         </Paper>
-        
-        <div className='pages-form'>
-          <div className='submit'>
-            <Paper style={style.submit} zDepth={1}>
-              <TextField onChange={this.handleTextChange} value={this.state.text} fullWidth={true} style={style.textField} hintText='Start tracking your individual pages...'/>
-            </Paper>
-          
-
-            <FloatingActionButton style={style.button} onClick={this.handlePageSubmit}>
-              <ContentAdd/>
-            </FloatingActionButton> 
-          </div>
-        </div>
+        <DialogExampleSimple handleSubmit = {this.handlePageSubmit}/>
       </div>
     );
   }

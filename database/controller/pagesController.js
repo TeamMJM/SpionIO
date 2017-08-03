@@ -9,11 +9,14 @@ pagesController.getPages = (req, res, next) => {
 }
 
 pagesController.createPages = (req, res, next) => {
-  const page = new Page();
-  page.title = req.body.title;
-  page.save(err => {
+  const newPage = Page({
+    title: req.body.title,
+    url: req.body.url,
+    desription: req.body.desription
+  });
+  Page.create(newPage,err => {
     if (err) res.send(err);
-    res.json({ Message: 'Page successfully added!'})
+    res.send('Page successfully added!')
   })
 }
 
