@@ -8,8 +8,8 @@ window.onload = (() => {
         }
     };
     $.post("http://localhost:3000/guestauth", pageInfo, (response) => {
-        if (data !== "preauth") {
-            document.cookie = "token=" + data.token;
+        if (response !== "preauth") {
+            document.cookie = "token=" + data.response;
         } else {
             console.log(response);
         }
@@ -17,7 +17,7 @@ window.onload = (() => {
     });
     const socket = io.connect("http://localhost:3000/");
     socket.on('connect', (data) => {
-            socket.emit('join', html);
+            socket.emit('join', "joining with server");
         });
     socket.on('messages', (data) => {
         console.log('message', data);
