@@ -107,7 +107,7 @@ app.post('/guestauth', (req, res, next) => {
         })
         //search database
     } catch (err) {
-        console.log(err);
+        console.log("TOKEN",err);
         //make new session
 
         let pageFound = Page.findOne({
@@ -115,6 +115,8 @@ app.post('/guestauth', (req, res, next) => {
         }, (err, pageFound) => {
             if (err) res.send(err);
             else {
+                console.log("URL",req.body.url)
+                console.log("PAGEFOUND",pageFound);
                 let sessionID = uuid();
                 let newSession = new Session({
                     _id: sessionID,
@@ -126,10 +128,17 @@ app.post('/guestauth', (req, res, next) => {
                     clickID: new Click,
                     scrollID: new Scroll,
                 });
+                console.log("ABOUT TO SAVE",newSession);
                 newSession.save((err) => {
-                    if (err) res.send(err)
+                    if (err) {
+                        console.log("SENDING ERROR")
+                        console.log(err);
+                        res.send(err)
+                    }
                     else {
+                        console.log("SESSION SAVE");    
                         let token = jwt.sign(sessionID, secret);
+                        console.log("sessionID",sessionID);
                         res.json({
                             token: token
                         });
