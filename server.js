@@ -68,15 +68,15 @@ app.get('*/build/bundle.js', (req, res, next) => {
     res.sendfile('./build/bundle.js');
 })
 app.post('/guestauth', (req, res, next) => {
-    console.log("TOKEN",req.body);
     try {
-        let token = jwt.verify(req.body.token, secret)
-        console.log("json", token);
+        let sessionID = jwt.verify(req.body.token, secret)
+        console.log("json", sessionID);
         Session.findOne({
-            _id: token.sessionID
+            _id: sessionID
         }, (err, sessionFound) => {
             if (err) res.send(err);
             else {
+                console.log("SESSION FOUND",sessionFound);
                 if (sessionFound.currentUrl === req.body.url) {
                     res.send("preauth");
                 } else {
@@ -92,6 +92,7 @@ app.post('/guestauth', (req, res, next) => {
                                 clickID: new Click,
                                 scrollID: new Scroll,
                             });
+                            console.log(sessionFound);
                             sessionFound.save((err) => {
                                 if (err) res.send(err)
                                 else {
