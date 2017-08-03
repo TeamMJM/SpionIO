@@ -52,7 +52,7 @@ app.get('/dashboard/sites', (req, res) => {
 })
 
 
-app.get('/dashboard/sites/pages', (req, res) => {
+app.get('/dashboard/sites/:pages', (req, res) => {
     res.sendfile('index.html')
 })
 

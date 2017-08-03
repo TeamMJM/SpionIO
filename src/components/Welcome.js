@@ -68,7 +68,7 @@ class Welcome extends Component {
 
           <br/><br/><br/><br/><hr width='85%'/><br/><br/><br/><br/>
 
-          <h1>LIGHTWEIGHT INTUITIVE DASHBOARD</h1>
+          <h1>LIGHTWEIGHT INTUITIVE DASHBOARD</h1><br/>
 
           <img className='dashboard-screenshot' src='./../../screenshot.png'/>
             
