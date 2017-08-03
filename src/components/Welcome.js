@@ -50,7 +50,7 @@ class Welcome extends Component {
             <tr>
               <td>
                 <img className='mini-logo' src='./../../logo.png'/>
-                <h3>START BUILDING A BETTER SITE</h3>
+                <h3>BUILD BETTER SITES</h3>
                 <p className='td-sub'>Signing up gives you full access and control to all of our analytical features that include gathering user interaction in the form of mouse, scroll, time, and funnel data</p>
               </td>
               <td>
@@ -60,14 +60,17 @@ class Welcome extends Component {
               </td>
               <td>
                 <img className='mini-logo' src='./../../logo.png'/>                
-                <h3>CONSISTENTLY IMPROVE UX/UI</h3>
+                <h3>RESPONSIVELY IMPROVE UX/UI</h3>
                 <p className='td-sub'>Our advanced machine learning algorithms simulate user behavior and generate fix recommendations to place the most optimal interface at the tip of your fingers</p>
               </td>
             </tr>
           </table>
 
-          <br/><br/><br/><br/><hr width='85%'/>
+          <br/><br/><br/><br/><hr width='85%'/><br/><br/><br/><br/>
 
+          <h1>LIGHTWEIGHT INTUITIVE DASHBOARD</h1>
+
+          <img className='dashboard-screenshot' src='./../../screenshot.png'/>
             
           </div> 
 
