@@ -2,22 +2,35 @@ const Page = require('./../model/pagesModel.js');
 const pagesController = {};
 
 pagesController.getPages = (req, res, next) => {
-  Page.find((err, page) => {
+  let arr = []; 
+  console.log("get_pages",res.locals.siteFound._id);
+  Page.find({_id:res.locals.siteFound.pageID},(err, pages) => {
     if (err) return console.error(err);
-    res.json(page);
+    else{
+      console.log("PAGES FOUND",pages)
+      res.json(pages);
+    }
   })
 }
 
 pagesController.createPages = (req, res, next) => {
-  const newPage = Page({
-    title: req.body.title,
-    url: req.body.url,
-    desription: req.body.desription
-  });
-  Page.create(newPage,err => {
+  Page.create({
+    title: req.body.page.title,
+    url: req.body.page.url,
+    desription: req.body.page.desription
+  },(err,addedPage) => {
     if (err) res.send(err);
-    res.send('Page successfully added!')
-  })
+    else{
+      res.locals.siteFound.pageID.push((addedPage));
+      res.locals.siteFound.save((err,newPage) =>{
+        if(err) res.send((err));
+        else {
+          console.log(newPage);
+          res.send("Saved")
+        }
+      })
+    }
+  });
 }
 
 module.exports = pagesController;
