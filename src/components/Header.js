@@ -17,7 +17,7 @@ const style = {
   label: {
     fontSize: '24px',
     paddingRight: '5px',
-    color: '#37A7DF',
+    color: '#00BFFF',
   }
 };
 
@@ -30,9 +30,11 @@ const Header = () => (
         <img className='logo' src='./../../logo.png'/>
         <li className="nav" id="title"><Link to='/'><FlatButton hoverColor='white' labelStyle={style.label} label='Private-I' /></Link></li>
         <li className="nav"><Link to='/'><FlatButton hoverColor='white' labelStyle={style.sub} label='/ OPEN BETA /' /></Link></li>
-        <li className="nav" id="first"><Link to='/login'><FlatButton label='Login' style={style}/></Link></li>
+        <div id='first'>
+        <li className="nav"><Link to='/login'><FlatButton label='Login' style={style}/></Link></li>
         <li className="nav"><Link to='/dashboard'><FlatButton label='Dashboard' style={style}/></Link></li>
-        <li className="nav"><Link to='/signup'><FlatButton label='Sign Up'></FlatButton></Link></li>   
+        <li className="nav"><Link to='/signup'><FlatButton label='Sign Up'></FlatButton></Link></li> 
+        </div>  
     </div>
     </div>
   </header>
