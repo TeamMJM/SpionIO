@@ -10,7 +10,7 @@ pagesController.getPages = (req, res, next) => {
       console.log("PAGES FOUND",pages)
       res.json(pages);
     }
-  })
+  }) 
 }
 
 pagesController.createPages = (req, res, next) => {
