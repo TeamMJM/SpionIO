@@ -31527,6 +31527,7 @@ var Welcome = function (_Component) {
   _createClass(Welcome, [{
     key: 'render',
     value: function render() {
+      console.log("WELCOME");
       return _react2.default.createElement(
         'div',
         null,
@@ -34922,9 +34923,9 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _Sidebar = __webpack_require__(413);
+var _SideBarDashboard = __webpack_require__(536);
 
-var _Sidebar2 = _interopRequireDefault(_Sidebar);
+var _SideBarDashboard2 = _interopRequireDefault(_SideBarDashboard);
 
 var _DashboardMain = __webpack_require__(450);
 
@@ -34932,118 +34933,26 @@ var _DashboardMain2 = _interopRequireDefault(_DashboardMain);
 
 var _reactRouterDom = __webpack_require__(30);
 
+__webpack_require__(185);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 ////////// Separate component that is similar to App.js but for whne a client has successfully signed into his specific dashboard //////////
+
+// import './../styles/Dashboard.css';
+
 var Dashboard = function Dashboard() {
   return _react2.default.createElement(
     'div',
     null,
-    _react2.default.createElement(_Sidebar2.default, null),
+    _react2.default.createElement(_SideBarDashboard2.default, null),
     _react2.default.createElement(_DashboardMain2.default, null)
   );
 };
-// import './../styles/Dashboard.css';
-
 exports.default = Dashboard;
 
 /***/ }),
-/* 413 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(30);
-
-var _Drawer = __webpack_require__(186);
-
-var _Drawer2 = _interopRequireDefault(_Drawer);
-
-var _MenuItem = __webpack_require__(422);
-
-var _MenuItem2 = _interopRequireDefault(_MenuItem);
-
-var _dashboard = __webpack_require__(448);
-
-var _dashboard2 = _interopRequireDefault(_dashboard);
-
-var _folder = __webpack_require__(449);
-
-var _folder2 = _interopRequireDefault(_folder);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-////////// Similar to Header.js but for Dashboard feature //////////
-var Sidebar = function (_Component) {
-  _inherits(Sidebar, _Component);
-
-  function Sidebar(props) {
-    _classCallCheck(this, Sidebar);
-
-    var _this = _possibleConstructorReturn(this, (Sidebar.__proto__ || Object.getPrototypeOf(Sidebar)).call(this, props));
-
-    _this.state = { open: true };
-    return _this;
-  }
-
-  // handletoggle = () => this.setState({open: !this.state.open });
-
-
-  _createClass(Sidebar, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          _Drawer2.default,
-          { docked: true },
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/dashboard' },
-            _react2.default.createElement(
-              _MenuItem2.default,
-              { leftIcon: _react2.default.createElement(_dashboard2.default, null) },
-              'Dashboard'
-            )
-          ),
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: '/dashboard/sites' },
-            _react2.default.createElement(
-              _MenuItem2.default,
-              { leftIcon: _react2.default.createElement(_folder2.default, null) },
-              'Sites'
-            )
-          )
-        )
-      );
-    }
-  }]);
-
-  return Sidebar;
-}(_react.Component);
-
-exports.default = Sidebar;
-
-/***/ }),
+/* 413 */,
 /* 414 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -41041,6 +40950,12 @@ var _Pages = __webpack_require__(488);
 
 var _Pages2 = _interopRequireDefault(_Pages);
 
+var _Settings = __webpack_require__(541);
+
+var _Settings2 = _interopRequireDefault(_Settings);
+
+__webpack_require__(185);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -41069,7 +40984,8 @@ var DashboardMain = function (_Component) {
         null,
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard', component: _Home2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard/sites', component: _Sites2.default }),
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard/sites/:pages', component: _Pages2.default })
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard/sites/:pages', component: _Pages2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard/settings', component: _Settings2.default })
       );
     }
   }]);
@@ -51348,6 +51264,542 @@ var keyOf = function keyOf(oneKeyObj) {
 };
 
 module.exports = keyOf;
+
+/***/ }),
+/* 536 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(30);
+
+var _SideBarHome = __webpack_require__(537);
+
+var _SideBarHome2 = _interopRequireDefault(_SideBarHome);
+
+var _SideBarSites = __webpack_require__(538);
+
+var _SideBarSites2 = _interopRequireDefault(_SideBarSites);
+
+var _SideBarPages = __webpack_require__(539);
+
+var _SideBarPages2 = _interopRequireDefault(_SideBarPages);
+
+var _SideBarSettings = __webpack_require__(540);
+
+var _SideBarSettings2 = _interopRequireDefault(_SideBarSettings);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+// import Team from './Team.js';
+
+////////// Routing for dashboard because of sidebar feature //////////
+var SideBarDashboard = function (_Component) {
+  _inherits(SideBarDashboard, _Component);
+
+  function SideBarDashboard() {
+    _classCallCheck(this, SideBarDashboard);
+
+    return _possibleConstructorReturn(this, (SideBarDashboard.__proto__ || Object.getPrototypeOf(SideBarDashboard)).apply(this, arguments));
+  }
+
+  _createClass(SideBarDashboard, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard', component: _SideBarHome2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard/sites', component: _SideBarSites2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard/sites/pages', component: _SideBarPages2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard/settings', component: _SideBarSettings2.default })
+      );
+    }
+  }]);
+
+  return SideBarDashboard;
+}(_react.Component);
+
+exports.default = SideBarDashboard;
+
+/***/ }),
+/* 537 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(30);
+
+var _Drawer = __webpack_require__(186);
+
+var _Drawer2 = _interopRequireDefault(_Drawer);
+
+var _MenuItem = __webpack_require__(422);
+
+var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+var _dashboard = __webpack_require__(448);
+
+var _dashboard2 = _interopRequireDefault(_dashboard);
+
+var _folder = __webpack_require__(449);
+
+var _folder2 = _interopRequireDefault(_folder);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+////////// Similar to Header.js but for Dashboard feature //////////
+var SideBarHome = function (_Component) {
+  _inherits(SideBarHome, _Component);
+
+  function SideBarHome(props) {
+    _classCallCheck(this, SideBarHome);
+
+    var _this = _possibleConstructorReturn(this, (SideBarHome.__proto__ || Object.getPrototypeOf(SideBarHome)).call(this, props));
+
+    _this.state = { open: true };
+    return _this;
+  }
+
+  // handletoggle = () => this.setState({open: !this.state.open });
+
+
+  _createClass(SideBarHome, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          _Drawer2.default,
+          { docked: true },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/dashboard' },
+            _react2.default.createElement(
+              _MenuItem2.default,
+              { leftIcon: _react2.default.createElement(_dashboard2.default, null) },
+              'Dashboard'
+            )
+          ),
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/dashboard/sites' },
+            _react2.default.createElement(
+              _MenuItem2.default,
+              { leftIcon: _react2.default.createElement(_folder2.default, null) },
+              'Sites'
+            )
+          ),
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/dashboard/settings' },
+            _react2.default.createElement(
+              _MenuItem2.default,
+              { leftIcon: _react2.default.createElement(_folder2.default, null) },
+              'Settings'
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return SideBarHome;
+}(_react.Component);
+
+exports.default = SideBarHome;
+
+/***/ }),
+/* 538 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(30);
+
+var _Drawer = __webpack_require__(186);
+
+var _Drawer2 = _interopRequireDefault(_Drawer);
+
+var _MenuItem = __webpack_require__(422);
+
+var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+var _dashboard = __webpack_require__(448);
+
+var _dashboard2 = _interopRequireDefault(_dashboard);
+
+var _folder = __webpack_require__(449);
+
+var _folder2 = _interopRequireDefault(_folder);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+////////// Similar to Header.js but for Dashboard feature //////////
+var SideBarSites = function (_Component) {
+  _inherits(SideBarSites, _Component);
+
+  function SideBarSites(props) {
+    _classCallCheck(this, SideBarSites);
+
+    var _this = _possibleConstructorReturn(this, (SideBarSites.__proto__ || Object.getPrototypeOf(SideBarSites)).call(this, props));
+
+    _this.state = { open: true };
+    return _this;
+  }
+
+  // handletoggle = () => this.setState({open: !this.state.open });
+
+
+  _createClass(SideBarSites, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          _Drawer2.default,
+          { docked: true },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/dashboard' },
+            _react2.default.createElement(
+              _MenuItem2.default,
+              { leftIcon: _react2.default.createElement(_dashboard2.default, null) },
+              'Dashboard'
+            )
+          ),
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/dashboard/sites/pages' },
+            _react2.default.createElement(
+              _MenuItem2.default,
+              { leftIcon: _react2.default.createElement(_folder2.default, null) },
+              'Pages'
+            )
+          ),
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/dashboard/settings' },
+            _react2.default.createElement(
+              _MenuItem2.default,
+              { leftIcon: _react2.default.createElement(_folder2.default, null) },
+              'Settings'
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return SideBarSites;
+}(_react.Component);
+
+exports.default = SideBarSites;
+
+/***/ }),
+/* 539 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(30);
+
+var _Drawer = __webpack_require__(186);
+
+var _Drawer2 = _interopRequireDefault(_Drawer);
+
+var _MenuItem = __webpack_require__(422);
+
+var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+var _dashboard = __webpack_require__(448);
+
+var _dashboard2 = _interopRequireDefault(_dashboard);
+
+var _folder = __webpack_require__(449);
+
+var _folder2 = _interopRequireDefault(_folder);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+////////// Similar to Header.js but for Dashboard feature //////////
+var SideBarPages = function (_Component) {
+  _inherits(SideBarPages, _Component);
+
+  function SideBarPages(props) {
+    _classCallCheck(this, SideBarPages);
+
+    var _this = _possibleConstructorReturn(this, (SideBarPages.__proto__ || Object.getPrototypeOf(SideBarPages)).call(this, props));
+
+    _this.state = { open: true };
+    return _this;
+  }
+
+  // handletoggle = () => this.setState({open: !this.state.open });
+
+
+  _createClass(SideBarPages, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          _Drawer2.default,
+          { docked: true },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/dashboard' },
+            _react2.default.createElement(
+              _MenuItem2.default,
+              { leftIcon: _react2.default.createElement(_dashboard2.default, null) },
+              'Dashboard'
+            )
+          ),
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/dashboard/settings' },
+            _react2.default.createElement(
+              _MenuItem2.default,
+              { leftIcon: _react2.default.createElement(_folder2.default, null) },
+              'Settings'
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return SideBarPages;
+}(_react.Component);
+
+exports.default = SideBarPages;
+
+/***/ }),
+/* 540 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(30);
+
+var _Drawer = __webpack_require__(186);
+
+var _Drawer2 = _interopRequireDefault(_Drawer);
+
+var _MenuItem = __webpack_require__(422);
+
+var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+var _dashboard = __webpack_require__(448);
+
+var _dashboard2 = _interopRequireDefault(_dashboard);
+
+var _folder = __webpack_require__(449);
+
+var _folder2 = _interopRequireDefault(_folder);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+////////// Similar to Header.js but for Dashboard feature //////////
+var SideBarSettings = function (_Component) {
+  _inherits(SideBarSettings, _Component);
+
+  function SideBarSettings(props) {
+    _classCallCheck(this, SideBarSettings);
+
+    var _this = _possibleConstructorReturn(this, (SideBarSettings.__proto__ || Object.getPrototypeOf(SideBarSettings)).call(this, props));
+
+    _this.state = { open: true };
+    return _this;
+  }
+
+  // handletoggle = () => this.setState({open: !this.state.open });
+
+
+  _createClass(SideBarSettings, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          _Drawer2.default,
+          { docked: true },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/dashboard' },
+            _react2.default.createElement(
+              _MenuItem2.default,
+              { leftIcon: _react2.default.createElement(_dashboard2.default, null) },
+              'Dashboard'
+            )
+          ),
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/dashboard/account' },
+            _react2.default.createElement(
+              _MenuItem2.default,
+              { leftIcon: _react2.default.createElement(_dashboard2.default, null) },
+              'Account'
+            )
+          )
+        )
+      );
+    }
+  }]);
+
+  return SideBarSettings;
+}(_react.Component);
+
+exports.default = SideBarSettings;
+
+/***/ }),
+/* 541 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+__webpack_require__(124);
+
+var _Drawer = __webpack_require__(186);
+
+var _Drawer2 = _interopRequireDefault(_Drawer);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Settings = function (_Component) {
+  _inherits(Settings, _Component);
+
+  function Settings() {
+    _classCallCheck(this, Settings);
+
+    return _possibleConstructorReturn(this, (Settings.__proto__ || Object.getPrototypeOf(Settings)).apply(this, arguments));
+  }
+
+  _createClass(Settings, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'page-content' },
+        _react2.default.createElement(
+          'h2',
+          null,
+          'Settings Page'
+        )
+      );
+    }
+  }]);
+
+  return Settings;
+}(_react.Component);
+
+exports.default = Settings;
 
 /***/ })
 /******/ ]);
