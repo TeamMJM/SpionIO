@@ -8,7 +8,7 @@ window.onload = (() => {
         }
     };
     console.log(pageInfo.url);    
-    $.post("http://localhost:3000/guestauth", pageInfo, (response) => {
+    $.post("http://localhost:3000/guestauth", {pageInfo}, (response) => {
         if (response !== "preauth") {
             document.cookie = "token=" + response.token;
         } else {

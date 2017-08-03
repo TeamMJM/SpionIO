@@ -68,6 +68,7 @@ app.get('*/build/bundle.js', (req, res, next) => {
     res.sendfile('./build/bundle.js');
 })
 app.post('/guestauth', (req, res, next) => {
+    console.log("TOKEN",req.body);
     try {
         let token = jwt.verify(req.body.token, secret)
         console.log("json", token);
