@@ -7,13 +7,24 @@ window.onload = (() => {
             body: document.getElementsByTagName('body')[0].innerHTML
         }
     };
-    console.log(pageInfo.url);    
-    $.post("http://localhost:3000/guestauth", JSON.stringify(pageInfo), (response) => {
-        if (response !== "preauth") {
-            document.cookie = "token=" + response.token;
-        } else {
-            console.log(response);
-        }
+    console.log(pageInfo.url);
+    $.ajax({
+        type:"POST",
+        url:"http://localhost:3000/guestauth",
+        data: JSON.stringify(pageInfo),
+        contentType: 'application/json; charset=UTF-8',
+        success: (response) =>{
+            if(response !== 'preauth'){
+                document.cookie = "token=" + response.token;    
+            }
+            else{
+                console.log(response)
+            }
+        },
+        error: (err) =>{
+            console.log(err);
+        } 
+    })    
 
     });
     const socket = io.connect("http://localhost:3000/");
