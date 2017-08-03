@@ -19,7 +19,6 @@ window.onload = (() => {
     socket.on('connect', (data) => {
             socket.emit('join', html);
         });
-    });
     socket.on('messages', (data) => {
         console.log('message', data);
     })
