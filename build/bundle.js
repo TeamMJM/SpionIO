@@ -31590,11 +31590,10 @@ var Welcome = function (_Component) {
             _react2.default.createElement('br', null),
             _react2.default.createElement('br', null),
             _react2.default.createElement('br', null),
-            _react2.default.createElement('br', null),
             _react2.default.createElement(
               'h1',
               null,
-              'HOW IT WORKS'
+              'QUICK-START GUIDE'
             ),
             _react2.default.createElement(
               'table',
@@ -31653,7 +31652,7 @@ var Welcome = function (_Component) {
             _react2.default.createElement('br', null),
             _react2.default.createElement('br', null),
             _react2.default.createElement('br', null),
-            _react2.default.createElement('hr', { width: '75%' })
+            _react2.default.createElement('hr', { width: '85%' })
           ),
           _react2.default.createElement('br', null),
           _react2.default.createElement('br', null),
