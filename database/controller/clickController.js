@@ -1,4 +1,4 @@
-const Click = require('./../Model/clickModel.js')
+const Click = require('./../model/clickModel.js')
 const clickController = {};
 const appWidth = 900;
 const appHeight = 900;

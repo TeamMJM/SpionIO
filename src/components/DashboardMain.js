@@ -15,7 +15,7 @@ class DashboardMain extends Component {
       <div>
         <Route exact path='/dashboard' component={Home}/>
         <Route exact path='/dashboard/sites' component={Sites}/>  
-        <Route exact path='/dashboard/sites/:pages' component={Pages}/> 
+        <Route exact path='/dashboard/sites/:siteID' component={Pages}/> 
         <Route exact path='/dashboard/settings' component={Settings}/> 
       </div>
     )
