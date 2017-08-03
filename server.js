@@ -51,10 +51,11 @@ app.get('/dashboard/sites', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
 })
 
-
 app.get('/dashboard/sites/:pages', (req, res) => {
-    res.sendfile('index.html')
+    res.sendFile(path.join(__dirname, 'index.html'));
 })
+
+
 
 app.get('/script.js', (req, res, next) => {
     res.sendfile('./script.js');

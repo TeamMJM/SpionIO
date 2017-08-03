@@ -120,7 +120,6 @@ class Sites extends Component {
               <TextField onChange={this.handleTextChange} value={this.state.text} fullWidth={true} style={style.textField} hintText='Start tracking your sites...'/>
             </Paper>
           
-
             <FloatingActionButton style={style.button} onClick={this.handleSiteSubmit}>
               <FileCreateNewFolder />
             </FloatingActionButton> 
