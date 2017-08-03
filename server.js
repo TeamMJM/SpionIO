@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const sitesController = require('./Database/Controller/sitesController.js');
-const pagesController = require('./Database/Controller/pagesController.js');
-const clickController = require('./Database/Controller/clickController.js');
-const scrollController = require('./Database/Controller/scrollController.js');
+const sitesController = require('./database/controller/sitesController.js');
+const pagesController = require('./database/controller/pagesController.js');
+const clickController = require('./database/controller/clickController.js');
+const scrollController = require('./database/controller/scrollController.js');
 let clientData = 1;
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -15,15 +15,15 @@ const uuid = require('uuid/v4');
 const secret = uuid();
 const mongoose = require('mongoose');
 var mensch = require('mensch');
-let mongoURI = 'mongodb://jerryjong:codesmith123@ds127173.mlab.com:27173/private-i';
+let mongoURI = 'mongodb://mus:1@ds125623.mlab.com:25623/userevents';
 
 mongoose.connect(mongoURI);
 
 
-const Session = require('./Database/Model/sessionsModel.js');
-const Page = require('./Database/Model/pagesModel');
-const Click = require('./Database/Model/clickModel');
-const Scroll = require('./Database/Model/scrollModel');
+const Session = require('./database/model/sessionsModel.js');
+const Page = require('./database/model/pagesModel');
+const Click = require('./database/model/clickModel');
+const Scroll = require('./database/model/scrollModel');
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

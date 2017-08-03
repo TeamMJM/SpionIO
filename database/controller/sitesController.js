@@ -1,4 +1,4 @@
-const Site = require('./../Model/sitesModel.js');
+const Site = require('./../model/sitesModel.js');
 const sitesController = {};
 
 sitesController.getSites = (req, res, next) => {
