@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 var Parser = require('html-react-parser');
-var mensch = require('mensch');
+// import './../styles/html.css';
+const axios = require('axios')
 class Html extends Component {
+  componentWillUnmount(){
+    axios.get('/deletehtml')
+  }
   render() {
-      console.log(this.props.data.header);
-      let css = mensch.parse(this.props.data.header);
     return(
-      <div style={css}>
+      <div >
           {Parser(this.props.data.body)}
       </div>
     )

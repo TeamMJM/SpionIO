@@ -6,7 +6,7 @@ import ActionDashboard from 'material-ui/svg-icons/action/dashboard.js';
 import FileFolder from 'material-ui/svg-icons/file/folder.js';
 
 ////////// Similar to Header.js but for Dashboard feature //////////
-class Sidebar extends Component {
+class SideBarHome extends Component {
   constructor(props) {
     super(props);
     this.state = {open: true};
@@ -21,10 +21,11 @@ class Sidebar extends Component {
         <Drawer docked={true}>
           <Link to='/dashboard'><MenuItem leftIcon={<ActionDashboard />}>Dashboard</MenuItem></Link>
           <Link to='/dashboard/sites'><MenuItem leftIcon={<FileFolder />}>Sites</MenuItem></Link>
+          <Link to='/dashboard/settings'><MenuItem leftIcon={<FileFolder />}>Settings</MenuItem></Link>
         </Drawer>
       </div>
     )
   }
 }
 
-export default Sidebar;
+export default SideBarHome;

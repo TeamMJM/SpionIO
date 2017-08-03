@@ -18,6 +18,7 @@ class Welcome extends Component {
 
 
   render() {
+    console.log("WELCOME");
     return (
       <div>
         <div id="page-content" className="App-header">
