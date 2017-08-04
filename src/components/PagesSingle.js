@@ -3,28 +3,34 @@ import './../styles/Home.css';
 import Html from './html.js';
 const axios = require('axios')
 
-class Pages extends Component {
+class PagesSingle extends Component {
   constructor(props){
     super(props);
     this.state = {
-      html:null,
-      css:null
+      pageURL:null
     };
   }
 
-  componentWillMount() {
-    axios.post()
-    this.setState({
-    })
+  componentDidMount() {
+    axios.post('/singlePage',{siteID:this.props.match.params.siteID,pageID:this.props.match.params.pageID})
+      .then(response =>{
+        console.log("RESPOMSE",response);
+        this.setState({
+          pageURL:response.data.url
+        })
+      })
+      .catch(err =>{
+        console.log(err)
+      })
   }
 
   render() {
       return(
         <div  className="page-content">
-            <Html data={this.state.data} />
+             <Html url={this.state.pageURL} /> 
         </div>
       );
   }
 }
 
-export default Pages;
+export default PagesSingle;

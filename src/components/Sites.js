@@ -63,7 +63,6 @@ class Sites extends Component {
   getSites() {
     axios.get('/sites')
     .then((res) => {
-      console.log(res);
       this.setState({ sites: res.data })
     })
     .catch((err) => {
@@ -72,8 +71,6 @@ class Sites extends Component {
   }
 
   handleSiteSubmit(e) {
-    console.log(e);
-    console.log(this.state);
     e.preventDefault();
     let newSite = {
       title: this.state.text

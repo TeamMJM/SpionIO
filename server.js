@@ -86,28 +86,35 @@ app.post('/guestauth', (req, res, next) => {
                     }, (err, pageFound) => {
                         if (err) res.send(err);
                         else {
-                            sessionFound.currentUrl = req.body.url;
-                            sessionFound.funnel.push({
-                                /// current page,
-                                pageID: pageFound,
-                                clickID: new Click,
-                                scrollID: new Scroll,
-                            });
-                            console.log(sessionFound);
-                            sessionFound.save((err) => {
-                                if (err) res.send(err)
-                                else {
-                                    let token = jwt.sign(sessionFound._id, secret);
-                                    res.json({
-                                        token: token
-                                    });
-                                }
+                            if (!pageFound.pageHTML || !pageFound.pageCSS) {
+                                pageFound.pageHTML = req.body.html.body;
+                                pageFound.pageCSS = req.body.html.header
+                            }
+                            console.log("pageFound");
+                            pageFound.save(err => {
+                                sessionFound.currentUrl = req.body.url;
+                                sessionFound.funnel.push({
+                                    /// current page,
+                                    pageID: pageFound,
+                                    clickID: new Click,
+                                    scrollID: new Scroll,
+                                });
+                                console.log(sessionFound);
+                                sessionFound.save((err) => {
+                                    if (err) res.send(err)
+                                    else {
+                                        let token = jwt.sign(sessionFound._id, secret);
+                                        res.json({
+                                            token: token
+                                        });
+                                    }
+                                })
                             })
                         }
                     })
                 }
             }
-        })
+        }) 
         //search database
     } catch (err) {
         console.log("TOKEN", err);
@@ -124,30 +131,35 @@ app.post('/guestauth', (req, res, next) => {
                 }
                 console.log("URL", req.body.url)
                 console.log("PAGEFOUND", pageFound);
-                let sessionID = uuid();
-                let newSession = new Session({
-                    _id: sessionID,
-                    currentUrl: req.body.url
-                });
-                newSession.funnel.push({
-                    /// current page,
-                    pageID: pageFound,
-                    clickID: new Click,
-                    scrollID: new Scroll,
-                });
-                console.log("ABOUT TO SAVE", newSession);
-                newSession.save((err) => {
-                    if (err) {
-                        console.log("SENDING ERROR")
-                        console.log(err);
-                        res.send(err)
-                    } else {
-                        console.log("SESSION SAVE");
-                        let token = jwt.sign(sessionID, secret);
-                        console.log("sessionID", sessionID);
-                        res.json({
-                            token: token
+                pageFound.save(err => {
+                    if (err) console.log(err)
+                    else {
+                        let sessionID = uuid();
+                        let newSession = new Session({
+                            _id: sessionID,
+                            currentUrl: req.body.url
                         });
+                        newSession.funnel.push({
+                            /// current page,
+                            pageID: pageFound,
+                            clickID: new Click,
+                            scrollID: new Scroll,
+                        });
+                        console.log("ABOUT TO SAVE", newSession);
+                        newSession.save((err) => {
+                            if (err) {
+                                console.log("SENDING ERROR")
+                                console.log(err);
+                                res.send(err)
+                            } else {
+                                console.log("SESSION SAVE");
+                                let token = jwt.sign(sessionID, secret);
+                                console.log("sessionID", sessionID);
+                                res.json({
+                                    token: token
+                                });
+                            }
+                        })
                     }
                 })
             }
@@ -174,6 +186,8 @@ app.post('/sites', sitesController.createSites);
 app.post('/updateSitePage', sitesController.findSite, pagesController.createPages);
 
 app.post('/pages', sitesController.findSite, pagesController.getPages);
+
+app.post('/singlePage', sitesController.findSite, pagesController.getSinglePages)
 
 
 
