@@ -45941,6 +45941,8 @@ var _DialogExampleSimple = __webpack_require__(497);
 
 var _DialogExampleSimple2 = _interopRequireDefault(_DialogExampleSimple);
 
+var _reactRouterDom = __webpack_require__(21);
+
 var _axios = __webpack_require__(135);
 
 var _axios2 = _interopRequireDefault(_axios);
@@ -46104,19 +46106,24 @@ var Pages = function (_Component) {
               _GridList.GridList,
               { cols: 4, cellHeight: 180, style: style.gridList },
               this.state.pages.map(function (page) {
+                var url = '/dashboard/sites/pages/' + page._id;
                 return _react2.default.createElement(
-                  _GridList.GridTile,
-                  {
-                    key: page.img,
-                    title: page.title,
-                    actionIcon: _react2.default.createElement(
-                      _IconButton2.default,
-                      null,
-                      ' ',
-                      _react2.default.createElement(_starBorder2.default, { color: 'white' }),
-                      ' '
-                    ) },
-                  _react2.default.createElement('img', { src: page.img })
+                  _reactRouterDom.Link,
+                  { to: url },
+                  _react2.default.createElement(
+                    _GridList.GridTile,
+                    {
+                      key: page.img,
+                      title: page.title,
+                      actionIcon: _react2.default.createElement(
+                        _IconButton2.default,
+                        null,
+                        ' ',
+                        _react2.default.createElement(_starBorder2.default, { color: 'white' }),
+                        ' '
+                      ) },
+                    _react2.default.createElement('img', { src: page.img })
+                  )
                 );
               })
             )
@@ -52168,7 +52175,7 @@ var alternativeProps = {
   order: 'msFlexOrder',
   flexGrow: 'msFlexPositive',
   flexShrink: 'msFlexNegative',
-  flexBasis: 'msFlexPreferredSize'
+  flexBasis: 'msPreferredSize'
 };
 
 function flexboxIE(property, value, style, _ref) {
@@ -52551,7 +52558,7 @@ var alternativeProps = {
   order: 'msFlexOrder',
   flexGrow: 'msFlexPositive',
   flexShrink: 'msFlexNegative',
-  flexBasis: 'msFlexPreferredSize'
+  flexBasis: 'msPreferredSize'
 };
 
 function flexboxIE(property, value, style) {
