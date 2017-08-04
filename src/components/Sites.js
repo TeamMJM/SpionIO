@@ -97,9 +97,10 @@ class Sites extends Component {
 
   renderSites() {
     let siteNodes = this.state.sites.map((site) => {
+      let _id = site._id;
       let url = '/dashboard/sites/' + site._id;
       return(
-        <Card style={style.card}><Link to={url}>{site.title}</Link></Card>
+        <Card style={style.card} ><Link to={url}>{site.title}</Link></Card>
       )
     })
     return siteNodes;
@@ -119,7 +120,6 @@ class Sites extends Component {
             <Paper style={style.submit} zDepth={1}>
               <TextField onChange={this.handleTextChange} value={this.state.text} fullWidth={true} style={style.textField} hintText='Start tracking your sites...'/>
             </Paper>
-          
             <FloatingActionButton style={style.button} onClick={this.handleSiteSubmit}>
               <FileCreateNewFolder />
             </FloatingActionButton> 

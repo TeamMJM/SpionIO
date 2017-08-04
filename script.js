@@ -1,27 +1,34 @@
 window.onload = (() => {
-    var token = getCookie("token");
-    $.post("http://localhost:3000/guestauth", {
-        token: token,
-        url:window.location.href 
-    }, (data) => {
-        if (data !== "preauth") {
-            document.cookie = "token=" + data.token;
-        }else{
-            console.log(data);
+    let pageInfo = {
+        token: getCookie("token"),
+        url: window.location.href,
+        html: {
+            css: document.getElementsByTagName('link')[0].href,
+            body: document.getElementsByTagName('body')[0].innerHTML
         }
-
+    };
+    console.log(pageInfo.url);
+    $.ajax({
+        type:"POST",
+        url:"http://localhost:3000/guestauth",
+        data: JSON.stringify(pageInfo),
+        contentType: 'application/json; charset=UTF-8',
+        success: (response) =>{
+            if(response !== 'preauth'){
+                document.cookie = "token=" + response.token;    
+            }
+            else{
+                console.log(response)
+            }
+        },
+        error: (err) =>{
+            console.log(err);
+        } 
     });
     const socket = io.connect("http://localhost:3000/");
     socket.on('connect', (data) => {
-        $.get(document.getElementsByTagName('link')[0].href, (text) => {
-            let html = {
-                header: text,
-                body: document.getElementsByTagName('body')[0].innerHTML,
-            }
-            socket.emit('join', html);
+            socket.emit('join', "joining with server");
         });
-
-    });
     socket.on('messages', (data) => {
         console.log('message', data);
     })

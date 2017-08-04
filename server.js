@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const sitesController = require('./Database/Controller/sitesController.js');
-const pagesController = require('./Database/Controller/pagesController.js');
-const clickController = require('./Database/Controller/clickController.js');
-const scrollController = require('./Database/Controller/scrollController.js');
+const sitesController = require('./database/controller/sitesController.js');
+const pagesController = require('./database/controller/pagesController.js');
+const clickController = require('./database/controller/clickController.js');
+const scrollController = require('./database/controller/scrollController.js');
 let clientData = 1;
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -15,12 +15,16 @@ const uuid = require('uuid/v4');
 const secret = uuid();
 const mongoose = require('mongoose');
 var mensch = require('mensch');
-let mongoURI = 'mongodb://jerryjong:codesmith123@ds127173.mlab.com:27173/private-i';
+let mongoURI = 'mongodb://mus:1@ds125623.mlab.com:25623/userevents';
 
 mongoose.connect(mongoURI);
 
 
-const Guest = require('./Database/Model/guestModel.js');
+const Session = require('./database/model/sessionsModel.js');
+const Page = require('./database/model/pagesModel');
+const Click = require('./database/model/clickModel');
+const Scroll = require('./database/model/scrollModel');
+
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -28,7 +32,7 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', express.static(__dirname + './../'));
-app.use(bodyParser());
+app.use(bodyParser.json());
 app.use(cookieParser())
 
 app.get('/', (req, res) => {
@@ -65,40 +69,87 @@ app.get('*/build/bundle.js', (req, res, next) => {
     res.sendfile('./build/bundle.js');
 })
 app.post('/guestauth', (req, res, next) => {
-    console.log("token",req.body.token);
-    console.log("url",req.body.url)
-    try { 
-        let token = jwt.verify(req.body.token,"cats")
-        console.log("json",token);
-        if(token.page[token.page.length-1] !== req.body.url){
-            console.log("inside");
-            token.page.push(req.body.url);
-            res.json({
-                token:jwt.sign(token,"cats")
-            })
-        }
-        else{
-            console.log("Sdasd");
-            res.send("preauth");
-        }
+    try {
+        let sessionID = jwt.verify(req.body.token, secret)
+        console.log("json", sessionID);
+        Session.findOne({
+            _id: sessionID
+        }, (err, sessionFound) => {
+            if (err) res.send(err);
+            else {
+                console.log("SESSION FOUND", sessionFound);
+                if (sessionFound.currentUrl === req.body.url) {
+                    res.send("preauth");
+                } else {
+                    let pageFound = Page.findOne({
+                        url: req.body.url
+                    }, (err, pageFound) => {
+                        if (err) res.send(err);
+                        else {
+                            sessionFound.currentUrl = req.body.url;
+                            sessionFound.funnel.push({
+                                /// current page,
+                                pageID: pageFound,
+                                clickID: new Click,
+                                scrollID: new Scroll,
+                            });
+                            console.log(sessionFound);
+                            sessionFound.save((err) => {
+                                if (err) res.send(err)
+                                else {
+                                    let token = jwt.sign(sessionFound._id, secret);
+                                    res.json({
+                                        token: token
+                                    });
+                                }
+                            })
+                        }
+                    })
+                }
+            }
+        })
         //search database
     } catch (err) {
-        console.log(err);
-        //make new guest
-        newGuest = {
-            _id: uuid(),
-            time: Date.now(),
-        };
-        Guest.create({
-            newGuest
-        }, (err, guest) => {
-            if (guest) {
-                newGuest.page = [req.body.url];
-                console.log("newGURET",newGuest);
-                var token = jwt.sign(newGuest, "cats");
-                res.json({
-                    token: token
+        console.log("TOKEN", err);
+        //make new session
+
+        let pageFound = Page.findOne({
+            url: req.body.url
+        }, (err, pageFound) => {
+            if (err) res.send(err);
+            else {
+                if (!pageFound.pageHTML || !pageFound.pageCSS) {
+                    pageFound.pageHTML = req.body.html.body;
+                    pageFound.pageCSS = req.body.html.header
+                }
+                console.log("URL", req.body.url)
+                console.log("PAGEFOUND", pageFound);
+                let sessionID = uuid();
+                let newSession = new Session({
+                    _id: sessionID,
+                    currentUrl: req.body.url
                 });
+                newSession.funnel.push({
+                    /// current page,
+                    pageID: pageFound,
+                    clickID: new Click,
+                    scrollID: new Scroll,
+                });
+                console.log("ABOUT TO SAVE", newSession);
+                newSession.save((err) => {
+                    if (err) {
+                        console.log("SENDING ERROR")
+                        console.log(err);
+                        res.send(err)
+                    } else {
+                        console.log("SESSION SAVE");
+                        let token = jwt.sign(sessionID, secret);
+                        console.log("sessionID", sessionID);
+                        res.json({
+                            token: token
+                        });
+                    }
+                })
             }
         })
     }
@@ -108,7 +159,7 @@ app.get('/gethtml', (req, res, next) => {
     console.log(clientData)
     let css = mensch.parse(clientData.header)
     let cssString = mensch.stringify(css)
-    fs.writeFileSync('./src/styles/html.css',cssString);
+    fs.writeFileSync('./src/styles/html.css', cssString);
     res.send(clientData)
 })
 app.get('/deletehtml', (req, res, next) => {
@@ -120,15 +171,14 @@ app.get('/deletehtml', (req, res, next) => {
 app.get('/sites', sitesController.getSites);
 
 app.post('/sites', sitesController.createSites);
+app.post('/updateSitePage', sitesController.findSite, pagesController.createPages);
 
-app.get('/pages', pagesController.getPages);
+app.post('/pages', sitesController.findSite, pagesController.getPages);
 
-app.post('/pages', pagesController.createPages);
 
 
 io.on('connection', (client) => {
     client.on('join', (data) => {
-        clientData = data;
         client.emit('messages', 'Hello from server');
     })
     client.on('storeClick', (data) => {
@@ -143,13 +193,13 @@ io.on('connection', (client) => {
     })
     client.on('storeScroll', (data) => {
         scrollController.createScroll(data)
-            .then((response)=>{
+            .then((response) => {
                 client.emit('scrollResponse', response)
             })
-            .catch((response)=>{
+            .catch((response) => {
                 client.emit('scrollResponse', response)
             })
-        
+
 
     })
 })
