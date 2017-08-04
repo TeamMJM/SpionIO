@@ -77,7 +77,6 @@ class Pages extends Component {
     axios
       .post('/pages',id)
       .then((res) => {
-        console.log(res);
         this.setState({pages: res.data})
       })
       .catch((err) => {
@@ -93,7 +92,6 @@ class Pages extends Component {
     axios
       .post('/updateSitePage',idAndPage)
       .then((response) => {
-        console.log(response);
         this.getPages();
       })
       .catch(err => {
@@ -115,7 +113,7 @@ class Pages extends Component {
                 .state
                 .pages
                 .map((page) => {
-                  let url = '/dashboard/sites/pages/' + page._id;
+                  let url = '/dashboard/sites/' + this.props.match.params.siteID  + '/page/' + page._id;
                   return (
                   <Link to={url}>
                   <GridTile
