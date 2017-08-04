@@ -39,17 +39,23 @@ window.onload = (() => {
         console.log('scrollResponse', data);
     })
     if (document.readyState === 'complete') {
+
+
         //////////////////// click data retrieval ////////////////////
         window.addEventListener("click", (e) => {
+            let sy = window.pageYOffset;
+            let sx = window.pageXOffset;
             const click = {
-                clickX: e.clientX,
-                clickY: e.clientY,
+                clickX: e.clientX  + sx,
+                clickY: e.clientY + sy,
                 width: document.documentElement.clientWidth,
                 height: document.documentElement.clientHeight
             };
             console.log(click);
             socket.emit('storeClick', click)
         }, false);
+
+
 
 
         //////////////////// scroll data retrieval ////////////////////
