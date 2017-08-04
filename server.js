@@ -127,7 +127,7 @@ app.post('/guestauth', (req, res, next) => {
                     pageFound.pageHTML = req.body.html.body;
                     pageFound.pageCSS = req.body.html.header
                 }
-                console.log("URL", req.body.url)
+                console.log("URL", req.body.url) 
                 console.log("PAGEFOUND", pageFound);
                 pageFound.save(err => {
                     if (err) console.log(err)

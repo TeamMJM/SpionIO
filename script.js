@@ -55,7 +55,7 @@ window.onload = (() => {
                 token: getCookie("token"),
             };
             console.log(clickToken);
-            socket.emit('storeClick', click)
+            socket.emit('storeClick', clickToken)
         }, false);
 
 
