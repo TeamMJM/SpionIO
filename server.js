@@ -5,16 +5,14 @@ const sitesController = require('./database/controller/sitesController.js');
 const pagesController = require('./database/controller/pagesController.js');
 const clickController = require('./database/controller/clickController.js');
 const scrollController = require('./database/controller/scrollController.js');
-let clientData = 1;
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 var jwt = require('jsonwebtoken');
 var cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
 const uuid = require('uuid/v4');
-const secret = uuid();
+const secret = "cats"
 const mongoose = require('mongoose');
-var mensch = require('mensch');
 let mongoURI = 'mongodb://mus:1@ds125623.mlab.com:25623/userevents';
 
 mongoose.connect(mongoURI);
@@ -166,19 +164,6 @@ app.post('/guestauth', (req, res, next) => {
         })
     }
 })
-app.get('/gethtml', (req, res, next) => {
-    console.log("CLient");
-    console.log(clientData)
-    let css = mensch.parse(clientData.header)
-    let cssString = mensch.stringify(css)
-    fs.writeFileSync('./src/styles/html.css', cssString);
-    res.send(clientData)
-})
-app.get('/deletehtml', (req, res, next) => {
-    console.log("delete");
-    fs.unlinkSync("./src/styles/html.css")
-    res.sendStatus(200);
-})
 
 app.get('/sites', sitesController.getSites);
 
@@ -196,8 +181,7 @@ io.on('connection', (client) => {
         client.emit('messages', 'Hello from server');
     })
     client.on('storeClick', (data) => {
-        let mappedClick = clickController.mapClick(data);
-        clickController.createClick(mappedClick)
+        clickController.updateClick(data)
             .then((response) => {
                 client.emit('clickResponse', response);
             })
@@ -220,5 +204,3 @@ io.on('connection', (client) => {
 
 
 server.listen(3000);
-
-module.exports = clientData;
