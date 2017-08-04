@@ -3,17 +3,27 @@ window.onload = (() => {
         token: getCookie("token"),
         url: window.location.href,
         html: {
-            header: document.getElementsByTagName('link')[0].href,
+            css: document.getElementsByTagName('link')[0].href,
             body: document.getElementsByTagName('body')[0].innerHTML
         }
     };
-    $.post("http://localhost:3000/guestauth", pageInfo, (response) => {
-        if (response !== "preauth") {
-            document.cookie = "token=" + response.token;
-        } else {
-            console.log(response);
-        }
-
+    console.log(pageInfo.url);
+    $.ajax({
+        type:"POST",
+        url:"http://localhost:3000/guestauth",
+        data: JSON.stringify(pageInfo),
+        contentType: 'application/json; charset=UTF-8',
+        success: (response) =>{
+            if(response !== 'preauth'){
+                document.cookie = "token=" + response.token;    
+            }
+            else{
+                console.log(response)
+            }
+        },
+        error: (err) =>{
+            console.log(err);
+        } 
     });
     const socket = io.connect("http://localhost:3000/");
     socket.on('connect', (data) => {
