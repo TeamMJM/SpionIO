@@ -76,7 +76,7 @@ app.post('/guestauth', (req, res, next) => {
         }, (err, sessionFound) => {
             if (err) res.send(err);
             else {
-                console.log("SESSION FOUND",sessionFound);
+                console.log("SESSION FOUND", sessionFound);
                 if (sessionFound.currentUrl === req.body.url) {
                     res.send("preauth");
                 } else {
@@ -109,7 +109,7 @@ app.post('/guestauth', (req, res, next) => {
         })
         //search database
     } catch (err) {
-        console.log("TOKEN",err);
+        console.log("TOKEN", err);
         //make new session
 
         let pageFound = Page.findOne({
@@ -117,8 +117,12 @@ app.post('/guestauth', (req, res, next) => {
         }, (err, pageFound) => {
             if (err) res.send(err);
             else {
-                console.log("URL",req.body.url)
-                console.log("PAGEFOUND",pageFound);
+                if (!pageFound.pageHTML || !pageFound.pageCSS) {
+                    pageFound.pageHTML = req.body.html.body;
+                    pageFound.pageCSS = req.body.html.header
+                }
+                console.log("URL", req.body.url)
+                console.log("PAGEFOUND", pageFound);
                 let sessionID = uuid();
                 let newSession = new Session({
                     _id: sessionID,
@@ -130,17 +134,16 @@ app.post('/guestauth', (req, res, next) => {
                     clickID: new Click,
                     scrollID: new Scroll,
                 });
-                console.log("ABOUT TO SAVE",newSession);
+                console.log("ABOUT TO SAVE", newSession);
                 newSession.save((err) => {
                     if (err) {
                         console.log("SENDING ERROR")
                         console.log(err);
                         res.send(err)
-                    }
-                    else {
-                        console.log("SESSION SAVE");    
+                    } else {
+                        console.log("SESSION SAVE");
                         let token = jwt.sign(sessionID, secret);
-                        console.log("sessionID",sessionID);
+                        console.log("sessionID", sessionID);
                         res.json({
                             token: token
                         });
@@ -167,9 +170,9 @@ app.get('/deletehtml', (req, res, next) => {
 app.get('/sites', sitesController.getSites);
 
 app.post('/sites', sitesController.createSites);
-app.post('/updateSitePage', sitesController.findSite,pagesController.createPages);
+app.post('/updateSitePage', sitesController.findSite, pagesController.createPages);
 
-app.post('/pages', sitesController.findSite,pagesController.getPages);
+app.post('/pages', sitesController.findSite, pagesController.getPages);
 
 
 

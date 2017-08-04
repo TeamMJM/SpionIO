@@ -3,7 +3,7 @@ window.onload = (() => {
         token: getCookie("token"),
         url: window.location.href,
         html: {
-            header: document.getElementsByTagName('link')[0].href,
+            css: document.getElementsByTagName('link')[0].href,
             body: document.getElementsByTagName('body')[0].innerHTML
         }
     };
