@@ -35438,6 +35438,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
@@ -35456,18 +35458,44 @@ __webpack_require__(84);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-////////// Separate component that is similar to App.js but for whne a client has successfully signed into his specific dashboard //////////
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 // import './../styles/Dashboard.css';
 
-var Dashboard = function Dashboard() {
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(_SideBarDashboard2.default, null),
-    _react2.default.createElement(_DashboardMain2.default, null)
-  );
-};
+////////// Separate component that is similar to App.js but for whne a client has successfully signed into his specific dashboard //////////
+var Dashboard = function (_Component) {
+  _inherits(Dashboard, _Component);
+
+  function Dashboard(props) {
+    _classCallCheck(this, Dashboard);
+
+    var _this = _possibleConstructorReturn(this, (Dashboard.__proto__ || Object.getPrototypeOf(Dashboard)).call(this, props));
+
+    _this.state = {
+      sitesBar: false,
+      settingsBar: false
+    };
+    return _this;
+  }
+
+  _createClass(Dashboard, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(_SideBarDashboard2.default, null),
+        _react2.default.createElement(_DashboardMain2.default, null)
+      );
+    }
+  }]);
+
+  return Dashboard;
+}(_react.Component);
+
 exports.default = Dashboard;
 
 /***/ }),
@@ -44062,206 +44090,9 @@ exports.push([module.i, ".page-content {\n  margin-left: 260px;\n  /* padding-to
 
 /***/ }),
 /* 488 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(21);
-
-__webpack_require__(89);
-
-var _Paper = __webpack_require__(33);
-
-var _Paper2 = _interopRequireDefault(_Paper);
-
-var _Card = __webpack_require__(131);
-
-var _Card2 = _interopRequireDefault(_Card);
-
-var _TextField = __webpack_require__(137);
-
-var _TextField2 = _interopRequireDefault(_TextField);
-
-var _FloatingActionButton = __webpack_require__(212);
-
-var _FloatingActionButton2 = _interopRequireDefault(_FloatingActionButton);
-
-var _createNewFolder = __webpack_require__(495);
-
-var _createNewFolder2 = _interopRequireDefault(_createNewFolder);
-
-var _axios = __webpack_require__(135);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import SiteForm from './SiteForm';
-
-var style = {
-  paper: {
-    height: '100%',
-    width: '100%',
-    // marginLeft: '300px',
-    // width: '73%',
-    textAlign: 'left',
-    display: 'inline-block'
-  },
-  card: {
-    backgroundColor: 'white'
-  },
-  textField: {},
-  submit: {
-    width: '94%',
-    textAlign: 'left',
-    display: 'inline-block',
-    verticalAlign: 'middle'
-    // bottom: '0',
-    // position: 'fixed',
-  },
-  button: {
-    marginLeft: '20px',
-    display: 'inline-block',
-    verticalAlign: 'middle'
-    // bottom: '0',
-    // position: 'fixed',
-  }
-};
-
-var Sites = function (_Component) {
-  _inherits(Sites, _Component);
-
-  function Sites(props) {
-    _classCallCheck(this, Sites);
-
-    var _this = _possibleConstructorReturn(this, (Sites.__proto__ || Object.getPrototypeOf(Sites)).call(this, props));
-
-    _this.state = {
-      sites: [],
-      title: '',
-      text: ''
-    };
-    _this.getSites = _this.getSites.bind(_this);
-    _this.handleTextChange = _this.handleTextChange.bind(_this);
-    _this.renderSites = _this.renderSites.bind(_this);
-    _this.handleSiteSubmit = _this.handleSiteSubmit.bind(_this);
-    return _this;
-  }
-
-  _createClass(Sites, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.getSites();
-    }
-  }, {
-    key: 'getSites',
-    value: function getSites() {
-      var _this2 = this;
-
-      _axios2.default.get('/sites').then(function (res) {
-        console.log(res);
-        _this2.setState({ sites: res.data });
-      }).catch(function (err) {
-        console.log(err);
-      });
-    }
-  }, {
-    key: 'handleSiteSubmit',
-    value: function handleSiteSubmit(e) {
-      console.log(e);
-      console.log(this.state);
-      e.preventDefault();
-      var newSite = {
-        title: this.state.text
-      };
-      _axios2.default.post('/sites', newSite).catch(function (err) {
-        console.error(err);
-        // this.setState({ sites: sites})
-      });
-      this.getSites();
-      this.setState({
-        text: ''
-      });
-    }
-  }, {
-    key: 'handleTextChange',
-    value: function handleTextChange(e) {
-      this.setState({
-        text: e.target.value
-      });
-    }
-  }, {
-    key: 'renderSites',
-    value: function renderSites() {
-      var siteNodes = this.state.sites.map(function (site) {
-        var _id = site._id;
-        var url = '/dashboard/sites/' + site._id;
-        return _react2.default.createElement(
-          _Card2.default,
-          { style: style.card },
-          _react2.default.createElement(
-            _reactRouterDom.Link,
-            { to: url },
-            site.title
-          )
-        );
-      });
-      return siteNodes;
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-
-      return _react2.default.createElement(
-        'div',
-        { className: 'page-content' },
-        _react2.default.createElement(
-          _Paper2.default,
-          { style: style.paper, zDepth: 1 },
-          this.renderSites()
-        ),
-        _react2.default.createElement(
-          'div',
-          { className: 'site-form' },
-          _react2.default.createElement(
-            'div',
-            { className: 'submit' },
-            _react2.default.createElement(
-              _Paper2.default,
-              { style: style.submit, zDepth: 1 },
-              _react2.default.createElement(_TextField2.default, { onChange: this.handleTextChange, value: this.state.text, fullWidth: true, style: style.textField, hintText: 'Start tracking your sites...' })
-            ),
-            _react2.default.createElement(
-              _FloatingActionButton2.default,
-              { style: style.button, onClick: this.handleSiteSubmit },
-              _react2.default.createElement(_createNewFolder2.default, null)
-            )
-          )
-        )
-      );
-    }
-  }]);
-
-  return Sites;
-}(_react.Component);
-
-exports.default = Sites;
+throw new Error("Module build failed: SyntaxError: Unexpected token (123:1)\n\n\u001b[0m \u001b[90m 121 | \u001b[39m              \u001b[33m<\u001b[39m\u001b[33mTextField\u001b[39m onChange\u001b[33m=\u001b[39m{\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mhandleTextChange} value\u001b[33m=\u001b[39m{\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mstate\u001b[33m.\u001b[39mtext} fullWidth\u001b[33m=\u001b[39m{\u001b[36mtrue\u001b[39m} style\u001b[33m=\u001b[39m{style\u001b[33m.\u001b[39mtextField} hintText\u001b[33m=\u001b[39m\u001b[32m'Start tracking your sites...'\u001b[39m\u001b[33m/\u001b[39m\u001b[33m>\u001b[39m\n \u001b[90m 122 | \u001b[39m            \u001b[33m<\u001b[39m\u001b[33m/\u001b[39m\u001b[33mPaper\u001b[39m\u001b[33m>\u001b[39m\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 123 | \u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<<\u001b[39m\u001b[33m<\u001b[39m \u001b[33mHEAD\u001b[39m\n \u001b[90m     | \u001b[39m \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 124 | \u001b[39m          \n \u001b[90m 125 | \u001b[39m\u001b[33m===\u001b[39m\u001b[33m===\u001b[39m\u001b[33m=\u001b[39m\n \u001b[90m 126 | \u001b[39m\u001b[33m>>>\u001b[39m\u001b[33m>>>\u001b[39m\u001b[33m>\u001b[39m redux\u001b[0m\n");
 
 /***/ }),
 /* 489 */
@@ -45881,44 +45712,7 @@ exports.default = FloatingActionButton;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 495 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _pure = __webpack_require__(26);
-
-var _pure2 = _interopRequireDefault(_pure);
-
-var _SvgIcon = __webpack_require__(27);
-
-var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var FileCreateNewFolder = function FileCreateNewFolder(props) {
-  return _react2.default.createElement(
-    _SvgIcon2.default,
-    props,
-    _react2.default.createElement('path', { d: 'M20 6h-8l-2-2H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-1 8h-3v3h-2v-3h-3v-2h3V9h2v3h3v2z' })
-  );
-};
-FileCreateNewFolder = (0, _pure2.default)(FileCreateNewFolder);
-FileCreateNewFolder.displayName = 'FileCreateNewFolder';
-FileCreateNewFolder.muiName = 'SvgIcon';
-
-exports.default = FileCreateNewFolder;
-
-/***/ }),
+/* 495 */,
 /* 496 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -45940,6 +45734,8 @@ __webpack_require__(89);
 var _DialogExampleSimple = __webpack_require__(497);
 
 var _DialogExampleSimple2 = _interopRequireDefault(_DialogExampleSimple);
+
+var _reactRouterDom = __webpack_require__(21);
 
 var _axios = __webpack_require__(135);
 
@@ -46104,19 +45900,24 @@ var Pages = function (_Component) {
               _GridList.GridList,
               { cols: 4, cellHeight: 180, style: style.gridList },
               this.state.pages.map(function (page) {
+                var url = '/dashboard/sites/pages/' + page._id;
                 return _react2.default.createElement(
-                  _GridList.GridTile,
-                  {
-                    key: page.img,
-                    title: page.title,
-                    actionIcon: _react2.default.createElement(
-                      _IconButton2.default,
-                      null,
-                      ' ',
-                      _react2.default.createElement(_starBorder2.default, { color: 'white' }),
-                      ' '
-                    ) },
-                  _react2.default.createElement('img', { src: page.img })
+                  _reactRouterDom.Link,
+                  { to: url },
+                  _react2.default.createElement(
+                    _GridList.GridTile,
+                    {
+                      key: page.img,
+                      title: page.title,
+                      actionIcon: _react2.default.createElement(
+                        _IconButton2.default,
+                        null,
+                        ' ',
+                        _react2.default.createElement(_starBorder2.default, { color: 'white' }),
+                        ' '
+                      ) },
+                    _react2.default.createElement('img', { src: page.img })
+                  )
                 );
               })
             )
@@ -52168,7 +51969,7 @@ var alternativeProps = {
   order: 'msFlexOrder',
   flexGrow: 'msFlexPositive',
   flexShrink: 'msFlexNegative',
-  flexBasis: 'msFlexPreferredSize'
+  flexBasis: 'msPreferredSize'
 };
 
 function flexboxIE(property, value, style, _ref) {
@@ -52551,7 +52352,7 @@ var alternativeProps = {
   order: 'msFlexOrder',
   flexGrow: 'msFlexPositive',
   flexShrink: 'msFlexNegative',
-  flexBasis: 'msFlexPreferredSize'
+  flexBasis: 'msPreferredSize'
 };
 
 function flexboxIE(property, value, style) {

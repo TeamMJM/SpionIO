@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './../styles/Home.css';
 import DialogExampleSimple from "./DialogExampleSimple.js"
+import { Link } from 'react-router-dom';
 // import Html from './html.js';
 import axios from 'axios';
 
@@ -113,14 +114,19 @@ class Pages extends Component {
               {this
                 .state
                 .pages
-                .map((page) => (
+                .map((page) => {
+                  let url = '/dashboard/sites/pages/' + page._id;
+                  return (
+                  <Link to={url}>
                   <GridTile
                     key={page.img}
                     title={page.title}
                     actionIcon={< IconButton > <StarBorder color="white"/> </IconButton>}>
                     <img src={page.img}/>
                   </GridTile>
-                ))}
+                  </Link>
+                  )
+              })}
             </GridList>
           </div>
         </Paper>
