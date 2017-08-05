@@ -53,7 +53,15 @@ app.get('/dashboard/sites', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
 })
 
-app.get('/dashboard/sites/:pages', (req, res) => {
+app.get('/dashboard/sites/:siteID', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+})
+
+app.get('/dashboard/sites/:siteID/page', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+})
+
+app.get('/dashboard/sites/:siteID/page/:pageID', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 })
 

@@ -43976,6 +43976,18 @@ var _PagesSingle = __webpack_require__(507);
 
 var _PagesSingle2 = _interopRequireDefault(_PagesSingle);
 
+var _ClickReport = __webpack_require__(553);
+
+var _ClickReport2 = _interopRequireDefault(_ClickReport);
+
+var _ScrollReport = __webpack_require__(554);
+
+var _ScrollReport2 = _interopRequireDefault(_ScrollReport);
+
+var _FunnelReport = __webpack_require__(555);
+
+var _FunnelReport2 = _interopRequireDefault(_FunnelReport);
+
 __webpack_require__(85);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -43985,8 +43997,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-// import Team from './Team.js';
 
 ////////// Routing for dashboard because of sidebar feature //////////
 var DashboardMain = function (_Component) {
@@ -44008,6 +44018,9 @@ var DashboardMain = function (_Component) {
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard/sites', component: _Sites2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard/sites/:siteID', component: _Pages2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard/sites/:siteID/page/:pageID', component: _PagesSingle2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard/sites/:siteID/page/:pageID/clickdata', component: _ClickReport2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard/sites/:siteID/page/:pageID/scrolldata', component: _ScrollReport2.default }),
+        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard/sites/:siteID/page/:pageID/funneldata', component: _FunnelReport2.default }),
         _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard/settings', component: _Settings2.default })
       );
     }
@@ -44243,7 +44256,7 @@ var Sites = function (_Component) {
         var url = '/dashboard/sites/' + site._id;
         return _react2.default.createElement(
           _Card2.default,
-          { style: style.card },
+          { key: site._id, style: style.card },
           _react2.default.createElement(
             _reactRouterDom.Link,
             { to: url },
@@ -48124,11 +48137,21 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(19);
+
+var _AnalyticsToolbar = __webpack_require__(552);
+
+var _AnalyticsToolbar2 = _interopRequireDefault(_AnalyticsToolbar);
+
 __webpack_require__(67);
 
 var _html = __webpack_require__(508);
 
 var _html2 = _interopRequireDefault(_html);
+
+var _axios = __webpack_require__(90);
+
+var _axios2 = _interopRequireDefault(_axios);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -48137,8 +48160,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var axios = __webpack_require__(90);
 
 var PagesSingle = function (_Component) {
   _inherits(PagesSingle, _Component);
@@ -48159,8 +48180,10 @@ var PagesSingle = function (_Component) {
     value: function componentDidMount() {
       var _this2 = this;
 
-      axios.post('/singlePage', { siteID: this.props.match.params.siteID, pageID: this.props.match.params.pageID }).then(function (response) {
-        console.log("RESPOMSE", response);
+      console.log(this.props.match.params.siteID);
+      console.log(this.props.match.params.pageID);
+      _axios2.default.post('/singlePage', { siteID: this.props.match.params.siteID, pageID: this.props.match.params.pageID }).then(function (response) {
+        console.log("RESPONSE", response);
         _this2.setState({
           pageURL: response.data.url
         });
@@ -48174,7 +48197,11 @@ var PagesSingle = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'page-content' },
-        _react2.default.createElement(_html2.default, { url: this.state.pageURL })
+        _react2.default.createElement(_AnalyticsToolbar2.default, {
+          url: '/dashboard/sites/' + this.props.match.params.siteID + '/page/' + this.props.match.params.pageID
+        }),
+        _react2.default.createElement(_html2.default, { url: this.state.pageURL }),
+        'Hello'
       );
     }
   }]);
@@ -63829,6 +63856,364 @@ var keyOf = function keyOf(oneKeyObj) {
 };
 
 module.exports = keyOf;
+
+/***/ }),
+/* 552 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(19);
+
+var _FlatButton = __webpack_require__(114);
+
+var _FlatButton2 = _interopRequireDefault(_FlatButton);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var AnalyticsToolbar = function (_Component) {
+  _inherits(AnalyticsToolbar, _Component);
+
+  function AnalyticsToolbar() {
+    _classCallCheck(this, AnalyticsToolbar);
+
+    return _possibleConstructorReturn(this, (AnalyticsToolbar.__proto__ || Object.getPrototypeOf(AnalyticsToolbar)).apply(this, arguments));
+  }
+
+  _createClass(AnalyticsToolbar, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        null,
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: this.props.url + '/clickdata' },
+          _react2.default.createElement(_FlatButton2.default, { label: 'Click Data' })
+        ),
+        ' ',
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: this.props.url + '/scrolldata' },
+          _react2.default.createElement(_FlatButton2.default, { label: 'Scroll Data' })
+        ),
+        ' ',
+        _react2.default.createElement(
+          _reactRouterDom.Link,
+          { to: this.props.url + '/funneldata' },
+          _react2.default.createElement(_FlatButton2.default, { label: 'Funnel Data' })
+        )
+      );
+    }
+  }]);
+
+  return AnalyticsToolbar;
+}(_react.Component);
+
+exports.default = AnalyticsToolbar;
+
+/***/ }),
+/* 553 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _AnalyticsToolbar = __webpack_require__(552);
+
+var _AnalyticsToolbar2 = _interopRequireDefault(_AnalyticsToolbar);
+
+var _html = __webpack_require__(508);
+
+var _html2 = _interopRequireDefault(_html);
+
+var _axios = __webpack_require__(90);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ClickReport = function (_Component) {
+  _inherits(ClickReport, _Component);
+
+  function ClickReport(props) {
+    _classCallCheck(this, ClickReport);
+
+    var _this = _possibleConstructorReturn(this, (ClickReport.__proto__ || Object.getPrototypeOf(ClickReport)).call(this, props));
+
+    _this.state = {
+      pageURL: null,
+      clickData: null
+    };
+    return _this;
+  }
+
+  _createClass(ClickReport, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      console.log(this.props.match.params.siteID);
+      console.log(this.props.match.params.pageID);
+      _axios2.default.post('/singlePage', { siteID: this.props.match.params.siteID, pageID: this.props.match.params.pageID }).then(function (response) {
+        console.log("RESPONSE", response);
+        _this2.setState({
+          pageURL: response.data.url
+        });
+      }).catch(function (err) {
+        console.log(err);
+      });
+      _axios2.default.get('/clickReportData').then(function (response) {
+        console.log('//////////////RESPONSE/////////////', response);
+        _this2.setState({
+          clickData: response.data
+        });
+      }).catch(function (err) {
+        console.log(err);
+        return 'Click data not found';
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'page-content' },
+        _react2.default.createElement(_AnalyticsToolbar2.default, { url: '/dashboard/sites/' + this.props.match.params.siteID + '/page/' + this.props.match.params.pageID }),
+        _react2.default.createElement(_html2.default, { url: this.state.pageURL })
+      );
+    }
+  }]);
+
+  return ClickReport;
+}(_react.Component);
+
+exports.default = ClickReport;
+
+/***/ }),
+/* 554 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(19);
+
+var _AnalyticsToolbar = __webpack_require__(552);
+
+var _AnalyticsToolbar2 = _interopRequireDefault(_AnalyticsToolbar);
+
+var _html = __webpack_require__(508);
+
+var _html2 = _interopRequireDefault(_html);
+
+var _axios = __webpack_require__(90);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var ScrollReport = function (_Component) {
+  _inherits(ScrollReport, _Component);
+
+  function ScrollReport(props) {
+    _classCallCheck(this, ScrollReport);
+
+    var _this = _possibleConstructorReturn(this, (ScrollReport.__proto__ || Object.getPrototypeOf(ScrollReport)).call(this, props));
+
+    _this.state = {
+      pageURL: null,
+      scrollData: null
+    };
+    return _this;
+  }
+
+  _createClass(ScrollReport, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      console.log(this.props.match.params.siteID);
+      console.log(this.props.match.params.pageID);
+      _axios2.default.post('/singlePage', { siteID: this.props.match.params.siteID, pageID: this.props.match.params.pageID }).then(function (response) {
+        console.log("RESPONSE", response);
+        _this2.setState({
+          pageURL: response.data.url
+        });
+      }).catch(function (err) {
+        console.log(err);
+      });
+      _axios2.default.get('/scrollReportData').then(function (response) {
+        console.log('//////////////RESPONSE/////////////', response);
+        _this2.setState({
+          scrollData: response.data
+        });
+      }).catch(function (err) {
+        console.log(err);
+        return 'Scroll data not found';
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'page-content' },
+        _react2.default.createElement(_AnalyticsToolbar2.default, { url: '/dashboard/sites/' + this.props.match.params.siteID + '/page/' + this.props.match.params.pageID }),
+        _react2.default.createElement(_html2.default, { url: this.state.pageURL })
+      );
+    }
+  }]);
+
+  return ScrollReport;
+}(_react.Component);
+
+exports.default = ScrollReport;
+
+/***/ }),
+/* 555 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(19);
+
+var _AnalyticsToolbar = __webpack_require__(552);
+
+var _AnalyticsToolbar2 = _interopRequireDefault(_AnalyticsToolbar);
+
+var _html = __webpack_require__(508);
+
+var _html2 = _interopRequireDefault(_html);
+
+var _axios = __webpack_require__(90);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var FunnelReport = function (_Component) {
+  _inherits(FunnelReport, _Component);
+
+  function FunnelReport(props) {
+    _classCallCheck(this, FunnelReport);
+
+    var _this = _possibleConstructorReturn(this, (FunnelReport.__proto__ || Object.getPrototypeOf(FunnelReport)).call(this, props));
+
+    _this.state = {
+      pageURL: null,
+      funnelData: null
+    };
+    return _this;
+  }
+
+  _createClass(FunnelReport, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      console.log(this.props.match.params.siteID);
+      console.log(this.props.match.params.pageID);
+      _axios2.default.post('/singlePage', { siteID: this.props.match.params.siteID, pageID: this.props.match.params.pageID }).then(function (response) {
+        console.log("RESPONSE", response);
+        _this2.setState({
+          pageURL: response.data.url
+        });
+      }).catch(function (err) {
+        console.log(err);
+      });
+      _axios2.default.get('/funnelReportData').then(function (response) {
+        console.log('//////////////RESPONSE/////////////', response);
+        _this2.setState({
+          funnelData: response.data
+        });
+      }).catch(function (err) {
+        console.log(err);
+        return 'Funnel data not found';
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'page-content' },
+        _react2.default.createElement(_AnalyticsToolbar2.default, { url: '/dashboard/sites/' + this.props.match.params.siteID + '/page/' + this.props.match.params.pageID }),
+        _react2.default.createElement(_html2.default, { url: this.state.pageURL })
+      );
+    }
+  }]);
+
+  return FunnelReport;
+}(_react.Component);
+
+exports.default = FunnelReport;
 
 /***/ })
 /******/ ]);

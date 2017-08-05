@@ -97,7 +97,7 @@ class Sites extends Component {
       let _id = site._id;
       let url = '/dashboard/sites/' + site._id;
       return(
-        <Card style={style.card} ><Link to={url}>{site.title}</Link></Card>
+        <Card key={site._id} style={style.card} ><Link to={url}>{site.title}</Link></Card>
       )
     })
     return siteNodes;
