@@ -45,14 +45,17 @@ window.onload = (() => {
         window.addEventListener("click", (e) => {
             let sy = window.pageYOffset;
             let sx = window.pageXOffset;
-            const click = {
+            const clickToken = {
                 clickX: e.clientX  + sx,
                 clickY: e.clientY + sy,
-                width: document.documentElement.clientWidth,
-                height: document.documentElement.clientHeight
+                documentWidth: document.documentElement.clientWidth,
+                documentHeight: document.documentElement.clientHeight,
+                windowWidth: window.innerWidth,
+                windowHeigth: window.innerHeight,
+                token: getCookie("token"),
             };
-            console.log(click);
-            socket.emit('storeClick', click)
+            console.log(clickToken);
+            socket.emit('storeClick', clickToken)
         }, false);
 
 
