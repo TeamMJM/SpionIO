@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import AnalyticsToolbar from './AnalyticsToolbar.js';
 import './../styles/Home.css';
 import Html from './html.js';
-const axios = require('axios')
+import axios from 'axios';
 
 class PagesSingle extends Component {
   constructor(props){
     super(props);
     this.state = {
-      pageURL:null
+      pageURL: null
     };
   }
 
   componentDidMount() {
+    console.log(this.props.match.params.siteID);
+    console.log(this.props.match.params.pageID);
     axios.post('/singlePage',{siteID:this.props.match.params.siteID,pageID:this.props.match.params.pageID})
       .then(response =>{
-        console.log("RESPOMSE",response);
+        console.log("RESPONSE",response);
         this.setState({
           pageURL:response.data.url
         })
@@ -25,9 +29,13 @@ class PagesSingle extends Component {
   }
 
   render() {
-      return(
-        <div  className="page-content">
-             <Html url={this.state.pageURL} /> 
+      return (
+        <div className="page-content">
+          <AnalyticsToolbar 
+            url={'/dashboard/sites/' + this.props.match.params.siteID + '/page/' + this.props.match.params.pageID}
+          />
+           <Html url={this.state.pageURL} />  
+          Hello
         </div>
       );
   }
