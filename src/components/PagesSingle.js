@@ -35,7 +35,6 @@ class PagesSingle extends Component {
             url={'/dashboard/sites/' + this.props.match.params.siteID + '/page/' + this.props.match.params.pageID}
           />
            <Html url={this.state.pageURL} />  
-          Hello
         </div>
       );
   }

@@ -10,21 +10,21 @@ class Html extends Component {
   }
   render() {
     if(this.props.url){
-        return(
-          <div style={{height:'100%'}}>
-              <iframe src={this.props.url} width='100%' height='100%' onLoad={this.resizeIframe}></iframe>
-          </div>);
-        }   
-        else{
+        return (
+          <div className='iframe'>
+            <iframe src={this.props.url} width='100%' height='100%' scrollable='no'></iframe>
+          </div>
+        );
+      } else {
           console.log("LOADING");
           return(
             <div>
               Loading....
             </div>
           );
-        }
+      }
   
-}
+  }
 }
 
 export default Html;

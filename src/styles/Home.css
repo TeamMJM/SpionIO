@@ -7,3 +7,30 @@
   text-align: center;
   padding-top: 60px;
 }
+
+.dashboard-header {
+  padding-left: 25px;
+  padding-top: 15px;
+  margin: 0 auto;
+  font-weight: lighter;
+  text-align: left;
+}
+
+.dashboard-page {
+  background-color: #F4F7F5;
+  height: 960px;
+  text-align: center;
+}
+
+.dashboard-welcome {
+  margin-top: 15px;
+  width: 92%;
+  height: 50%;
+  margin-left: 4%;
+   text-align: left; 
+  background-color: white;
+}
+
+.iframe {
+  height: 2000px;
+}

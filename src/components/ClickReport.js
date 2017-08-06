@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import AnalyticsToolbar from './AnalyticsToolbar';
+import db from './../../dummy.json';
 import Html from './html';
 import axios from 'axios';
 
