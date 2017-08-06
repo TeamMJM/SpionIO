@@ -44216,11 +44216,20 @@ var Home = function (_Component) {
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'page-content' },
+        { className: 'page-content dashboard-page' },
         _react2.default.createElement(
           'h2',
-          null,
-          'Welcome to your Dashboard'
+          { className: 'dashboard-header' },
+          'Dashboard'
+        ),
+        _react2.default.createElement(
+          'div',
+          { className: 'dashboard-welcome' },
+          _react2.default.createElement(
+            'h4',
+            null,
+            'Welcome to Private-I'
+          )
         )
       );
     }
@@ -44240,7 +44249,7 @@ exports = module.exports = __webpack_require__(80)(undefined);
 
 
 // module
-exports.push([module.i, ".page-content {\n  margin-left: 260px;\n  /* padding-top: 60px; */ }\n\n.content {\n  text-align: center;\n  padding-top: 60px; }\n", ""]);
+exports.push([module.i, ".page-content {\n  margin-left: 260px;\n  /* padding-top: 60px; */ }\n\n.content {\n  text-align: center;\n  padding-top: 60px; }\n\n.dashboard-header {\n  padding-left: 25px;\n  padding-top: 15px;\n  margin: 0 auto;\n  font-weight: lighter;\n  text-align: left; }\n\n.dashboard-page {\n  background-color: #F4F7F5;\n  height: 960px;\n  text-align: center; }\n\n.dashboard-welcome {\n  margin-top: 15px;\n  width: 92%;\n  height: 50%;\n  margin-left: 4%;\n  text-align: left;\n  background-color: white; }\n", ""]);
 
 // exports
 
