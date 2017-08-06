@@ -65,7 +65,17 @@ app.get('/dashboard/sites/:siteID/page/:pageID', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 })
 
+app.get('/clickReportData', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dummy.json'))
+});
 
+app.get('/scrollReportData', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dummy.json'));
+});
+
+app.get('/funnelReportData', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dummy.json'));
+});
 
 app.get('/script.js', (req, res, next) => {
     res.sendfile('./script.js');
@@ -180,9 +190,7 @@ app.post('/updateSitePage', sitesController.findSite, pagesController.createPage
 
 app.post('/pages', sitesController.findSite, pagesController.getPages);
 
-app.post('/singlePage', sitesController.findSite, pagesController.getSinglePages)
-
-
+app.post('/singlePage', sitesController.findSite, pagesController.getSinglePages);
 
 io.on('connection', (client) => {
     client.on('join', (data) => {
