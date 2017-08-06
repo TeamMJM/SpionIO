@@ -568,7 +568,7 @@
     "112_1click": {
       "_id": "112_1click",
       "singleClick": [{
-        "clickX": 500,
+        "clickX": 550,
         "clickY": 500,
         "documentWidth": 1000,
         "documentHeight": 4000,
@@ -595,7 +595,7 @@
     "112_2click": {
       "_id": "112_2click",
       "singleClick": [{
-        "clickX": 400,
+        "clickX": 420,
         "clickY": 500,
         "documentWidth": 1000,
         "documentHeight": 4000,
@@ -603,7 +603,7 @@
         "windowHeight": 1000
       },
       {
-        "clickX": 200,
+        "clickX": 203,
         "clickY": 200,
         "documentWidth": 1000,
         "documentHeight": 4000,
@@ -611,7 +611,7 @@
         "windowHeight": 1000
       },
       {
-        "clickX": 100,
+        "clickX": 130,
         "clickY": 200,
         "documentWidth": 1000,
         "documentHeight": 4000,
@@ -622,7 +622,7 @@
     "111_3click": {
       "_id": "111_3click",
       "singleClick": [{
-        "clickX": 400,
+        "clickX": 430,
         "clickY": 500,
         "documentWidth": 1000,
         "documentHeight": 4000,
@@ -630,7 +630,7 @@
         "windowHeight": 1000
       },
       {
-        "clickX": 200,
+        "clickX": 300,
         "clickY": 200,
         "documentWidth": 1000,
         "documentHeight": 4000,
@@ -639,7 +639,7 @@
       },
       {
         "clickX": 100,
-        "clickY": 200,
+        "clickY": 220,
         "documentWidth": 1000,
         "documentHeight": 4000,
         "windowWidth": 800,
@@ -649,7 +649,7 @@
     "121_1click": {
       "_id": "121_1click",
       "singleClick": [{
-        "clickX": 200,
+        "clickX": 220,
         "clickY": 200,
         "documentWidth": 1000,
         "documentHeight": 2000,
@@ -657,7 +657,7 @@
         "windowHeight": 1000
       },
       {
-        "clickX": 100,
+        "clickX": 103,
         "clickY": 200,
         "documentWidth": 1000,
         "documentHeight": 2000,

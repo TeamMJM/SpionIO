@@ -7,13 +7,18 @@ const clickController = require('./database/controller/clickController.js');
 const scrollController = require('./database/controller/scrollController.js');
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-var jwt = require('jsonwebtoken');
-var cookieParser = require('cookie-parser')
+const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
+const passport = require('passport');
+const session = require('express-session');
 const uuid = require('uuid/v4');
 const secret = "cats"
 const mongoose = require('mongoose');
 let mongoURI = 'mongodb://mus:1@ds125623.mlab.com:25623/userevents';
+
+require('./passport')(passport); //pass passport for configuration
+
 
 mongoose.connect(mongoURI);
 
@@ -32,9 +37,20 @@ app.use(function (req, res, next) {
 app.use('/', express.static(__dirname + './../'));
 app.use(bodyParser.json());
 app.use(cookieParser())
+app.use(session({ secret: 'ilovetesting' })) /// session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
+})
+
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, '/index.html'))
+})
+
+app.get('/signup', (req, res) => {
+    res.sendFile(path.join(__dirname, '/index.html'))
 })
 
 app.get('/logo.png', (req, res) => {
@@ -45,35 +61,43 @@ app.get('/screenshot.png', (req, res) => {
     res.sendFile(path.join(__dirname, 'screenshot.png'))
 })
 
-app.get('/dashboard', (req, res) => {
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated) {
+        return next();
+    } else {
+        res.redirect('/');
+    }
+}
+
+app.get('/dashboard', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
 })
 
-app.get('/dashboard/sites', (req, res) => {
+app.get('/dashboard/sites', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
 })
 
-app.get('/dashboard/sites/:siteID', (req, res) => {
+app.get('/dashboard/sites/:siteID', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 })
 
-app.get('/dashboard/sites/:siteID/page', (req, res) => {
+app.get('/dashboard/sites/:siteID/page', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 })
 
-app.get('/dashboard/sites/:siteID/page/:pageID', (req, res) => {
+app.get('/dashboard/sites/:siteID/page/:pageID', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 })
 
-app.get('/clickReportData', (req, res) => {
+app.get('/clickReportData', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, 'dummy.json'))
 });
 
-app.get('/scrollReportData', (req, res) => {
+app.get('/scrollReportData', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, 'dummy.json'));
 });
 
-app.get('/funnelReportData', (req, res) => {
+app.get('/funnelReportData', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, 'dummy.json'));
 });
 
@@ -84,6 +108,28 @@ app.get('/script.js', (req, res, next) => {
 app.get('*/build/bundle.js', (req, res, next) => {
     res.sendfile('./build/bundle.js');
 })
+
+///////////////////////////////// Passport //////////////////////////////
+
+app.post('/signup', (req, res, next) => {
+    console.log('you\'ve reached the signup route');
+    console.log(req.body);
+    next();
+}, (req, res, next) => { passport.authenticate('local-signup', {
+    successRedirect: '/dashboard',
+    failureRedirect: '/'
+    })
+}) 
+// app.post('/signup', processSignUp)
+app.get('/logout', (req, res) => {
+    req.logout();
+    res.redirect('/');
+})
+
+
+
+
+
 app.post('/guestauth', (req, res, next) => {
     try {
         let sessionID = jwt.verify(req.body.token, secret)
