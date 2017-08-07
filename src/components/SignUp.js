@@ -45,6 +45,7 @@ class SignUp extends Component {
   }
 
   handleSubmit(e) {
+    console.log('submitted :)')
     e.preventDefault();
     let newClient = {
       email: this.state.email,
