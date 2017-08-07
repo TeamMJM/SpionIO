@@ -12,7 +12,7 @@ import axios from 'axios';
 ////////// Similar to Header.js but for Dashboard feature //////////
 const style = {
   card: {
-    height: '60px',
+    height: '80px',
     backgroundcolor: '#006CAA',
     margin: '0 auto',
   }
