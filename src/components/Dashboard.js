@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 
 import SideBarDashboard from './SideBarDashboard.js';
 import DashboardMain from './DashboardMain.js';
+import DashboardHeader from './DashboardHeader.js';
 
 import { HashRouter, Switch, Route, Link } from 'react-router-dom';
 import './../styles/App.css';
@@ -19,6 +20,7 @@ class Dashboard extends Component {
   render() {
     return (
       <div>
+        <DashboardHeader />
         <SideBarDashboard /> 
         <DashboardMain />
       </div>

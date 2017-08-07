@@ -32680,7 +32680,7 @@ exports = module.exports = __webpack_require__(63)(undefined);
 
 
 // module
-exports.push([module.i, ".App-title, h3 {\n  text-align: center;\n  color: #006CAA;\n  padding-top: 15px;\n  font-family: 'Inconsolata', monospace;\n  width: 100%; }\n\n.App-logo {\n  margin-top: 45px;\n  height: 20%;\n  width: 20%; }\n\n.logo-div {\n  text-align: center;\n  width: 100%; }\n\np {\n  width: 50%;\n  margin-left: 25%; }\n\ntable {\n  width: 100%;\n  margin-top: 100px; }\n\n.mini-logo {\n  height: 100px;\n  width: 100px;\n  display: inline-block; }\n\n.dashboard-screenshot {\n  margin-top: 60px;\n  width: 60%; }\n\ntd {\n  text-align: center;\n  align-content: center;\n  width: 33%; }\n\nh1 {\n  display: inline;\n  text-align: center; }\n\nhr {\n  margin: 0 auto; }\n\n.covered {\n  font-style: italic; }\n\nhtml, body {\n  margin: 0; }\n\n.scroll {\n  text-align: center;\n  padding-top: 200px; }\n\n#section2 {\n  background-color: #EDEDED;\n  text-align: center;\n  margin: 0 auto;\n  height: 1300px; }\n\n#section07 .a {\n  padding-top: 80px; }\n\n#section07 .a span {\n  position: absolute;\n  top: 0;\n  /* left: 50%; */\n  width: 24px;\n  height: 24px;\n  margin-left: -12px;\n  border-left: 1px solid black;\n  border-bottom: 1px solid black;\n  -webkit-transform: rotate(-45deg);\n  transform: rotate(-45deg);\n  -webkit-animation: sdb07 2s infinite;\n  animation: sdb07 2s infinite;\n  opacity: 0;\n  box-sizing: border-box; }\n\n#section07 .a span:nth-of-type(1) {\n  -webkit-animation-delay: 0s;\n  animation-delay: 0s; }\n\n#section07 .a span:nth-of-type(2) {\n  top: 16px;\n  -webkit-animation-delay: .15s;\n  animation-delay: .15s; }\n\n#section07 .a span:nth-of-type(3) {\n  top: 32px;\n  -webkit-animation-delay: .3s;\n  animation-delay: .3s; }\n\n@-webkit-keyframes sdb07 {\n  0% {\n    opacity: 0; }\n  50% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@keyframes sdb07 {\n  0% {\n    opacity: 0; }\n  50% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n.demo a {\n  position: absolute;\n  bottom: 20px;\n  /* left: 50%; */\n  z-index: 2;\n  display: inline-block;\n  -webkit-transform: translate(0, -50%);\n  transform: translate(0, -50%);\n  color: #fff;\n  font: normal 400 20px/1 'Josefin Sans', sans-serif;\n  letter-spacing: .1em;\n  text-decoration: none;\n  transition: opacity .3s; }\n\n.demo a:hover {\n  opacity: .5; }\n\n#section07 {\n  background: center center / cover no-repeat; }\n", ""]);
+exports.push([module.i, ".App-title, h3 {\n  text-align: center;\n  color: #006CAA;\n  padding-top: 15px;\n  font-family: 'Inconsolata', monospace;\n  width: 100%; }\n\nh2 {\n  color: #006CAA;\n  margin: 0 auto;\n  text-align: center;\n  font-family: 'Inconsolate', monospace; }\n\nh4 {\n  margin: 0 auto; }\n\n.App-logo {\n  margin-top: 45px;\n  height: 20%;\n  width: 20%; }\n\n.logo-div {\n  text-align: center;\n  width: 100%; }\n\np {\n  width: 50%;\n  margin-left: 25%; }\n\ntable {\n  width: 100%;\n  margin-top: 100px; }\n\n.mini-logo {\n  height: 100px;\n  width: 100px;\n  display: inline-block; }\n\n.dashboard-screenshot {\n  margin-top: 60px;\n  width: 60%; }\n\ntd {\n  text-align: center;\n  align-content: center;\n  width: 33%; }\n\nh1 {\n  display: inline;\n  text-align: center; }\n\nhr {\n  margin: 0 auto; }\n\n.covered {\n  font-style: italic; }\n\nhtml, body {\n  margin: 0; }\n\n.scroll {\n  text-align: center;\n  padding-top: 200px; }\n\n#section2 {\n  background-color: #EDEDED;\n  text-align: center;\n  margin: 0 auto;\n  height: 1300px; }\n\n#section07 .a {\n  padding-top: 80px; }\n\n#section07 .a span {\n  position: absolute;\n  top: 0;\n  /* left: 50%; */\n  width: 24px;\n  height: 24px;\n  margin-left: -12px;\n  border-left: 1px solid black;\n  border-bottom: 1px solid black;\n  -webkit-transform: rotate(-45deg);\n  transform: rotate(-45deg);\n  -webkit-animation: sdb07 2s infinite;\n  animation: sdb07 2s infinite;\n  opacity: 0;\n  box-sizing: border-box; }\n\n#section07 .a span:nth-of-type(1) {\n  -webkit-animation-delay: 0s;\n  animation-delay: 0s; }\n\n#section07 .a span:nth-of-type(2) {\n  top: 16px;\n  -webkit-animation-delay: .15s;\n  animation-delay: .15s; }\n\n#section07 .a span:nth-of-type(3) {\n  top: 32px;\n  -webkit-animation-delay: .3s;\n  animation-delay: .3s; }\n\n@-webkit-keyframes sdb07 {\n  0% {\n    opacity: 0; }\n  50% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n@keyframes sdb07 {\n  0% {\n    opacity: 0; }\n  50% {\n    opacity: 1; }\n  100% {\n    opacity: 0; } }\n\n.demo a {\n  position: absolute;\n  bottom: 20px;\n  /* left: 50%; */\n  z-index: 2;\n  display: inline-block;\n  -webkit-transform: translate(0, -50%);\n  transform: translate(0, -50%);\n  color: #fff;\n  font: normal 400 20px/1 'Josefin Sans', sans-serif;\n  letter-spacing: .1em;\n  text-decoration: none;\n  transition: opacity .3s; }\n\n.demo a:hover {\n  opacity: .5; }\n\n#section07 {\n  background: center center / cover no-repeat; }\n", ""]);
 
 // exports
 
@@ -38693,6 +38693,10 @@ var _DashboardMain = __webpack_require__(495);
 
 var _DashboardMain2 = _interopRequireDefault(_DashboardMain);
 
+var _DashboardHeader = __webpack_require__(559);
+
+var _DashboardHeader2 = _interopRequireDefault(_DashboardHeader);
+
 var _reactRouterDom = __webpack_require__(17);
 
 __webpack_require__(90);
@@ -38728,6 +38732,7 @@ var Dashboard = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
+        _react2.default.createElement(_DashboardHeader2.default, null),
         _react2.default.createElement(_SideBarDashboard2.default, null),
         _react2.default.createElement(_DashboardMain2.default, null)
       );
@@ -38870,6 +38875,14 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 ////////// Similar to Header.js but for Dashboard feature //////////
+var style = {
+  card: {
+    height: '60px',
+    backgroundcolor: '#006CAA',
+    margin: '0 auto'
+  }
+};
+
 var SideBarHome = function (_Component) {
   _inherits(SideBarHome, _Component);
 
@@ -39004,6 +39017,15 @@ var SideBarHome = function (_Component) {
         _react2.default.createElement(
           _Drawer2.default,
           { docked: true },
+          _react2.default.createElement(
+            _Card2.default,
+            { style: style.card },
+            _react2.default.createElement(
+              'h2',
+              { className: 'dashboard-logo' },
+              'PRIVATE-I'
+            )
+          ),
           _react2.default.createElement(
             _reactRouterDom.Link,
             { to: '/dashboard' },
@@ -46166,10 +46188,6 @@ var _react2 = _interopRequireDefault(_react);
 
 __webpack_require__(71);
 
-var _Drawer = __webpack_require__(58);
-
-var _Drawer2 = _interopRequireDefault(_Drawer);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -46195,7 +46213,7 @@ var Home = function (_Component) {
         { className: 'page-content dashboard-page' },
         _react2.default.createElement(
           'h2',
-          { className: 'dashboard-header' },
+          { className: 'dashboard-title' },
           'Dashboard'
         ),
         _react2.default.createElement(
@@ -46225,7 +46243,7 @@ exports = module.exports = __webpack_require__(63)(undefined);
 
 
 // module
-exports.push([module.i, ".page-content {\n  margin-left: 260px;\n  /* padding-top: 60px; */ }\n\n.content {\n  text-align: center;\n  padding-top: 60px; }\n\n.dashboard-header {\n  padding-left: 25px;\n  padding-top: 15px;\n  margin: 0 auto;\n  font-weight: lighter;\n  text-align: left; }\n\n.dashboard-page {\n  background-color: #F4F7F5;\n  height: 960px;\n  text-align: center; }\n\n.dashboard-welcome {\n  margin-top: 15px;\n  width: 92%;\n  height: 50%;\n  margin-left: 4%;\n  text-align: left;\n  background-color: white; }\n\n.iframe {\n  height: 2000px; }\n", ""]);
+exports.push([module.i, ".page-content {\n  margin-left: 260px;\n  /* padding-top: 60px; */ }\n\n.content {\n  text-align: center;\n  padding-top: 60px; }\n\n.dashboard-title {\n  padding-left: 25px;\n  padding-top: 15px;\n  margin: 0 auto;\n  font-weight: lighter;\n  text-align: left; }\n\n.dashboard-page {\n  background-color: #F4F7F5;\n  height: 960px;\n  text-align: center; }\n\n.dashboard-logo {\n  height: 45px;\n  padding-top: 15px;\n  background-color: #006CAA;\n  color: white; }\n\n.dashboard-welcome {\n  margin-top: 15px;\n  width: 92%;\n  height: 50%;\n  margin-left: 4%;\n  text-align: left;\n  background-color: white; }\n\n.dashboard-header {\n  height: 60px; }\n\n.iframe {\n  height: 2000px; }\n", ""]);
 
 // exports
 
@@ -64498,6 +64516,68 @@ var keyOf = function keyOf(oneKeyObj) {
 };
 
 module.exports = keyOf;
+
+/***/ }),
+/* 559 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _Card = __webpack_require__(137);
+
+var _Card2 = _interopRequireDefault(_Card);
+
+__webpack_require__(71);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var style = {
+  card: {
+    height: '100%'
+  }
+};
+
+var DashboardHeader = function (_Component) {
+  _inherits(DashboardHeader, _Component);
+
+  function DashboardHeader() {
+    _classCallCheck(this, DashboardHeader);
+
+    return _possibleConstructorReturn(this, (DashboardHeader.__proto__ || Object.getPrototypeOf(DashboardHeader)).apply(this, arguments));
+  }
+
+  _createClass(DashboardHeader, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        'div',
+        { className: 'page-content dashboard-header' },
+        _react2.default.createElement(_Card2.default, { style: style.card })
+      );
+    }
+  }]);
+
+  return DashboardHeader;
+}(_react.Component);
+
+exports.default = DashboardHeader;
 
 /***/ })
 /******/ ]);

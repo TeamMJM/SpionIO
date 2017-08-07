@@ -6,6 +6,17 @@
   width: 100%;
 }
 
+h2 {
+  color: #006CAA;
+  margin: 0 auto;
+  text-align: center;
+  font-family: 'Inconsolate', monospace;
+}
+
+h4 {
+  margin: 0 auto;
+}
+
 .App-logo {
   margin-top: 45px;
   height: 20%;

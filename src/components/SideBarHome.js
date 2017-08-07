@@ -10,6 +10,14 @@ import NavigationSubdirectoryArrowRight from 'material-ui/svg-icons/navigation/s
 import axios from 'axios';
 
 ////////// Similar to Header.js but for Dashboard feature //////////
+const style = {
+  card: {
+    height: '60px',
+    backgroundcolor: '#006CAA',
+    margin: '0 auto',
+  }
+}
+
 class SideBarHome extends Component {
   constructor(props) {
     super(props);
@@ -120,6 +128,7 @@ class SideBarHome extends Component {
     return(
       <div>
         <Drawer docked={true}>
+          <Card style={style.card}><h2 className='dashboard-logo'>PRIVATE-I</h2></Card>
           <Link to='/dashboard'><MenuItem onClick={this.handleToggleDashboard} leftIcon={<ActionDashboard />}>Dashboard</MenuItem></Link>
           <Link to='/dashboard/sites'><MenuItem onClick={this.handleToggleSites} leftIcon={this.toggleIconSites()}>Sites</MenuItem></Link>
           {this.renderSites()}

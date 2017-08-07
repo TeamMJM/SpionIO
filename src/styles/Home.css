@@ -8,7 +8,7 @@
   padding-top: 60px;
 }
 
-.dashboard-header {
+.dashboard-title {
   padding-left: 25px;
   padding-top: 15px;
   margin: 0 auto;
@@ -22,13 +22,24 @@
   text-align: center;
 }
 
+.dashboard-logo {
+  height: 45px;
+  padding-top: 15px;
+  background-color: #006CAA;
+  color: white;
+}
+
 .dashboard-welcome {
   margin-top: 15px;
   width: 92%;
   height: 50%;
   margin-left: 4%;
-   text-align: left; 
+  text-align: left; 
   background-color: white;
+}
+
+.dashboard-header {
+  height: 60px;
 }
 
 .iframe {
