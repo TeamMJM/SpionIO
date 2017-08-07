@@ -16,7 +16,7 @@ const session = require('express-session');
 const uuid = require('uuid/v4');
 const secret = "cats"
 const mongoose = require('mongoose');
-let mongoURI = 'mongodb://mus:1@ds125623.mlab.com:25623/userevents';
+let mongoURI = 'mongodb://jerryjong:codesmith123@ds127173.mlab.com:27173/private-i';
 
 // require('./passport')(passport); //pass passport for configuration
 
@@ -62,19 +62,44 @@ app.get('/screenshot.png', (req, res) => {
     res.sendFile(path.join(__dirname, 'screenshot.png'))
 })
 
+app.get('/websiteicon.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'websiteicon.png'));
+})
+
+app.get('/databaseicon.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'databaseicon.png'))
+})
+
+app.get('/machinelearningicon.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'machinelearningicon.png'))
+})
+
+app.get('/stockexample.png', (req, res) => {
+    res.sendFile(path.join(__dirname, '/stockexample.png'))
+})
+
+app.get('/welcomelogo.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'welcomelogo.png'))
+})
+
 function isLoggedIn(req, res, next) {
     console.log('checking token...')
     jwt.verify(req.cookies.token, secret, 
         function(err, decoded) {
-            if (err) res.send(err);
-            console.log('good token')
-            next();
+            if (err) {
+                res.send(err)
+                res.redirect('/signup');
+            } else {
+                console.log('good token')
+                return next();
+            }
         }
     )
 };
 
 
 app.get('/dashboard', isLoggedIn, (req, res) => {
+    console.log('sending....');
     res.sendFile(path.join(__dirname, '/index.html'));
 })
 
@@ -119,15 +144,17 @@ app.get('*/build/bundle.js', (req, res, next) => {
 app.post('/signup', 
     (req, res, next) => {
         console.log('got here');
-        next();
+        return next();
     },
     clientController.addClient,
     (req, res) => {
-       const token = jwt.sign({
-          data: 'foobar'
-       }, secret, { expiresIn: '1h' });
-       res.cookie('token', token);
-       res.redirect('/dashboard')
+        console.log('at the JWTS');
+        const token = jwt.sign({
+            data: 'foobar'
+        }, secret, { expiresIn: '1h' });
+        res.cookie('token', token);
+        console.log('about to redirect...');
+        res.redirect('/dashboard')
     }
 )
 
@@ -138,7 +165,9 @@ app.post('/login',
           data: 'foobar'
        }, secret, { expiresIn: '1h' });
        res.cookie('token', token);
-       res.redirect('/dashboard')
+       console.log('about to redirect...');
+       res.redirect('/dashboard');
+       res.send({redirect: '/dashboard'})
     }
 )
 // app.post('/signup', (req, res, next) => {

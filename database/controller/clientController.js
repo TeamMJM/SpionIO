@@ -21,8 +21,13 @@ clientController.isValid = (req, res, next) => {
         if (err) res.send(err);
 
         client.comparePassword(req.body.password, (err, match) => {
+            console.log('comparing password...');
             if (err) res.send(err);
-            next();
+            if (!match) {
+                res.redirect('/');
+            } else {
+                next();
+            }
         })
     })
 }

@@ -29,6 +29,7 @@
     "iframe-resizer": "^3.5.14",
     "jQuery": "^1.7.4",
     "jsonwebtoken": "^7.4.1",
+    "material-ui-search-bar": "^0.3.0",
     "mensch": "^0.3.3",
     "mongoose": "^4.11.4",
     "nodemon": "^1.11.0",
