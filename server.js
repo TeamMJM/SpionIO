@@ -5,6 +5,7 @@ const sitesController = require('./database/controller/sitesController.js');
 const pagesController = require('./database/controller/pagesController.js');
 const clickController = require('./database/controller/clickController.js');
 const scrollController = require('./database/controller/scrollController.js');
+const clientController = require('./database/controller/clientController.js')
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const jwt = require('jsonwebtoken');
@@ -17,7 +18,7 @@ const secret = "cats"
 const mongoose = require('mongoose');
 let mongoURI = 'mongodb://mus:1@ds125623.mlab.com:25623/userevents';
 
-require('./passport')(passport); //pass passport for configuration
+// require('./passport')(passport); //pass passport for configuration
 
 
 mongoose.connect(mongoURI);
@@ -62,12 +63,16 @@ app.get('/screenshot.png', (req, res) => {
 })
 
 function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated) {
-        return next();
-    } else {
-        res.redirect('/');
-    }
-}
+    console.log('checking token...')
+    jwt.verify(req.cookies.token, secret, 
+        function(err, decoded) {
+            if (err) res.send(err);
+            console.log('good token')
+            next();
+        }
+    )
+};
+
 
 app.get('/dashboard', isLoggedIn, (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
@@ -111,20 +116,45 @@ app.get('*/build/bundle.js', (req, res, next) => {
 
 ///////////////////////////////// Passport //////////////////////////////
 
-app.post('/signup', (req, res, next) => {
-    console.log('you\'ve reached the signup route');
-    console.log(req.body);
-    next();
-}, (req, res, next) => { passport.authenticate('local-signup', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/'
-    })
-}) 
-// app.post('/signup', processSignUp)
-app.get('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/');
-})
+app.post('/signup', 
+    (req, res, next) => {
+        console.log('got here');
+        next();
+    },
+    clientController.addClient,
+    (req, res) => {
+       const token = jwt.sign({
+          data: 'foobar'
+       }, secret, { expiresIn: '1h' });
+       res.cookie('token', token);
+       res.redirect('/dashboard')
+    }
+)
+
+app.post('/login', 
+    clientController.isValid,
+    (req, res) => {
+       const token = jwt.sign({
+          data: 'foobar'
+       }, secret, { expiresIn: '1h' });
+       res.cookie('token', token);
+       res.redirect('/dashboard')
+    }
+)
+// app.post('/signup', (req, res, next) => {
+//     console.log('you\'ve reached the signup route');
+//     console.log(req.body);
+//     next();
+// }, (req, res, next) => { passport.authenticate('local-signup', {
+//     successRedirect: '/dashboard',
+//     failureRedirect: '/dashboard'
+//     })
+// }) 
+// // app.post('/signup', processSignUp)
+// app.get('/logout', (req, res) => {
+//     req.logout();
+//     res.redirect('/');
+// })
 
 
 
