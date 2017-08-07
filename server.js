@@ -5,6 +5,7 @@ const sitesController = require('./database/controller/sitesController.js');
 const pagesController = require('./database/controller/pagesController.js');
 const clickController = require('./database/controller/clickController.js');
 const scrollController = require('./database/controller/scrollController.js');
+const clientController = require('./database/controller/clientController.js')
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const jwt = require('jsonwebtoken');
@@ -15,9 +16,9 @@ const session = require('express-session');
 const uuid = require('uuid/v4');
 const secret = "cats"
 const mongoose = require('mongoose');
-let mongoURI = 'mongodb://mus:1@ds125623.mlab.com:25623/userevents';
+let mongoURI = 'mongodb://jerryjong:codesmith123@ds127173.mlab.com:27173/private-i';
 
-require('./passport')(passport); //pass passport for configuration
+// require('./passport')(passport); //pass passport for configuration
 
 
 mongoose.connect(mongoURI);
@@ -61,15 +62,44 @@ app.get('/screenshot.png', (req, res) => {
     res.sendFile(path.join(__dirname, 'screenshot.png'))
 })
 
+app.get('/websiteicon.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'websiteicon.png'));
+})
+
+app.get('/databaseicon.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'databaseicon.png'))
+})
+
+app.get('/machinelearningicon.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'machinelearningicon.png'))
+})
+
+app.get('/stockexample.png', (req, res) => {
+    res.sendFile(path.join(__dirname, '/stockexample.png'))
+})
+
+app.get('/welcomelogo.png', (req, res) => {
+    res.sendFile(path.join(__dirname, 'welcomelogo.png'))
+})
+
 function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated) {
-        return next();
-    } else {
-        res.redirect('/');
-    }
-}
+    console.log('checking token...')
+    jwt.verify(req.cookies.token, secret, 
+        function(err, decoded) {
+            if (err) {
+                res.send(err)
+                res.redirect('/signup');
+            } else {
+                console.log('good token')
+                return next();
+            }
+        }
+    )
+};
+
 
 app.get('/dashboard', isLoggedIn, (req, res) => {
+    console.log('sending....');
     res.sendFile(path.join(__dirname, '/index.html'));
 })
 
@@ -111,20 +141,49 @@ app.get('*/build/bundle.js', (req, res, next) => {
 
 ///////////////////////////////// Passport //////////////////////////////
 
-app.post('/signup', (req, res, next) => {
-    console.log('you\'ve reached the signup route');
-    console.log(req.body);
-    next();
-}, (req, res, next) => { passport.authenticate('local-signup', {
-    successRedirect: '/dashboard',
-    failureRedirect: '/'
-    })
-}) 
-// app.post('/signup', processSignUp)
-app.get('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/');
-})
+app.post('/signup', 
+    (req, res, next) => {
+        console.log('got here');
+        return next();
+    },
+    clientController.addClient,
+    (req, res) => {
+        console.log('at the JWTS');
+        const token = jwt.sign({
+            data: 'foobar'
+        }, secret, { expiresIn: '1h' });
+        res.cookie('token', token);
+        console.log('about to redirect...');
+        res.redirect('/dashboard')
+    }
+)
+
+app.post('/login', 
+    clientController.isValid,
+    (req, res) => {
+       const token = jwt.sign({
+          data: 'foobar'
+       }, secret, { expiresIn: '1h' });
+       res.cookie('token', token);
+       console.log('about to redirect...');
+       res.redirect('/dashboard');
+       res.send({redirect: '/dashboard'})
+    }
+)
+// app.post('/signup', (req, res, next) => {
+//     console.log('you\'ve reached the signup route');
+//     console.log(req.body);
+//     next();
+// }, (req, res, next) => { passport.authenticate('local-signup', {
+//     successRedirect: '/dashboard',
+//     failureRedirect: '/dashboard'
+//     })
+// }) 
+// // app.post('/signup', processSignUp)
+// app.get('/logout', (req, res) => {
+//     req.logout();
+//     res.redirect('/');
+// })
 
 
 

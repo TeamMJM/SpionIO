@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -45,7 +46,8 @@ class SignUp extends Component {
   }
 
   handleSubmit(e) {
-    e.preventDefault();
+    console.log('submitted :)')
+    // e.preventDefault();
     let newClient = {
       email: this.state.email,
       password: this.state.password,
@@ -82,10 +84,10 @@ class SignUp extends Component {
           <br/><br/>
           <TextField hintText="Password" underlineFocusStyle={styles.underlineStyle} inputStyle={styles.inputStyle} onChange={this.handlePassChange} type="password"/><br />
           <div className="submitBtn" > <br />
-            <RaisedButton backgroundColor="#2E5266" labelColor="white" label="Submit" onClick={this.handleSubmit}/>
+            <Link to='/dashboard'><RaisedButton backgroundColor="#2E5266" labelColor="white" label="Submit" onClick={this.handleSubmit}/></Link>
           </div>
           <br/><br/><br/>
-          <hr width='20%'/>
+          <hr width='40%'/>
 
         <p>Already have an account? <a href="/login">Login</a></p>
         <p>Or go <a href="/">home</a>.</p><br/><br/><br/>
