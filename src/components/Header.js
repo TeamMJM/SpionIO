@@ -5,6 +5,7 @@ import { HashRouter, Switch, Route, Link } from 'react-router-dom';
 import './../styles/Header.css';
 
 /////////// import UI ///////////
+import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 
 const style = {
@@ -31,9 +32,10 @@ const Header = () => (
         <li className="nav" id="title"><Link to='/'><FlatButton hoverColor='white' labelStyle={style.label} label='Private-I' /></Link></li>
         <li className="nav"><Link to='/'><FlatButton hoverColor='white' labelStyle={style.sub} label='/ PROTOTYPE v0.0.1 /' /></Link></li>
         <div id='first'>
-        <li className="nav"><Link to='/login'><FlatButton label='Login' style={style}/></Link></li>
-        <li className="nav"><Link to='/dashboard'><FlatButton label='Dashboard' style={style}/></Link></li>
-        <li className="nav"><Link to='/signup'><FlatButton label='Sign Up'></FlatButton></Link></li> 
+        {/* <li className="nav"><Link to='/login'><FlatButton label='Login' style={style}/></Link></li> */}
+        {/* <li className="nav"><Link to='/signup'><FlatButton label='Sign Up'></FlatButton></Link></li>  */}
+        <li className='nav'><Link to='/download'><RaisedButton labelColor='white' backgroundColor='#006CAA' label='Download'></RaisedButton></Link></li>
+        <li className='nav'><Link to='/dashboard'><RaisedButton style={{marginLeft: '5px'}}labelColor='white' backgroundColor='#006CAA' label='Dashboard'></RaisedButton></Link></li>
         </div>  
     </div>
     </div>
