@@ -130,7 +130,6 @@ class SideBarHome extends Component {
         <Drawer docked={true}>
           <Card style={style.card}><h2 className='dashboard-logo'>PRIVATE-I</h2></Card>
           <Link to='/dashboard'><MenuItem onClick={this.handleToggleDashboard} leftIcon={<ActionDashboard />}>Dashboard</MenuItem></Link>
-          <Link to='/dashboard/sites'><MenuItem onClick={this.handleToggleSites} leftIcon={this.toggleIconSites()}>Sites</MenuItem></Link>
           {this.renderSites()}
           <Link to='/dashboard/settings'><MenuItem onClick={this.handleToggleSettings} leftIcon={this.toggleIconSettings()}>Settings</MenuItem></Link>
           {this.renderSettings()}

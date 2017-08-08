@@ -16,6 +16,14 @@
   text-align: left;
 }
 
+.paper-title {
+  margin: 0 auto;
+}
+
+.paper-sub {
+  margin: 0 auto;
+}
+
 .dashboard-page {
   background-color: #F4F7F5;
   height: 960px;

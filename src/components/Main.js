@@ -1,8 +1,6 @@
 import React from 'react';
 import { HashRouter, Switch, Route, Link } from 'react-router-dom';
 import Welcome from './Welcome.js';
-import Login from './Login.js';
-import SignUp from './SignUp.js';
 
 
 // The Main component renders one of the three provided
@@ -13,9 +11,7 @@ import SignUp from './SignUp.js';
 const Main = () => (
   <main>
     <Switch>
-      <Route exact path='/' component={Welcome}/>
-      <Route path='/login' component={Login}/>
-      <Route path='/signup' component={SignUp}/>  
+      <Route exact path='/' component={Welcome}/> 
     </Switch>
   </main>
 )
