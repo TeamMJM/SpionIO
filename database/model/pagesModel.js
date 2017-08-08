@@ -1,10 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const pageSchema = Schema({
-    img: String,
-    title: String,
-    // IPHASH:[String],
-    // guestID:[{type:Schema.Types.ObjectId, ref:'Guest'}]
+    title:{type:String,required:true},
+    url:{type:String,required:true},
+    desription:String,
+    pageHTML: {type:String,default:null},
+    pageCSS: {type:String,default:null}
 })
 
 let Page = mongoose.model('Page', pageSchema,'Pages');

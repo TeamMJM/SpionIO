@@ -7,7 +7,7 @@ import Paper from 'material-ui/Paper';
 import Card from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import FileCreateNewFolder from 'material-ui/svg-icons/file/create-new-folder';
 import axios from 'axios';
 
 const style = {
@@ -63,7 +63,6 @@ class Sites extends Component {
   getSites() {
     axios.get('/sites')
     .then((res) => {
-      console.log(res);
       this.setState({ sites: res.data })
     })
     .catch((err) => {
@@ -72,8 +71,6 @@ class Sites extends Component {
   }
 
   handleSiteSubmit(e) {
-    console.log(e);
-    console.log(this.state);
     e.preventDefault();
     let newSite = {
       title: this.state.text
@@ -97,9 +94,10 @@ class Sites extends Component {
 
   renderSites() {
     let siteNodes = this.state.sites.map((site) => {
+      let _id = site._id;
       let url = '/dashboard/sites/' + site._id;
       return(
-        <Card style={style.card}><Link to={url}>{site.title}</Link></Card>
+        <Card key={site._id} style={style.card} ><Link to={url}>{site.title}</Link></Card>
       )
     })
     return siteNodes;
@@ -119,10 +117,8 @@ class Sites extends Component {
             <Paper style={style.submit} zDepth={1}>
               <TextField onChange={this.handleTextChange} value={this.state.text} fullWidth={true} style={style.textField} hintText='Start tracking your sites...'/>
             </Paper>
-          
-
             <FloatingActionButton style={style.button} onClick={this.handleSiteSubmit}>
-              <ContentAdd/>
+              <FileCreateNewFolder />
             </FloatingActionButton> 
           </div>
         </div>

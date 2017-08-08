@@ -1,17 +1,29 @@
 import React, { Component } from 'react';
-var Parser = require('html-react-parser');
-// import './../styles/html.css';
-const axios = require('axios')
+// import Iframe from 'react-iframe'
+var $ = require('jQuery');
 class Html extends Component {
-  componentWillUnmount(){
-    axios.get('/deletehtml')
+    constructor(props){
+      super(props)
+      this.resizeIframe = this.resizeIframe(this);
+    }
+  resizeIframe() {
   }
   render() {
-    return(
-      <div >
-          {Parser(this.props.data.body)}
-      </div>
-    )
+    if(this.props.url){
+        return (
+          <div className='iframe'>
+            <iframe src={this.props.url} width='100%' height='100%' scrollable='no'></iframe>
+          </div>
+        );
+      } else {
+          console.log("LOADING");
+          return(
+            <div>
+              Loading....
+            </div>
+          );
+      }
+  
   }
 }
 

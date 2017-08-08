@@ -1,37 +1,43 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import AnalyticsToolbar from './AnalyticsToolbar.js';
 import './../styles/Home.css';
 import Html from './html.js';
-var mensch = require('mensch');
-var fs = require('browserify-fs');
-const axios = require('axios')
+import axios from 'axios';
 
-class Pages extends Component {
+class PagesSingle extends Component {
   constructor(props){
     super(props);
     this.state = {
-      data:null
+      pageURL: null
     };
   }
 
-  async componentDidMount() {
-    const htmlfetch = await axios.get('/gethtml');
-    this.setState({data:htmlfetch.data});
+  componentDidMount() {
+    console.log(this.props.match.params.siteID);
+    console.log(this.props.match.params.pageID);
+    axios.post('/singlePage',{siteID:this.props.match.params.siteID,pageID:this.props.match.params.pageID})
+      .then(response =>{
+        console.log("RESPONSE",response);
+        this.setState({
+          pageURL:response.data.url
+        })
+      })
+      .catch(err =>{
+        console.log(err)
+      })
   }
 
   render() {
-    if(this.state.data){
-      return(
-        <div  className="page-content">
-            <Html data={this.state.data} />
+      return (
+        <div className="page-content">
+          <AnalyticsToolbar 
+            url={'/dashboard/sites/' + this.props.match.params.siteID + '/page/' + this.props.match.params.pageID}
+          />
+           <Html url={this.state.pageURL} />  
         </div>
-      )
-    }
-    return(
-      <div className="page-content">
-        Loading....
-      </div>
-    );
+      );
   }
 }
 
-export default Pages;
+export default PagesSingle;
