@@ -13,7 +13,7 @@ class DashboardMain extends Component {
     return(
       <div>
         <Route exact path='/dashboard' component={DashboardHome} />
-        <Route exact path='/playback' component={UserSession} />
+        <Route exact path='/dashboard/playback' component={UserSession} />
       </div>
     )
   }

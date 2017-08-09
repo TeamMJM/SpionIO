@@ -8,10 +8,12 @@ import './../styles/Home.css';
 class UserSession extends Component {
   render() {
     return(
-      <Card>
-        <Playback />
-        <Storyboard />
-      </Card>
+      <div className='page-content'>
+          <Playback />
+          <Storyboard />
+      </div>
     );
   }
 }
+
+export default UserSession;

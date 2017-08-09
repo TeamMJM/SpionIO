@@ -30,7 +30,7 @@ class DashboardHome extends Component {
             </div>
           </div>
           <div className='recording-playback'>
-            <Link to='/playback'>
+            <Link to='/dashboard/playback'>
               <IconButton tooltip='play session'>
                 <AVPlayCircleOutline/>
               </IconButton>
@@ -48,7 +48,7 @@ class DashboardHome extends Component {
             </div>
           </div>
           <div className='recording-playback'>
-            <Link to='/playback'>
+            <Link to='/dashboard/playback'>
               <IconButton tooltip='play session'>
                 <AVPlayCircleOutline/>
               </IconButton>
@@ -66,7 +66,7 @@ class DashboardHome extends Component {
             </div>
           </div>
           <div className='recording-playback'>
-            <Link to='/playback'>
+            <Link to='/dashboard/playback'>
               <IconButton tooltip='play session'>
                 <AVPlayCircleOutline/>
               </IconButton>
@@ -84,7 +84,7 @@ class DashboardHome extends Component {
             </div>
           </div>
           <div className='recording-playback'>
-            <Link to='/playback'>
+            <Link to='/dashboard/playback'>
               <IconButton tooltip='play session'>
                 <AVPlayCircleOutline/>
               </IconButton>
@@ -102,7 +102,7 @@ class DashboardHome extends Component {
             </div>
           </div>
           <div className='recording-playback'>
-            <Link to='/playback'>
+            <Link to='/dashboard/playback'>
               <IconButton tooltip='play session'>
                 <AVPlayCircleOutline/>
               </IconButton>
@@ -120,7 +120,7 @@ class DashboardHome extends Component {
             </div>
           </div>
           <div className='recording-playback'>
-            <Link to='/playback'>
+            <Link to='/dashboard/playback'>
               <IconButton tooltip='play session'>
                 <AVPlayCircleOutline/>
               </IconButton>
