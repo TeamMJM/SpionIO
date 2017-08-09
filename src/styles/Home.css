@@ -1,5 +1,6 @@
 .page-content {
-  margin-left: 260px;
+  margin-left: 254px;
+  background-color: #F4F7F5;
   /* padding-top: 60px; */
 }
 
@@ -23,10 +24,12 @@
 }
 
 .dashboard-logo {
-  height: 52px;
-  padding-top: 28px;
+  height: 40px;
+  padding-top: 15px;
+  padding-bottom: 5px;
   background-color: #006CAA;
-  color: white;
+  font-weight: lighter;
+  color: #006CAA;
 }
 
 .dashboard-welcome {
@@ -38,13 +41,12 @@
 }
 
 .nav-first {
-  padding-left: 30%;
+  padding-left: 15%;
 }
 
 
 .dashboard-header {
   height: 60px;
-  vertical-align: middle;
 }
 
 .dashboard-header-toolbar {
@@ -59,7 +61,8 @@
    /////////////Dashboard/////////// */
 
 .recording-title {
-   margin: 0 auto; 
+   margin: 0 auto;
+   color: #1B2228;
 }
 
 .recording-sub {
@@ -68,6 +71,7 @@
 
 .recording-description {
   float: right;
+  margin-right: 30%;
 }
 
 .recording-avatar {
@@ -85,6 +89,15 @@
 }
 
 .recording-block {
-  width: 20%;
+  width: 40%;
   float: left;
 }
+
+.recording-latest-updates {
+  margin-left: 16px;
+  overflow: scroll;
+  height: 620px;
+  width: 96%;
+}
+
+
