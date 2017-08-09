@@ -1,7 +1,7 @@
 // const mongoose = require("mongoose");
 // const Schema = mongoose.Schema;
 
-// const clickSchema = Schema({
+// const recordingSchema = Schema({
 //     clickX: {
 //         type: Number,
 //         required: true
@@ -16,6 +16,6 @@
 //     }
 // })
 
-// let Click = mongoose.model('Click', clickSchema, 'Clicks');
+// let Recording = mongoose.model('Recording', recordingSchema, 'Recordings');
 
-// module.exports = Click;
+// module.exports = Recording;

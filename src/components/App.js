@@ -17,7 +17,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 class App extends Component { 
   render() {
     return(
-      <div>
+      <div> 
         <MuiThemeProvider>
           <Route exact path='/' component={Documentation}/>
         </MuiThemeProvider>
