@@ -16,14 +16,6 @@
   text-align: left;
 }
 
-.paper-title {
-  margin: 0 auto;
-}
-
-.paper-sub {
-  margin: 0 auto;
-}
-
 .dashboard-page {
   background-color: #F4F7F5;
   height: 960px;
@@ -61,4 +53,38 @@
 
 .iframe {
   height: 2000px;
+}
+
+/* ///////////////////////////////////
+   /////////////Dashboard/////////// */
+
+.recording-title {
+   margin: 0 auto; 
+}
+
+.recording-sub {
+   margin: 0 auto; 
+}
+
+.recording-description {
+  float: right;
+}
+
+.recording-avatar {
+  float: left;
+}
+
+.recording-icon {
+  height: 40px;
+  width: 40px;
+  margin-left: 10px;
+}
+
+.recording-playback {
+  float: right;
+}
+
+.recording-block {
+  width: 20%;
+  float: left;
 }
