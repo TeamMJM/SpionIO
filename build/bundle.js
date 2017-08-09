@@ -44153,7 +44153,7 @@ exports = module.exports = __webpack_require__(76)(undefined);
 
 
 // module
-exports.push([module.i, ".page-content {\n  margin-left: 260px;\n  /* padding-top: 60px; */ }\n\n.content {\n  text-align: center;\n  padding-top: 60px; }\n\n.dashboard-title {\n  padding-left: 25px;\n  padding-top: 15px;\n  margin: 0 auto;\n  font-weight: lighter;\n  text-align: left; }\n\n.paper-title {\n  margin: 0 auto; }\n\n.paper-sub {\n  margin: 0 auto; }\n\n.dashboard-page {\n  background-color: #F4F7F5;\n  height: 960px;\n  text-align: center; }\n\n.dashboard-logo {\n  height: 52px;\n  padding-top: 28px;\n  background-color: #006CAA;\n  color: white; }\n\n.dashboard-welcome {\n  margin-top: 15px;\n  width: 100%;\n  height: 18%;\n  text-align: center;\n  background-color: white; }\n\n.nav-first {\n  padding-left: 30%; }\n\n.dashboard-header {\n  height: 60px;\n  vertical-align: middle; }\n\n.dashboard-header-toolbar {\n  margin: 0 auto; }\n\n.iframe {\n  height: 2000px; }\n", ""]);
+exports.push([module.i, ".page-content {\n  margin-left: 260px;\n  /* padding-top: 60px; */ }\n\n.content {\n  text-align: center;\n  padding-top: 60px; }\n\n.dashboard-title {\n  padding-left: 25px;\n  padding-top: 15px;\n  margin: 0 auto;\n  font-weight: lighter;\n  text-align: left; }\n\n.dashboard-page {\n  background-color: #F4F7F5;\n  height: 960px;\n  text-align: center; }\n\n.dashboard-logo {\n  height: 52px;\n  padding-top: 28px;\n  background-color: #006CAA;\n  color: white; }\n\n.dashboard-welcome {\n  margin-top: 15px;\n  width: 100%;\n  height: 18%;\n  text-align: center;\n  background-color: white; }\n\n.nav-first {\n  padding-left: 30%; }\n\n.dashboard-header {\n  height: 60px;\n  vertical-align: middle; }\n\n.dashboard-header-toolbar {\n  margin: 0 auto; }\n\n.iframe {\n  height: 2000px; }\n\n/* ///////////////////////////////////\n   /////////////Dashboard/////////// */\n.recording-title {\n  margin: 0 auto; }\n\n.recording-sub {\n  margin: 0 auto; }\n\n.recording-description {\n  float: right; }\n\n.recording-avatar {\n  float: left; }\n\n.recording-icon {\n  height: 40px;\n  width: 40px;\n  margin-left: 10px; }\n\n.recording-playback {\n  float: right; }\n\n.recording-block {\n  width: 20%;\n  float: left; }\n", ""]);
 
 // exports
 
@@ -44327,11 +44327,21 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
+var _reactRouterDom = __webpack_require__(30);
+
 __webpack_require__(131);
 
 var _Paper = __webpack_require__(38);
 
 var _Paper2 = _interopRequireDefault(_Paper);
+
+var _IconButton = __webpack_require__(85);
+
+var _IconButton2 = _interopRequireDefault(_IconButton);
+
+var _playCircleOutline = __webpack_require__(548);
+
+var _playCircleOutline2 = _interopRequireDefault(_playCircleOutline);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -44340,6 +44350,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var style = {
+  paper: {
+    verticalAlign: 'middle',
+    height: '60px',
+    paddingTop: '12px',
+    width: '65%'
+  }
+};
 
 var DashboardHome = function (_Component) {
   _inherits(DashboardHome, _Component);
@@ -44358,16 +44377,242 @@ var DashboardHome = function (_Component) {
         { className: 'page-content' },
         _react2.default.createElement(
           _Paper2.default,
-          null,
+          { style: style.paper },
           _react2.default.createElement(
-            'p',
-            { className: 'paper-title' },
-            'user 2116'
+            'div',
+            { className: 'recording-block' },
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-avatar' },
+              _react2.default.createElement('img', { className: 'recording-icon', src: './../../public/1.png' })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-description' },
+              _react2.default.createElement(
+                'p',
+                { className: 'recording-title' },
+                'user 2146'
+              ),
+              _react2.default.createElement(
+                'p',
+                { className: 'recording-sub' },
+                'recorded at 2:03 pm'
+              )
+            )
           ),
           _react2.default.createElement(
-            'p',
-            { className: 'paper-head' },
-            'recorded at 2:03 pm'
+            'div',
+            { className: 'recording-playback' },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/playback' },
+              _react2.default.createElement(
+                _IconButton2.default,
+                { tooltip: 'play session' },
+                _react2.default.createElement(_playCircleOutline2.default, null)
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _Paper2.default,
+          { style: style.paper },
+          _react2.default.createElement(
+            'div',
+            { className: 'recording-block' },
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-avatar' },
+              _react2.default.createElement('img', { className: 'recording-icon', src: './../../public/2.png' })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-description' },
+              _react2.default.createElement(
+                'p',
+                { className: 'recording-title' },
+                'user 5617'
+              ),
+              _react2.default.createElement(
+                'p',
+                { className: 'recording-sub' },
+                'recorded at 2:03 pm'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'recording-playback' },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/playback' },
+              _react2.default.createElement(
+                _IconButton2.default,
+                { tooltip: 'play session' },
+                _react2.default.createElement(_playCircleOutline2.default, null)
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _Paper2.default,
+          { style: style.paper },
+          _react2.default.createElement(
+            'div',
+            { className: 'recording-block' },
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-avatar' },
+              _react2.default.createElement('img', { className: 'recording-icon', src: './../../public/3.png' })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-description' },
+              _react2.default.createElement(
+                'p',
+                { className: 'recording-title' },
+                'user 2623'
+              ),
+              _react2.default.createElement(
+                'p',
+                { className: 'recording-sub' },
+                'recorded at 9:51 am'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'recording-playback' },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/playback' },
+              _react2.default.createElement(
+                _IconButton2.default,
+                { tooltip: 'play session' },
+                _react2.default.createElement(_playCircleOutline2.default, null)
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _Paper2.default,
+          { style: style.paper },
+          _react2.default.createElement(
+            'div',
+            { className: 'recording-block' },
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-avatar' },
+              _react2.default.createElement('img', { className: 'recording-icon', src: './../../public/4.png' })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-description' },
+              _react2.default.createElement(
+                'p',
+                { className: 'recording-title' },
+                'user 6806'
+              ),
+              _react2.default.createElement(
+                'p',
+                { className: 'recording-sub' },
+                'recorded at 6:03 am'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'recording-playback' },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/playback' },
+              _react2.default.createElement(
+                _IconButton2.default,
+                { tooltip: 'play session' },
+                _react2.default.createElement(_playCircleOutline2.default, null)
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _Paper2.default,
+          { style: style.paper },
+          _react2.default.createElement(
+            'div',
+            { className: 'recording-block' },
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-avatar' },
+              _react2.default.createElement('img', { className: 'recording-icon', src: './../../public/5.png' })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-description' },
+              _react2.default.createElement(
+                'p',
+                { className: 'recording-title' },
+                'user 2526'
+              ),
+              _react2.default.createElement(
+                'p',
+                { className: 'recording-sub' },
+                'recorded at 2:00 am'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'recording-playback' },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/playback' },
+              _react2.default.createElement(
+                _IconButton2.default,
+                { tooltip: 'play session' },
+                _react2.default.createElement(_playCircleOutline2.default, null)
+              )
+            )
+          )
+        ),
+        _react2.default.createElement(
+          _Paper2.default,
+          { style: style.paper },
+          _react2.default.createElement(
+            'div',
+            { className: 'recording-block' },
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-avatar' },
+              _react2.default.createElement('img', { className: 'recording-icon', src: './../../public/6.png' })
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-description' },
+              _react2.default.createElement(
+                'p',
+                { className: 'recording-title' },
+                'user 1046'
+              ),
+              _react2.default.createElement(
+                'p',
+                { className: 'recording-sub' },
+                'recorded at 1:10 am'
+              )
+            )
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'recording-playback' },
+            _react2.default.createElement(
+              _reactRouterDom.Link,
+              { to: '/playback' },
+              _react2.default.createElement(
+                _IconButton2.default,
+                { tooltip: 'play session' },
+                _react2.default.createElement(_playCircleOutline2.default, null)
+              )
+            )
           )
         )
       );
@@ -44444,6 +44689,10 @@ var _folder = __webpack_require__(201);
 
 var _folder2 = _interopRequireDefault(_folder);
 
+var _search = __webpack_require__(501);
+
+var _search2 = _interopRequireDefault(_search);
+
 var _FontIcon = __webpack_require__(196);
 
 var _FontIcon2 = _interopRequireDefault(_FontIcon);
@@ -44516,8 +44765,12 @@ var DashboardHeader = function (_Component) {
             { className: 'topnav-content' },
             _react2.default.createElement(
               _Paper2.default,
-              { zDepth: 1, style: style.paper },
-              _react2.default.createElement(_TextField2.default, { style: style.textField, underlineStyle: style.underlineStyle, underlineFocusStyle: style.underlineFocus, hintText: 'Search' })
+              { className: 'search-bar', zDepth: 1, style: style.paper },
+              _react2.default.createElement(
+                _IconButton2.default,
+                { style: { border: 'right 1px solid', height: '40px' }, tooltip: 'Search' },
+                _react2.default.createElement(_search2.default, { style: { margin: '0 auto' } })
+              )
             ),
             _react2.default.createElement(
               _IconMenu2.default,
@@ -52820,6 +53073,44 @@ var keyOf = function keyOf(oneKeyObj) {
 };
 
 module.exports = keyOf;
+
+/***/ }),
+/* 548 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _pure = __webpack_require__(19);
+
+var _pure2 = _interopRequireDefault(_pure);
+
+var _SvgIcon = __webpack_require__(20);
+
+var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var AvPlayCircleOutline = function AvPlayCircleOutline(props) {
+  return _react2.default.createElement(
+    _SvgIcon2.default,
+    props,
+    _react2.default.createElement('path', { d: 'M10 16.5l6-4.5-6-4.5v9zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z' })
+  );
+};
+AvPlayCircleOutline = (0, _pure2.default)(AvPlayCircleOutline);
+AvPlayCircleOutline.displayName = 'AvPlayCircleOutline';
+AvPlayCircleOutline.muiName = 'SvgIcon';
+
+exports.default = AvPlayCircleOutline;
 
 /***/ })
 /******/ ]);
