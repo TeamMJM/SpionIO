@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Card from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
+import AutoComplete from 'material-ui/AutoComplete';
 import './../styles/Home.css';
 import SearchBar from 'material-ui-search-bar';
 import FlatButton from 'material-ui/FlatButton';
@@ -24,11 +25,11 @@ const style = {
   },
   paper: {
     display: 'inline-block',
-    marginTop: '20px',
-    marginBottom: '20px',
-    marginLeft: '10px',
-    height: '40px',
-    width: '600px',
+    marginTop: '15px',
+    marginBottom: '15px',
+    marginLeft: '16px',
+    height: '30px',
+    width: '50%',
   },
   textField: {
     marginLeft: '20px',
@@ -42,20 +43,45 @@ const style = {
     borderColor: 'white',
   },
   iconButton: {
-    marginLeft: '30px',
-  }
-
+    marginLeft: '5px',
+  },
+  paperHeader: {
+    height: '60px',
+    backgroundColor: '#F4F7F5'
+  },
+  paperHead: {width: '256px', height: '60px', backgroundColor: '#006CAA', margin: '0 auto', textAlign: 'center', display: 'inline-block', float: 'left'},
+  pHead: {paddingTop: '15px', margin: '0 auto', fontSize: '1.4em', color: 'white', fontWeight: 'lighter'}
 }
+
+const recordings = [
+  'user2146',
+  'user5617',
+  'user2623',
+  'user6806',
+  'user2526',
+  'user1046',
+  'user0403',
+  'user5987',
+  'user2233',
+  'user0786',
+  'user8826',
+  'user3232'
+];
+
 
 class DashboardHeader extends Component {
   render() {
     return(
-      <header>
-        <div className="page-content" id="myTopnav">
-          <div className="topnav-content">
-         <Paper className='search-bar' zDepth={1} style={style.paper}>
-          <IconButton style={{border: 'right 1px solid', height: '40px'}}tooltip='Search'><ActionSearch style={{margin: '0 auto'}}/></IconButton>
+      <Paper style={style.paperHeader} zDepth={0}>
+      <header className='dashboard-header'>
+        <div id="myTopnav dashboard-nav">
+        <Paper zDepth={0} style={style.paperHead}><p style={style.pHead}>PRIVATE-I</p></Paper>
+        <Paper className='search-bar' zDepth={0} style={style.paper}>
+          <IconButton style={{padding: '0 auto', borderRight: '1px solid #BDC0C1', height: '30px'}} tooltip='Search'><ActionSearch className='search-icon'/></IconButton> 
+          <AutoComplete hintText='search for users, recordings, and more' underlineStyle={{border: 'white'}} hintStyle={{height: '15px', fontSize: '0.8em'}} textFieldStyle={{height: '30px'}} style={{width: '80%' , float: 'right'}} menuStyle={{height: '90px', overflow: 'scroll'}} listStyle={{width: '600px'}} filter={AutoComplete.caseInsensitiveFilter} dataSource={recordings}/>
         </Paper> 
+
+        <Link to='/dashboard'><FlatButton label='back'></FlatButton></Link>
 
     <IconMenu 
       className='nav-first'
@@ -69,9 +95,9 @@ class DashboardHeader extends Component {
       <MenuItem primaryText="Help" />
       <MenuItem primaryText="Sign out" />
     </IconMenu>
-        </div>
       </div>
     </header>
+    </Paper>
     )
   }
 }

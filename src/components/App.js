@@ -22,12 +22,6 @@ class App extends Component {
           <Route exact path='/' component={Documentation}/>
         </MuiThemeProvider>
         <MuiThemeProvider>
-          <Route path='/login' component={Documentation}/>
-        </MuiThemeProvider>
-        <MuiThemeProvider>
-          <Route path='/signup' component={Documentation}/>
-        </MuiThemeProvider>
-        <MuiThemeProvider>
           <Route path='/dashboard' component={Dashboard}/>
         </MuiThemeProvider>
       </div>
