@@ -35,6 +35,7 @@ const Header = () => (
         {/* <li className="nav"><Link to='/login'><FlatButton label='Login' style={style}/></Link></li> */}
         {/* <li className="nav"><Link to='/signup'><FlatButton label='Sign Up'></FlatButton></Link></li>  */}
         <li className='nav'><Link to='/download'><RaisedButton labelColor='white' backgroundColor='#006CAA' label='Download'></RaisedButton></Link></li>
+        <li className='nav'><Link to='/dashboard'><RaisedButton style={{marginLeft: '5px'}}labelColor='white' backgroundColor='#006CAA' label='Dashboard'></RaisedButton></Link></li>
         </div>  
     </div>
     </div>

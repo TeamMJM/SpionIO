@@ -26,7 +26,7 @@ class Welcome extends Component {
           </div>
 
           <div className="App-title">
-            <h1>THE IDEAL FRONT-END</h1><br/><br/><h1>FOCUS GROUP MANAGEMENT PLATFORM</h1><br/><br/><h1>FOR DEVELOPERS</h1>
+            <h1 className='app-text'>THE IDEAL FRONT-END</h1><br/><br/><h1 className='app-text'>FOCUS GROUP MANAGEMENT PLATFORM</h1><br/><br/><h1 className='app-text'>FOR DEVELOPERS</h1>
           </div>
 
           <div className='scroll demo' id='section07'>
@@ -35,7 +35,7 @@ class Welcome extends Component {
               <span></span><span></span><span></span>
             </a>
             {/* </Link> */}
-            <br/><br/><br/><br/><br/>GET STARTED
+            <br/><br/><br/><br/><br/><br/>GET STARTED
           </div>
 
 

@@ -28,6 +28,7 @@
     "htmlparser2": "^3.9.2",
     "iframe-resizer": "^3.5.14",
     "jQuery": "^1.7.4",
+    "jquery": "^3.2.1",
     "jsonwebtoken": "^7.4.1",
     "material-ui-search-bar": "^0.3.0",
     "mensch": "^0.3.3",
