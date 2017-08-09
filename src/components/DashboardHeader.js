@@ -12,6 +12,7 @@ import IconButton from 'material-ui/IconButton';
 import ActionAccountCircle from 'material-ui/svg-icons/action/account-circle';
 import Avatar from 'material-ui/Avatar';
 import FileFolder from 'material-ui/svg-icons/file/folder';
+import ActionSearch from 'material-ui/svg-icons/action/search';
 import FontIcon from 'material-ui/FontIcon';
 import List from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
@@ -52,8 +53,8 @@ class DashboardHeader extends Component {
       <header>
         <div className="page-content" id="myTopnav">
           <div className="topnav-content">
-         <Paper zDepth={1} style={style.paper}>
-          <TextField style={style.textField} underlineStyle={style.underlineStyle} underlineFocusStyle={style.underlineFocus} hintText='Search'></TextField>
+         <Paper className='search-bar' zDepth={1} style={style.paper}>
+          <IconButton style={{border: 'right 1px solid', height: '40px'}}tooltip='Search'><ActionSearch style={{margin: '0 auto'}}/></IconButton>
         </Paper> 
 
     <IconMenu 

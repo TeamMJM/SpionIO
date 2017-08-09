@@ -76,6 +76,10 @@ table {
   align-content: center;
 }
 
+.app-text {
+  font-size: 22px;
+}
+
 .dashboard-welcome-p {
   width: 60%;
   display: inline-block;

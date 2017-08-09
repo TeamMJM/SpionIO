@@ -70,6 +70,30 @@ app.get('/welcomelogo.png', (req, res) => {
     res.sendFile(path.join(__dirname, 'welcomelogo.png'))
 })
 
+app.get('/public/1.png', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/1.png'))
+})
+
+app.get('/public/2.png', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/2.png'))
+})
+
+app.get('/public/3.png', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/3.png'))
+})
+
+app.get('/public/4.png', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/4.png'))
+})
+
+app.get('/public/5.png', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/5.png'))
+})
+
+app.get('/public/6.png', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/6.png'))
+})
+
 function isLoggedIn(req, res, next) {
     console.log('checking token...')
     jwt.verify(req.cookies.token, secret, 
@@ -86,7 +110,7 @@ function isLoggedIn(req, res, next) {
 };
 
 
-app.get('/dashboard', isLoggedIn, (req, res) => {
+app.get('/dashboard', (req, res) => {
     console.log('sending....');
     res.sendFile(path.join(__dirname, '/index.html'));
 })
