@@ -1689,316 +1689,7 @@ var core = module.exports = {version: '2.4.0'};
 if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
 
 /***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var bind = __webpack_require__(202);
-var isBuffer = __webpack_require__(464);
-
-/*global toString:true*/
-
-// utils is a library of generic helper functions non-specific to axios
-
-var toString = Object.prototype.toString;
-
-/**
- * Determine if a value is an Array
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is an Array, otherwise false
- */
-function isArray(val) {
-  return toString.call(val) === '[object Array]';
-}
-
-/**
- * Determine if a value is an ArrayBuffer
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is an ArrayBuffer, otherwise false
- */
-function isArrayBuffer(val) {
-  return toString.call(val) === '[object ArrayBuffer]';
-}
-
-/**
- * Determine if a value is a FormData
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is an FormData, otherwise false
- */
-function isFormData(val) {
-  return (typeof FormData !== 'undefined') && (val instanceof FormData);
-}
-
-/**
- * Determine if a value is a view on an ArrayBuffer
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a view on an ArrayBuffer, otherwise false
- */
-function isArrayBufferView(val) {
-  var result;
-  if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
-    result = ArrayBuffer.isView(val);
-  } else {
-    result = (val) && (val.buffer) && (val.buffer instanceof ArrayBuffer);
-  }
-  return result;
-}
-
-/**
- * Determine if a value is a String
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a String, otherwise false
- */
-function isString(val) {
-  return typeof val === 'string';
-}
-
-/**
- * Determine if a value is a Number
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a Number, otherwise false
- */
-function isNumber(val) {
-  return typeof val === 'number';
-}
-
-/**
- * Determine if a value is undefined
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if the value is undefined, otherwise false
- */
-function isUndefined(val) {
-  return typeof val === 'undefined';
-}
-
-/**
- * Determine if a value is an Object
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is an Object, otherwise false
- */
-function isObject(val) {
-  return val !== null && typeof val === 'object';
-}
-
-/**
- * Determine if a value is a Date
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a Date, otherwise false
- */
-function isDate(val) {
-  return toString.call(val) === '[object Date]';
-}
-
-/**
- * Determine if a value is a File
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a File, otherwise false
- */
-function isFile(val) {
-  return toString.call(val) === '[object File]';
-}
-
-/**
- * Determine if a value is a Blob
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a Blob, otherwise false
- */
-function isBlob(val) {
-  return toString.call(val) === '[object Blob]';
-}
-
-/**
- * Determine if a value is a Function
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a Function, otherwise false
- */
-function isFunction(val) {
-  return toString.call(val) === '[object Function]';
-}
-
-/**
- * Determine if a value is a Stream
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a Stream, otherwise false
- */
-function isStream(val) {
-  return isObject(val) && isFunction(val.pipe);
-}
-
-/**
- * Determine if a value is a URLSearchParams object
- *
- * @param {Object} val The value to test
- * @returns {boolean} True if value is a URLSearchParams object, otherwise false
- */
-function isURLSearchParams(val) {
-  return typeof URLSearchParams !== 'undefined' && val instanceof URLSearchParams;
-}
-
-/**
- * Trim excess whitespace off the beginning and end of a string
- *
- * @param {String} str The String to trim
- * @returns {String} The String freed of excess whitespace
- */
-function trim(str) {
-  return str.replace(/^\s*/, '').replace(/\s*$/, '');
-}
-
-/**
- * Determine if we're running in a standard browser environment
- *
- * This allows axios to run in a web worker, and react-native.
- * Both environments support XMLHttpRequest, but not fully standard globals.
- *
- * web workers:
- *  typeof window -> undefined
- *  typeof document -> undefined
- *
- * react-native:
- *  navigator.product -> 'ReactNative'
- */
-function isStandardBrowserEnv() {
-  if (typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
-    return false;
-  }
-  return (
-    typeof window !== 'undefined' &&
-    typeof document !== 'undefined'
-  );
-}
-
-/**
- * Iterate over an Array or an Object invoking a function for each item.
- *
- * If `obj` is an Array callback will be called passing
- * the value, index, and complete array for each item.
- *
- * If 'obj' is an Object callback will be called passing
- * the value, key, and complete object for each property.
- *
- * @param {Object|Array} obj The object to iterate
- * @param {Function} fn The callback to invoke for each item
- */
-function forEach(obj, fn) {
-  // Don't bother if no value provided
-  if (obj === null || typeof obj === 'undefined') {
-    return;
-  }
-
-  // Force an array if not already something iterable
-  if (typeof obj !== 'object' && !isArray(obj)) {
-    /*eslint no-param-reassign:0*/
-    obj = [obj];
-  }
-
-  if (isArray(obj)) {
-    // Iterate over array values
-    for (var i = 0, l = obj.length; i < l; i++) {
-      fn.call(null, obj[i], i, obj);
-    }
-  } else {
-    // Iterate over object keys
-    for (var key in obj) {
-      if (Object.prototype.hasOwnProperty.call(obj, key)) {
-        fn.call(null, obj[key], key, obj);
-      }
-    }
-  }
-}
-
-/**
- * Accepts varargs expecting each argument to be an object, then
- * immutably merges the properties of each object and returns result.
- *
- * When multiple objects contain the same key the later object in
- * the arguments list will take precedence.
- *
- * Example:
- *
- * ```js
- * var result = merge({foo: 123}, {foo: 456});
- * console.log(result.foo); // outputs 456
- * ```
- *
- * @param {Object} obj1 Object to merge
- * @returns {Object} Result of all merge properties
- */
-function merge(/* obj1, obj2, obj3, ... */) {
-  var result = {};
-  function assignValue(val, key) {
-    if (typeof result[key] === 'object' && typeof val === 'object') {
-      result[key] = merge(result[key], val);
-    } else {
-      result[key] = val;
-    }
-  }
-
-  for (var i = 0, l = arguments.length; i < l; i++) {
-    forEach(arguments[i], assignValue);
-  }
-  return result;
-}
-
-/**
- * Extends object a by mutably adding to it the properties of object b.
- *
- * @param {Object} a The object to be extended
- * @param {Object} b The object to copy properties from
- * @param {Object} thisArg The object to bind function to
- * @return {Object} The resulting value of object a
- */
-function extend(a, b, thisArg) {
-  forEach(b, function assignValue(val, key) {
-    if (thisArg && typeof val === 'function') {
-      a[key] = bind(val, thisArg);
-    } else {
-      a[key] = val;
-    }
-  });
-  return a;
-}
-
-module.exports = {
-  isArray: isArray,
-  isArrayBuffer: isArrayBuffer,
-  isBuffer: isBuffer,
-  isFormData: isFormData,
-  isArrayBufferView: isArrayBufferView,
-  isString: isString,
-  isNumber: isNumber,
-  isObject: isObject,
-  isUndefined: isUndefined,
-  isDate: isDate,
-  isFile: isFile,
-  isBlob: isBlob,
-  isFunction: isFunction,
-  isStream: isStream,
-  isURLSearchParams: isURLSearchParams,
-  isStandardBrowserEnv: isStandardBrowserEnv,
-  forEach: forEach,
-  merge: merge,
-  extend: extend,
-  trim: trim
-};
-
-
-/***/ }),
+/* 27 */,
 /* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12303,106 +11994,7 @@ exports.default = Menu;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
-/* 130 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var utils = __webpack_require__(27);
-var normalizeHeaderName = __webpack_require__(466);
-
-var DEFAULT_CONTENT_TYPE = {
-  'Content-Type': 'application/x-www-form-urlencoded'
-};
-
-function setContentTypeIfUnset(headers, value) {
-  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
-    headers['Content-Type'] = value;
-  }
-}
-
-function getDefaultAdapter() {
-  var adapter;
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = __webpack_require__(203);
-  } else if (typeof process !== 'undefined') {
-    // For node use HTTP adapter
-    adapter = __webpack_require__(203);
-  }
-  return adapter;
-}
-
-var defaults = {
-  adapter: getDefaultAdapter(),
-
-  transformRequest: [function transformRequest(data, headers) {
-    normalizeHeaderName(headers, 'Content-Type');
-    if (utils.isFormData(data) ||
-      utils.isArrayBuffer(data) ||
-      utils.isBuffer(data) ||
-      utils.isStream(data) ||
-      utils.isFile(data) ||
-      utils.isBlob(data)
-    ) {
-      return data;
-    }
-    if (utils.isArrayBufferView(data)) {
-      return data.buffer;
-    }
-    if (utils.isURLSearchParams(data)) {
-      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
-      return data.toString();
-    }
-    if (utils.isObject(data)) {
-      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
-      return JSON.stringify(data);
-    }
-    return data;
-  }],
-
-  transformResponse: [function transformResponse(data) {
-    /*eslint no-param-reassign:0*/
-    if (typeof data === 'string') {
-      try {
-        data = JSON.parse(data);
-      } catch (e) { /* Ignore */ }
-    }
-    return data;
-  }],
-
-  timeout: 0,
-
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
-
-  maxContentLength: -1,
-
-  validateStatus: function validateStatus(status) {
-    return status >= 200 && status < 300;
-  }
-};
-
-defaults.headers = {
-  common: {
-    'Accept': 'application/json, text/plain, */*'
-  }
-};
-
-utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
-  defaults.headers[method] = {};
-});
-
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-});
-
-module.exports = defaults;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
+/* 130 */,
 /* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18804,275 +18396,11 @@ FileFolder.muiName = 'SvgIcon';
 exports.default = FileFolder;
 
 /***/ }),
-/* 202 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function bind(fn, thisArg) {
-  return function wrap() {
-    var args = new Array(arguments.length);
-    for (var i = 0; i < args.length; i++) {
-      args[i] = arguments[i];
-    }
-    return fn.apply(thisArg, args);
-  };
-};
-
-
-/***/ }),
-/* 203 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var utils = __webpack_require__(27);
-var settle = __webpack_require__(467);
-var buildURL = __webpack_require__(469);
-var parseHeaders = __webpack_require__(470);
-var isURLSameOrigin = __webpack_require__(471);
-var createError = __webpack_require__(204);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(472);
-
-module.exports = function xhrAdapter(config) {
-  return new Promise(function dispatchXhrRequest(resolve, reject) {
-    var requestData = config.data;
-    var requestHeaders = config.headers;
-
-    if (utils.isFormData(requestData)) {
-      delete requestHeaders['Content-Type']; // Let the browser set it
-    }
-
-    var request = new XMLHttpRequest();
-    var loadEvent = 'onreadystatechange';
-    var xDomain = false;
-
-    // For IE 8/9 CORS support
-    // Only supports POST and GET calls and doesn't returns the response headers.
-    // DON'T do this for testing b/c XMLHttpRequest is mocked, not XDomainRequest.
-    if (process.env.NODE_ENV !== 'test' &&
-        typeof window !== 'undefined' &&
-        window.XDomainRequest && !('withCredentials' in request) &&
-        !isURLSameOrigin(config.url)) {
-      request = new window.XDomainRequest();
-      loadEvent = 'onload';
-      xDomain = true;
-      request.onprogress = function handleProgress() {};
-      request.ontimeout = function handleTimeout() {};
-    }
-
-    // HTTP basic authentication
-    if (config.auth) {
-      var username = config.auth.username || '';
-      var password = config.auth.password || '';
-      requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
-    }
-
-    request.open(config.method.toUpperCase(), buildURL(config.url, config.params, config.paramsSerializer), true);
-
-    // Set the request timeout in MS
-    request.timeout = config.timeout;
-
-    // Listen for ready state
-    request[loadEvent] = function handleLoad() {
-      if (!request || (request.readyState !== 4 && !xDomain)) {
-        return;
-      }
-
-      // The request errored out and we didn't get a response, this will be
-      // handled by onerror instead
-      // With one exception: request that using file: protocol, most browsers
-      // will return status as 0 even though it's a successful request
-      if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
-        return;
-      }
-
-      // Prepare the response
-      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
-      var responseData = !config.responseType || config.responseType === 'text' ? request.responseText : request.response;
-      var response = {
-        data: responseData,
-        // IE sends 1223 instead of 204 (https://github.com/mzabriskie/axios/issues/201)
-        status: request.status === 1223 ? 204 : request.status,
-        statusText: request.status === 1223 ? 'No Content' : request.statusText,
-        headers: responseHeaders,
-        config: config,
-        request: request
-      };
-
-      settle(resolve, reject, response);
-
-      // Clean up request
-      request = null;
-    };
-
-    // Handle low level network errors
-    request.onerror = function handleError() {
-      // Real errors are hidden from us by the browser
-      // onerror should only fire if it's a network error
-      reject(createError('Network Error', config, null, request));
-
-      // Clean up request
-      request = null;
-    };
-
-    // Handle timeout
-    request.ontimeout = function handleTimeout() {
-      reject(createError('timeout of ' + config.timeout + 'ms exceeded', config, 'ECONNABORTED',
-        request));
-
-      // Clean up request
-      request = null;
-    };
-
-    // Add xsrf header
-    // This is only done if running in a standard browser environment.
-    // Specifically not if we're in a web worker, or react-native.
-    if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(473);
-
-      // Add xsrf header
-      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
-          cookies.read(config.xsrfCookieName) :
-          undefined;
-
-      if (xsrfValue) {
-        requestHeaders[config.xsrfHeaderName] = xsrfValue;
-      }
-    }
-
-    // Add headers to the request
-    if ('setRequestHeader' in request) {
-      utils.forEach(requestHeaders, function setRequestHeader(val, key) {
-        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
-          // Remove Content-Type if data is undefined
-          delete requestHeaders[key];
-        } else {
-          // Otherwise add header to the request
-          request.setRequestHeader(key, val);
-        }
-      });
-    }
-
-    // Add withCredentials to request if needed
-    if (config.withCredentials) {
-      request.withCredentials = true;
-    }
-
-    // Add responseType to request if needed
-    if (config.responseType) {
-      try {
-        request.responseType = config.responseType;
-      } catch (e) {
-        // Expected DOMException thrown by browsers not compatible XMLHttpRequest Level 2.
-        // But, this can be suppressed for 'json' type as it can be parsed by default 'transformResponse' function.
-        if (config.responseType !== 'json') {
-          throw e;
-        }
-      }
-    }
-
-    // Handle progress if needed
-    if (typeof config.onDownloadProgress === 'function') {
-      request.addEventListener('progress', config.onDownloadProgress);
-    }
-
-    // Not all browsers support upload events
-    if (typeof config.onUploadProgress === 'function' && request.upload) {
-      request.upload.addEventListener('progress', config.onUploadProgress);
-    }
-
-    if (config.cancelToken) {
-      // Handle cancellation
-      config.cancelToken.promise.then(function onCanceled(cancel) {
-        if (!request) {
-          return;
-        }
-
-        request.abort();
-        reject(cancel);
-        // Clean up request
-        request = null;
-      });
-    }
-
-    if (requestData === undefined) {
-      requestData = null;
-    }
-
-    // Send the request
-    request.send(requestData);
-  });
-};
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 204 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var enhanceError = __webpack_require__(468);
-
-/**
- * Create an Error with the specified message, config, error code, request and response.
- *
- * @param {string} message The error message.
- * @param {Object} config The config.
- * @param {string} [code] The error code (for example, 'ECONNABORTED').
- * @param {Object} [request] The request.
- * @param {Object} [response] The response.
- * @returns {Error} The created error.
- */
-module.exports = function createError(message, config, code, request, response) {
-  var error = new Error(message);
-  return enhanceError(error, config, code, request, response);
-};
-
-
-/***/ }),
-/* 205 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = function isCancel(value) {
-  return !!(value && value.__CANCEL__);
-};
-
-
-/***/ }),
-/* 206 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * A `Cancel` is an object that is thrown when an operation is canceled.
- *
- * @class
- * @param {string=} message The message.
- */
-function Cancel(message) {
-  this.message = message;
-}
-
-Cancel.prototype.toString = function toString() {
-  return 'Cancel' + (this.message ? ': ' + this.message : '');
-};
-
-Cancel.prototype.__CANCEL__ = true;
-
-module.exports = Cancel;
-
-
-/***/ }),
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
 /* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -37806,15 +37134,17 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _DashboardMain = __webpack_require__(481);
+var _DashboardUserSession = __webpack_require__(553);
 
-var _DashboardMain2 = _interopRequireDefault(_DashboardMain);
+var _DashboardUserSession2 = _interopRequireDefault(_DashboardUserSession);
 
 var _DashboardHeader = __webpack_require__(490);
 
 var _DashboardHeader2 = _interopRequireDefault(_DashboardHeader);
 
-var _reactRouterDom = __webpack_require__(32);
+var _DashboardContent = __webpack_require__(552);
+
+var _DashboardContent2 = _interopRequireDefault(_DashboardContent);
 
 __webpack_require__(85);
 
@@ -37825,7 +37155,6 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-// import './../styles/Dashboard.css';
 
 ////////// Separate component that is similar to App.js but for whne a client has successfully signed into his specific dashboard //////////
 var Dashboard = function (_Component) {
@@ -37850,7 +37179,8 @@ var Dashboard = function (_Component) {
         'div',
         null,
         _react2.default.createElement(_DashboardHeader2.default, null),
-        _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/dashboard', component: _DashboardMain2.default })
+        _react2.default.createElement(_DashboardContent2.default, null),
+        _react2.default.createElement(_DashboardUserSession2.default, null)
       );
     }
   }]);
@@ -37862,522 +37192,8 @@ exports.default = Dashboard;
 
 /***/ }),
 /* 416 */,
-/* 417 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = undefined;
-
-var _Drawer = __webpack_require__(418);
-
-var _Drawer2 = _interopRequireDefault(_Drawer);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = _Drawer2.default;
-
-/***/ }),
-/* 418 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _getPrototypeOf = __webpack_require__(7);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(8);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(9);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _simpleAssign = __webpack_require__(10);
-
-var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(2);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactDom = __webpack_require__(16);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _reactEventListener = __webpack_require__(126);
-
-var _reactEventListener2 = _interopRequireDefault(_reactEventListener);
-
-var _keycode = __webpack_require__(83);
-
-var _keycode2 = _interopRequireDefault(_keycode);
-
-var _autoPrefix = __webpack_require__(84);
-
-var _autoPrefix2 = _interopRequireDefault(_autoPrefix);
-
-var _transitions = __webpack_require__(17);
-
-var _transitions2 = _interopRequireDefault(_transitions);
-
-var _Overlay = __webpack_require__(423);
-
-var _Overlay2 = _interopRequireDefault(_Overlay);
-
-var _Paper = __webpack_require__(38);
-
-var _Paper2 = _interopRequireDefault(_Paper);
-
-var _propTypes3 = __webpack_require__(33);
-
-var _propTypes4 = _interopRequireDefault(_propTypes3);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var openNavEventHandler = null;
-
-var Drawer = function (_Component) {
-  (0, _inherits3.default)(Drawer, _Component);
-
-  function Drawer() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
-    (0, _classCallCheck3.default)(this, Drawer);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = Drawer.__proto__ || (0, _getPrototypeOf2.default)(Drawer)).call.apply(_ref, [this].concat(args))), _this), _this.handleTouchTapOverlay = function (event) {
-      event.preventDefault();
-      _this.close('clickaway');
-    }, _this.handleKeyUp = function (event) {
-      if (_this.state.open && !_this.props.docked && (0, _keycode2.default)(event) === 'esc') {
-        _this.close('escape');
-      }
-    }, _this.onBodyTouchStart = function (event) {
-      var swipeAreaWidth = _this.props.swipeAreaWidth;
-
-      var touchStartX = _this.context.muiTheme.isRtl ? document.body.offsetWidth - event.touches[0].pageX : event.touches[0].pageX;
-      var touchStartY = event.touches[0].pageY;
-
-      // Open only if swiping from far left (or right) while closed
-      if (swipeAreaWidth !== null && !_this.state.open) {
-        if (_this.props.openSecondary) {
-          // If openSecondary is true calculate from the far right
-          if (touchStartX < document.body.offsetWidth - swipeAreaWidth) return;
-        } else {
-          // If openSecondary is false calculate from the far left
-          if (touchStartX > swipeAreaWidth) return;
-        }
-      }
-
-      if (!_this.state.open && (openNavEventHandler !== _this.onBodyTouchStart || _this.props.disableSwipeToOpen)) {
-        return;
-      }
-
-      _this.maybeSwiping = true;
-      _this.touchStartX = touchStartX;
-      _this.touchStartY = touchStartY;
-
-      document.body.addEventListener('touchmove', _this.onBodyTouchMove);
-      document.body.addEventListener('touchend', _this.onBodyTouchEnd);
-      document.body.addEventListener('touchcancel', _this.onBodyTouchEnd);
-    }, _this.onBodyTouchMove = function (event) {
-      var currentX = _this.context.muiTheme.isRtl ? document.body.offsetWidth - event.touches[0].pageX : event.touches[0].pageX;
-      var currentY = event.touches[0].pageY;
-
-      if (_this.state.swiping) {
-        event.preventDefault();
-        _this.setPosition(_this.getTranslateX(currentX));
-      } else if (_this.maybeSwiping) {
-        var dXAbs = Math.abs(currentX - _this.touchStartX);
-        var dYAbs = Math.abs(currentY - _this.touchStartY);
-        // If the user has moved his thumb ten pixels in either direction,
-        // we can safely make an assumption about whether he was intending
-        // to swipe or scroll.
-        var threshold = 10;
-
-        if (dXAbs > threshold && dYAbs <= threshold) {
-          _this.swipeStartX = currentX;
-          _this.setState({
-            swiping: _this.state.open ? 'closing' : 'opening'
-          });
-          _this.setPosition(_this.getTranslateX(currentX));
-        } else if (dXAbs <= threshold && dYAbs > threshold) {
-          _this.onBodyTouchEnd();
-        }
-      }
-    }, _this.onBodyTouchEnd = function (event) {
-      if (_this.state.swiping) {
-        var currentX = _this.context.muiTheme.isRtl ? document.body.offsetWidth - event.changedTouches[0].pageX : event.changedTouches[0].pageX;
-        var translateRatio = _this.getTranslateX(currentX) / _this.getMaxTranslateX();
-
-        _this.maybeSwiping = false;
-        var swiping = _this.state.swiping;
-        _this.setState({
-          swiping: null
-        });
-
-        // We have to open or close after setting swiping to null,
-        // because only then CSS transition is enabled.
-        if (translateRatio > 0.5) {
-          if (swiping === 'opening') {
-            _this.setPosition(_this.getMaxTranslateX());
-          } else {
-            _this.close('swipe');
-          }
-        } else {
-          if (swiping === 'opening') {
-            _this.open('swipe');
-          } else {
-            _this.setPosition(0);
-          }
-        }
-      } else {
-        _this.maybeSwiping = false;
-      }
-
-      _this.removeBodyTouchListeners();
-    }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
-  }
-
-  (0, _createClass3.default)(Drawer, [{
-    key: 'componentWillMount',
-    value: function componentWillMount() {
-      this.maybeSwiping = false;
-      this.touchStartX = null;
-      this.touchStartY = null;
-      this.swipeStartX = null;
-
-      this.setState({
-        open: this.props.open !== null ? this.props.open : this.props.docked,
-        swiping: null
-      });
-    }
-  }, {
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      this.enableSwipeHandling();
-    }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      // If controlled then the open prop takes precedence.
-      if (nextProps.open !== null) {
-        this.setState({
-          open: nextProps.open
-        });
-        // Otherwise, if docked is changed, change the open state for when uncontrolled.
-      } else if (this.props.docked !== nextProps.docked) {
-        this.setState({
-          open: nextProps.docked
-        });
-      }
-    }
-  }, {
-    key: 'componentDidUpdate',
-    value: function componentDidUpdate() {
-      this.enableSwipeHandling();
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      this.disableSwipeHandling();
-      this.removeBodyTouchListeners();
-    }
-  }, {
-    key: 'getStyles',
-    value: function getStyles() {
-      var muiTheme = this.context.muiTheme;
-      var theme = muiTheme.drawer;
-
-      var x = this.getTranslateMultiplier() * (this.state.open ? 0 : this.getMaxTranslateX());
-
-      var styles = {
-        root: {
-          height: '100%',
-          width: this.getTranslatedWidth() || theme.width,
-          position: 'fixed',
-          zIndex: muiTheme.zIndex.drawer,
-          left: 0,
-          top: 0,
-          transform: 'translate(' + x + 'px, 0)',
-          transition: !this.state.swiping && _transitions2.default.easeOut(null, 'transform', null),
-          backgroundColor: theme.color,
-          overflow: 'auto',
-          WebkitOverflowScrolling: 'touch' // iOS momentum scrolling
-        },
-        overlay: {
-          zIndex: muiTheme.zIndex.drawerOverlay,
-          pointerEvents: this.state.open ? 'auto' : 'none' // Bypass mouse events when left nav is closing.
-        },
-        rootWhenOpenRight: {
-          left: 'auto',
-          right: 0
-        }
-      };
-
-      return styles;
-    }
-  }, {
-    key: 'shouldShow',
-    value: function shouldShow() {
-      return this.state.open || !!this.state.swiping; // component is swiping
-    }
-  }, {
-    key: 'close',
-    value: function close(reason) {
-      if (this.props.open === null) this.setState({ open: false });
-      if (this.props.onRequestChange) this.props.onRequestChange(false, reason);
-      return this;
-    }
-  }, {
-    key: 'open',
-    value: function open(reason) {
-      if (this.props.open === null) this.setState({ open: true });
-      if (this.props.onRequestChange) this.props.onRequestChange(true, reason);
-      return this;
-    }
-  }, {
-    key: 'getTranslatedWidth',
-    value: function getTranslatedWidth() {
-      if (typeof this.props.width === 'string') {
-        if (!/^\d+(\.\d+)?%$/.test(this.props.width)) {
-          throw new Error('Not a valid percentage format.');
-        }
-        var width = parseFloat(this.props.width) / 100.0;
-        // We are doing our best on the Server to render a consistent UI, hence the
-        // default value of 10000
-        return typeof window !== 'undefined' ? width * window.innerWidth : 10000;
-      } else {
-        return this.props.width;
-      }
-    }
-  }, {
-    key: 'getMaxTranslateX',
-    value: function getMaxTranslateX() {
-      var width = this.getTranslatedWidth() || this.context.muiTheme.drawer.width;
-      return width + 10;
-    }
-  }, {
-    key: 'getTranslateMultiplier',
-    value: function getTranslateMultiplier() {
-      return this.props.openSecondary ? 1 : -1;
-    }
-  }, {
-    key: 'enableSwipeHandling',
-    value: function enableSwipeHandling() {
-      if (!this.props.docked) {
-        document.body.addEventListener('touchstart', this.onBodyTouchStart);
-        if (!openNavEventHandler) {
-          openNavEventHandler = this.onBodyTouchStart;
-        }
-      } else {
-        this.disableSwipeHandling();
-      }
-    }
-  }, {
-    key: 'disableSwipeHandling',
-    value: function disableSwipeHandling() {
-      document.body.removeEventListener('touchstart', this.onBodyTouchStart);
-      if (openNavEventHandler === this.onBodyTouchStart) {
-        openNavEventHandler = null;
-      }
-    }
-  }, {
-    key: 'removeBodyTouchListeners',
-    value: function removeBodyTouchListeners() {
-      document.body.removeEventListener('touchmove', this.onBodyTouchMove);
-      document.body.removeEventListener('touchend', this.onBodyTouchEnd);
-      document.body.removeEventListener('touchcancel', this.onBodyTouchEnd);
-    }
-  }, {
-    key: 'setPosition',
-    value: function setPosition(translateX) {
-      var rtlTranslateMultiplier = this.context.muiTheme.isRtl ? -1 : 1;
-      var drawer = _reactDom2.default.findDOMNode(this.refs.clickAwayableElement);
-      var transformCSS = 'translate(' + this.getTranslateMultiplier() * rtlTranslateMultiplier * translateX + 'px, 0)';
-      this.refs.overlay.setOpacity(1 - translateX / this.getMaxTranslateX());
-      _autoPrefix2.default.set(drawer.style, 'transform', transformCSS);
-    }
-  }, {
-    key: 'getTranslateX',
-    value: function getTranslateX(currentX) {
-      return Math.min(Math.max(this.state.swiping === 'closing' ? this.getTranslateMultiplier() * (currentX - this.swipeStartX) : this.getMaxTranslateX() - this.getTranslateMultiplier() * (this.swipeStartX - currentX), 0), this.getMaxTranslateX());
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          children = _props.children,
-          className = _props.className,
-          containerClassName = _props.containerClassName,
-          containerStyle = _props.containerStyle,
-          docked = _props.docked,
-          openSecondary = _props.openSecondary,
-          overlayClassName = _props.overlayClassName,
-          overlayStyle = _props.overlayStyle,
-          style = _props.style,
-          zDepth = _props.zDepth;
-
-
-      var styles = this.getStyles();
-
-      var overlay = void 0;
-      if (!docked) {
-        overlay = _react2.default.createElement(_Overlay2.default, {
-          ref: 'overlay',
-          show: this.shouldShow(),
-          className: overlayClassName,
-          style: (0, _simpleAssign2.default)(styles.overlay, overlayStyle),
-          transitionEnabled: !this.state.swiping,
-          onTouchTap: this.handleTouchTapOverlay
-        });
-      }
-
-      return _react2.default.createElement(
-        'div',
-        {
-          className: className,
-          style: style
-        },
-        _react2.default.createElement(_reactEventListener2.default, { target: 'window', onKeyUp: this.handleKeyUp }),
-        overlay,
-        _react2.default.createElement(
-          _Paper2.default,
-          {
-            ref: 'clickAwayableElement',
-            zDepth: zDepth,
-            rounded: false,
-            transitionEnabled: !this.state.swiping,
-            className: containerClassName,
-            style: (0, _simpleAssign2.default)(styles.root, openSecondary && styles.rootWhenOpenRight, containerStyle)
-          },
-          children
-        )
-      );
-    }
-  }]);
-  return Drawer;
-}(_react.Component);
-
-Drawer.defaultProps = {
-  disableSwipeToOpen: false,
-  docked: true,
-  open: null,
-  openSecondary: false,
-  swipeAreaWidth: 30,
-  width: null,
-  zDepth: 2
-};
-Drawer.contextTypes = {
-  muiTheme: _propTypes2.default.object.isRequired
-};
-Drawer.propTypes = process.env.NODE_ENV !== "production" ? {
-  /**
-   * The contents of the `Drawer`
-   */
-  children: _propTypes2.default.node,
-  /**
-   * The CSS class name of the root element.
-   */
-  className: _propTypes2.default.string,
-  /**
-   * The CSS class name of the container element.
-   */
-  containerClassName: _propTypes2.default.string,
-  /**
-   * Override the inline-styles of the container element.
-   */
-  containerStyle: _propTypes2.default.object,
-  /**
-   * If true, swiping sideways when the `Drawer` is closed will not open it.
-   */
-  disableSwipeToOpen: _propTypes2.default.bool,
-  /**
-   * If true, the `Drawer` will be docked. In this state, the overlay won't show and
-   * clicking on a menu item will not close the `Drawer`.
-   */
-  docked: _propTypes2.default.bool,
-  /**
-   * Callback function fired when the `open` state of the `Drawer` is requested to be changed.
-   *
-   * @param {boolean} open If true, the `Drawer` was requested to be opened.
-   * @param {string} reason The reason for the open or close request. Possible values are
-   * 'swipe' for open requests; 'clickaway' (on overlay clicks),
-   * 'escape' (on escape key press), and 'swipe' for close requests.
-   */
-  onRequestChange: _propTypes2.default.func,
-  /**
-   * If true, the `Drawer` is opened.  Providing a value will turn the `Drawer`
-   * into a controlled component.
-   */
-  open: _propTypes2.default.bool,
-  /**
-   * If true, the `Drawer` is positioned to open from the opposite side.
-   */
-  openSecondary: _propTypes2.default.bool,
-  /**
-   * The CSS class name to add to the `Overlay` component that is rendered behind the `Drawer`.
-   */
-  overlayClassName: _propTypes2.default.string,
-  /**
-   * Override the inline-styles of the `Overlay` component that is rendered behind the `Drawer`.
-   */
-  overlayStyle: _propTypes2.default.object,
-  /**
-   * Override the inline-styles of the root element.
-   */
-  style: _propTypes2.default.object,
-  /**
-   * The width of the left most (or right most) area in pixels where the `Drawer` can be
-   * swiped open from. Setting this to `null` spans that area to the entire page
-   * (**CAUTION!** Setting this property to `null` might cause issues with sliders and
-   * swipeable `Tabs`: use at your own risk).
-   */
-  swipeAreaWidth: _propTypes2.default.number,
-  /**
-   * The width of the `Drawer` in pixels or percentage in string format ex. `50%` to fill
-   * half of the window or `100%` and so on. Defaults to using the values from theme.
-   */
-  width: _propTypes2.default.oneOfType([_propTypes2.default.string, _propTypes2.default.number]),
-  /**
-   * The zDepth of the `Drawer`.
-   */
-  zDepth: _propTypes4.default.zDepth
-
-} : {};
-exports.default = Drawer;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
+/* 417 */,
+/* 418 */,
 /* 419 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -38478,288 +37294,8 @@ function defineProperty(o, p, attr) {
 }
 
 /***/ }),
-/* 423 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(13);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _objectWithoutProperties2 = __webpack_require__(11);
-
-var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-
-var _getPrototypeOf = __webpack_require__(7);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(8);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(9);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _simpleAssign = __webpack_require__(10);
-
-var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(2);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _transitions = __webpack_require__(17);
-
-var _transitions2 = _interopRequireDefault(_transitions);
-
-var _AutoLockScrolling = __webpack_require__(424);
-
-var _AutoLockScrolling2 = _interopRequireDefault(_AutoLockScrolling);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function getStyles(props, context) {
-  var overlay = context.muiTheme.overlay;
-
-
-  var style = {
-    root: {
-      position: 'fixed',
-      height: '100%',
-      width: '100%',
-      top: 0,
-      left: '-100%',
-      opacity: 0,
-      backgroundColor: overlay.backgroundColor,
-      WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)', // Remove mobile color flashing (deprecated)
-
-      // Two ways to promote overlay to its own render layer
-      willChange: 'opacity',
-      transform: 'translateZ(0)',
-
-      transition: props.transitionEnabled && _transitions2.default.easeOut('0ms', 'left', '400ms') + ', ' + _transitions2.default.easeOut('400ms', 'opacity')
-    }
-  };
-
-  if (props.show) {
-    (0, _simpleAssign2.default)(style.root, {
-      left: 0,
-      opacity: 1,
-      transition: _transitions2.default.easeOut('0ms', 'left') + ', ' + _transitions2.default.easeOut('400ms', 'opacity')
-    });
-  }
-
-  return style;
-}
-
-var Overlay = function (_Component) {
-  (0, _inherits3.default)(Overlay, _Component);
-
-  function Overlay() {
-    (0, _classCallCheck3.default)(this, Overlay);
-    return (0, _possibleConstructorReturn3.default)(this, (Overlay.__proto__ || (0, _getPrototypeOf2.default)(Overlay)).apply(this, arguments));
-  }
-
-  (0, _createClass3.default)(Overlay, [{
-    key: 'setOpacity',
-    value: function setOpacity(opacity) {
-      this.refs.overlay.style.opacity = opacity;
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      var _props = this.props,
-          autoLockScrolling = _props.autoLockScrolling,
-          show = _props.show,
-          style = _props.style,
-          transitionEnabled = _props.transitionEnabled,
-          other = (0, _objectWithoutProperties3.default)(_props, ['autoLockScrolling', 'show', 'style', 'transitionEnabled']);
-      var prepareStyles = this.context.muiTheme.prepareStyles;
-
-      var styles = getStyles(this.props, this.context);
-
-      return _react2.default.createElement(
-        'div',
-        (0, _extends3.default)({}, other, { ref: 'overlay', style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)) }),
-        autoLockScrolling && _react2.default.createElement(_AutoLockScrolling2.default, { lock: show })
-      );
-    }
-  }]);
-  return Overlay;
-}(_react.Component);
-
-Overlay.defaultProps = {
-  autoLockScrolling: true,
-  style: {},
-  transitionEnabled: true
-};
-Overlay.contextTypes = {
-  muiTheme: _propTypes2.default.object.isRequired
-};
-Overlay.propTypes = process.env.NODE_ENV !== "production" ? {
-  autoLockScrolling: _propTypes2.default.bool,
-  show: _propTypes2.default.bool.isRequired,
-  /**
-   * Override the inline-styles of the root element.
-   */
-  style: _propTypes2.default.object,
-  transitionEnabled: _propTypes2.default.bool
-} : {};
-exports.default = Overlay;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 424 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _getPrototypeOf = __webpack_require__(7);
-
-var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-
-var _classCallCheck2 = __webpack_require__(4);
-
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-
-var _createClass2 = __webpack_require__(5);
-
-var _createClass3 = _interopRequireDefault(_createClass2);
-
-var _possibleConstructorReturn2 = __webpack_require__(8);
-
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-
-var _inherits2 = __webpack_require__(9);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _react = __webpack_require__(1);
-
-var _propTypes = __webpack_require__(2);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var originalBodyOverflow = null;
-var lockingCounter = 0;
-
-var AutoLockScrolling = function (_Component) {
-  (0, _inherits3.default)(AutoLockScrolling, _Component);
-
-  function AutoLockScrolling() {
-    var _ref;
-
-    var _temp, _this, _ret;
-
-    (0, _classCallCheck3.default)(this, AutoLockScrolling);
-
-    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = AutoLockScrolling.__proto__ || (0, _getPrototypeOf2.default)(AutoLockScrolling)).call.apply(_ref, [this].concat(args))), _this), _this.locked = false, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
-  }
-
-  (0, _createClass3.default)(AutoLockScrolling, [{
-    key: 'componentDidMount',
-    value: function componentDidMount() {
-      if (this.props.lock === true) {
-        this.preventScrolling();
-      }
-    }
-  }, {
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      if (this.props.lock !== nextProps.lock) {
-        if (nextProps.lock) {
-          this.preventScrolling();
-        } else {
-          this.allowScrolling();
-        }
-      }
-    }
-  }, {
-    key: 'componentWillUnmount',
-    value: function componentWillUnmount() {
-      this.allowScrolling();
-    }
-
-    // force to only lock/unlock once
-
-  }, {
-    key: 'preventScrolling',
-    value: function preventScrolling() {
-      if (this.locked === true) {
-        return;
-      }
-
-      lockingCounter = lockingCounter + 1;
-      this.locked = true;
-
-      // only lock the first time the component is mounted.
-      if (lockingCounter === 1) {
-        var body = document.getElementsByTagName('body')[0];
-        originalBodyOverflow = body.style.overflow;
-        body.style.overflow = 'hidden';
-      }
-    }
-  }, {
-    key: 'allowScrolling',
-    value: function allowScrolling() {
-      if (this.locked === true) {
-        lockingCounter = lockingCounter - 1;
-        this.locked = false;
-      }
-
-      if (lockingCounter === 0 && originalBodyOverflow !== null) {
-        var body = document.getElementsByTagName('body')[0];
-        body.style.overflow = originalBodyOverflow || '';
-        originalBodyOverflow = null;
-      }
-    }
-  }, {
-    key: 'render',
-    value: function render() {
-      return null;
-    }
-  }]);
-  return AutoLockScrolling;
-}(_react.Component);
-
-AutoLockScrolling.propTypes = process.env.NODE_ENV !== "production" ? {
-  lock: _propTypes2.default.bool.isRequired
-} : {};
-exports.default = AutoLockScrolling;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
+/* 423 */,
+/* 424 */,
 /* 425 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42631,941 +41167,26 @@ var HotKeyHolder = exports.HotKeyHolder = function () {
 /* 459 */,
 /* 460 */,
 /* 461 */,
-/* 462 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(463);
-
-/***/ }),
-/* 463 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(27);
-var bind = __webpack_require__(202);
-var Axios = __webpack_require__(465);
-var defaults = __webpack_require__(130);
-
-/**
- * Create an instance of Axios
- *
- * @param {Object} defaultConfig The default config for the instance
- * @return {Axios} A new instance of Axios
- */
-function createInstance(defaultConfig) {
-  var context = new Axios(defaultConfig);
-  var instance = bind(Axios.prototype.request, context);
-
-  // Copy axios.prototype to instance
-  utils.extend(instance, Axios.prototype, context);
-
-  // Copy context to instance
-  utils.extend(instance, context);
-
-  return instance;
-}
-
-// Create the default instance to be exported
-var axios = createInstance(defaults);
-
-// Expose Axios class to allow class inheritance
-axios.Axios = Axios;
-
-// Factory for creating new instances
-axios.create = function create(instanceConfig) {
-  return createInstance(utils.merge(defaults, instanceConfig));
-};
-
-// Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(206);
-axios.CancelToken = __webpack_require__(479);
-axios.isCancel = __webpack_require__(205);
-
-// Expose all/spread
-axios.all = function all(promises) {
-  return Promise.all(promises);
-};
-axios.spread = __webpack_require__(480);
-
-module.exports = axios;
-
-// Allow use of default import syntax in TypeScript
-module.exports.default = axios;
-
-
-/***/ }),
-/* 464 */
-/***/ (function(module, exports) {
-
-/*!
- * Determine if an object is a Buffer
- *
- * @author   Feross Aboukhadijeh <feross@feross.org> <http://feross.org>
- * @license  MIT
- */
-
-// The _isBuffer check is for Safari 5-7 support, because it's missing
-// Object.prototype.constructor. Remove this eventually
-module.exports = function (obj) {
-  return obj != null && (isBuffer(obj) || isSlowBuffer(obj) || !!obj._isBuffer)
-}
-
-function isBuffer (obj) {
-  return !!obj.constructor && typeof obj.constructor.isBuffer === 'function' && obj.constructor.isBuffer(obj)
-}
-
-// For Node v0.10 support. Remove this eventually.
-function isSlowBuffer (obj) {
-  return typeof obj.readFloatLE === 'function' && typeof obj.slice === 'function' && isBuffer(obj.slice(0, 0))
-}
-
-
-/***/ }),
-/* 465 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var defaults = __webpack_require__(130);
-var utils = __webpack_require__(27);
-var InterceptorManager = __webpack_require__(474);
-var dispatchRequest = __webpack_require__(475);
-var isAbsoluteURL = __webpack_require__(477);
-var combineURLs = __webpack_require__(478);
-
-/**
- * Create a new instance of Axios
- *
- * @param {Object} instanceConfig The default config for the instance
- */
-function Axios(instanceConfig) {
-  this.defaults = instanceConfig;
-  this.interceptors = {
-    request: new InterceptorManager(),
-    response: new InterceptorManager()
-  };
-}
-
-/**
- * Dispatch a request
- *
- * @param {Object} config The config specific for this request (merged with this.defaults)
- */
-Axios.prototype.request = function request(config) {
-  /*eslint no-param-reassign:0*/
-  // Allow for axios('example/url'[, config]) a la fetch API
-  if (typeof config === 'string') {
-    config = utils.merge({
-      url: arguments[0]
-    }, arguments[1]);
-  }
-
-  config = utils.merge(defaults, this.defaults, { method: 'get' }, config);
-  config.method = config.method.toLowerCase();
-
-  // Support baseURL config
-  if (config.baseURL && !isAbsoluteURL(config.url)) {
-    config.url = combineURLs(config.baseURL, config.url);
-  }
-
-  // Hook up interceptors middleware
-  var chain = [dispatchRequest, undefined];
-  var promise = Promise.resolve(config);
-
-  this.interceptors.request.forEach(function unshiftRequestInterceptors(interceptor) {
-    chain.unshift(interceptor.fulfilled, interceptor.rejected);
-  });
-
-  this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
-    chain.push(interceptor.fulfilled, interceptor.rejected);
-  });
-
-  while (chain.length) {
-    promise = promise.then(chain.shift(), chain.shift());
-  }
-
-  return promise;
-};
-
-// Provide aliases for supported request methods
-utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
-  /*eslint func-names:0*/
-  Axios.prototype[method] = function(url, config) {
-    return this.request(utils.merge(config || {}, {
-      method: method,
-      url: url
-    }));
-  };
-});
-
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  /*eslint func-names:0*/
-  Axios.prototype[method] = function(url, data, config) {
-    return this.request(utils.merge(config || {}, {
-      method: method,
-      url: url,
-      data: data
-    }));
-  };
-});
-
-module.exports = Axios;
-
-
-/***/ }),
-/* 466 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(27);
-
-module.exports = function normalizeHeaderName(headers, normalizedName) {
-  utils.forEach(headers, function processHeader(value, name) {
-    if (name !== normalizedName && name.toUpperCase() === normalizedName.toUpperCase()) {
-      headers[normalizedName] = value;
-      delete headers[name];
-    }
-  });
-};
-
-
-/***/ }),
-/* 467 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var createError = __webpack_require__(204);
-
-/**
- * Resolve or reject a Promise based on response status.
- *
- * @param {Function} resolve A function that resolves the promise.
- * @param {Function} reject A function that rejects the promise.
- * @param {object} response The response.
- */
-module.exports = function settle(resolve, reject, response) {
-  var validateStatus = response.config.validateStatus;
-  // Note: status is not exposed by XDomainRequest
-  if (!response.status || !validateStatus || validateStatus(response.status)) {
-    resolve(response);
-  } else {
-    reject(createError(
-      'Request failed with status code ' + response.status,
-      response.config,
-      null,
-      response.request,
-      response
-    ));
-  }
-};
-
-
-/***/ }),
-/* 468 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Update an Error with the specified config, error code, and response.
- *
- * @param {Error} error The error to update.
- * @param {Object} config The config.
- * @param {string} [code] The error code (for example, 'ECONNABORTED').
- * @param {Object} [request] The request.
- * @param {Object} [response] The response.
- * @returns {Error} The error.
- */
-module.exports = function enhanceError(error, config, code, request, response) {
-  error.config = config;
-  if (code) {
-    error.code = code;
-  }
-  error.request = request;
-  error.response = response;
-  return error;
-};
-
-
-/***/ }),
-/* 469 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(27);
-
-function encode(val) {
-  return encodeURIComponent(val).
-    replace(/%40/gi, '@').
-    replace(/%3A/gi, ':').
-    replace(/%24/g, '$').
-    replace(/%2C/gi, ',').
-    replace(/%20/g, '+').
-    replace(/%5B/gi, '[').
-    replace(/%5D/gi, ']');
-}
-
-/**
- * Build a URL by appending params to the end
- *
- * @param {string} url The base of the url (e.g., http://www.google.com)
- * @param {object} [params] The params to be appended
- * @returns {string} The formatted url
- */
-module.exports = function buildURL(url, params, paramsSerializer) {
-  /*eslint no-param-reassign:0*/
-  if (!params) {
-    return url;
-  }
-
-  var serializedParams;
-  if (paramsSerializer) {
-    serializedParams = paramsSerializer(params);
-  } else if (utils.isURLSearchParams(params)) {
-    serializedParams = params.toString();
-  } else {
-    var parts = [];
-
-    utils.forEach(params, function serialize(val, key) {
-      if (val === null || typeof val === 'undefined') {
-        return;
-      }
-
-      if (utils.isArray(val)) {
-        key = key + '[]';
-      }
-
-      if (!utils.isArray(val)) {
-        val = [val];
-      }
-
-      utils.forEach(val, function parseValue(v) {
-        if (utils.isDate(v)) {
-          v = v.toISOString();
-        } else if (utils.isObject(v)) {
-          v = JSON.stringify(v);
-        }
-        parts.push(encode(key) + '=' + encode(v));
-      });
-    });
-
-    serializedParams = parts.join('&');
-  }
-
-  if (serializedParams) {
-    url += (url.indexOf('?') === -1 ? '?' : '&') + serializedParams;
-  }
-
-  return url;
-};
-
-
-/***/ }),
-/* 470 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(27);
-
-/**
- * Parse headers into an object
- *
- * ```
- * Date: Wed, 27 Aug 2014 08:58:49 GMT
- * Content-Type: application/json
- * Connection: keep-alive
- * Transfer-Encoding: chunked
- * ```
- *
- * @param {String} headers Headers needing to be parsed
- * @returns {Object} Headers parsed into an object
- */
-module.exports = function parseHeaders(headers) {
-  var parsed = {};
-  var key;
-  var val;
-  var i;
-
-  if (!headers) { return parsed; }
-
-  utils.forEach(headers.split('\n'), function parser(line) {
-    i = line.indexOf(':');
-    key = utils.trim(line.substr(0, i)).toLowerCase();
-    val = utils.trim(line.substr(i + 1));
-
-    if (key) {
-      parsed[key] = parsed[key] ? parsed[key] + ', ' + val : val;
-    }
-  });
-
-  return parsed;
-};
-
-
-/***/ }),
-/* 471 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(27);
-
-module.exports = (
-  utils.isStandardBrowserEnv() ?
-
-  // Standard browser envs have full support of the APIs needed to test
-  // whether the request URL is of the same origin as current location.
-  (function standardBrowserEnv() {
-    var msie = /(msie|trident)/i.test(navigator.userAgent);
-    var urlParsingNode = document.createElement('a');
-    var originURL;
-
-    /**
-    * Parse a URL to discover it's components
-    *
-    * @param {String} url The URL to be parsed
-    * @returns {Object}
-    */
-    function resolveURL(url) {
-      var href = url;
-
-      if (msie) {
-        // IE needs attribute set twice to normalize properties
-        urlParsingNode.setAttribute('href', href);
-        href = urlParsingNode.href;
-      }
-
-      urlParsingNode.setAttribute('href', href);
-
-      // urlParsingNode provides the UrlUtils interface - http://url.spec.whatwg.org/#urlutils
-      return {
-        href: urlParsingNode.href,
-        protocol: urlParsingNode.protocol ? urlParsingNode.protocol.replace(/:$/, '') : '',
-        host: urlParsingNode.host,
-        search: urlParsingNode.search ? urlParsingNode.search.replace(/^\?/, '') : '',
-        hash: urlParsingNode.hash ? urlParsingNode.hash.replace(/^#/, '') : '',
-        hostname: urlParsingNode.hostname,
-        port: urlParsingNode.port,
-        pathname: (urlParsingNode.pathname.charAt(0) === '/') ?
-                  urlParsingNode.pathname :
-                  '/' + urlParsingNode.pathname
-      };
-    }
-
-    originURL = resolveURL(window.location.href);
-
-    /**
-    * Determine if a URL shares the same origin as the current location
-    *
-    * @param {String} requestURL The URL to test
-    * @returns {boolean} True if URL shares the same origin, otherwise false
-    */
-    return function isURLSameOrigin(requestURL) {
-      var parsed = (utils.isString(requestURL)) ? resolveURL(requestURL) : requestURL;
-      return (parsed.protocol === originURL.protocol &&
-            parsed.host === originURL.host);
-    };
-  })() :
-
-  // Non standard browser envs (web workers, react-native) lack needed support.
-  (function nonStandardBrowserEnv() {
-    return function isURLSameOrigin() {
-      return true;
-    };
-  })()
-);
-
-
-/***/ }),
-/* 472 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-// btoa polyfill for IE<10 courtesy https://github.com/davidchambers/Base64.js
-
-var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
-
-function E() {
-  this.message = 'String contains an invalid character';
-}
-E.prototype = new Error;
-E.prototype.code = 5;
-E.prototype.name = 'InvalidCharacterError';
-
-function btoa(input) {
-  var str = String(input);
-  var output = '';
-  for (
-    // initialize result and counter
-    var block, charCode, idx = 0, map = chars;
-    // if the next str index does not exist:
-    //   change the mapping table to "="
-    //   check if d has no fractional digits
-    str.charAt(idx | 0) || (map = '=', idx % 1);
-    // "8 - idx % 1 * 8" generates the sequence 2, 4, 6, 8
-    output += map.charAt(63 & block >> 8 - idx % 1 * 8)
-  ) {
-    charCode = str.charCodeAt(idx += 3 / 4);
-    if (charCode > 0xFF) {
-      throw new E();
-    }
-    block = block << 8 | charCode;
-  }
-  return output;
-}
-
-module.exports = btoa;
-
-
-/***/ }),
-/* 473 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(27);
-
-module.exports = (
-  utils.isStandardBrowserEnv() ?
-
-  // Standard browser envs support document.cookie
-  (function standardBrowserEnv() {
-    return {
-      write: function write(name, value, expires, path, domain, secure) {
-        var cookie = [];
-        cookie.push(name + '=' + encodeURIComponent(value));
-
-        if (utils.isNumber(expires)) {
-          cookie.push('expires=' + new Date(expires).toGMTString());
-        }
-
-        if (utils.isString(path)) {
-          cookie.push('path=' + path);
-        }
-
-        if (utils.isString(domain)) {
-          cookie.push('domain=' + domain);
-        }
-
-        if (secure === true) {
-          cookie.push('secure');
-        }
-
-        document.cookie = cookie.join('; ');
-      },
-
-      read: function read(name) {
-        var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
-        return (match ? decodeURIComponent(match[3]) : null);
-      },
-
-      remove: function remove(name) {
-        this.write(name, '', Date.now() - 86400000);
-      }
-    };
-  })() :
-
-  // Non standard browser env (web workers, react-native) lack needed support.
-  (function nonStandardBrowserEnv() {
-    return {
-      write: function write() {},
-      read: function read() { return null; },
-      remove: function remove() {}
-    };
-  })()
-);
-
-
-/***/ }),
-/* 474 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(27);
-
-function InterceptorManager() {
-  this.handlers = [];
-}
-
-/**
- * Add a new interceptor to the stack
- *
- * @param {Function} fulfilled The function to handle `then` for a `Promise`
- * @param {Function} rejected The function to handle `reject` for a `Promise`
- *
- * @return {Number} An ID used to remove interceptor later
- */
-InterceptorManager.prototype.use = function use(fulfilled, rejected) {
-  this.handlers.push({
-    fulfilled: fulfilled,
-    rejected: rejected
-  });
-  return this.handlers.length - 1;
-};
-
-/**
- * Remove an interceptor from the stack
- *
- * @param {Number} id The ID that was returned by `use`
- */
-InterceptorManager.prototype.eject = function eject(id) {
-  if (this.handlers[id]) {
-    this.handlers[id] = null;
-  }
-};
-
-/**
- * Iterate over all the registered interceptors
- *
- * This method is particularly useful for skipping over any
- * interceptors that may have become `null` calling `eject`.
- *
- * @param {Function} fn The function to call for each interceptor
- */
-InterceptorManager.prototype.forEach = function forEach(fn) {
-  utils.forEach(this.handlers, function forEachHandler(h) {
-    if (h !== null) {
-      fn(h);
-    }
-  });
-};
-
-module.exports = InterceptorManager;
-
-
-/***/ }),
-/* 475 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(27);
-var transformData = __webpack_require__(476);
-var isCancel = __webpack_require__(205);
-var defaults = __webpack_require__(130);
-
-/**
- * Throws a `Cancel` if cancellation has been requested.
- */
-function throwIfCancellationRequested(config) {
-  if (config.cancelToken) {
-    config.cancelToken.throwIfRequested();
-  }
-}
-
-/**
- * Dispatch a request to the server using the configured adapter.
- *
- * @param {object} config The config that is to be used for the request
- * @returns {Promise} The Promise to be fulfilled
- */
-module.exports = function dispatchRequest(config) {
-  throwIfCancellationRequested(config);
-
-  // Ensure headers exist
-  config.headers = config.headers || {};
-
-  // Transform request data
-  config.data = transformData(
-    config.data,
-    config.headers,
-    config.transformRequest
-  );
-
-  // Flatten headers
-  config.headers = utils.merge(
-    config.headers.common || {},
-    config.headers[config.method] || {},
-    config.headers || {}
-  );
-
-  utils.forEach(
-    ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
-    function cleanHeaderConfig(method) {
-      delete config.headers[method];
-    }
-  );
-
-  var adapter = config.adapter || defaults.adapter;
-
-  return adapter(config).then(function onAdapterResolution(response) {
-    throwIfCancellationRequested(config);
-
-    // Transform response data
-    response.data = transformData(
-      response.data,
-      response.headers,
-      config.transformResponse
-    );
-
-    return response;
-  }, function onAdapterRejection(reason) {
-    if (!isCancel(reason)) {
-      throwIfCancellationRequested(config);
-
-      // Transform response data
-      if (reason && reason.response) {
-        reason.response.data = transformData(
-          reason.response.data,
-          reason.response.headers,
-          config.transformResponse
-        );
-      }
-    }
-
-    return Promise.reject(reason);
-  });
-};
-
-
-/***/ }),
-/* 476 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var utils = __webpack_require__(27);
-
-/**
- * Transform the data for a request or a response
- *
- * @param {Object|String} data The data to be transformed
- * @param {Array} headers The headers for the request or response
- * @param {Array|Function} fns A single function or Array of functions
- * @returns {*} The resulting transformed data
- */
-module.exports = function transformData(data, headers, fns) {
-  /*eslint no-param-reassign:0*/
-  utils.forEach(fns, function transform(fn) {
-    data = fn(data, headers);
-  });
-
-  return data;
-};
-
-
-/***/ }),
-/* 477 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Determines whether the specified URL is absolute
- *
- * @param {string} url The URL to test
- * @returns {boolean} True if the specified URL is absolute, otherwise false
- */
-module.exports = function isAbsoluteURL(url) {
-  // A URL is considered absolute if it begins with "<scheme>://" or "//" (protocol-relative URL).
-  // RFC 3986 defines scheme name as a sequence of characters beginning with a letter and followed
-  // by any combination of letters, digits, plus, period, or hyphen.
-  return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
-};
-
-
-/***/ }),
-/* 478 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Creates a new URL by combining the specified URLs
- *
- * @param {string} baseURL The base URL
- * @param {string} relativeURL The relative URL
- * @returns {string} The combined URL
- */
-module.exports = function combineURLs(baseURL, relativeURL) {
-  return relativeURL
-    ? baseURL.replace(/\/+$/, '') + '/' + relativeURL.replace(/^\/+/, '')
-    : baseURL;
-};
-
-
-/***/ }),
-/* 479 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var Cancel = __webpack_require__(206);
-
-/**
- * A `CancelToken` is an object that can be used to request cancellation of an operation.
- *
- * @class
- * @param {Function} executor The executor function.
- */
-function CancelToken(executor) {
-  if (typeof executor !== 'function') {
-    throw new TypeError('executor must be a function.');
-  }
-
-  var resolvePromise;
-  this.promise = new Promise(function promiseExecutor(resolve) {
-    resolvePromise = resolve;
-  });
-
-  var token = this;
-  executor(function cancel(message) {
-    if (token.reason) {
-      // Cancellation has already been requested
-      return;
-    }
-
-    token.reason = new Cancel(message);
-    resolvePromise(token.reason);
-  });
-}
-
-/**
- * Throws a `Cancel` if cancellation has been requested.
- */
-CancelToken.prototype.throwIfRequested = function throwIfRequested() {
-  if (this.reason) {
-    throw this.reason;
-  }
-};
-
-/**
- * Returns an object that contains a new `CancelToken` and a function that, when called,
- * cancels the `CancelToken`.
- */
-CancelToken.source = function source() {
-  var cancel;
-  var token = new CancelToken(function executor(c) {
-    cancel = c;
-  });
-  return {
-    token: token,
-    cancel: cancel
-  };
-};
-
-module.exports = CancelToken;
-
-
-/***/ }),
-/* 480 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-/**
- * Syntactic sugar for invoking a function and expanding an array for arguments.
- *
- * Common use case would be to use `Function.prototype.apply`.
- *
- *  ```js
- *  function f(x, y, z) {}
- *  var args = [1, 2, 3];
- *  f.apply(null, args);
- *  ```
- *
- * With `spread` this example can be re-written.
- *
- *  ```js
- *  spread(function(x, y, z) {})([1, 2, 3]);
- *  ```
- *
- * @param {Function} callback
- * @returns {Function}
- */
-module.exports = function spread(callback) {
-  return function wrap(arr) {
-    return callback.apply(null, arr);
-  };
-};
-
-
-/***/ }),
-/* 481 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(32);
-
-var _DashboardContent = __webpack_require__(552);
-
-var _DashboardContent2 = _interopRequireDefault(_DashboardContent);
-
-var _DashboardSideBar = __webpack_require__(551);
-
-var _DashboardSideBar2 = _interopRequireDefault(_DashboardSideBar);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var DashboardMain = function (_Component) {
-  _inherits(DashboardMain, _Component);
-
-  function DashboardMain() {
-    _classCallCheck(this, DashboardMain);
-
-    return _possibleConstructorReturn(this, (DashboardMain.__proto__ || Object.getPrototypeOf(DashboardMain)).apply(this, arguments));
-  }
-
-  _createClass(DashboardMain, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(_DashboardSideBar2.default, null),
-        _react2.default.createElement(_DashboardContent2.default, null)
-      );
-    }
-  }]);
-
-  return DashboardMain;
-}(_react.Component);
-
-exports.default = DashboardMain;
-
-/***/ }),
+/* 462 */,
+/* 463 */,
+/* 464 */,
+/* 465 */,
+/* 466 */,
+/* 467 */,
+/* 468 */,
+/* 469 */,
+/* 470 */,
+/* 471 */,
+/* 472 */,
+/* 473 */,
+/* 474 */,
+/* 475 */,
+/* 476 */,
+/* 477 */,
+/* 478 */,
+/* 479 */,
+/* 480 */,
+/* 481 */,
 /* 482 */,
 /* 483 */
 /***/ (function(module, exports, __webpack_require__) {
@@ -43575,7 +41196,7 @@ exports = module.exports = __webpack_require__(60)(undefined);
 
 
 // module
-exports.push([module.i, ".page-content {\n  margin-left: 254px;\n  background-color: #F4F7F5;\n  /* padding-top: 60px; */ }\n\n.content {\n  text-align: center;\n  padding-top: 60px; }\n\n.dashboard-title {\n  padding-left: 25px;\n  padding-top: 15px;\n  margin: 0 auto;\n  font-weight: lighter;\n  text-align: left; }\n\n.dashboard-page {\n  background-color: #F4F7F5;\n  height: 960px;\n  text-align: center; }\n\n.dashboard-logo {\n  height: 40px;\n  padding-top: 15px;\n  padding-bottom: 5px;\n  background-color: #006CAA;\n  font-weight: lighter;\n  color: #006CAA; }\n\n.dashboard-welcome {\n  margin-top: 15px;\n  width: 100%;\n  height: 18%;\n  text-align: center;\n  background-color: white; }\n\n.nav-first {\n  padding-left: 15%; }\n\n.dashboard-header {\n  height: 60px; }\n\n.dashboard-header-toolbar {\n  margin: 0 auto; }\n\n.iframe {\n  height: 2000px; }\n\n/* ///////////////////////////////////\n   /////////////Dashboard/////////// */\n.recording-title {\n  margin: 0 auto;\n  color: #1B2228; }\n\n.recording-sub {\n  margin: 0 auto; }\n\n.recording-description {\n  float: right;\n  margin-right: 30%; }\n\n.recording-avatar {\n  float: left; }\n\n.recording-icon {\n  height: 40px;\n  width: 40px;\n  margin-left: 10px; }\n\n.recording-playback {\n  float: right; }\n\n.recording-block {\n  width: 40%;\n  float: left; }\n\n.recording-latest-updates {\n  margin-left: 16px;\n  overflow: scroll;\n  height: 620px;\n  width: 96%; }\n", ""]);
+exports.push([module.i, ".page-content {\n  margin-left: 254px;\n  background-color: #F4F7F5;\n  /* padding-top: 60px; */ }\n\n.content {\n  text-align: center;\n  padding-top: 60px; }\n\n.dashboard-title {\n  padding-left: 25px;\n  padding-top: 15px;\n  margin: 0 auto;\n  font-weight: lighter;\n  text-align: left; }\n\n.dashboard-page {\n  background-color: #F4F7F5;\n  height: 960px;\n  text-align: center; }\n\n.dashboard-logo {\n  height: 40px;\n  padding-top: 15px;\n  padding-bottom: 5px;\n  background-color: #006CAA;\n  font-weight: lighter;\n  color: #006CAA; }\n\n.dashboard-welcome {\n  margin-top: 15px;\n  width: 100%;\n  height: 18%;\n  text-align: center;\n  background-color: white; }\n\n.nav-first {\n  padding-left: 15%; }\n\n.dashboard-header {\n  height: 60px; }\n\n.dashboard-header-toolbar {\n  margin: 0 auto; }\n\n.iframe {\n  height: 2000px; }\n\n/* ///////////////////////////////////\n   /////////////Dashboard/////////// */\n.recording-title {\n  margin: 0 auto;\n  color: #1B2228;\n  font-size: .8em; }\n\n.recording-sub {\n  margin-top: 3px;\n  color: gray;\n  font-size: .7em; }\n\n.recording-description {\n  float: right; }\n\n.recording-avatar {\n  float: left;\n  margin-left: 1%; }\n\n.recording-icon {\n  height: 30px;\n  width: 30px;\n  margin-left: 2px; }\n\n.recording-playback {\n  float: right;\n  margin-right: 3%; }\n\n.recording-block {\n  width: 53%;\n  float: left; }\n\n.recording-latest-updates {\n  margin-left: 1px;\n  overflow: scroll;\n  height: 630px;\n  width: 20%; }\n", ""]);
 
 // exports
 
@@ -43583,44 +41204,7 @@ exports.push([module.i, ".page-content {\n  margin-left: 254px;\n  background-co
 /***/ }),
 /* 484 */,
 /* 485 */,
-/* 486 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _pure = __webpack_require__(19);
-
-var _pure2 = _interopRequireDefault(_pure);
-
-var _SvgIcon = __webpack_require__(20);
-
-var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ActionFace = function ActionFace(props) {
-  return _react2.default.createElement(
-    _SvgIcon2.default,
-    props,
-    _react2.default.createElement('path', { d: 'M9 11.75c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zm6 0c-.69 0-1.25.56-1.25 1.25s.56 1.25 1.25 1.25 1.25-.56 1.25-1.25-.56-1.25-1.25-1.25zM12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8 0-.29.02-.58.05-.86 2.36-1.05 4.23-2.98 5.21-5.37C11.07 8.33 14.05 10 17.42 10c.78 0 1.53-.09 2.25-.26.21.71.33 1.47.33 2.26 0 4.41-3.59 8-8 8z' })
-  );
-};
-ActionFace = (0, _pure2.default)(ActionFace);
-ActionFace.displayName = 'ActionFace';
-ActionFace.muiName = 'SvgIcon';
-
-exports.default = ActionFace;
-
-/***/ }),
+/* 486 */,
 /* 487 */,
 /* 488 */,
 /* 489 */
@@ -43827,7 +41411,7 @@ var DashboardHeader = function (_Component) {
                 { style: { padding: '0 auto', borderRight: '1px solid #BDC0C1', height: '30px' }, tooltip: 'Search' },
                 _react2.default.createElement(_search2.default, { className: 'search-icon' })
               ),
-              _react2.default.createElement(_AutoComplete2.default, { hintText: 'search for users, recordings, and more', underlineStyle: { border: 'white' }, hintStyle: { height: '15px', fontSize: '0.8em' }, textFieldStyle: { height: '30px' }, style: { width: '80%', float: 'right' }, menuStyle: { height: '90px', overflow: 'scroll' }, listStyle: { width: '600px' }, filter: _AutoComplete2.default.caseInsensitiveFilter, dataSource: recordings })
+              _react2.default.createElement(_AutoComplete2.default, { hintText: 'search for users, recordings, and more', underlineStyle: { border: 'white' }, hintStyle: { height: '15px', fontSize: '0.8em' }, textFieldStyle: { height: '30px' }, style: { width: '92%', float: 'right' }, menuStyle: { height: '90px', overflow: 'scroll' }, listStyle: { width: '600px' }, filter: _AutoComplete2.default.caseInsensitiveFilter, dataSource: recordings })
             ),
             _react2.default.createElement(
               _reactRouterDom.Link,
@@ -52081,218 +49665,7 @@ module.exports = keyOf;
 /***/ }),
 /* 549 */,
 /* 550 */,
-/* 551 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-var _react = __webpack_require__(1);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _reactRouterDom = __webpack_require__(32);
-
-var _Drawer = __webpack_require__(417);
-
-var _Drawer2 = _interopRequireDefault(_Drawer);
-
-var _Paper = __webpack_require__(38);
-
-var _Paper2 = _interopRequireDefault(_Paper);
-
-var _Card = __webpack_require__(192);
-
-var _Card2 = _interopRequireDefault(_Card);
-
-var _face = __webpack_require__(486);
-
-var _face2 = _interopRequireDefault(_face);
-
-var _folder = __webpack_require__(201);
-
-var _folder2 = _interopRequireDefault(_folder);
-
-var _axios = __webpack_require__(462);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-////////// Similar to Header.js but for Dashboard feature //////////
-var style = {
-  paperHead: { height: '60px', backgroundColor: '#006CAA', margin: '0 auto', textAlign: 'center' },
-  paper: { height: '60px', backgroundColor: '#EDEDED', margin: '0 auto', textAlign: 'center' },
-  p: { paddingTop: '20px', margin: '0 auto', fontSize: '1em', color: 'white', fontWeight: 'lighter' },
-  pHead: { paddingTop: '15px', margin: '0 auto', fontSize: '1.4em', color: 'white', fontWeight: 'lighter' }
-};
-
-var DashboardSideBar = function (_Component) {
-  _inherits(DashboardSideBar, _Component);
-
-  function DashboardSideBar(props) {
-    _classCallCheck(this, DashboardSideBar);
-
-    var _this = _possibleConstructorReturn(this, (DashboardSideBar.__proto__ || Object.getPrototypeOf(DashboardSideBar)).call(this, props));
-
-    _this.state = {
-      open: true
-      // sites: false,
-      // settings: false,
-      // sitesData: [],
-    };
-    // this.renderSites = this.renderSites.bind(this);
-    // this.getSites = this.getSites.bind(this);
-    // this.handleToggleSites = this.handleToggleSites.bind(this);
-    // this.toggleIconSites = this.toggleIconSites.bind(this);
-    // this.toggleIconSettings = this.toggleIconSettings.bind(this);
-    // this.handleToggleSettings = this.handleToggleSettings.bind(this);
-    // this.renderSettings = this.renderSettings.bind(this);
-    // this.handleToggleDashboard = this.handleToggleDashboard.bind(this);
-    return _this;
-  }
-
-  // componentDidMount() {
-  //   this.getSites();
-  // }
-
-  // getSites() {
-  //   axios.get('/sites')
-  //   .then((res) => {
-  //     console.log(res);
-  //     this.setState({ sitesData: res.data })
-  //   })
-  //   .catch((err) => {
-  //     console.log(err);
-  //   })
-  // }
-
-  // handleToggleSites(e) {
-  //   if (this.state.sites) {
-  //     this.setState({sites: false, settings: false})
-  //   } else {
-  //     this.setState({sites: true, settings: false})
-  //   }
-  //   this.renderSites();
-  // }
-
-  // toggleIconSites(e) {
-  //   if (this.state.sites) {
-  //     return(
-  //       <FileFolderOpen/>
-  //     )
-  //   } else {
-  //     return(
-  //       <FileFolder/>
-  //     )
-  //   }
-  // }
-
-  // toggleIconSettings(e) {
-  //   if (this.state.settings) {
-  //     return(
-  //       <FileFolderOpen/>
-  //     )
-  //   } else {
-  //     return(
-  //       <FileFolder/>
-  //     )
-  //   }
-  // }
-
-  // handleToggleSettings(e) {
-  //   if (this.state.settings) {
-  //     this.setState({settings: false, sites: false})
-  //   } else {
-  //     this.setState({settings: true, sites: false})
-  //   }
-  //   this.renderSettings();
-  // }
-
-  // handleToggleDashboard(e) {
-  //   this.setState({sites: false, settings: false});
-  //   this.renderSettings();
-  //   this.renderSites();
-  // }
-
-
-  // renderSettings() {
-  //   if (this.state.settings) {
-  //     return(
-  //       <Link to='/dashboard/account'><MenuItem leftIcon={<ActionDashboard />}>Account</MenuItem></Link>          
-  //     )
-  //   }
-  // }
-
-  // // handletoggle = () => this.setState({open: !this.state.open });
-  // renderSites() {
-  //   let siteNodes;
-  //   if (this.state.sites) {
-  //     siteNodes = this.state.sitesData.map((site) => {
-  //     let url = '/dashboard/sites/' + site._id;
-  //     return(
-  //       <Link to={url}><MenuItem leftIcon={<NavigationSubdirectoryArrowRight />}>{site.title}</MenuItem></Link>
-  //     )
-  //   })
-  //   return siteNodes;
-  //   }
-  // }
-
-
-  _createClass(DashboardSideBar, [{
-    key: 'render',
-    value: function render() {
-      return _react2.default.createElement(
-        'div',
-        null,
-        _react2.default.createElement(
-          _Drawer2.default,
-          { docked: true, zDepth: 0, containerStyle: { backgroundColor: '#F4F7F5' } },
-          _react2.default.createElement(
-            _Paper2.default,
-            { zDepth: 0, style: style.paperHead },
-            _react2.default.createElement(
-              'p',
-              { style: style.pHead },
-              'PRIVATE-I'
-            )
-          ),
-          _react2.default.createElement(
-            _Paper2.default,
-            { zDepth: 0, style: style.paper },
-            _react2.default.createElement(
-              _reactRouterDom.Link,
-              { to: '/dashboard', style: { textDecoration: 'none' } },
-              _react2.default.createElement(
-                'p',
-                { style: style.p },
-                'Dashboard'
-              )
-            )
-          )
-        )
-      );
-    }
-  }]);
-
-  return DashboardSideBar;
-}(_react.Component);
-
-exports.default = DashboardSideBar;
-
-/***/ }),
+/* 551 */,
 /* 552 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -52337,26 +49710,26 @@ var style = {
   paper: {
     verticalAlign: 'middle',
     height: '60px',
-    paddingTop: '12px',
-    width: '100%'
+    paddingTop: '12px'
+    // width: '100%',
   }
 };
 
-var DashboardHome = function (_Component) {
-  _inherits(DashboardHome, _Component);
+var DashboardContent = function (_Component) {
+  _inherits(DashboardContent, _Component);
 
-  function DashboardHome() {
-    _classCallCheck(this, DashboardHome);
+  function DashboardContent() {
+    _classCallCheck(this, DashboardContent);
 
-    return _possibleConstructorReturn(this, (DashboardHome.__proto__ || Object.getPrototypeOf(DashboardHome)).apply(this, arguments));
+    return _possibleConstructorReturn(this, (DashboardContent.__proto__ || Object.getPrototypeOf(DashboardContent)).apply(this, arguments));
   }
 
-  _createClass(DashboardHome, [{
+  _createClass(DashboardContent, [{
     key: 'render',
     value: function render() {
       return _react2.default.createElement(
         'div',
-        { className: 'page-content' },
+        null,
         _react2.default.createElement(
           'div',
           { className: 'recording-latest-updates' },
@@ -52377,7 +49750,7 @@ var DashboardHome = function (_Component) {
                 _react2.default.createElement(
                   'p',
                   { className: 'recording-title' },
-                  'user 2146'
+                  'User 2146'
                 ),
                 _react2.default.createElement(
                   'p',
@@ -52417,7 +49790,7 @@ var DashboardHome = function (_Component) {
                 _react2.default.createElement(
                   'p',
                   { className: 'recording-title' },
-                  'user 5617'
+                  'User 5617'
                 ),
                 _react2.default.createElement(
                   'p',
@@ -52431,7 +49804,7 @@ var DashboardHome = function (_Component) {
               { className: 'recording-playback' },
               _react2.default.createElement(
                 _reactRouterDom.Link,
-                { to: 'dashboard/playback' },
+                { to: '/dashboard/playback' },
                 _react2.default.createElement(
                   _IconButton2.default,
                   { tooltip: 'play session' },
@@ -52457,7 +49830,7 @@ var DashboardHome = function (_Component) {
                 _react2.default.createElement(
                   'p',
                   { className: 'recording-title' },
-                  'user 2623'
+                  'User 2623'
                 ),
                 _react2.default.createElement(
                   'p',
@@ -52471,7 +49844,7 @@ var DashboardHome = function (_Component) {
               { className: 'recording-playback' },
               _react2.default.createElement(
                 _reactRouterDom.Link,
-                { to: 'dashboard/playback' },
+                { to: '/dashboard/playback' },
                 _react2.default.createElement(
                   _IconButton2.default,
                   { tooltip: 'play session' },
@@ -52497,7 +49870,7 @@ var DashboardHome = function (_Component) {
                 _react2.default.createElement(
                   'p',
                   { className: 'recording-title' },
-                  'user 6806'
+                  'User 6806'
                 ),
                 _react2.default.createElement(
                   'p',
@@ -52511,7 +49884,7 @@ var DashboardHome = function (_Component) {
               { className: 'recording-playback' },
               _react2.default.createElement(
                 _reactRouterDom.Link,
-                { to: 'dashboard/playback' },
+                { to: '/dashboard/playback' },
                 _react2.default.createElement(
                   _IconButton2.default,
                   { tooltip: 'play session' },
@@ -52537,7 +49910,7 @@ var DashboardHome = function (_Component) {
                 _react2.default.createElement(
                   'p',
                   { className: 'recording-title' },
-                  'user 2526'
+                  'User 2526'
                 ),
                 _react2.default.createElement(
                   'p',
@@ -52551,7 +49924,7 @@ var DashboardHome = function (_Component) {
               { className: 'recording-playback' },
               _react2.default.createElement(
                 _reactRouterDom.Link,
-                { to: 'dashboard/playback' },
+                { to: '/dashboard/playback' },
                 _react2.default.createElement(
                   _IconButton2.default,
                   { tooltip: 'play session' },
@@ -52577,7 +49950,7 @@ var DashboardHome = function (_Component) {
                 _react2.default.createElement(
                   'p',
                   { className: 'recording-title' },
-                  'user 1046'
+                  'User 1046'
                 ),
                 _react2.default.createElement(
                   'p',
@@ -52591,7 +49964,7 @@ var DashboardHome = function (_Component) {
               { className: 'recording-playback' },
               _react2.default.createElement(
                 _reactRouterDom.Link,
-                { to: 'dashboard/playback' },
+                { to: '/dashboard/playback' },
                 _react2.default.createElement(
                   _IconButton2.default,
                   { tooltip: 'play session' },
@@ -52617,7 +49990,7 @@ var DashboardHome = function (_Component) {
                 _react2.default.createElement(
                   'p',
                   { className: 'recording-title' },
-                  'user 0403'
+                  'User 0403'
                 ),
                 _react2.default.createElement(
                   'p',
@@ -52631,7 +50004,7 @@ var DashboardHome = function (_Component) {
               { className: 'recording-playback' },
               _react2.default.createElement(
                 _reactRouterDom.Link,
-                { to: 'dashboard/playback' },
+                { to: '/dashboard/playback' },
                 _react2.default.createElement(
                   _IconButton2.default,
                   { tooltip: 'play session' },
@@ -52657,7 +50030,7 @@ var DashboardHome = function (_Component) {
                 _react2.default.createElement(
                   'p',
                   { className: 'recording-title' },
-                  'user 5987'
+                  'User 5987'
                 ),
                 _react2.default.createElement(
                   'p',
@@ -52681,21 +50054,222 @@ var DashboardHome = function (_Component) {
             )
           ),
           _react2.default.createElement(
-            'table',
-            null,
-            _react2.default.createElement('td', null),
-            _react2.default.createElement('td', null),
-            _react2.default.createElement('td', null)
+            _Paper2.default,
+            { style: style.paper },
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-block' },
+              _react2.default.createElement(
+                'div',
+                { className: 'recording-avatar' },
+                _react2.default.createElement('img', { className: 'recording-icon', src: './../../public/' + Math.floor(Math.random() * 9 + 1) + '.png' })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'recording-description' },
+                _react2.default.createElement(
+                  'p',
+                  { className: 'recording-title' },
+                  'User 2233'
+                ),
+                _react2.default.createElement(
+                  'p',
+                  { className: 'recording-sub' },
+                  'recorded at 7:08 am'
+                )
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-playback' },
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/playback' },
+                _react2.default.createElement(
+                  _IconButton2.default,
+                  { tooltip: 'play session' },
+                  _react2.default.createElement(_playCircleOutline2.default, null)
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _Paper2.default,
+            { style: style.paper },
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-block' },
+              _react2.default.createElement(
+                'div',
+                { className: 'recording-avatar' },
+                _react2.default.createElement('img', { className: 'recording-icon', src: './../../public/' + Math.floor(Math.random() * 9 + 1) + '.png' })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'recording-description' },
+                _react2.default.createElement(
+                  'p',
+                  { className: 'recording-title' },
+                  'User 0786'
+                ),
+                _react2.default.createElement(
+                  'p',
+                  { className: 'recording-sub' },
+                  'recorded at 5:01 am'
+                )
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-playback' },
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/playback' },
+                _react2.default.createElement(
+                  _IconButton2.default,
+                  { tooltip: 'play session' },
+                  _react2.default.createElement(_playCircleOutline2.default, null)
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _Paper2.default,
+            { style: style.paper },
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-block' },
+              _react2.default.createElement(
+                'div',
+                { className: 'recording-avatar' },
+                _react2.default.createElement('img', { className: 'recording-icon', src: './../../public/' + Math.floor(Math.random() * 9 + 1) + '.png' })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'recording-description' },
+                _react2.default.createElement(
+                  'p',
+                  { className: 'recording-title' },
+                  'User 8826'
+                ),
+                _react2.default.createElement(
+                  'p',
+                  { className: 'recording-sub' },
+                  'recorded at 1:42 am'
+                )
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-playback' },
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/playback' },
+                _react2.default.createElement(
+                  _IconButton2.default,
+                  { tooltip: 'play session' },
+                  _react2.default.createElement(_playCircleOutline2.default, null)
+                )
+              )
+            )
+          ),
+          _react2.default.createElement(
+            _Paper2.default,
+            { style: style.paper },
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-block' },
+              _react2.default.createElement(
+                'div',
+                { className: 'recording-avatar' },
+                _react2.default.createElement('img', { className: 'recording-icon', src: './../../public/' + Math.floor(Math.random() * 9 + 1) + '.png' })
+              ),
+              _react2.default.createElement(
+                'div',
+                { className: 'recording-description' },
+                _react2.default.createElement(
+                  'p',
+                  { className: 'recording-title' },
+                  'User 3232'
+                ),
+                _react2.default.createElement(
+                  'p',
+                  { className: 'recording-sub' },
+                  'recorded at 1:10 am'
+                )
+              )
+            ),
+            _react2.default.createElement(
+              'div',
+              { className: 'recording-playback' },
+              _react2.default.createElement(
+                _reactRouterDom.Link,
+                { to: '/playback' },
+                _react2.default.createElement(
+                  _IconButton2.default,
+                  { tooltip: 'play session' },
+                  _react2.default.createElement(_playCircleOutline2.default, null)
+                )
+              )
+            )
           )
         )
       );
     }
   }]);
 
-  return DashboardHome;
+  return DashboardContent;
 }(_react.Component);
 
-exports.default = DashboardHome;
+exports.default = DashboardContent;
+
+/***/ }),
+/* 553 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRouterDom = __webpack_require__(32);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DashboardUserSession = function (_Component) {
+  _inherits(DashboardUserSession, _Component);
+
+  function DashboardUserSession() {
+    _classCallCheck(this, DashboardUserSession);
+
+    return _possibleConstructorReturn(this, (DashboardUserSession.__proto__ || Object.getPrototypeOf(DashboardUserSession)).apply(this, arguments));
+  }
+
+  _createClass(DashboardUserSession, [{
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement('div', null);
+    }
+  }]);
+
+  return DashboardUserSession;
+}(_react.Component);
+
+exports.default = DashboardUserSession;
 
 /***/ })
 /******/ ]);
