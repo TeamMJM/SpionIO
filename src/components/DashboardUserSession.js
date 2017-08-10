@@ -5,16 +5,15 @@ import Storyboard from './Storyboard';
 
 import './../styles/Home.css';
 
-<<<<<<< HEAD
-
-
-class UserSession extends Component {
-=======
+const style = {
+  display: 'flex',
+  flexFlow: 'row nowrap',
+  flex: '1'
+}
 class DashboardUserSession extends Component {
->>>>>>> 6c9dad31bb0434c68470fa73ca29223d4b0b1685
   render() {
     return(
-      <div className='page-content user-session'>
+      <div style={style}>
           <Playback />
           <Storyboard />
       </div>

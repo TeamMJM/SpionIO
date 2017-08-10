@@ -12,8 +12,7 @@ const style = {
   },
   inner: {
     display: 'flex',
-    flexFlow: 'row nowrap',
-    width: '100%'
+    flexFlow: 'row nowrap'
   }
 }
 

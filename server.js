@@ -143,13 +143,8 @@ app.get('*/build/bundle.js', (req, res, next) => {
     res.sendfile('./build/bundle.js');
 })
 
-<<<<<<< HEAD
-app.post('/getAllRecordings',recordingController.findAll)
-app.post('/getRecording/:recordingID',recordingController.findRecording)
-=======
 app.get('/recordings',recordingController.findAll)
 app.post('/recordings/:recordingID', recordingController.findRecording)
->>>>>>> 6c9dad31bb0434c68470fa73ca29223d4b0b1685
 
 io.on('connection', (client) => {
     client.on('join', (data) => {

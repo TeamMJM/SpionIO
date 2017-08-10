@@ -11,10 +11,9 @@ const style = {
     flexFlow: 'column nowrap',
     justifyContent: 'center',
     alignContent: 'center',
-    width: '70%', 
+    width: '60%', 
     height: '100%',
     backgroundColor: 'lightgrey',
-    float: 'left',
     padding: '10px'
   },
   iframe: {
