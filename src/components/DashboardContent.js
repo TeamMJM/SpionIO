@@ -12,7 +12,7 @@ const style = {
     height: '60px',
     paddingTop: '12px',
     // width: '100%',
-  },
+  }
 }
 
 

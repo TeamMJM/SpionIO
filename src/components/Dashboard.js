@@ -5,6 +5,17 @@ import DashboardHeader from './DashboardHeader';
 import DashboardContent from './DashboardContent';
 import './../styles/App.css';
 
+const style = {
+  outer: {
+    display: 'flex',
+    flexFlow: 'column nowrap',
+  },
+  inner: {
+    display: 'flex',
+    flexFlow: 'row nowrap'
+  }
+}
+
 ////////// Separate component that is similar to App.js but for whne a client has successfully signed into his specific dashboard //////////
 class Dashboard extends Component {
   constructor(props) {
@@ -16,10 +27,12 @@ class Dashboard extends Component {
   }
   render() {
     return (
-      <div>
+      <div style={style.outer}>
         <DashboardHeader />
-        <DashboardContent />
-        <DashboardUserSession />
+        <div style={style.inner}>
+          <DashboardContent />
+          <DashboardUserSession />
+        </div>
       </div>
     )
   }
