@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Card } from 'material-ui/Card';
+import Playback from './Playback';
+import Storyboard from './Storyboard';
 
-class DashboardUserSession extends Component {
+import './../styles/Home.css';
+
+class UserSession extends Component {
   render() {
     return(
-      <div>
-
+      <div className='page-content'>
+          <Playback />
+          <Storyboard />
       </div>
-    )
+    );
   }
 }
 
-export default DashboardUserSession;
+export default UserSession;
