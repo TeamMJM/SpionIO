@@ -7,7 +7,7 @@ import AVFiberManualRecordIcon from 'material-ui/svg-icons/AV/fiber-manual-recor
 import './../styles/Home.css';
 
 const style = {
-  width: '30%', 
+  width: '40%', 
   minHeight: '100%',
   float: 'right'
 }
