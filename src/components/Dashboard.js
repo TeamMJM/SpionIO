@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import './../styles/Home.css';
 import './../styles/App.css';
 
@@ -17,8 +17,15 @@ const style = {
     height: '60px',
     paddingTop: '12px',
   },
+  outer: {
+    display: 'flex',
+    flexFlow: 'column nowrap',
+  },
+  inner: {
+    display: 'flex',
+    flexFlow: 'row nowrap'
+  }
 }
-
 ////////// Separate component that is similar to App.js but for whne a client has successfully signed into his specific dashboard //////////
 class Dashboard extends Component {
   constructor(props) {
@@ -90,10 +97,12 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div>
+      <div style={style.outer}>
         <DashboardHeader />
-        <DashboardContent recordings={this.state.recordings} recordingNodes={this.generateRecordings}/>
-        <DashboardUserSession />
+        <div style={style.inner}>
+          <DashboardContent recordings={this.state.recordings} recordingNodes={this.generateRecordings}/>
+          <Route path='/dashboard/:recordingID' component={DashboardUserSession}/>
+        </div>
       </div>
     )
   }
