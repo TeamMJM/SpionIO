@@ -16,6 +16,7 @@
     "babel": "^6.23.0",
     "bcrypt": "^1.0.2",
     "bcrypt-nodejs": "0.0.3",
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.2",
     "browserify-fs": "^1.0.0",
     "cookie-parser": "^1.4.3",
