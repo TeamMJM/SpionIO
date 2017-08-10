@@ -21,7 +21,7 @@ const recordingSchema = Schema({
     width:Number,
     height:Number,
     htmlCopy: String,
-    StartTime: Number
+    startTime: Date,
 })
 
 let Recording = mongoose.model('Recording', recordingSchema, 'Recordings');
