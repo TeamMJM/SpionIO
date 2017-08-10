@@ -63,41 +63,45 @@
 .recording-title {
    margin: 0 auto;
    color: #1B2228;
+   font-size: .8em;
 }
 
 .recording-sub {
-   margin: 0 auto; 
+   margin-top: 3px; 
+   color: gray;
+   font-size: .7em;
 }
 
 .recording-description {
   float: right;
-  margin-right: 30%;
 }
 
 .recording-avatar {
   float: left;
+  margin-left: 1%;
 }
 
 .recording-icon {
-  height: 40px;
-  width: 40px;
-  margin-left: 10px;
+  height: 30px;
+  width: 30px;
+  margin-left: 2px;
 }
 
 .recording-playback {
   float: right;
+  margin-right: 3%;
 }
 
 .recording-block {
-  width: 40%;
+  width: 53%;
   float: left;
 }
 
 .recording-latest-updates {
-  margin-left: 16px;
+  margin-left: 1px;
   overflow: scroll;
-  height: 620px;
-  width: 96%;
+  height: 630px;
+  width: 20%;
 }
 
 
