@@ -11,6 +11,7 @@ const style = {
   flex: '1'
 }
 class DashboardUserSession extends Component {
+
   render() {
     return(
       <div style={style}>
