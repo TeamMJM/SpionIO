@@ -3,7 +3,7 @@ import { List, ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import AppBar from 'material-ui/AppBar';
 import { Card } from 'material-ui/Card';
-import AVFiberManualRecordIcon from 'material-ui/svg-icons/AV/fiber-manual-record';
+// import AVFiberManualRecordIcon from 'material-ui/svg-icons/AV/fiber-manual-record';
 import './../styles/Home.css';
 
 const style = {
@@ -18,13 +18,13 @@ class Storyboard extends Component {
       <Card style={style}>
         <AppBar title="Storyboard" />
         <List>
-          <ListItem primaryText="Clicked <div>" leftIcon={<AVFiberManualRecordIcon />} />
+          <ListItem primaryText="Clicked <div>" />
           <Divider />
-          <ListItem primaryText="Clicked input item" leftIcon={<AVFiberManualRecordIcon />} />
+          <ListItem primaryText="Clicked input item" />
           <Divider />
-          <ListItem primaryText="Entered text into input" leftIcon={<AVFiberManualRecordIcon />} />
+          <ListItem primaryText="Entered text into input" />
           <Divider />
-          <ListItem primaryText="Clicked <button>" leftIcon={<AVFiberManualRecordIcon />} />
+          <ListItem primaryText="Clicked <button>" />
           <Divider />
         </List>
       </Card>

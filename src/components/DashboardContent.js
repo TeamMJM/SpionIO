@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import './../styles/Home.css';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
-import AVPlayCircleOutline from 'material-ui/svg-icons/AV/play-circle-outline';
+// import AVPlayCircleOutline from 'material-ui/svg-icons/AV/play-circle-outline';
 
 const style = {
   paper: {
@@ -33,7 +33,7 @@ class DashboardContent extends Component {
           <div className='recording-playback'>
             <Link to='/dashboard/playback'>
               <IconButton tooltip='play session'>
-                <AVPlayCircleOutline/>
+                {/* <AVPlayCircleOutline/> */}
               </IconButton>
             </Link>
           </div>
@@ -51,7 +51,7 @@ class DashboardContent extends Component {
           <div className='recording-playback'>
             <Link to='/dashboard/playback'>
               <IconButton tooltip='play session'>
-                <AVPlayCircleOutline/>
+                {/* <AVPlayCircleOutline/> */}
               </IconButton>
             </Link>
           </div>
@@ -69,7 +69,7 @@ class DashboardContent extends Component {
           <div className='recording-playback'>
             <Link to='/dashboard/playback'>
               <IconButton tooltip='play session'>
-                <AVPlayCircleOutline/>
+                {/* <AVPlayCircleOutline/> */}
               </IconButton>
             </Link>
           </div>
@@ -87,7 +87,7 @@ class DashboardContent extends Component {
           <div className='recording-playback'>
             <Link to='/dashboard/playback'>
               <IconButton tooltip='play session'>
-                <AVPlayCircleOutline/>
+                {/* <AVPlayCircleOutline/> */}
               </IconButton>
             </Link>
           </div>
@@ -105,7 +105,7 @@ class DashboardContent extends Component {
           <div className='recording-playback'>
             <Link to='/dashboard/playback'>
               <IconButton tooltip='play session'>
-                <AVPlayCircleOutline/>
+                {/* <AVPlayCircleOutline/> */}
               </IconButton>
             </Link>
           </div>
@@ -123,7 +123,7 @@ class DashboardContent extends Component {
           <div className='recording-playback'>
             <Link to='/dashboard/playback'>
               <IconButton tooltip='play session'>
-                <AVPlayCircleOutline/>
+                {/* <AVPlayCircleOutline/> */}
               </IconButton>
             </Link>
           </div>
@@ -141,7 +141,7 @@ class DashboardContent extends Component {
           <div className='recording-playback'>
             <Link to='/dashboard/playback'>
               <IconButton tooltip='play session'>
-                <AVPlayCircleOutline/>
+                {/* <AVPlayCircleOutline/> */}
               </IconButton>
             </Link>
           </div>
@@ -159,7 +159,7 @@ class DashboardContent extends Component {
           <div className='recording-playback'>
             <Link to='/dashboard/playback'>
               <IconButton tooltip='play session'>
-                <AVPlayCircleOutline/>
+                {/* <AVPlayCircleOutline/> */}
               </IconButton>
             </Link>
           </div>
@@ -177,7 +177,7 @@ class DashboardContent extends Component {
           <div className='recording-playback'>
             <Link to='/playback'>
               <IconButton tooltip='play session'>
-                <AVPlayCircleOutline/>
+                {/* <AVPlayCircleOutline/> */}
               </IconButton>
             </Link>
           </div>
@@ -195,7 +195,7 @@ class DashboardContent extends Component {
           <div className='recording-playback'>
             <Link to='/playback'>
               <IconButton tooltip='play session'>
-                <AVPlayCircleOutline/>
+                {/* <AVPlayCircleOutline/> */}
               </IconButton>
             </Link>
           </div>
@@ -213,7 +213,7 @@ class DashboardContent extends Component {
           <div className='recording-playback'>
             <Link to='/playback'>
               <IconButton tooltip='play session'>
-                <AVPlayCircleOutline/>
+                {/* <AVPlayCircleOutline/> */}
               </IconButton>
             </Link>
           </div>
@@ -231,7 +231,7 @@ class DashboardContent extends Component {
           <div className='recording-playback'>
             <Link to='/playback'>
               <IconButton tooltip='play session'>
-                <AVPlayCircleOutline/>
+                {/* <AVPlayCircleOutline/> */}
               </IconButton>
             </Link>
           </div>
