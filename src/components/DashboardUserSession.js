@@ -5,10 +5,10 @@ import Storyboard from './Storyboard';
 
 import './../styles/Home.css';
 
-class UserSession extends Component {
+class DashboardUserSession extends Component {
   render() {
     return(
-      <div className='page-content'>
+      <div className='page-content user-session'>
           <Playback />
           <Storyboard />
       </div>
@@ -16,4 +16,4 @@ class UserSession extends Component {
   }
 }
 
-export default UserSession;
+export default DashboardUserSession;
