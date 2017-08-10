@@ -1,17 +1,14 @@
 import React, { Component } from 'react';
-import { HashRouter, Switch, Route, Link } from 'react-router-dom';
+import { Route } from 'react-router-dom';
+import DashboardContent from './DashboardContent';
+import DashboardSideBar from './DashboardSideBar';
 
-import Home from './Home';
-import DashboardHome from './DashboardHome';
-
-import './../styles/App.css';
-
-////////// Routing for dashboard because of sidebar feature //////////
 class DashboardMain extends Component {
   render() {
     return(
       <div>
-        <Route exact path='/dashboard' component={DashboardHome}/>
+        <DashboardSideBar/>
+        <DashboardContent/>
       </div>
     )
   }
