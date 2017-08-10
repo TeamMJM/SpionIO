@@ -144,7 +144,7 @@ app.get('*/build/bundle.js', (req, res, next) => {
 })
 
 app.post('/getAllRecordings',recordingController.findAll)
-app.post('/getRecording/:recordingID',recordingController.findRecordinf)
+app.post('/getRecording/:recordingID',recordingController.findRecording)
 
 io.on('connection', (client) => {
     client.on('join', (data) => {
