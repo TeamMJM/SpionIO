@@ -4,6 +4,7 @@ import './../styles/Home.css';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import AVPlayCircleOutline from 'material-ui/svg-icons/AV/play-circle-outline';
+import axios from 'axios';
 
 const style = {
   paper: {
@@ -16,11 +17,66 @@ const style = {
 
 
 class DashboardContent extends Component { 
+  constructor(props) {
+    super(props);
+    this.state = {
+      recordings: [],
+    }
+    this.getRecordings = this.getRecordings.bind(this);
+    this.generateRecordings = this.getRecordings.bind(this);
+  }
+
+  componentDidMount() {
+    this.getRecordings();
+    this.generateRecordings();
+  }
+
+  getRecordings() {
+    axios.get('/recordings')
+    .then((res) => {
+      console.log(res.data);
+      this.setState({recordings: res.data})
+    })
+    .catch((err) => {
+      return console.error(err);
+    })
+  }
+
+  // generateRecordings() {
+  //   return recordingNodes;
+  // }
+
+
+
+
   render() {
+    let recordingNodes = this.state.recordings.map((recordings) => {
+      return (
+        <Paper style={style.paper}>
+          <div className='recording-block'>
+            <div className='recording-avatar'>
+              <img className='recording-icon' src={'./../../public/'+Math.floor((Math.random()*9)+1)+'.png'}/>
+            </div>
+            <div className='recording-description'>
+              <p className='recording-title'>{'User ' + recordings._id}</p>
+              <p className='recording-sub'>{'recorded at '}</p> 
+            </div>
+          </div>
+          <div className='recording-playback'>
+            <Link to={'/dashboard/' + recordings._id}>
+              <IconButton tooltip='play session'>
+                <AVPlayCircleOutline/>
+              </IconButton>
+            </Link>
+          </div>
+        </Paper>
+      )
+    })
     return (
       <div>
         <div className='recording-latest-updates'>
-        <Paper style={style.paper}>
+          {recordingNodes}
+        {/* <Paper style={style.paper}>
           <div className='recording-block'>
             <div className='recording-avatar'>
               <img className='recording-icon' src={'./../../public/'+Math.floor((Math.random()*9)+1)+'.png'}/>
@@ -235,7 +291,7 @@ class DashboardContent extends Component {
               </IconButton>
             </Link>
           </div>
-        </Paper> 
+        </Paper>  */}
         </div>
       </div>
     )

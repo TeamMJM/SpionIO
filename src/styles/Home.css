@@ -73,12 +73,13 @@
 }
 
 .recording-description {
-  float: right;
+  float: left;
+  margin-left: 5%;
 }
 
 .recording-avatar {
   float: left;
-  margin-left: 1%;
+  margin-left: 2%;
 }
 
 .recording-icon {
@@ -89,11 +90,11 @@
 
 .recording-playback {
   float: right;
-  margin-right: 3%;
+  margin-right: 2%;
 }
 
 .recording-block {
-  width: 53%;
+  width: 65%;
   float: left;
 }
 
@@ -102,6 +103,10 @@
   overflow: scroll;
   height: 630px;
   width: 20%;
+}
+
+.user-session { 
+  float: right;
 }
 
 

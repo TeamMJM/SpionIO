@@ -131,7 +131,7 @@ app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
 })
 
-app.get('/dashboard/playback', (req, res) => {
+app.get('/dashboard/:recordingID', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
 })
 
@@ -143,8 +143,8 @@ app.get('*/build/bundle.js', (req, res, next) => {
     res.sendfile('./build/bundle.js');
 })
 
-app.post('/getAllRecordings',recordingController.findAll)
-app.post('/getRecording/:recordingID',recordingController.findRecordinf)
+app.get('/recordings',recordingController.findAll)
+app.post('/recordings/:recordingID', recordingController.findRecording)
 
 io.on('connection', (client) => {
     client.on('join', (data) => {
