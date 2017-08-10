@@ -5,7 +5,6 @@ import TextField from 'material-ui/TextField';
 import AutoComplete from 'material-ui/AutoComplete';
 import './../styles/Home.css';
 import SearchBar from 'material-ui-search-bar';
-import FlatButton from 'material-ui/FlatButton';
 import { Link } from 'react-router-dom';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
@@ -80,9 +79,6 @@ class DashboardHeader extends Component {
           <IconButton style={{padding: '0 auto', borderRight: '1px solid #BDC0C1', height: '30px'}} tooltip='Search'><ActionSearch className='search-icon'/></IconButton> 
           <AutoComplete hintText='search for users, recordings, and more' underlineStyle={{border: 'white'}} hintStyle={{height: '15px', fontSize: '0.8em'}} textFieldStyle={{height: '30px'}} style={{width: '92%' , float: 'right'}} menuStyle={{height: '90px', overflow: 'scroll'}} listStyle={{width: '600px'}} filter={AutoComplete.caseInsensitiveFilter} dataSource={recordings}/>
         </Paper> 
-
-        <Link to='/dashboard'><FlatButton label='back'></FlatButton></Link>
-
     <IconMenu 
       className='nav-first'
       iconButtonElement={<Avatar backgroundColor='#EDEDED' style={style.iconButton}><ActionAccountCircle /></Avatar>}
