@@ -143,17 +143,8 @@ app.get('*/build/bundle.js', (req, res, next) => {
     res.sendfile('./build/bundle.js');
 })
 
-///////////////////////////////// Passport //////////////////////////////
-
-// app.get('/sites', sitesController.getSites);
-
-// app.post('/sites', sitesController.createSites);
-// app.post('/updateSitePage', sitesController.findSite, pagesController.createPages);
-
-// app.post('/pages', sitesController.findSite, pagesController.getPages);
-
-// app.post('/singlePage', sitesController.findSite, pagesController.getSinglePages);
-
+app.post('/getAllRecordings',recordingController.findAll)
+app.post('/getRecording/:recordingID',recordingController.findRecordinf)
 
 io.on('connection', (client) => {
     client.on('join', (data) => {
