@@ -6,21 +6,27 @@ recordingController.createRecording = (data) => {
     return Recording.create(data)
 };
 
-recordingController.findRecording = (id) => {
-    return Recording.findById(id)
+recordingController.findRecording = (req, res, next) => {
+    Recording.findOneById(res.params.recordingID,(err, response) => {
+        if (err) res.send(err)
+        else res.send(response);
+    })
 }
 
-recordingController.findAll = () =>{
-    return Recording.find()
+recordingController.findAll = (req, res, next) => {
+    Recording.find((err, response) => {
+        if (err) res.send(err)
+        else res.send(response);
+    })
 }
 
-recordingController.updateRecording = (id,Data) => {
+recordingController.updateRecording = (id, Data) => {
     return Recording.findByIdAndUpdate(id, {
         $push: Data
     });
 }
 
-recordingController.deleteRecording = (id) =>{
+recordingController.deleteRecording = (id) => {
     return Recording.findByIdAndRemove(id)
 }
 
