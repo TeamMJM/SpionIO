@@ -98,6 +98,18 @@ app.get('/public/6.png', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/6.png'))
 })
 
+app.get('/public/7.png', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/7.png'))
+})
+
+app.get('/public/8.png', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/8.png'))
+})
+
+app.get('/public/9.png', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/9.png'))
+})
+
 function isLoggedIn(req, res, next) {
     console.log('checking token...')
     jwt.verify(req.cookies.token, secret,
@@ -119,33 +131,9 @@ app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
 })
 
-app.get('/dashboard/sites', isLoggedIn, (req, res) => {
+app.get('/dashboard/playback', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
 })
-
-app.get('/dashboard/sites/:siteID', isLoggedIn, (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-})
-
-app.get('/dashboard/sites/:siteID/page', isLoggedIn, (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-})
-
-app.get('/dashboard/sites/:siteID/page/:pageID', isLoggedIn, (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
-})
-
-app.get('/clickReportData', isLoggedIn, (req, res) => {
-    res.sendFile(path.join(__dirname, 'dummy.json'))
-});
-
-app.get('/scrollReportData', isLoggedIn, (req, res) => {
-    res.sendFile(path.join(__dirname, 'dummy.json'));
-});
-
-app.get('/funnelReportData', isLoggedIn, (req, res) => {
-    res.sendFile(path.join(__dirname, 'dummy.json'));
-});
 
 app.get('/script.js', (req, res, next) => {
     res.sendfile('./script.js');
