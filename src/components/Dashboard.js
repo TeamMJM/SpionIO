@@ -8,7 +8,7 @@ import DashboardHeader from './DashboardHeader';
 import DashboardContent from './DashboardContent';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
-import AVPlayCircleOutline from 'material-ui/svg-icons/AV/play-circle-outline';
+// import AVPlayCircleOutline from 'material-ui/svg-icons/AV/play-circle-outline';
 import axios from 'axios';
 
 const style = {
@@ -65,7 +65,6 @@ class Dashboard extends Component {
         time = time.slice(0, 2).join(':');
         time += 'AM';
       }
-      console.log(recordings._id)
       return (
         <Paper style={style.paper} onClick={this.toggleRecordingStyle}>
           <div className='recording-block'>
@@ -80,7 +79,7 @@ class Dashboard extends Component {
           <div className='recording-playback'>
             <Link to={'/dashboard/' + recordings._id}>
               <IconButton tooltip='play session'>
-                <AVPlayCircleOutline/>
+                {/* <AVPlayCircleOutline/> */}
               </IconButton>
             </Link>
           </div>
