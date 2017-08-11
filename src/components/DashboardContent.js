@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import './../styles/Home.css';
+<<<<<<< HEAD
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 // import AVPlayCircleOutline from 'material-ui/svg-icons/AV/play-circle-outline';
@@ -89,9 +89,17 @@ class DashboardContent extends Component {
         <div className='recording-latest-updates'>
           {recordingNodes}
         </div>
+=======
+
+const DashboardContent = ({recordingNodes}) => {
+  return (
+    <div>
+      <div className='recording-latest-updates'>
+        {recordingNodes()}
+>>>>>>> 258042a31487020a11f9e229ffb2a62e533263c1
       </div>
-    )
-  }
+    </div>
+  )
 }
 
 export default DashboardContent;

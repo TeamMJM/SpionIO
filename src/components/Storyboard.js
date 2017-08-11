@@ -7,7 +7,7 @@ import { Card } from 'material-ui/Card';
 import './../styles/Home.css';
 
 const style = {
-  width: '30%', 
+  width: '40%', 
   minHeight: '100%',
   float: 'right'
 }
