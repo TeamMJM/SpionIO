@@ -16,6 +16,10 @@ import './../styles/Home.css';
 // }
 
 class PlaybackBar extends Component {
+  constructor(props) {
+    super(props)
+  }
+  
   render() {
     return (
       <div>
