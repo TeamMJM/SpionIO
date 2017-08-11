@@ -35,18 +35,20 @@ constructor(props){
   this.state = {
     content: 0
   }
+  this.frameScript = this.frameScript.bind(this);
 }
-
-componentDidMount(){
-  console.log("params",this.props.match)
-  axios.get('/recordings/:'+this.props.match)
+frameScript(){
+  let list = [];
+  axios.get('/recordings/'+this.props.id)
     .then((response) =>{
+      
+      response = response.data;
       const REPLAY_SCALE = 0.631;
       const SPEED = 1;
       const $iframe = $('.react-iframe');
 
-      $iframe.height(recording.height * REPLAY_SCALE);
-      $iframe.width(recording.width * REPLAY_SCALE);
+      $iframe.height(response.height * REPLAY_SCALE);
+      $iframe.width(response.width * REPLAY_SCALE);
       $iframe.css({
         '-ms-zoom': `${REPLAY_SCALE}`,
         '-moz-transform': `scale(${REPLAY_SCALE})`,
@@ -71,24 +73,27 @@ componentDidMount(){
           if (!event) {
             return;
           }
-          let offsetRecording = event.Frame.time - response.startTime;
+          let offsetRecording = event.time - response.startTime;
+
           let offsetPlay = (Date.now() - startPlay) * SPEED;
           if (offsetPlay >= offsetRecording) {
             drawEvent(event, $fakeCursor, $iframeDoc);
             i++;
           }
-
+          if(event.target){
+            this.props.pusher(event.target);
+          }
           if (i < response.Frame.length) {
+
             requestAnimationFrame(draw);
-            this.setstate({content:this.state.content++})
           }
         })();
 
         function drawEvent(event, $fakeCursor, $iframeDoc) {
-          if (event.Frame.type === 'click' || event.Frame.type === 'scroll' || event.Frame.type === 'mousemove') {
+          if (event.event === 'click' || event.event === 'scroll' || event.event === 'mousemove') {
             $fakeCursor.css({
-              top: event.Frame.ClickY,
-              left: event.Frame.ClickX
+              top: event.ClickY,
+              left: event.ClickX
             });
           }
 
@@ -119,22 +124,16 @@ componentDidMount(){
       console.log(err)
     })
 }
-
+componentDidMount(){
+  this.frameScript();
+} 
   render() {
-      return(
-        <Card style={style.card} >
-          <iframe className="react-iframe"></iframe>  
-        </Card>
-    );
     return(
       <Card style={style.card} >
-        <img 
-          src="https://www.petfinder.com/wp-content/uploads/2012/11/91615172-find-a-lump-on-cats-skin-632x475.jpg" 
-          style={style.iframe}
-        />
+          <iframe className="react-iframe"></iframe>  
         <PlaybackBar style={style.bar}/>
       </Card>
-    )
+    );
   }
 }
 

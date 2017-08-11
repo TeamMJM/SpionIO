@@ -171,7 +171,6 @@ io.on('connection', (client) => {
         recordingController.updateRecording(id,data)
             .then((Response) => {
                 console.log("Unload", Response)
-                io.close();
             }).catch((err) => {
                 console.log(err)
             })

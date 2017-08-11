@@ -17,6 +17,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 class App extends Component { 
   render() {
     return(
+      <HashRouter>
       <div> 
         <MuiThemeProvider>
           <Route exact path='/' component={Documentation}/>
@@ -25,6 +26,7 @@ class App extends Component {
           <Route path='/dashboard' component={Dashboard}/>
         </MuiThemeProvider>
       </div>
+      </HashRouter>
     )
   }
 }

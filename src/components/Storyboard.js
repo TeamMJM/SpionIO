@@ -14,6 +14,7 @@ const style = {
 
 class Storyboard extends Component {
   render() {
+  console.log("LIST",this.props.list); 
     return(
       <Card style={style}>
         <AppBar title="Storyboard" />
