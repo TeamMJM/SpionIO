@@ -121,13 +121,11 @@ componentDidMount(){
 }
 
   render() {
-<<<<<<< HEAD
       return(
         <Card style={style.card} >
           <iframe className="react-iframe"></iframe>  
         </Card>
     );
-=======
     return(
       <Card style={style.card} >
         <img 
@@ -137,7 +135,6 @@ componentDidMount(){
         <PlaybackBar style={style.bar}/>
       </Card>
     )
->>>>>>> 258042a31487020a11f9e229ffb2a62e533263c1
   }
 }
 
