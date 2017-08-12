@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter, Switch, Route, Link } from 'react-router-dom';
+import { HashRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 /////////// import components ///////////
 import Documentation from './Documentation.js';
@@ -17,7 +17,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 class App extends Component { 
   render() {
     return(
+
       <HashRouter>
+
       <div> 
         <MuiThemeProvider>
           <Route exact path='/' component={Documentation}/>
@@ -26,7 +28,9 @@ class App extends Component {
           <Route path='/dashboard' component={Dashboard}/>
         </MuiThemeProvider>
       </div>
+
       </HashRouter>
+
     )
   }
 }

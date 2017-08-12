@@ -13,6 +13,7 @@ const style = {
   flex: '1'
 }
 class DashboardUserSession extends Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -199,7 +200,6 @@ async frameScript(id,context){
   componentDidMount() {
 
     console.log('These are the params', this.props.match.params.recordingID)
-
   }
 
   render() {
