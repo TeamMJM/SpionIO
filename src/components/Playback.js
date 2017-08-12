@@ -4,7 +4,6 @@ import { Card } from 'material-ui/Card';
 import PlaybackBar from './PlaybackBar';
 import './../styles/Home.css';
 
-
 const style = {
   card: {
     display: 'flex',
@@ -26,17 +25,20 @@ const style = {
   }
 }
 
+
 class Playback extends Component {
+
+componentDidMount(){
+  console.log(this.props.context);
+  this.props.frameScript(this.props.id,this.props.context)
+} 
   render() {
     return(
       <Card style={style.card} >
-        <img 
-          src="https://www.petfinder.com/wp-content/uploads/2012/11/91615172-find-a-lump-on-cats-skin-632x475.jpg" 
-          style={style.iframe}
-        />
+          <iframe className="react-iframe"></iframe>  
         <PlaybackBar style={style.bar}/>
       </Card>
-    )
+    );
   }
 }
 

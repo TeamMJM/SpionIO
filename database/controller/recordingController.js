@@ -7,9 +7,12 @@ recordingController.createRecording = (data) => {
 };
 
 recordingController.findRecording = (req, res, next) => {
-    Recording.findOneById(res.params.recordingID,(err, response) => {
+    console.log("params",req.params)
+    Recording.findOne({_id:req.params.recordingID},(err, response) => {
         if (err) res.send(err)
-        else res.send(response);
+        else {
+            res.send(response);
+        }
     })
 }
 

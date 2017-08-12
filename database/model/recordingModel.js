@@ -6,22 +6,19 @@ const recordingSchema = Schema({
     _id:String,
     Frame: [{
         event: String,
-        mouseClickX: Number,
-        mouseClickY: Number,
-        mouseTarget: String,
-        scroll: Number,
-        clickClickX: Number,
-        ciickClickY: Number,
-        clickTarget: String,
-        keyPressTarget: String,
-        keyPressValue: String,
-        KeyPressKeyCode: String,
-        time: Date
+        ClickX: Number,
+        ClickY: Number,
+        scrollTop: Number,
+        scrollLeft: Number,
+        target: String,
+        targetValue: String,
+        targetKeyCode: String,
+        time: Number
     }],
     width:Number,
     height:Number,
     htmlCopy: String,
-    startTime: Date,
+    startTime: Number,
 })
 
 let Recording = mongoose.model('Recording', recordingSchema, 'Recordings');
