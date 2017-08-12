@@ -11,6 +11,10 @@ const style = {
   flex: '1'
 }
 class DashboardUserSession extends Component {
+  componentDidMount() {
+    console.log('These are the parameters', this.props.match.params.recordingID)
+  }
+
   render() {
     return(
       <div style={style}>
