@@ -36,7 +36,7 @@ class Dashboard extends Component {
     }
     this.getRecordings = this.getRecordings.bind(this);
     this.generateRecordings = this.generateRecordings.bind(this);
-    this.toggleRecordingStyle = this.toggleRecordingStyle.bind(this);
+    // this.toggleRecordingStyle = this.toggleRecordingStyle.bind(this);
   }
 
   componentDidMount() {
@@ -89,10 +89,10 @@ class Dashboard extends Component {
     return recordingNodes;
   }
 
-  toggleRecordingStyle() {
-    console.log('toggle toggle')
-    this.setState({enabled: !this.state.enabled})
-  }
+  // toggleRecordingStyle() {
+  //   console.log('toggle toggle')
+  //   // this.setState({enabled: !this.state.enabled})
+  // }
 
   render() {
     return (
