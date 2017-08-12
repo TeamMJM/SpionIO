@@ -27,14 +27,8 @@ class DashboardUserSession extends Component {
     this.updateFlag = this.updateFlag.bind(this);
     this.newDraw = this.newDraw.bind(this);
   }
-
-
-
-
 newDraw(){
-  console.log("HELLO");
-  console.log(this.state)
-  response = this.state.response;
+  response = this.props.response;
   const REPLAY_SCALE = 0.631;
   const SPEED = 1;
   const $iframe = $('.react-iframe');
@@ -45,8 +39,7 @@ newDraw(){
     const $fakeCursor = $('<div class="cursor"></div>')
     $iframeDoc.find('body').append($fakeCursor);
 
-    const startPlay = this.state.startPlay;
-    let i = this.state.i;
+    const startPlay = this.state.startPlay
   
     (function draw() {
       let event = response.Frame[this.state.i];
@@ -58,9 +51,100 @@ newDraw(){
       let offsetPlay = (Date.now() - startPlay) * SPEED;
       if (offsetPlay >= offsetRecording) {
         drawEvent(event, $fakeCursor, $iframeDoc);
-        i++;
+        context.setState({
+          i: context.state.i + 1
+        })
       }
+      console.log("context");
       if (i < response.Frame.length && this.state.flag) {
+        console.log("ANIMATE");
+        requestAnimationFrame(draw);
+      }
+    })();
+
+    function drawEvent(event, $fakeCursor, $iframeDoc) {
+      if (event.event === 'click' || event.event === 'scroll' || event.event === 'mousemove') {
+        if(event.target){
+          context.addtoList(event.target)
+        }
+
+        if(event.event === "scroll"){
+          console.log("Events",event);
+          $fakeCursor.css({
+            top: event.ClickY,
+            left: event.ClickX
+          })
+          $iframe.contents().scrollTop(event.scrollTop)
+          $iframe.contents().scrollLeft(event.scrollLeft)
+        }
+        else{
+          $fakeCursor.animate({
+            top: event.ClickY,
+            left: event.ClickX
+          },{duration:20,easing:"linear"})
+        }
+      }
+    }  
+}
+async frameScript(id,context){
+  let response = await axios.get('/recordings/'+id)
+  this.setState({
+    response: response
+  });
+      console.log('RESPONSE');
+  response = response.data;
+  const REPLAY_SCALE = 0.631;
+  const SPEED = 1;
+  const $iframe = $('.react-iframe');
+
+  $iframe.height(response.height * REPLAY_SCALE);
+  $iframe.width(response.width * REPLAY_SCALE);
+  $iframe.css({
+    '-ms-zoom': `${REPLAY_SCALE}`,
+    '-moz-transform': `scale(${REPLAY_SCALE})`,
+    '-moz-transform-origin': `0 0`,
+    '-o-transform': `scale(${REPLAY_SCALE})`,
+    '-o-transform-origin': `0 0`,
+    '-webkit-transform': `scale(${REPLAY_SCALE})`,
+    '-webkit-transform-origin': `0 0`
+  });    
+  $iframe[0].contentDocument.documentElement.innerHTML = response.htmlCopy;
+    const $iframeDoc = $($iframe[0].contentDocument.documentElement);
+
+    const $fakeCursor = $('<div class="cursor"></div>')
+    $iframeDoc.find('body').append($fakeCursor);
+
+    const startPlay = Date.now();
+    context.setState({
+      startPlay: startPlay
+    })
+    console.log("START");
+    (function draw() {
+      let event = response.Frame[context.state.i];
+      if (!event) {
+        return;
+      }
+      let offsetRecording = event.time - response.startTime;
+
+      let offsetPlay = (Date.now() - startPlay) * SPEED;
+      console.log(offsetRecording)
+      console.log(offsetPlay);
+      if (offsetPlay >= offsetRecording) {
+        console.log("Inside")
+        drawEvent(event, $fakeCursor, $iframeDoc);
+        context.setState({
+          i: context.state.i + 1
+        })
+
+
+      }
+      console.log("context");
+      console.log(context.state.flag)
+      console.log(response.Frame.length)
+      console.log(context.state.i)
+      if (i < response.Frame.length && context.state.flag) {
+        console.log("animate");
+
         requestAnimationFrame(draw);
       }
     })();
@@ -86,91 +170,6 @@ newDraw(){
           },{duration:20,easing:"linear"})
         }
       }
-    }  
-}
-
-
-
-
-
-
-
-
-
-
-
-async frameScript(id,context){
-  let response = await axios.get('/recordings/'+id)
-  response = response.data;
-  const REPLAY_SCALE = 0.631;
-  const SPEED = 1;
-  const $iframe = $('.react-iframe');
-
-  $iframe.height(response.height * REPLAY_SCALE);
-  $iframe.width(response.width * REPLAY_SCALE);
-  $iframe.css({
-    '-ms-zoom': `${REPLAY_SCALE}`,
-    '-moz-transform': `scale(${REPLAY_SCALE})`,
-    '-moz-transform-origin': `0 0`,
-    '-o-transform': `scale(${REPLAY_SCALE})`,
-    '-o-transform-origin': `0 0`,
-    '-webkit-transform': `scale(${REPLAY_SCALE})`,
-    '-webkit-transform-origin': `0 0`
-  });    
-  $iframe[0].contentDocument.documentElement.innerHTML = response.htmlCopy;
-    const $iframeDoc = $($iframe[0].contentDocument.documentElement);
-
-    const $fakeCursor = $('<div class="cursor"></div>')
-    $iframeDoc.find('body').append($fakeCursor);
-    let i = 0;
-    const startPlay = Date.now();
-    (async function draw() {
-      let event = response.Frame[i];
-      if (!event) {
-        return;
-      }
-      let offsetRecording = event.time - response.startTime;
-
-      let offsetPlay = (Date.now() - startPlay) * SPEED;
-      if (offsetPlay >= offsetRecording) {
-        drawEvent(event, $fakeCursor, $iframeDoc);
-        i++;
-      }
-
-      if (i < response.Frame.length && context.state.flag) {
-        requestAnimationFrame(draw);
-      }
-      else if(!this.state.flag){
-        console.log("STATE");
-       await context.setState({
-          response:response,
-          startPlay:startPlay,
-          i:i
-        })
-      }
-    })();
-
-    function drawEvent(event, $fakeCursor, $iframeDoc) {
-      if (event.event === 'click' || event.event === 'scroll' || event.event === 'mousemove') {
-        if(event.target){
-          context.addtoList(event.target)
-        }
-
-        if(event.event === "scroll"){
-          $fakeCursor.css({
-            top: event.ClickY,
-            left: event.ClickX
-          })
-          $iframe.contents().scrollTop(event.scrollTop)
-          $iframe.contents().scrollLeft(event.scrollLeft)
-        }
-        else{
-          $fakeCursor.animate({
-            top: event.ClickY,
-            left: event.ClickX
-          },{duration:10,easing:"linear"})
-        }
-      }
     }
     
 }
@@ -183,16 +182,17 @@ async frameScript(id,context){
     })
   }
 
-  async updateFlag(){
-
-    console.log("UPDATE FLAG",this.state.flag);
-    await this.setState({
-        flag: !this.state.flag
-    })
+  updateFlag(){
+    console.log("UPDATE FLAG");
     if(this.state.flag){
-        this.newDraw()
+      this.setState({
+        flag: !this.state.flag
+      })
+    }else{
+      newDraw()
     }
 
+    console.log("FLAG",this.state.flag)
   }
 
 

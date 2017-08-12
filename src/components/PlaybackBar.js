@@ -21,7 +21,7 @@ class PlaybackBar extends Component {
       <div>
         <Slider />
         <Toolbar>
-          <IconButton touch={true}>
+          <IconButton touch={true} onTouchTap={this.props.flag}>
             <AvPlayArrowIcon />
           </IconButton>
           <IconButton touch={true}>
