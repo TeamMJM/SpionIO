@@ -14,11 +14,14 @@ const style = {
 
 class Storyboard extends Component {
   render() {
+<<<<<<< HEAD
   console.log("LISTz",typeof this.props.list); 
   const list = this.props.list.map((Element) => (
+=======
+  const list = this.props.list.map((Element) =>(
+>>>>>>> 5b3a2c02f7b76c4d07f2fd9a12d46f8fe02bc011
     <ListItem primaryText={Element} />
   ))
-  console.log(list)
     return(
       <Card style={style}>
         <AppBar title="Storyboard" />
