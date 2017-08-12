@@ -15,7 +15,7 @@ const style = {
 class Storyboard extends Component {
   render() {
   console.log("LISTz",typeof this.props.list); 
-  const list = this.props.list.map((Element) =>(
+  const list = this.props.list.map((Element) => (
     <ListItem primaryText={Element} />
   ))
   console.log(list)

@@ -202,11 +202,17 @@ async frameScript(id,context){
     console.log('These are the params', this.props.match.params.recordingID)
   }
 
+  componentWillUpdate() {
+    this.state.targetList = [];
+  }
+
+  component
+
   render() {
     return(
       <div style={style}>
-          <Playback frameScript={this.frameScript} context={this} flag={this.updateFlag} id={this.props.match.params.recordingID}  />
-          <Storyboard  list={this.state.targetList} />
+          <Playback key={this.props.match.params.recordingID} frameScript={this.frameScript} context={this} flag={this.updateFlag} id={this.props.match.params.recordingID}  />
+          <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />
           
       </div>
     );
