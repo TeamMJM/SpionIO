@@ -14,19 +14,16 @@ const style = {
 
 class Storyboard extends Component {
   render() {
-  console.log("LIST",this.props.list); 
+  console.log("LISTz",typeof this.props.list); 
+  const list = this.props.list.map((Element) =>(
+    <ListItem primaryText={Element} />
+  ))
+  console.log(list)
     return(
       <Card style={style}>
         <AppBar title="Storyboard" />
         <List>
-          <ListItem primaryText="Clicked <div>" />
-          <Divider />
-          <ListItem primaryText="Clicked input item" />
-          <Divider />
-          <ListItem primaryText="Entered text into input" />
-          <Divider />
-          <ListItem primaryText="Clicked <button>" />
-          <Divider />
+          {list}
         </List>
       </Card>
     )
