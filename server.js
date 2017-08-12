@@ -144,7 +144,7 @@ app.get('*/build/bundle.js', (req, res, next) => {
 })
 
 app.get('/recordings',recordingController.findAll)
-app.post('/recordings/:recordingID', recordingController.findRecording)
+app.get('/recordings/:recordingID', recordingController.findRecording)
 
 io.on('connection', (client) => {
     client.on('join', (data) => {
@@ -171,7 +171,6 @@ io.on('connection', (client) => {
         recordingController.updateRecording(id,data)
             .then((Response) => {
                 console.log("Unload", Response)
-                client.close();
             }).catch((err) => {
                 console.log(err)
             })
