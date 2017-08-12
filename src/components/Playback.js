@@ -36,7 +36,7 @@ componentDidMount(){
     return(
       <Card style={style.card} >
           <iframe className="react-iframe"></iframe>  
-        <PlaybackBar style={style.bar}/>
+        <PlaybackBar style={style.bar} flag={this.props.flag}/>
       </Card>
     );
   }
