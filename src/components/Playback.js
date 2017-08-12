@@ -28,15 +28,11 @@ const style = {
 
 class Playback extends Component {
 
-componentDidMount(){
-  console.log(this.props.context);
-  this.props.frameScript(this.props.id,this.props.context)
-} 
   render() {
     return(
       <Card style={style.card} >
           <iframe className="react-iframe"></iframe>  
-        <PlaybackBar style={style.bar} flag={this.props.flag}/>
+        <PlaybackBar style={style.bar} flag={this.props.flag} />
       </Card>
     );
   }

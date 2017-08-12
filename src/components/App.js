@@ -18,7 +18,7 @@ class App extends Component {
   render() {
     return(
 
-      <HashRouter>
+      <Router>
 
       <div> 
         <MuiThemeProvider>
@@ -29,7 +29,7 @@ class App extends Component {
         </MuiThemeProvider>
       </div>
 
-      </HashRouter>
+      </Router>
 
     )
   }
