@@ -7,6 +7,7 @@ import './../styles/Header.css';
 /////////// import UI ///////////
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
+import Paper from 'material-ui/Paper';
 
 const style = {
   margin: 6,
@@ -14,11 +15,18 @@ const style = {
   sub: {
     paddingLeft: '5px',
     color: 'gray',
+    textTransform: 'none',
+    letterSpacing: '2px',
   },
   label: {
-    fontSize: '24px',
+    fontSize: '30px',
     paddingRight: '5px',
-    color: '#00BFFF',
+    color: '#E0E1E5',
+    textTransform: 'none',
+    letterSpacing: '2px',
+  },
+  paper: {
+    height: '80px',
   }
 };
 
@@ -26,7 +34,7 @@ const style = {
 
 const Header = () => (
   <header>
-    <div className="topnav" id="myTopnav">
+    <Paper style={style.paper} zDepth={1} className="topnav" id="myTopnav">
       <div className="topnav-content">
         <img className='logo' src='./../../logo.png'/>
         <li className="nav" id="title"><Link to='/'><FlatButton hoverColor='white' labelStyle={style.label} label='Private-I' /></Link></li>
@@ -34,11 +42,11 @@ const Header = () => (
         <div id='first'>
         {/* <li className="nav"><Link to='/login'><FlatButton label='Login' style={style}/></Link></li> */}
         {/* <li className="nav"><Link to='/signup'><FlatButton label='Sign Up'></FlatButton></Link></li>  */}
-        <li className='nav'><Link to='/download'><RaisedButton labelColor='white' backgroundColor='#006CAA' label='Download'></RaisedButton></Link></li>
-        <li className='nav'><Link to='/dashboard'><RaisedButton style={{marginLeft: '5px'}}labelColor='white' backgroundColor='#006CAA' label='Dashboard'></RaisedButton></Link></li>
+        <li className='nav'><Link to='/download'><FlatButton style={{border: '1px solid gray', borderRadius: '50px'}} labelStyle={{textTransform: 'none', letterSpacing: '2px'}} labelColor='gray' backgroundColor='white' label='Download'></FlatButton></Link></li>
+        <li className='nav'><Link to='/dashboard'><FlatButton style={{marginLeft: '5px', border: '1px solid gray', borderRadius: '50px'}} labelStyle={{textTransform: 'none', letterSpacing: '2px'}} labelColor='gray' backgroundColor='white' label='Dashboard'></FlatButton></Link></li>
         </div>  
     </div>
-    </div>
+    </Paper>
   </header>
 )
 

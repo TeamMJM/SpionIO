@@ -160,14 +160,9 @@ class DashboardUserSession extends Component {
   render() {
     return (
       <div style={style}>
-<<<<<<< HEAD
           <Playback key={this.props.match.params.recordingID} frameScript={this.frameScript} context={this} flag={this.updateFlag} id={this.props.match.params.recordingID}  />
           <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />
           
-=======
-          <Playback  flag={this.updateFlag} />
-          <Storyboard  list={this.state.targetList} />
->>>>>>> 5b3a2c02f7b76c4d07f2fd9a12d46f8fe02bc011
       </div>
     );
   }
