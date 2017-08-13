@@ -21,6 +21,7 @@ class Welcome extends Component {
     return (
       <div>
         <div id="page-content" className="App-header">
+          <div id='section1'>
           <div className='logo-div'>
           <img className='App-logo' src='./../../welcomelogo.png'/>
           </div>
@@ -35,7 +36,8 @@ class Welcome extends Component {
               <span></span><span></span><span></span>
             </a>
             {/* </Link> */}
-            <br/><br/><br/><br/><br/><br/>GET STARTED
+            <br/>GET STARTED
+          </div>
           </div>
 
 

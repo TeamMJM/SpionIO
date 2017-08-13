@@ -66,7 +66,7 @@ class Dashboard extends Component {
       //   time += 'AM';
       // }
       return (
-        <Paper style={style.paper} onClick={this.toggleRecordingStyle}>
+        <Paper key={recordings._id} style={style.paper}>
           <div className='recording-block'>
             <div className='recording-avatar'>
               <img className='recording-icon' src={'./../../public/'+Math.floor((Math.random()*9)+1)+'.png'}/>
@@ -89,17 +89,12 @@ class Dashboard extends Component {
     return recordingNodes;
   }
 
-  // toggleRecordingStyle() {
-  //   console.log('toggle toggle')
-  //   // this.setState({enabled: !this.state.enabled})
-  // }
-
   render() {
     return (
       <div style={style.outer}>
         <DashboardHeader />
         <div style={style.inner}>
-          <DashboardContent recordings={this.state.recordings} recordingNodes={this.generateRecordings}/>
+          <DashboardContent recordingNodes={this.generateRecordings()}/>
           <Route path='/dashboard/:recordingID' component={DashboardUserSession}/>
         </div>
       </div>

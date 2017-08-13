@@ -183,11 +183,18 @@ class DashboardUserSession extends Component {
     this.getRecordingData();
   }
 
+  componentWillUpdate() {
+    this.state.targetList = [];
+  }
+
+  component
+
   render() {
     return (
       <div style={style}>
-          <Playback  pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} />
-          <Storyboard  list={this.state.targetList} />
+         <Playback key={this.props.match.params.recordingID} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
+          <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />
+         
       </div>
     );
   }

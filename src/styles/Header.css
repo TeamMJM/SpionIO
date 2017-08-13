@@ -3,7 +3,8 @@
 }
 
 #first {
-   margin-left: 45%; 
+   margin-left: 40%; 
+   /* margin-left: 45%; FOR MONITOR VIEW*/
    display: inline;
 }
 
@@ -14,6 +15,11 @@
     width: 100%;
     margin: 0;
     padding: 0;
+    height: 80px;
+}
+
+.topnav-content {
+  margin-top: 1%;
 }
 
 
@@ -26,10 +32,9 @@ ul {
 .logo {
   height: 50px;
   width: 50px;
-  margin-left: 100px;
+  margin-left: 5%;
   vertical-align: middle;
 }
-
 
 
 

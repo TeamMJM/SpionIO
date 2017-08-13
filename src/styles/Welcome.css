@@ -121,12 +121,18 @@ html, body {
   padding-top: 100px;
 }
 
+#section1 {
+  /* background-color: #DB4C40; */
+}
+
 #section2 {
   background-color: #EDEDED;
   text-align: center;
   margin: 0 auto;
   height: 1300px;
 }
+
+
 
 #section07 .a {
   padding-top: 80px;
