@@ -21,14 +21,22 @@ class PlaybackBar extends Component {
   }
   
   render() {
+    const value = this.props.step * this.props.index;
+    const slide = this.props.slide;
+    const step = this.props.step;
     return (
       <div>
-        <Slider />
+        <Slider 
+          step={this.props.step} 
+          value={value} 
+          onChange={function() {
+            slide(Math.floor(value / step))
+          }}/>
         <Toolbar>
-          <IconButton touch={true} onTouchTap={this.props.flag}>
+          <IconButton touch={true} onTouchTap={this.props.play}>
             <AvPlayArrowIcon />
           </IconButton>
-          <IconButton touch={true}>
+          <IconButton touch={true} onTouchTap={this.props.pause}>
             <AvPauseIcon />
           </IconButton>
           <IconButton touch={true}>
