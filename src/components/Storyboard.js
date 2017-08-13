@@ -8,12 +8,21 @@ import Paper from 'material-ui/Paper';
 import './../styles/Home.css';
 
 const style = {
-  width: '40%', 
-  minHeight: '100%',
-  float: 'right'
+  card: {
+    width: '40%', 
+    minHeight: '100%',
+    float: 'right'
+  },
+  title: {
+    backgroundColor: '#006CAA'
+  }
 }
 
 class Storyboard extends Component {
+  constructor(props) {
+    super(props)
+  }
+
   render() {
   // console.log("LISTz",typeof this.props.list); 
   const list = this.props.list.map((Element) => {

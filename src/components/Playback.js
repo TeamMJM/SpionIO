@@ -31,8 +31,15 @@ class Playback extends Component {
   render() {
     return(
       <Card style={style.card} >
-          <iframe className="react-iframe"></iframe>  
-        <PlaybackBar style={style.bar} flag={this.props.flag} />
+        <iframe className="react-iframe"></iframe>  
+        <PlaybackBar 
+          style={style.bar} 
+          pause={this.props.pause} 
+          play={this.props.play}
+          step={this.props.step} 
+          index={this.props.index} 
+          slide={this.props.slide}
+          />
       </Card>
     );
   }
