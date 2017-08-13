@@ -175,6 +175,9 @@ io.on('connection', (client) => {
                 console.log(err)
             })
     })
+    client.on('event',(data)=>{
+        console.log('EVENT',data);
+    })
 })
 
 server.listen(3000);
