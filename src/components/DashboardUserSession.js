@@ -151,11 +151,18 @@ class DashboardUserSession extends Component {
     this.getRecordingData();
   }
 
+  componentWillUpdate() {
+    this.state.targetList = [];
+  }
+
+  component
+
   render() {
     return (
       <div style={style}>
-          <Playback  flag={this.updateFlag} />
-          <Storyboard  list={this.state.targetList} />
+          <Playback key={this.props.match.params.recordingID} frameScript={this.frameScript} context={this} flag={this.updateFlag} id={this.props.match.params.recordingID}  />
+          <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />
+          
       </div>
     );
   }

@@ -5,7 +5,7 @@ const DashboardContent = ({recordingNodes}) => {
   return (
     <div>
       <div className='recording-latest-updates'>
-        {recordingNodes()}
+        {recordingNodes}
       </div>
     </div>
   )
