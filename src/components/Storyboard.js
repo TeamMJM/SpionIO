@@ -37,6 +37,7 @@ class Storyboard extends Component {
   })
     return(
 <<<<<<< HEAD
+<<<<<<< HEAD
       <Card style={style.card}>
         <AppBar title="Storyboard" style={style.title}/>
         <List>
@@ -44,11 +45,16 @@ class Storyboard extends Component {
         </List>
       </Card>
 =======
+=======
+>>>>>>> 9b511dc95ccc595b4d5c4e1b0e11e403250dc89f
       <Paper style={style}>
         <AppBar title="Storyboard" />
         {list}
       </Paper>
+<<<<<<< HEAD
 >>>>>>> ff8c021110e2902c3281678cd1e54dc7279b1cc2
+=======
+>>>>>>> 9b511dc95ccc595b4d5c4e1b0e11e403250dc89f
     )
   }
 }

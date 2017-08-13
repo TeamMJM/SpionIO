@@ -192,10 +192,16 @@ class DashboardUserSession extends Component {
   render() {
     return (
       <div style={style}>
+<<<<<<< HEAD
 
           <Playback key={this.props.match.params.recordingID} frameScript={this.frameScript} context={this} flag={this.updateFlag} id={this.props.match.params.recordingID} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide}  />
           <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />
           
+=======
+         <Playback key={this.props.match.params.recordingID} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
+          <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />
+         
+>>>>>>> 9b511dc95ccc595b4d5c4e1b0e11e403250dc89f
       </div>
     );
   }
