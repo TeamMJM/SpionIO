@@ -35,12 +35,12 @@ class Doc extends Component {
   componentDidMount() {
     $(window).on("scroll", function() {
       // console.log('scrolling')
-      if( ($(window).scrollTop() > 220) && ($(window).scrollTop() < 1300 ) )  {
+      if( ($(window).scrollTop() > 210) && ($(window).scrollTop() < 1300 ) )  {
         $(".doc-section2").removeClass("doc-section2-visible");
-        $(".doc-section2").addClass("animated bounceInUp");
+        $(".doc-section2").addClass("animated fadeInUpBig");
       } else {
         $(".doc-section2").addClass("doc-section2-visible");
-        $(".doc-section2").removeClass("animated bounceInUp");
+        $(".doc-section2").removeClass("animated fadeInUpBig");
       }
 
       if ( ($(window).scrollTop() > 1040 ) && ($(window).scrollTop() < 2000) ) {
@@ -60,7 +60,7 @@ class Doc extends Component {
         <div className='doc-section1'>
         <h2 className='doc-title'>FOCUS GROUP MANAGEMENT PLATFORM</h2>
 
-          <p className='animated fadeIn doc-sub-2'>Open source developer tool for capturing<br/>and analyzing user interaction to improve<br/>UX in everything you build</p>
+          <p className='fade-in one doc-sub-2'>Open source developer tool for capturing<br/>and analyzing user interaction to improve<br/>UX in everything you build</p>
         <RaisedButton style={{marginTop: '4%'}} label='Github' onClick={() => {window.location.href='http://github.com/Duckasaurus/private-i'}}></RaisedButton>
         <RaisedButton style={{marginTop: '4%', marginLeft: '2%'}} label='NPM' onClick={() => {window.location.href='http://npmjs.com'}}></RaisedButton>
 
