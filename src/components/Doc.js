@@ -5,6 +5,7 @@ import Scroll from 'react-scroll';
 let scroll     = Scroll.animateScroll;
 
 import RaisedButton from 'material-ui/RaisedButton';
+import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
 
 
@@ -31,8 +32,8 @@ const style = {
     height: '80px',
   },
   team: {
-    height: 250,
-    width: 250,
+    height: 300,
+    width: 300,
     margin: 20,
     textAlign: 'center',
     display: 'inline-block',
@@ -71,8 +72,8 @@ class Doc extends Component {
         <h2 className='doc-title'>FOCUS GROUP MANAGEMENT PLATFORM</h2>
 
           <p className='doc-sub-2'>Open source developer tool for capturing<br/>and analyzing user interaction to improve<br/>UX in everything you build</p>
-        <RaisedButton style={{marginTop: '4%'}} label='Github' onClick={() => {window.location.href='http://github.com/Duckasaurus/private-i'}}></RaisedButton>
-        <RaisedButton style={{marginTop: '4%', marginLeft: '2%'}} label='NPM' onClick={() => {window.location.href='http://npmjs.com'}}></RaisedButton>
+        <RaisedButton style={{marginTop: '4%'}} label='Github' href='http://github.com/Duckasaurus/private-i'></RaisedButton>
+        <RaisedButton style={{marginTop: '4%', marginLeft: '2%'}} label='NPM' href='http://npmjs.com'></RaisedButton>
 
         <div className='scroll demo' id='section07'>
             <a className='a' onClick={() => scroll.scrollTo(805)}>
@@ -125,27 +126,38 @@ class Doc extends Component {
           <table>
             <tr>
               <td className='td-welcome'>
-                <Paper style={style.team} circle={true}/><br/>
-                Mustafa Khan
+                <Paper zDepth={2} style={style.team} circle={true}/><br/><br/><br/>
+                <FlatButton hoverColor='none' labelStyle={{letterSpacing: '3px'}} label='Mustafa Khan' href='https://github.com/morpherious'></FlatButton>
               </td>
                 <td className='td-welcome'>
-                <Paper style={style.team} circle={true}/><br/>
-                Miranda Monroe
+                <Paper zDepth={2} style={style.team} circle={true}/><br/><br/><br/>
+                <FlatButton hoverColor='none' labelStyle={{letterSpacing: '3px'}} label='Miranda Monroe' href='https://github.com/mm0nr0e'></FlatButton>
               </td>
               <td className='td-welcome'>
-                <Paper style={style.team} circle={true}/><br/>
-                Jerry Jong
+                <Paper zDepth={2} style={style.team} circle={true}/><br/><br/><br/>
+                <FlatButton hoverColor='none' labelStyle={{letterSpacing: '3px'}} label='Jerry Jong' href='https://github.com/j3rryj'></FlatButton>
               </td>
             </tr>
           </table>
-          <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+          <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
           <div className='doc-section4-lets'>
-          <h1>Let's build something great together.</h1>
+          <p className='doc-section4-letsbuild'>Let's build something great together.</p>
           </div>
           <br/><br/><br/><br/><br/>
         </div>
 
         <div className='doc-sectionfooter'>
+          <ul className='doc-footer-company'>
+            <li className='doc-footer-company-title'>Company</li>
+            <li>Blog</li>
+            <li>Customers</li>
+            <li>Team</li>
+            <li>Career</li>
+          </ul>
+
+
+
+
           <ul className='doc-footer-list'>
             <li className='doc-footer-individual'>Contact</li>
             <li className='doc-footer-individual'>Terms</li>
