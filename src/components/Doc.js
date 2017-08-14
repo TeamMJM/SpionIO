@@ -5,6 +5,7 @@ import Scroll from 'react-scroll';
 let scroll     = Scroll.animateScroll;
 
 import RaisedButton from 'material-ui/RaisedButton';
+import Paper from 'material-ui/Paper';
 
 
 import './../styles/Doc.css';
@@ -28,6 +29,14 @@ const style = {
   },
   paper: {
     height: '80px',
+  },
+  team: {
+    height: 250,
+    width: 250,
+    margin: 20,
+    textAlign: 'center',
+    display: 'inline-block',
+    backgroundColor: '#E0E1E5',
   }
 };
 
@@ -37,10 +46,10 @@ class Doc extends Component {
       // console.log('scrolling')
       if( ($(window).scrollTop() > 210) && ($(window).scrollTop() < 1300 ) )  {
         $(".doc-section2").removeClass("doc-section2-visible");
-        $(".doc-section2").addClass("animated fadeInUpBig");
+        $(".doc-section2").addClass("animated zoomIn");
       } else {
         $(".doc-section2").addClass("doc-section2-visible");
-        $(".doc-section2").removeClass("animated fadeInUpBig");
+        $(".doc-section2").removeClass("animated zoomIn");
       }
 
       if ( ($(window).scrollTop() > 1040 ) && ($(window).scrollTop() < 2000) ) {
@@ -50,6 +59,7 @@ class Doc extends Component {
         $(".doc-section3-content").addClass("doc-section3-visible");
         $(".doc-section3-content").removeClass("animated fadeInLeftBig")
       }
+      
     });
   }
 
@@ -60,7 +70,7 @@ class Doc extends Component {
         <div className='doc-section1'>
         <h2 className='doc-title'>FOCUS GROUP MANAGEMENT PLATFORM</h2>
 
-          <p className='fade-in one doc-sub-2'>Open source developer tool for capturing<br/>and analyzing user interaction to improve<br/>UX in everything you build</p>
+          <p className='doc-sub-2'>Open source developer tool for capturing<br/>and analyzing user interaction to improve<br/>UX in everything you build</p>
         <RaisedButton style={{marginTop: '4%'}} label='Github' onClick={() => {window.location.href='http://github.com/Duckasaurus/private-i'}}></RaisedButton>
         <RaisedButton style={{marginTop: '4%', marginLeft: '2%'}} label='NPM' onClick={() => {window.location.href='http://npmjs.com'}}></RaisedButton>
 
@@ -69,14 +79,14 @@ class Doc extends Component {
               <span></span><span></span><span></span>
             </a>
             <br/><br/><br/>GET STARTED
-            <hr style={{marginTop: '2%'}} width='60%'/>
         </div>
         </div>
 
         <div className='doc-section2'>
           <br/>
+          <hr style={{marginBottom: '2%'}} width='15%'/>
           <h1>Quick-Start Guide</h1>
-          <hr style={{marginTop: '2%'}} width='7%'/>
+          <hr style={{marginTop: '2%'}} width='15%'/>
           <table>
             <tr>
               <td className='td-welcome'>
@@ -101,10 +111,47 @@ class Doc extends Component {
 
         <div className='doc-section3'>
           <div className='doc-section3-content'>
+          <hr style={{marginBottom: '2%', borderColor: 'lightgray', color: 'lightgray'}} width='15%'/>
           <h1 className='doc-section3-title'>The platform for managing modern front-end <br/>web applications.</h1>
-          <hr style={{marginTop: '2%', borderColor: 'lightgray', color: 'lightgray'}} width='7%'/>
+          <hr style={{marginTop: '2%', borderColor: 'lightgray', color: 'lightgray'}} width='15%'/>
           <br/><br/><br/><br/><br/><br/><p className='gif'>INSERT GIF HERE</p>
+          </div>
         </div>
+
+        <div className='doc-section4'>
+          <hr style={{marginBottom: '2%'}} width='15%'/>
+          <h1>Meet the Team.</h1>
+          <hr style={{marginTop: '2%'}} width='15%'/>
+          <table>
+            <tr>
+              <td className='td-welcome'>
+                <Paper style={style.team} circle={true}/><br/>
+                Mustafa Khan
+              </td>
+                <td className='td-welcome'>
+                <Paper style={style.team} circle={true}/><br/>
+                Miranda Monroe
+              </td>
+              <td className='td-welcome'>
+                <Paper style={style.team} circle={true}/><br/>
+                Jerry Jong
+              </td>
+            </tr>
+          </table>
+          <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+          <div className='doc-section4-lets'>
+          <h1>Let's build something great together.</h1>
+          </div>
+          <br/><br/><br/><br/><br/>
+        </div>
+
+        <div className='doc-sectionfooter'>
+          <ul className='doc-footer-list'>
+            <li className='doc-footer-individual'>Contact</li>
+            <li className='doc-footer-individual'>Terms</li>
+            <li className='doc-footer-individual'>Privacy</li>
+            <li className='doc-footer-individual'>@Private-I</li>
+          </ul>
         </div>
 
       </div>
