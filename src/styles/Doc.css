@@ -105,6 +105,10 @@ p {
   visibility: hidden;
 }
 
+.doc-section4-team-visible {
+  visibility: hidden;
+}
+
 .doc-section4-letsbuild-visible {
   visibility: hidden;
 }
