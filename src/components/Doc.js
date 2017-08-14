@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import $ from 'jquery';
 // ES6 Imports
-import Scroll from 'react-scroll'; // Imports all Mixins
+import Scroll from 'react-scroll';
 let scroll     = Scroll.animateScroll;
 
 import RaisedButton from 'material-ui/RaisedButton';
@@ -31,24 +32,44 @@ const style = {
 };
 
 class Doc extends Component {
+  componentDidMount() {
+    $(window).on("scroll", function() {
+      // console.log('scrolling')
+      if( ($(window).scrollTop() > 220) && ($(window).scrollTop() < 1300 ) )  {
+        $(".doc-section2").removeClass("doc-section2-visible");
+        $(".doc-section2").addClass("animated bounceInUp");
+      } else {
+        $(".doc-section2").addClass("doc-section2-visible");
+        $(".doc-section2").removeClass("animated bounceInUp");
+      }
+
+      if ( ($(window).scrollTop() > 1040 ) && ($(window).scrollTop() < 2000) ) {
+        $(".doc-section3-content").removeClass("doc-section3-visible");
+        $(".doc-section3-content").addClass("animated fadeInLeftBig");
+      } else {
+        $(".doc-section3-content").addClass("doc-section3-visible");
+        $(".doc-section3-content").removeClass("animated fadeInLeftBig")
+      }
+    });
+  }
+
+
   render() {
     return(
       <div>
         <div className='doc-section1'>
         <h2 className='doc-title'>FOCUS GROUP MANAGEMENT PLATFORM</h2>
 
-        <h1 className='fade-in one doc-sub'>
-          {/* Hi, We're Private IO.<br/> */}
-          <p className='fade-in one doc-sub-2'>Open source developer tool for capturing<br/>and analyzing user interaction to improve<br/>UX in everything you build</p>
-        </h1>
+          <p className='animated fadeIn doc-sub-2'>Open source developer tool for capturing<br/>and analyzing user interaction to improve<br/>UX in everything you build</p>
         <RaisedButton style={{marginTop: '4%'}} label='Github' onClick={() => {window.location.href='http://github.com/Duckasaurus/private-i'}}></RaisedButton>
-        <RaisedButton style={{marginTop: '4%', marginLeft: '2%'}} label='NPM'></RaisedButton>
+        <RaisedButton style={{marginTop: '4%', marginLeft: '2%'}} label='NPM' onClick={() => {window.location.href='http://npmjs.com'}}></RaisedButton>
 
         <div className='scroll demo' id='section07'>
             <a className='a' onClick={() => scroll.scrollTo(805)}>
               <span></span><span></span><span></span>
             </a>
-            <br/><br/>GET STARTED
+            <br/><br/><br/>GET STARTED
+            <hr style={{marginTop: '2%'}} width='60%'/>
         </div>
         </div>
 
@@ -79,9 +100,11 @@ class Doc extends Component {
 
 
         <div className='doc-section3'>
+          <div className='doc-section3-content'>
           <h1 className='doc-section3-title'>The platform for managing modern front-end <br/>web applications.</h1>
           <hr style={{marginTop: '2%', borderColor: 'lightgray', color: 'lightgray'}} width='7%'/>
           <br/><br/><br/><br/><br/><br/><p className='gif'>INSERT GIF HERE</p>
+        </div>
         </div>
 
       </div>

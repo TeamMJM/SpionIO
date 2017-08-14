@@ -33,11 +33,9 @@ class Header extends Component {
   componentDidMount() {
     $(window).on("scroll", function() {
       // console.log('scrolling')
-      if($(window).scrollTop() > 50) {
-        // console.log('scrolled over 50')
+      if($(window).scrollTop() > 5) {
         $(".topnav").addClass("active");
       } else {
-        //remove the background property so it comes transparent again (defined in your css)
        $(".topnav").removeClass("active");
       }
     });
