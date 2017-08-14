@@ -5,6 +5,7 @@ import { HashRouter, Switch, Route, Link } from 'react-router-dom';
 /////////// import components ///////////
 import Welcome from './Welcome.js';
 import Header from './Header.js';
+import Doc from './Doc.js';
 
 
 /////////// import stylesheets ///////////
@@ -17,7 +18,7 @@ import './../styles/App.css';
 const Documentation = () => (
   <div>
     <Header />
-    <Welcome />
+    <Doc />
   </div>
 )
 
