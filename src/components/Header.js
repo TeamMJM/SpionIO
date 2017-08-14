@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { HashRouter, Switch, Route, Link } from 'react-router-dom';
+import $ from 'jquery';
 
 /////////// import stylesheets ///////////
 import './../styles/Header.css';
@@ -16,35 +17,48 @@ const style = {
     paddingLeft: '5px',
     color: 'gray',
     textTransform: 'none',
-    letterSpacing: '2px',
+    letterSpacing: '1px',
   },
   label: {
     fontSize: '30px',
     paddingRight: '5px',
     color: '#E0E1E5',
-    letterSpacing: '2px',
+    letterSpacing: '1px',
   },
-  paper: {
-    height: '80px',
-  }
 };
 
 
 
-const Header = () => (
-  <header>
-    <Paper style={style.paper} zDepth={1} className="topnav" id="myTopnav">
-      <div className="topnav-content">
-        <img className='logo' src='./../../logo.png'/>
-        <Link to='/'><FlatButton hoverColor='white' labelStyle={style.label} label='Private-I' /></Link>
-        <Link to='/'><FlatButton hoverColor='white' labelStyle={style.sub} label='/ PROTOTYPE v0.0.1 /' /></Link>
-        <div id='first'>
-        <Link to='/download'><FlatButton style={{border: '1px solid gray', borderRadius: '50px'}} labelStyle={{letterSpacing: '2px'}} labelColor='gray' backgroundColor='white' label='Download'></FlatButton></Link>
-        <Link to='/dashboard'><FlatButton style={{marginLeft: '5px', border: '1px solid gray', borderRadius: '50px'}} labelStyle={{letterSpacing: '2px'}} labelColor='gray' backgroundColor='white' label='Dashboard'></FlatButton></Link>
-        </div>  
-    </div>
-    </Paper>
-  </header>
-)
+class Header extends Component {
+  componentDidMount() {
+    $(window).on("scroll", function() {
+      // console.log('scrolling')
+      if($(window).scrollTop() > 50) {
+        // console.log('scrolled over 50')
+        $(".topnav").addClass("active");
+      } else {
+        //remove the background property so it comes transparent again (defined in your css)
+       $(".topnav").removeClass("active");
+      }
+    });
+  }
+
+  render() {
+    return (
+      <header>
+        <Paper style={{backgroundColor: 'none'}}zDepth={1} className="topnav" id="myTopnav">
+          <div className="topnav-content">
+            <img className='logo' src='./../../logo.png'/>
+            <Link to='/'><FlatButton hoverColor='white' labelStyle={style.label} label='Private-I' /></Link>
+            <Link to='/'><FlatButton hoverColor='white' labelStyle={style.sub} label='/ PROTOTYPE v0.0.1 /' /></Link>
+            <div id='first'>
+              {/* <Link to='/download'><FlatButton style={{border: '1px solid gray', borderRadius: '50px'}} labelStyle={{letterSpacing: '1px'}} labelColor='gray' backgroundColor='white' label='Download'></FlatButton></Link> */}
+              <Link to='/dashboard'><FlatButton style={{marginLeft: '5px', border: '1px solid gray', borderRadius: '50px'}} labelStyle={{letterSpacing: '1px'}} labelColor='gray' backgroundColor='white' label='Dashboard'></FlatButton></Link>
+            </div>  
+          </div>
+        </Paper>
+      </header>
+  )}
+}
 
 export default Header;
