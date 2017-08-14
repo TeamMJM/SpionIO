@@ -33,7 +33,7 @@ class Header extends Component {
   componentDidMount() {
     $(window).on("scroll", function() {
       // console.log('scrolling')
-      if($(window).scrollTop() > 5) {
+      if($(window).scrollTop() > 1) {
         $(".topnav").addClass("active");
       } else {
        $(".topnav").removeClass("active");

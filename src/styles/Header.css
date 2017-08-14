@@ -16,7 +16,7 @@
     padding: 0;
     height: 80px;
     position: fixed;
-    z-index: 2;
+    z-index: 100;
 }
 
 .topnav-content {
@@ -40,5 +40,6 @@ ul {
 .active {
   background-color: #20262D;
 }
+
 
 
