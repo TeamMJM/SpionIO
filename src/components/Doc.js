@@ -45,7 +45,7 @@ class Doc extends Component {
   componentDidMount() {
     $(window).on("scroll", function() {
       // console.log('scrolling')
-      if( ($(window).scrollTop() > 210) && ($(window).scrollTop() < 1300 ) )  {
+      if( ($(window).scrollTop() > 225) && ($(window).scrollTop() < 1300 ) )  {
         $(".doc-section2").removeClass("doc-section2-visible");
         $(".doc-section2").addClass("animated zoomIn");
       } else {
@@ -53,7 +53,7 @@ class Doc extends Component {
         $(".doc-section2").removeClass("animated zoomIn");
       }
 
-      if ( ($(window).scrollTop() > 980 ) && ($(window).scrollTop() < 2000) ) {
+      if ( ($(window).scrollTop() > 970 ) && ($(window).scrollTop() < 2000) ) {
         $(".doc-section3-content").removeClass("doc-section3-visible");
         $(".doc-section3-content").addClass("animated fadeInLeftBig");
       } else {
@@ -67,6 +67,14 @@ class Doc extends Component {
       } else {
         $(".doc-section4").addClass("doc-section4-visible");
         $(".doc-section4").removeClass("animated zoomIn")
+      }
+
+      if ( ($(window).scrollTop() > 1700 ) && ($(window).scrollTop() < 2900) ) {
+        $(".doc-section4-team").removeClass("doc-section4-team-visible");
+        $(".doc-section4-team").addClass("animated zoomIn");
+      } else {
+        $(".doc-section4-team").addClass("doc-section4-team-visible");
+        $(".doc-section4-team").removeClass("animated zoomIn")
       }
 
       if ( ($(window).scrollTop() > 2700 ) && ($(window).scrollTop() < 3200) ) {
@@ -136,26 +144,28 @@ class Doc extends Component {
         </div>
 
         <div className='doc-section4'>
+          <div className='doc-section4-team'>
           <hr style={{marginBottom: '2%'}} width='15%'/>
           <h1>Meet the Team.</h1>
           <hr style={{marginTop: '2%'}} width='15%'/>
           <table>
             <tr>
               <td className='td-welcome'>
-                <Paper zDepth={2} style={style.team} circle={true}/><br/><br/><br/>
+                <a href='https://github.com/morpherious'><Paper zDepth={2} style={style.team} circle={true}/></a><br/><br/><br/>
                 <FlatButton hoverColor='none' labelStyle={{letterSpacing: '3px'}} label='Mustafa Khan' href='https://github.com/morpherious'></FlatButton>
               </td>
                 <td className='td-welcome'>
-                <Paper zDepth={2} style={style.team} circle={true}/><br/><br/><br/>
+                <a href='https://github.com/mm0nr0e'><Paper zDepth={2} style={style.team} circle={true}/></a><br/><br/><br/>
                 <FlatButton hoverColor='none' labelStyle={{letterSpacing: '3px'}} label='Miranda Monroe' href='https://github.com/mm0nr0e'></FlatButton>
               </td>
               <td className='td-welcome'>
-                <Paper zDepth={2} style={style.team} circle={true}/><br/><br/><br/>
+                <a href='https://github.com/j3rryj'><Paper zDepth={2} style={style.team} circle={true}/></a><br/><br/><br/>
                 <FlatButton hoverColor='none' labelStyle={{letterSpacing: '3px'}} label='Jerry Jong' href='https://github.com/j3rryj'></FlatButton>
               </td>
             </tr>
           </table>
           <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+          </div>
           <div className='doc-section4-lets'>
           <p className='doc-section4-letsbuild'>Let's build something great together.</p>
           </div>
