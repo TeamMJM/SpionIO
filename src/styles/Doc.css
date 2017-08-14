@@ -60,12 +60,17 @@ p {
   text-align: center;
   padding-top: 10%;
   letter-spacing: 3px;
+  height: 1220px;
 }
 
 .doc-section4-lets {
-  height: 200px;
+  height: 240px;
   background-color: #E0E1E5;
   padding-top: 15%;
+}
+
+.doc-section4-letsbuild {
+  font-size: 2.8em;
 }
 
 .doc-footer-individual {
@@ -76,6 +81,23 @@ p {
 
 .doc-footer-list {
   margin-left: 3%;
+  margin-bottom: 2%;
+}
+
+.doc-sectionfooter {
+  height: 200px;
+}
+
+.doc-footer-company {
+  font-size: .9em;
+  margin-left: 4%;
+  margin-bottom: 3%;
+  list-style: none;
+}
+
+.doc-footer-company-title {
+  font-weight: bold;  
+  margin-top: 4%;
   margin-bottom: 2%;
 }
 
