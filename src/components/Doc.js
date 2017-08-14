@@ -41,7 +41,7 @@ class Doc extends Component {
           {/* Hi, We're Private IO.<br/> */}
           <p className='fade-in one doc-sub-2'>Open source developer tool for capturing<br/>and analyzing user interaction to improve<br/>UX in everything you build</p>
         </h1>
-        <RaisedButton style={{marginTop: '4%'}} label='Github'></RaisedButton>
+        <RaisedButton style={{marginTop: '4%'}} label='Github' onClick={() => {window.location.href='http://github.com/Duckasaurus/private-i'}}></RaisedButton>
         <RaisedButton style={{marginTop: '4%', marginLeft: '2%'}} label='NPM'></RaisedButton>
 
         <div className='scroll demo' id='section07'>
