@@ -53,7 +53,7 @@ class Doc extends Component {
         $(".doc-section2").removeClass("animated zoomIn");
       }
 
-      if ( ($(window).scrollTop() > 1040 ) && ($(window).scrollTop() < 2000) ) {
+      if ( ($(window).scrollTop() > 980 ) && ($(window).scrollTop() < 2000) ) {
         $(".doc-section3-content").removeClass("doc-section3-visible");
         $(".doc-section3-content").addClass("animated fadeInLeftBig");
       } else {
@@ -61,7 +61,7 @@ class Doc extends Component {
         $(".doc-section3-content").removeClass("animated fadeInLeftBig")
       }
 
-      if ( ($(window).scrollTop() > 1800 ) && ($(window).scrollTop() < 3200) ) {
+      if ( ($(window).scrollTop() > 1700 ) && ($(window).scrollTop() < 3200) ) {
         $(".doc-section4").removeClass("doc-section4-visible");
         $(".doc-section4").addClass("animated zoomIn");
       } else {
@@ -69,7 +69,7 @@ class Doc extends Component {
         $(".doc-section4").removeClass("animated zoomIn")
       }
 
-      if ( ($(window).scrollTop() > 2760 ) && ($(window).scrollTop() < 3200) ) {
+      if ( ($(window).scrollTop() > 2700 ) && ($(window).scrollTop() < 3200) ) {
         $(".doc-section4-letsbuild").removeClass("doc-section4-letsbuild-visible");
         $(".doc-section4-letsbuild").addClass("animated zoomIn");
       } else {
