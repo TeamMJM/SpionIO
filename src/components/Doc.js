@@ -63,18 +63,18 @@ class Doc extends Component {
 
       if ( ($(window).scrollTop() > 1700 ) && ($(window).scrollTop() < 3200) ) {
         $(".doc-section4").removeClass("doc-section4-visible");
-        $(".doc-section4").addClass("animated zoomIn");
+        $(".doc-section4").addClass("animated fadeIn");
       } else {
         $(".doc-section4").addClass("doc-section4-visible");
-        $(".doc-section4").removeClass("animated zoomIn")
+        $(".doc-section4").removeClass("animated fadeIn")
       }
 
       if ( ($(window).scrollTop() > 1700 ) && ($(window).scrollTop() < 2900) ) {
         $(".doc-section4-team").removeClass("doc-section4-team-visible");
-        $(".doc-section4-team").addClass("animated zoomIn");
+        $(".doc-section4-team").addClass("animated fadeInRight");
       } else {
         $(".doc-section4-team").addClass("doc-section4-team-visible");
-        $(".doc-section4-team").removeClass("animated zoomIn")
+        $(".doc-section4-team").removeClass("animated fadeInRight")
       }
 
       if ( ($(window).scrollTop() > 2700 ) && ($(window).scrollTop() < 3200) ) {
@@ -95,7 +95,7 @@ class Doc extends Component {
         <div className='doc-section1'>
         <h2 className='doc-title'>FOCUS GROUP MANAGEMENT PLATFORM</h2>
 
-          <p className='doc-sub-2'>Open source developer tool for capturing<br/>and analyzing user interaction to improve<br/>UX in everything you build</p>
+          <p className='fade-in one doc-sub-2'>Open source developer tool for capturing<br/>and analyzing user interaction to<br/>radically improve UX</p>
         <RaisedButton style={{marginTop: '4%'}} label='Github' href='http://github.com/Duckasaurus/private-i'></RaisedButton>
         <RaisedButton style={{marginTop: '4%', marginLeft: '2%'}} label='NPM' href='http://npmjs.com'></RaisedButton>
 
@@ -110,7 +110,7 @@ class Doc extends Component {
         <div className='doc-section2'>
           <br/>
           <hr style={{marginBottom: '2%'}} width='15%'/>
-          <h1>Quick-Start Guide</h1>
+          <h1 className='doc-section2-title'>Quick-Start Guide</h1>
           <hr style={{marginTop: '2%'}} width='15%'/>
           <table>
             <tr>
