@@ -100,22 +100,16 @@ class DashboardUserSession extends Component {
         $iframe.contents().scrollTop(event.scrollTop)
         $iframe.contents().scrollLeft(event.scrollLeft)
       } else if (event.event === 'click') {
-        $fakeCursor.animate({
+        $fakeCursor.css({
           top: event.ClickY,
           left: event.ClickX
-        }, {
-          duration: 10,
-          easing: "swing"
         })
       } else {
         if (event.event === 'mouseleave') {
           console.log("inside");
-          $fakeCursor.animate({
+          $fakeCursor.css({
             top: event.ClickY,
             left: event.ClickX
-          }, {
-            duration: 10,
-            easing: "swing"
           })
           $iframeDoc.find($fakeCursor).remove();
           mouseMade = false;
@@ -125,12 +119,9 @@ class DashboardUserSession extends Component {
             mouseMade = true;
           }
 
-          $fakeCursor.animate({
+          $fakeCursor.css({
             top: event.ClickY,
             left: event.ClickX
-          }, {
-            duration: 10,
-            easing: "swing"
           })
         }
       }

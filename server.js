@@ -12,7 +12,7 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
-let mongoURI = 'mongodb://mus:1@ds125623.mlab.com:25623/userevents';
+let mongoURI = 'mongodb://localhost:27017/private-I';
 
 // require('./passport')(passport); //pass passport for configuration
 
@@ -146,7 +146,7 @@ app.get('*/build/bundle.js', (req, res, next) => {
 app.get('/recordings',recordingController.findAll)
 app.get('/recordings/:recordingID', recordingController.findRecording)
 
-io.on('connection', (client) => {
+io.on('connection', (client) => { 
     client.on('join', (data) => {
         console.log(data);
         client.emit('messages', 'Hello from server');
@@ -160,19 +160,29 @@ io.on('connection', (client) => {
             })
     })
     client.on('recording', (id,data) => {
-        recordingController.updateRecording(id,data)
-            .then((Response) => {
-                console.log("Response",Response)
+        let result = data.map(function(element) {
+            return Object.values(element)[0]
+        });
+        console.log('RECORDING',result);
+        recordingController.updateRecordingBulk(id,result)
+           .then((Response) => {
+               console.log("Response",Response)
             }).catch((err) => {
-                console.log(err)
-            })
+               console.log(err)
+           })
     });
-    client.on('unload', (id,data) => {
-        recordingController.updateRecording(id,data)
+    client.on('unload', (id,data,lastitem) => {
+
+        let result = data.map(function(element) {
+            return Object.values(element)[0]
+        });
+        console.log("Last Item",lastitem);
+        console.log("RESULT",result);
+        recordingController.updateRecordingBulk(id,result)
             .then((Response) => {
-                console.log("Unload", Response)
+                //console.log("Unload", Response)
             }).catch((err) => {
-                console.log(err)
+                //console.log(err)
             })
     })
     client.on('event',(data)=>{
