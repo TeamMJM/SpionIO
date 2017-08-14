@@ -101,6 +101,14 @@ p {
   margin-bottom: 2%;
 }
 
+.doc-section4-visible {
+  visibility: hidden;
+}
+
+.doc-section4-letsbuild-visible {
+  visibility: hidden;
+}
+
 .gif {
   color: lightgray;
 }

@@ -60,6 +60,22 @@ class Doc extends Component {
         $(".doc-section3-content").addClass("doc-section3-visible");
         $(".doc-section3-content").removeClass("animated fadeInLeftBig")
       }
+
+      if ( ($(window).scrollTop() > 1800 ) && ($(window).scrollTop() < 3200) ) {
+        $(".doc-section4").removeClass("doc-section4-visible");
+        $(".doc-section4").addClass("animated zoomIn");
+      } else {
+        $(".doc-section4").addClass("doc-section4-visible");
+        $(".doc-section4").removeClass("animated zoomIn")
+      }
+
+      if ( ($(window).scrollTop() > 2760 ) && ($(window).scrollTop() < 3200) ) {
+        $(".doc-section4-letsbuild").removeClass("doc-section4-letsbuild-visible");
+        $(".doc-section4-letsbuild").addClass("animated zoomIn");
+      } else {
+        $(".doc-section4-letsbuild").addClass("doc-section4-letsbuild-visible");
+        $(".doc-section4-letsbuild").removeClass("animated zoomIn")
+      }
       
     });
   }
@@ -97,7 +113,7 @@ class Doc extends Component {
               </td>
               <td className='td-welcome'>
                 <img className='mini-logo-database' src='./../../databaseicon.png'/>
-                <h3 className='td-title'>Bring the best to market</h3>
+                <h3 className='td-title'>Bring the Best to Market</h3>
                 <p className='td-sub'>Now that all of the management power is in your hands, you can analyze a variety of user interactions and determine the best course of action in redesigning the front-end to drastically improve UX in all of your deployed websites, with confidence.</p>
               </td>
               <td className='td-welcome'>
