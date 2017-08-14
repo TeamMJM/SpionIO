@@ -23,10 +23,11 @@ recordingController.findAll = (req, res, next) => {
     })
 }
 
-recordingController.updateRecording = (id, Data) => {
-    return Recording.findByIdAndUpdate(id, {
-        $push: Data
+recordingController.updateRecordingBulk = (id, Data) => {
+    let bulk = Recording.collection.initializeOrderedBulkOp();Data.forEach(function(element) {
+        bulk.find({'_id':id}).update({$push:element})        
     });
+    return bulk.execute()
 }
 
 recordingController.deleteRecording = (id) => {
