@@ -1,0 +1,91 @@
+.doc-title {
+  text-align: center;
+  margin-top: 10%;
+  letter-spacing: 2px;
+  color: gray;
+  margin-bottom: 3%;
+}
+
+h2 { 
+  margin: 0 auto;
+}
+
+p {
+  margin: 0 auto;
+}
+
+.doc-sub-2 {
+  font-size: 2.6em;
+  color: gray;
+  letter-spacing: 2px;
+}
+
+.doc-section1 {
+  /* position: absolute; */
+  text-align: center;
+  height: 640px;
+  padding-top: 80px;
+}
+
+.doc-section2 {
+  text-align: center;
+  height: 640px;
+  /* margin-top: 720px; */
+  padding-top: 180px;
+}
+
+.doc-section2-visible {
+  visibility: hidden;
+}
+
+.doc-section3-visible {
+  visibility: hidden;
+}
+
+
+.doc-section3 {
+  text-align: center;
+  background-color: #20262D;
+  height: 800px;
+  padding-top: 10%;
+}
+
+.doc-section3-title {
+  letter-spacing: 5px;
+  font-size: 2.5em;
+  color: lightgray;
+}
+
+.gif {
+  color: lightgray;
+}
+
+
+
+
+/* make keyframes that tell the start state and the end state of our object */
+
+@-webkit-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@-moz-keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+@keyframes fadeIn { from { opacity:0; } to { opacity:1; } }
+
+.fade-in {
+	opacity:0;  /* make things invisible upon start */
+	-webkit-animation:fadeIn ease-in 1;  /* call our keyframe named fadeIn, use animattion ease-in and repeat it only 1 time */
+	-moz-animation:fadeIn ease-in 1;
+	animation:fadeIn ease-in 1;
+
+	-webkit-animation-fill-mode:forwards;  /* this makes sure that after animation is done we remain at the last keyframe value (opacity: 1)*/
+	-moz-animation-fill-mode:forwards;
+	animation-fill-mode:forwards;
+
+	-webkit-animation-duration:0.7s;
+	-moz-animation-duration:0.7s;
+	animation-duration:0.7s;
+}
+
+.fade-in.one {
+-webkit-animation-delay: 0.4s;
+-moz-animation-delay: 0.4s;
+animation-delay: 0.4s;
+}
