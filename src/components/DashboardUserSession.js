@@ -19,8 +19,10 @@ const style = {
   flex: '1'
 }
 
-let i = 0;
-const REPLAY_SCALE = 0.7;
+
+// let i = 0;
+const REPLAY_SCALE = 0.631;
+
 const SPEED = 1;
 let mouseMade = false;
 
@@ -57,17 +59,22 @@ class DashboardUserSession extends Component {
       flag: true,
       startPlay: null,
       $iframeDoc: null,
-      $fakeCursor: null
+      $fakeCursor: null,
+      step: 1,
+      i: 0
     }
     this.addtoList = this.addtoList.bind(this);
     this.frameScript = this.frameScript.bind(this);
-    this.updateFlag = this.updateFlag.bind(this);
+    // this.updateFlag = this.updateFlag.bind(this);
+    this.play = this.play.bind(this);
+    this.pause = this.pause.bind(this);
     this.getRecordingData = this.getRecordingData.bind(this);
+    this.slide = this.slide.bind(this);
   }
   drawAnimate($iframeDoc, $fakeCursor, startPlay, context) {
     let response = this.state.response;
     (function draw() {
-      let event = response.Frame[i];
+      let event = response.Frame[context.state.i];
       if (!event) {
         return;
       }
@@ -76,10 +83,11 @@ class DashboardUserSession extends Component {
       let offsetPlay = (Date.now() - startPlay) * SPEED;
       if (offsetPlay >= offsetRecording) {
         drawEvent(event, $fakeCursor, $iframeDoc);
-        i++;
+        // const newI = this.state.i + 1
+        context.setState({ i: context.state.i + 1 });
       }
 
-      if (i < response.Frame.length && context.state.flag) {
+      if (context.state.i < response.Frame.length && context.state.flag) {
         requestAnimationFrame(draw);
       } else if (!context.state.flag) {
         console.log("Coming in");
@@ -148,6 +156,12 @@ class DashboardUserSession extends Component {
     })
     $iframe[0].contentDocument.documentElement.innerHTML = response.htmlCopy;
     const $iframeDoc = $($iframe[0].contentDocument.documentElement);
+
+    let $fakeCursor = $('<div class="cursor"></div>')
+    
+    $iframeDoc.find('body').append($fakeCursor);
+   // let i = 0;
+
     const startPlay = Date.now();
     let $fakeCursor = $('<div class="cursor"></div>')
     context.drawAnimate($iframeDoc, $fakeCursor, startPlay, context)
@@ -161,36 +175,77 @@ class DashboardUserSession extends Component {
     })
   }
 
-  async updateFlag() {
-    console.log("UPDATE")
-    await this.setState({
-      flag: !this.state.flag
+  // async updateFlag() {
+  //   console.log("UPDATE")
+  //   await this.setState({
+  //     flag: !this.state.flag
+  //   })
+  //   if (this.state.flag) {
+  //     this.drawAnimate(this.state.$iframeDoc,this.state.$fakeCursor,this.state.startPlay,this)
+  //   } else {
+  //     console.log("False")
+  //   }
+  // }
+
+  pause() {
+    console.log('pausing');
+    this.setState({
+      flag: false
     })
+
+  }
+
     if (this.state.flag) {
       this.drawAnimate(this.state.$iframeDoc, this.state.$fakeCursor, this.state.startPlay, this)
     } else {
       console.log("False")
     }
 
+
+  async play() {
+    console.log('pausing');
+    await this.setState({
+      flag: true
+    })
+    this.drawAnimate(this.state.$iframeDoc,this.state.$fakeCursor,this.state.startPlay,this)
   }
 
   async getRecordingData() {
     let response = await axios.get('/recordings/' + this.props.match.params.recordingID);
+    console.log('DATA', response.data.Frame)
+    console.log('DATA LENGTH', response.data.Frame.length)
+    const step = 1/(response.data.Frame.length ? response.data.Frame.length: 1);
+    console.log(step)
     this.setState({
-      response: response.data
+      response: response.data,
+      step: step
     });
     this.frameScript(this);
+  }
+
+ async slide(newInd) {
+    console.log('Slider to new index:', newInd)
+
+    await this.setState({ i: newInd })
+    this.drawAnimate(this.state.$iframeDoc,this.state.$fakeCursor,this.state.startPlay,this)
   }
 
   componentDidMount() {
     this.getRecordingData();
   }
 
+  componentWillUpdate() {
+    this.state.targetList = [];
+  }
+
+  component
+
   render() {
     return (
       <div style={style}>
-          <Playback  flag={this.updateFlag} />
-          <Storyboard  list={this.state.targetList} />
+         <Playback key={this.props.match.params.recordingID} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
+          <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />
+         
       </div>
     );
   }
