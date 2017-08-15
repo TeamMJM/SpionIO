@@ -113,3 +113,8 @@
 }
 
 
+#customFade {
+  -webkit-animation-duration: 4s;
+  -moz-animation-duration: 4s;
+  -ms-transition-animation-duration: 4s;
+}

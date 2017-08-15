@@ -9,6 +9,7 @@ import ActionInput from 'material-ui/svg-icons/action/input';
 
 import PlaybackBar from './PlaybackBar';
 import './../styles/Home.css';
+import axios from 'axios';
 
 const style = {
   card: {
@@ -76,6 +77,13 @@ const style = {
 
 
 class Playback extends Component {
+  constructor(props) {
+    super(props)
+  }
+
+  handleDelete(e) {
+    e.preventDefault();
+  }
 
   render() {
     return(
@@ -103,6 +111,7 @@ class Playback extends Component {
           step={this.props.step} 
           index={this.props.index} 
           slide={this.props.slide}
+          playing={this.props.playing}
           />
       </Card>
     );

@@ -6,18 +6,39 @@ import AvPlayArrowIcon from 'material-ui/svg-icons/av/play-arrow';
 import AvPauseIcon from 'material-ui/svg-icons/av/pause';
 import AvSkipNextIcon from 'material-ui/svg-icons/av/skip-next';
 import AvSkipPreviousIcon from 'material-ui/svg-icons/av/skip-previous';
+import ActionChromeReaderMode from 'material-ui/svg-icons/action/chrome-reader-mode';
 
 
 import './../styles/Home.css';
 
 
-// const style = {
-
-// }
+const style = {
+  mediumIcon: {
+    width: 36,
+    height: 36,
+  },
+  medium: {
+    width: 56,
+    height: 56,
+    pointerEvents: 'none',
+    display: 'inline-block',
+    // float: 'left',
+    // marginLeft: '16%',
+    // padding: 0,
+  },
+}
 
 class PlaybackBar extends Component {
   constructor(props) {
     super(props)
+  }
+
+  toggleIcon() {
+    if(this.props.playing) {
+      return <AvPauseIcon color='#006CAA'/>
+    } else {
+      return <AvPlayArrowIcon color='#006CAA'/>
+    }
   }
   
   render() {
@@ -34,17 +55,17 @@ class PlaybackBar extends Component {
           onChange={function() {
             slide(Math.floor(value / step))
           }}/>
-        <Toolbar>
-          <IconButton touch={true} onTouchTap={this.props.play}>
-            <AvPlayArrowIcon />
+        <Toolbar style={{backgroundColor: 'white', margin: '0, auto'}}>
+          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true} onTouchTap={this.props.play}>
+            <AvPlayArrowIcon color='#006CAA'/>
           </IconButton>
-          <IconButton touch={true} onTouchTap={this.props.pause}>
+          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true} onTouchTap={this.props.pause}>
             <AvPauseIcon />
           </IconButton>
-          <IconButton touch={true}>
+          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true}>
             <AvSkipPreviousIcon />
           </IconButton>
-          <IconButton touch={true}>
+          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true}>
             <AvSkipNextIcon />
           </IconButton>
         </Toolbar>

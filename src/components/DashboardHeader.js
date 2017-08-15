@@ -71,7 +71,7 @@ const recordings = [
 class DashboardHeader extends Component {
   render() {
     return(
-      <Paper style={style.paperHeader} zDepth={0} rounded={false}>
+      <Paper className="animated fadeIn" style={style.paperHeader} zDepth={0} rounded={false}>
       <header className='dashboard-header'>
         <div id="myTopnav dashboard-nav">
         <Paper zDepth={1} style={style.paperHead} rounded={false}><p style={style.pHead}>PRIVATE-I</p></Paper>
