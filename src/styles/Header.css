@@ -3,19 +3,20 @@
 }
 
 #first {
-   margin-left: 40%; 
-   /* margin-left: 45%; FOR MONITOR VIEW*/
+   margin-left: 50%; 
+   /* margin-left: 55%; FOR MONITOR VIEW*/
    display: inline;
 }
 
 
 .topnav {
-    background-color: white;
     overflow: hidden;
     width: 100%;
     margin: 0;
     padding: 0;
     height: 80px;
+    position: fixed;
+    z-index: 100;
 }
 
 .topnav-content {
@@ -34,6 +35,10 @@ ul {
   width: 50px;
   margin-left: 5%;
   vertical-align: middle;
+}
+
+.active {
+  background-color: #20262D;
 }
 
 

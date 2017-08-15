@@ -31,11 +31,9 @@ class Welcome extends Component {
           </div>
 
           <div className='scroll demo' id='section07'>
-            {/* <Link className='a test1' activeClass="active" to="test1" spy={true} smooth={true} duration={500}> */}
             <a className='a' onClick={() => scroll.scrollTo(1005)}>
               <span></span><span></span><span></span>
             </a>
-            {/* </Link> */}
             <br/>GET STARTED
           </div>
           </div>
