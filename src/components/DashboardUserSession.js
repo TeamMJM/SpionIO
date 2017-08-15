@@ -16,7 +16,7 @@ const style = {
 
 
 // let i = 0;
-const REPLAY_SCALE = 0.631;
+const REPLAY_SCALE = .862;
 
 const SPEED = 1;
 let mouseMade = false;
@@ -138,7 +138,7 @@ class DashboardUserSession extends Component {
   async frameScript(context) {
     let response = context.state.response;
     let $iframe = $('.react-iframe');
-    $iframe.height(800);
+    $iframe.height(response.height * (REPLAY_SCALE-.053));
     $iframe.width(response.width * REPLAY_SCALE);
     $iframe.css({
       '-ms-zoom': `${REPLAY_SCALE}`,
@@ -238,7 +238,7 @@ class DashboardUserSession extends Component {
   render() {
     return (
       <div style={style}>
-        <DashboardHeader/>
+        {/* <DashboardHeader/> */}
         <PlaybackSidebar/>
         <Playback key={this.props.match.params.recordingID} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
         <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />         
