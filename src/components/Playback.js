@@ -6,19 +6,20 @@ import './../styles/Home.css';
 
 const style = {
   card: {
-    display: 'flex',
-    flexFlow: 'column nowrap',
+    // flexFlow: 'column nowrap',
+    float: 'left',
     justifyContent: 'center',
     alignContent: 'center',
-    width: '60%', 
+    width: '75%', 
     height: '100%',
     backgroundColor: 'lightgrey',
-    padding: '10px'
+    padding: '2px'
   },
   iframe: {
     width: '100%',
+    height: '100%',
     display: 'block',
-    margin: 'auto'
+    margin: '0 auto'
   },
   bar: {
     width: '100%'

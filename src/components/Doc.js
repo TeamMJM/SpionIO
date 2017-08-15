@@ -117,17 +117,17 @@ class Doc extends Component {
               <td className='td-welcome'>
                 <img className='mini-logo-website' src='./../../websiteicon.png'/>
                 <h3 className='td-title'>Take Control</h3>
-                <p className='td-sub'>By injecting our script into the top level of the front-end of your application and then cloning our interface from Github, as a developer you now have the tool to manage your own focus groups remotely and fully capture user sessions on your website.</p>
+                <p className='td-sub'>By injecting our script into the top level of the front-end of your app and cloning our interface from Github, as a developer you now have the tools to manage your own focus groups remotely and fully capture user sessions on your website.</p>
               </td>
               <td className='td-welcome'>
                 <img className='mini-logo-database' src='./../../databaseicon.png'/>
                 <h3 className='td-title'>Bring the Best to Market</h3>
-                <p className='td-sub'>Now that all of the management power is in your hands, you can analyze a variety of user interactions and determine the best course of action in redesigning the front-end to drastically improve UX in all of your deployed websites, with confidence.</p>
+                <p className='td-sub'>Now that all of the management power is in your hands, you can analyze a variety of user interactions and determine the best course of action in redesigning to drastically improve UX in all of your deployed websites, with confidence.</p>
               </td>
               <td className='td-welcome'>
                 <img className='mini-logo-machinelearning' src='./../../machinelearningicon.png'/>                
                 <h3 className='td-title'>Scalability</h3>
-                <p className='td-sub'>With an open source approach to solving this problem, we've discovered a way to keep costs completely free in the out-of-the-box solution while giving you complete control over your costs by giving the developer's the option of providing their own server</p>
+                <p className='td-sub'>With an open source approach to this solution, we've discovered a way to keep costs completely free out-of-the box while giving you complete control over your costs by giving the developer's the option of providing their own server</p>
               </td>
             </tr>
           </table>
