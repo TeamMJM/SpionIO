@@ -17,7 +17,7 @@ const style = {
 
 
 // let i = 0;
-const REPLAY_SCALE = .862;
+const REPLAY_SCALE = 0.863;
 
 
 const SPEED = 1;
@@ -158,8 +158,8 @@ class DashboardUserSession extends Component {
     let response = context.state.response;
     let recording = context.state.recording;
     let $iframe = $('.react-iframe');
-    $iframe.height(response.height * (REPLAY_SCALE-.053));
-    $iframe.width(response.width * REPLAY_SCALE);
+    $iframe.height(recording.height * (REPLAY_SCALE-.053));
+    $iframe.width(recording.width * REPLAY_SCALE);
 
     $iframe.css({
       '-ms-zoom': `${REPLAY_SCALE}`,

@@ -103,7 +103,7 @@ class Playback extends Component {
             <MenuItem hoverColor='white' style={{fontSize: '0.9em'}} primaryText="Delete" />
           </IconMenu>
         </Paper> 
-        <iframe style={{margin: '0 auto'}} className="react-iframe"></iframe>  
+        <iframe style={{margin: '0 auto',pointerEvents:'None'}} className="react-iframe"></iframe>  
         <PlaybackBar 
           style={style.bar} 
           pause={this.props.pause} 
