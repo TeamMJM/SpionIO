@@ -99,10 +99,10 @@ class DashboardUserSession extends Component {
       if (event.target) {
         context.addtoList(event.target)
       }
-      if (event.event === "scroll") {
-        $iframe.contents().scrollTop(event.scrollTop)
-        $iframe.contents().scrollLeft(event.scrollLeft)
-      } else if (event.event === 'click') {
+      // if (event.event === "scroll") {
+      //   $iframeDoc.contents().scrollTop(event.scrollTop)
+      //   $iframeDoc.contents().scrollLeft(event.scrollLeft) }
+      else if (event.event === 'click') {
         $fakeCursor.css({
           top: event.ClickY,
           left: event.ClickX
