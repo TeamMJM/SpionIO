@@ -65,7 +65,7 @@ class Dashboard extends Component {
       //   time += 'AM';
       // }
       return (
-        <Paper key={recordings._id} style={style.paper}>
+        <Paper className='animated fadeIn' key={recordings._id} style={style.paper}>
           <div className='recording-block'>
             <div className='recording-avatar'>
               <img className='recording-icon' src={'./../../public/'+Math.floor((Math.random()*9)+1)+'.png'}/>
