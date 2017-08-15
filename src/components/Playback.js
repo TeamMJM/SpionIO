@@ -50,8 +50,9 @@ const style = {
     // marginRight: '3%',
     width: 118,
     height: 48,
-    borderRight: '1px solid lightgray',
+    borderRight: '1px solid gray',
     padding: 0,
+    pointerEvents: 'none',
     // padding: 0,
   },
   medium2: {
@@ -62,8 +63,8 @@ const style = {
     marginRight: '5%',
   },
   p: {
-    color: 'lightgray',
-    marginLeft: '1.5%',
+    color: 'gray',
+    marginLeft: '2%',
     display: 'inline-block',
     letterSpacing: '1px',
     fontSize: '.8em',
@@ -80,7 +81,7 @@ class Playback extends Component {
     return(
       <Card style={style.card} >
         <Paper zDepth={1} style={style.paper} rounded={false}>
-          <IconButton iconStyle={style.mediumIcon} style={style.medium} tooltip='Go Back'><HardwareDesktopWindows color='lightgray'/></IconButton>
+          <IconButton iconStyle={style.mediumIcon} style={style.medium}><HardwareDesktopWindows color='gray'/></IconButton>
           <p style={style.p}>http://localhost:4000/</p>
           <IconMenu
             style={{float: 'right', marginRight: '5%'}} 
