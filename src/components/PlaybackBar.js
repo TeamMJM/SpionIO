@@ -20,7 +20,6 @@ const style = {
   medium: {
     width: 56,
     height: 56,
-    pointerEvents: 'none',
     display: 'inline-block',
     // float: 'left',
     // marginLeft: '16%',
@@ -31,14 +30,29 @@ const style = {
 class PlaybackBar extends Component {
   constructor(props) {
     super(props)
+    this.toggleIcon = this.toggleIcon.bind(this);
+    this.togglePlay = this.togglePlay.bind(this);
   }
 
   toggleIcon() {
+    console.log(this.props.playing)
     if(this.props.playing) {
       return <AvPauseIcon color='#006CAA'/>
     } else {
       return <AvPlayArrowIcon color='#006CAA'/>
     }
+  }
+
+  togglePlay() {
+    if(this.props.playing) {
+      return this.props.pause
+    } else {
+      return this.props.play
+    }
+  }
+
+  componentDidMount() {
+    this.toggleIcon();
   }
   
   render() {
@@ -56,11 +70,8 @@ class PlaybackBar extends Component {
             slide(Math.floor(value / step))
           }}/>
         <Toolbar style={{backgroundColor: 'white', margin: '0, auto'}}>
-          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true} onTouchTap={this.props.play}>
-            <AvPlayArrowIcon color='#006CAA'/>
-          </IconButton>
-          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true} onTouchTap={this.props.pause}>
-            <AvPauseIcon />
+          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true} onTouchTap={this.togglePlay()}>
+            {this.toggleIcon()}
           </IconButton>
           <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true}>
             <AvSkipPreviousIcon />

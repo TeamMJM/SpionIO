@@ -198,7 +198,7 @@ class DashboardUserSession extends Component {
   }
 
   async play() {
-    console.log('pausing');
+    console.log('playing');
     await this.setState({
       flag: true
     })
