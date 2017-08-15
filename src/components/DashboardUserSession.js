@@ -19,10 +19,36 @@ const style = {
   flex: '1'
 }
 
+
 // let i = 0;
 const REPLAY_SCALE = 0.631;
-const SPEED = 1;
 
+const SPEED = 1;
+let mouseMade = false;
+
+$.fn.getPath = function () {
+  // stolen from http://stackoverflow.com/a/2068381/1376627
+  if (this.length != 1) throw 'Requires one element.';
+  var path, node = this;
+  while (node.length) {
+    var realNode = node[0],
+      name = realNode.localName;
+    if (!name) break;
+    name = name.toLowerCase();
+
+    var parent = node.parent();
+
+    var siblings = parent.children(name);
+    if (siblings.length > 1) {
+      name += ':eq(' + siblings.index(realNode) + ')';
+    }
+
+    path = name + (path ? '>' + path : '');
+    node = parent;
+  }
+
+  return path.split('html>')[1];
+};
 
 class DashboardUserSession extends Component {
 
@@ -45,8 +71,7 @@ class DashboardUserSession extends Component {
     this.getRecordingData = this.getRecordingData.bind(this);
     this.slide = this.slide.bind(this);
   }
-  drawAnimate($iframeDoc,$fakeCursor,startPlay,context) {
-    let $iframe = $('.react-iframe');
+  drawAnimate($iframeDoc, $fakeCursor, startPlay, context) {
     let response = this.state.response;
     (function draw() {
       let event = response.Frame[context.state.i];
@@ -64,46 +89,61 @@ class DashboardUserSession extends Component {
 
       if (context.state.i < response.Frame.length && context.state.flag) {
         requestAnimationFrame(draw);
-      }else if(!context.state.flag){
+      } else if (!context.state.flag) {
         console.log("Coming in");
         context.setState({
-          startPlay:startPlay,
-          $fakeCursor:$fakeCursor,
-          $iframeDoc:$iframeDoc
+          startPlay: startPlay,
+          $fakeCursor: $fakeCursor,
+          $iframeDoc: $iframeDoc
         })
       }
     })();
 
     function drawEvent(event, $fakeCursor, $iframeDoc) {
-      if (event.event === 'click' || event.event === 'scroll' || event.event === 'mousemove') {
-        if (event.target) {
-          context.addtoList(event.target)
-        }
-
-        if (event.event === "scroll") {
+      console.log("DRAWING", event.event);
+      if (event.target) {
+        context.addtoList(event.target)
+      }
+      if (event.event === "scroll") {
+        $iframe.contents().scrollTop(event.scrollTop)
+        $iframe.contents().scrollLeft(event.scrollLeft)
+      } else if (event.event === 'click') {
+        $fakeCursor.css({
+          top: event.ClickY,
+          left: event.ClickX
+        })
+      } else {
+        if (event.event === 'mouseleave') {
+          console.log("inside");
           $fakeCursor.css({
             top: event.ClickY,
             left: event.ClickX
           })
-          $iframe.contents().scrollTop(event.scrollTop)
-          $iframe.contents().scrollLeft(event.scrollLeft)
+          $iframeDoc.find($fakeCursor).remove();
+          mouseMade = false;
         } else {
-          $fakeCursor.animate({
+          if (!mouseMade) {
+            $iframeDoc.find('body').append($fakeCursor);
+            mouseMade = true;
+          }
+
+          $fakeCursor.css({
             top: event.ClickY,
             left: event.ClickX
-          }, {
-            duration: 10,
-            easing: "linear"
           })
         }
       }
+    }
+
+    function flashClass($el, className) {
+      $el.addClass(className).delay(200).queue(() => $el.removeClass(className).dequeue());
     }
   }
 
   async frameScript(context) {
     let response = context.state.response;
     let $iframe = $('.react-iframe');
-    $iframe.height(response.height * REPLAY_SCALE);
+    $iframe.height(1024);
     $iframe.width(response.width * REPLAY_SCALE);
     $iframe.css({
       '-ms-zoom': `${REPLAY_SCALE}`,
@@ -116,12 +156,15 @@ class DashboardUserSession extends Component {
     })
     $iframe[0].contentDocument.documentElement.innerHTML = response.htmlCopy;
     const $iframeDoc = $($iframe[0].contentDocument.documentElement);
+
     let $fakeCursor = $('<div class="cursor"></div>')
     
     $iframeDoc.find('body').append($fakeCursor);
    // let i = 0;
+
     const startPlay = Date.now();
-    context.drawAnimate($iframeDoc,$fakeCursor,startPlay,context)
+    let $fakeCursor = $('<div class="cursor"></div>')
+    context.drawAnimate($iframeDoc, $fakeCursor, startPlay, context)
   }
 
   addtoList(element) {
@@ -149,7 +192,15 @@ class DashboardUserSession extends Component {
     this.setState({
       flag: false
     })
+
   }
+
+    if (this.state.flag) {
+      this.drawAnimate(this.state.$iframeDoc, this.state.$fakeCursor, this.state.startPlay, this)
+    } else {
+      console.log("False")
+    }
+
 
   async play() {
     console.log('pausing');

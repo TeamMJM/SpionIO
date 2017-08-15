@@ -1,14 +1,14 @@
 .App-title, h3{
   text-align: center;
-  color: #006CAA;
+  color: black;
   padding-top: 15px;
-  font-family: 'Inconsolata', monospace;
+  /* font-family: 'Inconsolata', monospace; */
   width: 100%;
 }
 
 h2 {
-  color: #006CAA;
-  margin: 0 auto;
+  /* color: #006CAA; */
+  /* margin: 0 auto; */
   text-align: center;
 }
 
@@ -28,8 +28,8 @@ h4 {
 }
 
 .td-sub {
-  width: 50%;
-  margin-left: 25%;
+  width: 80%;
+  margin-left: 10%;
 }
 
 table {
@@ -39,19 +39,19 @@ table {
 
 .mini-logo-database {
   height: 100px;
-  width: 140px;
+  width: 100px;
   display: inline-block;
 }
 
 .mini-logo-machinelearning {
   height: 100px;
-  width: 140px;
+  width: 100px;
   display: inline-block;
 }
 
 .mini-logo-website {
   height: 100px;
-  width: 110px;
+  width: 100px;
   display: inline-block;
 }
 
@@ -122,7 +122,9 @@ html, body {
 }
 
 #section1 {
-  /* background-color: #DB4C40; */
+  /* background-color: #E63946; */
+  height: 640px;
+  margin-top: 1px;
 }
 
 #section2 {
@@ -131,8 +133,6 @@ html, body {
   margin: 0 auto;
   height: 1300px;
 }
-
-
 
 #section07 .a {
   padding-top: 80px;
