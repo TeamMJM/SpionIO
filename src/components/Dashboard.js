@@ -8,23 +8,22 @@ import DashboardHeader from './DashboardHeader';
 import DashboardContent from './DashboardContent';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
-// import AVPlayCircleOutline from 'material-ui/svg-icons/AV/play-circle-outline';
+import AVPlayCircleOutline from 'material-ui/svg-icons/AV/play-circle-outline';
 import axios from 'axios';
 
 const style = {
   paper: {
     verticalAlign: 'middle',
     height: '60px',
-    paddingTop: '12px',
   },
-  outer: {
-    display: 'flex',
-    flexFlow: 'column nowrap',
+  mediumIcon: {
+    width: 26,
+    height: 26,
   },
-  inner: {
-    display: 'flex',
-    flexFlow: 'row nowrap'
-  }
+  medium: {
+    padding: 0,
+  },
+
 }
 ////////// Separate component that is similar to App.js but for whne a client has successfully signed into his specific dashboard //////////
 class Dashboard extends Component {
@@ -78,8 +77,8 @@ class Dashboard extends Component {
           </div>
           <div className='recording-playback'>
             <Link to={'/dashboard/' + recordings._id}>
-              <IconButton tooltip='play session'>
-                {/* <AVPlayCircleOutline/> */}
+              <IconButton iconStyle={style.mediumIcon} style={style.medium} tooltip='play session'>
+                <AVPlayCircleOutline color='#006CAA'/>
               </IconButton>
             </Link>
           </div>
@@ -91,11 +90,11 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div style={style.outer}>
+      <div>
         <DashboardHeader />
-        <div style={style.inner}>
+        <div>
           <DashboardContent recordingNodes={this.generateRecordings()}/>
-          <Route path='/dashboard/:recordingID' component={DashboardUserSession}/>
+          {/* <Route path='/dashboard/:recordingID' component={DashboardUserSession}/> */}
         </div>
       </div>
     )

@@ -32,8 +32,8 @@ const style = {
     height: '80px',
   },
   team: {
-    height: 300,
-    width: 300,
+    height: 260,
+    width: 260,
     margin: 20,
     textAlign: 'center',
     display: 'inline-block',
@@ -61,23 +61,23 @@ class Doc extends Component {
         $(".doc-section3-content").removeClass("animated fadeInLeftBig")
       }
 
-      if ( ($(window).scrollTop() > 1700 ) && ($(window).scrollTop() < 3200) ) {
-        $(".doc-section4").removeClass("doc-section4-visible");
-        $(".doc-section4").addClass("animated fadeIn");
-      } else {
-        $(".doc-section4").addClass("doc-section4-visible");
-        $(".doc-section4").removeClass("animated fadeIn")
-      }
+      // if ( ($(window).scrollTop() > 1700 ) && ($(window).scrollTop() < 3200) ) {
+      //   $(".doc-section4").removeClass("doc-section4-visible");
+      //   $(".doc-section4").addClass("animated fadeIn");
+      // } else {
+      //   $(".doc-section4").addClass("doc-section4-visible");
+      //   $(".doc-section4").removeClass("animated fadeIn")
+      // }
 
-      if ( ($(window).scrollTop() > 1700 ) && ($(window).scrollTop() < 2900) ) {
-        $(".doc-section4-team").removeClass("doc-section4-team-visible");
-        $(".doc-section4-team").addClass("animated fadeInRight");
-      } else {
-        $(".doc-section4-team").addClass("doc-section4-team-visible");
-        $(".doc-section4-team").removeClass("animated fadeInRight")
-      }
+      // if ( ($(window).scrollTop() > 1700 ) && ($(window).scrollTop() < 2900) ) {
+      //   $(".doc-section4-team").removeClass("doc-section4-team-visible");
+      //   $(".doc-section4-team").addClass("animated fadeInRight");
+      // } else {
+      //   $(".doc-section4-team").addClass("doc-section4-team-visible");
+      //   $(".doc-section4-team").removeClass("animated fadeInRight")
+      // }
 
-      if ( ($(window).scrollTop() > 2700 ) && ($(window).scrollTop() < 3200) ) {
+      if ( ($(window).scrollTop() > 2630 ) && ($(window).scrollTop() < 3200) ) {
         $(".doc-section4-letsbuild").removeClass("doc-section4-letsbuild-visible");
         $(".doc-section4-letsbuild").addClass("animated zoomIn");
       } else {
@@ -95,7 +95,7 @@ class Doc extends Component {
         <div className='doc-section1'>
         <h2 className='doc-title'>FOCUS GROUP MANAGEMENT PLATFORM</h2>
 
-          <p className='fade-in one doc-sub-2'>Open source developer tool for capturing<br/>and analyzing user interaction to<br/>radically improve UX</p>
+          <p className='doc-sub-2'>Open source developer tool for capturing<br/>and analyzing user interaction to<br/>radically improve UX</p>
         <RaisedButton style={{marginTop: '4%'}} label='Github' href='http://github.com/Duckasaurus/private-i'></RaisedButton>
         <RaisedButton style={{marginTop: '4%', marginLeft: '2%'}} label='NPM' href='http://npmjs.com'></RaisedButton>
 
@@ -110,24 +110,24 @@ class Doc extends Component {
         <div className='doc-section2'>
           <br/>
           <hr style={{marginBottom: '2%'}} width='15%'/>
-          <h1 className='doc-section2-title'>Quick-Start Guide</h1>
+          <h1 className='doc-section2-title'>How It Works</h1>
           <hr style={{marginTop: '2%'}} width='15%'/>
           <table>
             <tr>
               <td className='td-welcome'>
                 <img className='mini-logo-website' src='./../../websiteicon.png'/>
                 <h3 className='td-title'>Take Control</h3>
-                <p className='td-sub'>By injecting our script into the top level of the front-end of your application and then cloning our interface from Github, as a developer you now have the tool to manage your own focus groups remotely and fully capture user sessions on your website.</p>
+                <p className='td-sub'>By injecting our script into the top level of the front-end of your app and cloning our interface from Github, as a developer you now have the tools to manage your own focus groups remotely and fully capture user sessions on your website.</p>
               </td>
               <td className='td-welcome'>
                 <img className='mini-logo-database' src='./../../databaseicon.png'/>
                 <h3 className='td-title'>Bring the Best to Market</h3>
-                <p className='td-sub'>Now that all of the management power is in your hands, you can analyze a variety of user interactions and determine the best course of action in redesigning the front-end to drastically improve UX in all of your deployed websites, with confidence.</p>
+                <p className='td-sub'>Now that all of the management power is in your hands, you can analyze a variety of user interactions and determine the best course of action in redesigning to drastically improve UX in all of your deployed websites, with confidence.</p>
               </td>
               <td className='td-welcome'>
                 <img className='mini-logo-machinelearning' src='./../../machinelearningicon.png'/>                
                 <h3 className='td-title'>Scalability</h3>
-                <p className='td-sub'>With an open source approach to solving this problem, we've discovered a way to keep costs completely free in the out-of-the-box solution while giving you complete control over your costs by giving the developer's the option of providing their own server</p>
+                <p className='td-sub'>With an open source approach to this solution, we've discovered a way to keep costs completely free out-of-the box while giving you complete control over your costs by giving the developer's the option of providing their own server</p>
               </td>
             </tr>
           </table>
@@ -148,7 +148,7 @@ class Doc extends Component {
           <hr style={{marginBottom: '2%'}} width='15%'/>
           <h1>Meet the Team.</h1>
           <hr style={{marginTop: '2%'}} width='15%'/>
-          <table>
+          <table style={{marginTop: '5%'}}>
             <tr>
               <td className='td-welcome'>
                 <a href='https://github.com/morpherious'><Paper zDepth={2} style={style.team} circle={true}/></a><br/><br/><br/>
@@ -169,7 +169,6 @@ class Doc extends Component {
           <div className='doc-section4-lets'>
           <p className='doc-section4-letsbuild'>Let's build something great together.</p>
           </div>
-          <br/><br/><br/><br/><br/>
         </div>
 
         <div className='doc-sectionfooter'>

@@ -33,6 +33,7 @@ const style = {
     marginLeft: '20px',
     height: '40px',
     display: 'inline-block',
+    letterSpacing: '1px',
   },
   underlineStyle: {
     borderColor: 'white',
@@ -48,7 +49,7 @@ const style = {
     backgroundColor: '#F4F7F5'
   },
   paperHead: {width: '256px', height: '60px', backgroundColor: '#006CAA', margin: '0 auto', textAlign: 'center', display: 'inline-block', float: 'left'},
-  pHead: {paddingTop: '15px', margin: '0 auto', fontSize: '1.4em', color: 'white', fontWeight: 'lighter'}
+  pHead: {paddingTop: '15px', margin: '0 auto', fontSize: '1.4em', color: 'white', fontWeight: 'lighter', letterSpacing: '2px'}
 }
 
 const recordings = [
@@ -70,13 +71,13 @@ const recordings = [
 class DashboardHeader extends Component {
   render() {
     return(
-      <Paper style={style.paperHeader} zDepth={0}>
+      <Paper style={style.paperHeader} zDepth={0} rounded={false}>
       <header className='dashboard-header'>
         <div id="myTopnav dashboard-nav">
-        <Paper zDepth={0} style={style.paperHead}><p style={style.pHead}>PRIVATE-I</p></Paper>
-        <Paper className='search-bar' zDepth={0} style={style.paper}>
+        <Paper zDepth={1} style={style.paperHead} rounded={false}><p style={style.pHead}>PRIVATE-I</p></Paper>
+        <Paper className='search-bar' zDepth={1} style={style.paper} rounded={false}>
           <IconButton style={{padding: '0 auto', borderRight: '1px solid #BDC0C1', height: '30px'}} tooltip='Search'><ActionSearch className='search-icon'/></IconButton> 
-          <AutoComplete hintText='search for users, recordings, and more' underlineStyle={{border: 'white'}} hintStyle={{height: '15px', fontSize: '0.8em'}} textFieldStyle={{height: '30px', marginLeft: '1%'}} style={{width: '92%' , float: 'right'}} menuStyle={{height: '90px', overflow: 'scroll'}} listStyle={{width: '600px'}} filter={AutoComplete.caseInsensitiveFilter} dataSource={recordings}/>
+          <AutoComplete hintText='search for recordings ..' underlineStyle={{border: 'white'}} hintStyle={{height: '15px', fontSize: '0.8em'}} textFieldStyle={{height: '30px', marginLeft: '1%'}} style={{width: '92%' , float: 'right', letterSpacing: '1px'}} menuStyle={{height: '90px', overflow: 'scroll'}} listStyle={{width: '600px'}} filter={AutoComplete.caseInsensitiveFilter} dataSource={recordings}/>
         </Paper> 
     <IconMenu 
       className='nav-first'

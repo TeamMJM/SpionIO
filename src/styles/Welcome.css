@@ -27,9 +27,14 @@ h4 {
   width: 100%;
 }
 
+.td-title {
+  letter-spacing: 3px;
+}
+
 .td-sub {
   width: 80%;
   margin-left: 10%;
+  letter-spacing: 1px;
 }
 
 table {

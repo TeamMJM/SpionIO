@@ -1,26 +1,24 @@
-import React, {
-  Component
-} from 'react';
-import {
-  Card
-} from 'material-ui/Card';
+import React, { Component } from 'react';
+import { Card } from 'material-ui/Card';
 import Playback from './Playback';
 import Storyboard from './Storyboard';
-import {
-  fromJS
-} from "immutable";
+import DashboardHeader from './DashboardHeader';
+import PlaybackSidebar from './PlaybackSidebar';
+import { fromJS } from "immutable";
 import './../styles/Home.css';
 import axios from 'axios';
 import $ from 'jquery';
 
 const style = {
-  display: 'flex',
-  flexFlow: 'row nowrap',
-  flex: '1'
+  width: '100%',
+  margin: '0 auto'
 }
 
 
-const REPLAY_SCALE = 1;
+
+// let i = 0;
+const REPLAY_SCALE = .862;
+
 
 const SPEED = 1;
 let mouseMade = false;
@@ -104,11 +102,13 @@ class DashboardUserSession extends Component {
       if (event.target) {
         context.addtoList(event.target)
       }
-      if (event.event === "scroll") {
-        $iframe.contents().scrollTop(event.scrollTop)
-        $iframe.contents().scrollLeft(event.scrollLeft)
-      } else if (event.event === 'click') {
-        $fakeCursor.animate({
+
+      // if (event.event === "scroll") {
+      //   $iframeDoc.contents().scrollTop(event.scrollTop)
+      //   $iframeDoc.contents().scrollLeft(event.scrollLeft) }
+      else if (event.event === 'click') {
+        $fakeCursor.css({
+
           top: event.ClickY,
           left: event.ClickX
         },{
@@ -158,8 +158,9 @@ class DashboardUserSession extends Component {
     let response = context.state.response;
     let recording = context.state.recording;
     let $iframe = $('.react-iframe');
-    $iframe.height(recording.height * REPLAY_SCALE);
-    $iframe.width(recording.width * REPLAY_SCALE);
+    $iframe.height(response.height * (REPLAY_SCALE-.053));
+    $iframe.width(response.width * REPLAY_SCALE);
+
     $iframe.css({
       '-ms-zoom': `${REPLAY_SCALE}`,
       '-moz-transform': `scale(${REPLAY_SCALE})`,
@@ -188,6 +189,7 @@ class DashboardUserSession extends Component {
     this.setState({
       flag: false
     })
+
     if (this.state.flag) {
       this.drawAnimate(this.state.$iframeDoc, this.state.$fakeCursor, this.state.startPlay, this)
     } else {
@@ -233,9 +235,10 @@ class DashboardUserSession extends Component {
   render() {
     return (
       <div style={style}>
-         <Playback key={this.props.match.params.recordingID} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
-          <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />
-         
+        {/* <DashboardHeader/> */}
+        <PlaybackSidebar/>
+        <Playback key={this.props.match.params.recordingID} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
+        <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />         
       </div>
     );
   }

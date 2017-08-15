@@ -64,7 +64,7 @@ p {
   text-align: center;
   padding-top: 10%;
   letter-spacing: 3px;
-  height: 1220px;
+  height: 1160px;
 }
 
 .doc-section4-lets {
@@ -75,6 +75,7 @@ p {
 
 .doc-section4-letsbuild {
   font-size: 2.8em;
+  letter-spacing: 10px;
 }
 
 .doc-footer-individual {
@@ -89,7 +90,7 @@ p {
 }
 
 .doc-sectionfooter {
-  height: 200px;
+  height: 20px;
 }
 
 .doc-footer-company {
