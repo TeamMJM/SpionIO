@@ -178,8 +178,8 @@ io.on('connection', (client) => {
                console.log(err)
            })
     });
-    client.on('unload', (id,data,lastitem) => {
-
+    client.on('unload', (id,data) => {
+        console.log('INLOAD');
         let result = data.map(function(element) {
             return Object.values(element)[0]
         });

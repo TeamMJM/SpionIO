@@ -8,6 +8,7 @@ const recordingSchema = Schema({
     height:Number,
     htmlCopy: String,
     startTime: Number,
+    createdTime:{type:Date,default:Date.now()}
 })
 
 let Recording = mongoose.model('Recording', recordingSchema, 'Recordings');
