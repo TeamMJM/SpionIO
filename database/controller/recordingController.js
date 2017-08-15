@@ -7,7 +7,6 @@ recordingController.createRecording = (data) => {
 };
 
 recordingController.findRecording = (req, res, next) => {
-    console.log("params",req.params)
     Recording.findOne({_id:req.params.recordingID},(err, response) => {
         if (err) res.send(err)
         else {
@@ -21,13 +20,6 @@ recordingController.findAll = (req, res, next) => {
         if (err) res.send(err)
         else res.send(response);
     })
-}
-
-recordingController.updateRecordingBulk = (id, Data) => {
-    let bulk = Recording.collection.initializeOrderedBulkOp();Data.forEach(function(element) {
-        bulk.find({'_id':id}).update({$push:element})        
-    });
-    return bulk.execute()
 }
 
 recordingController.deleteRecording = (id) => {

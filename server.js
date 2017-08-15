@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const clickController = require('./database/controller/clickController.js');
-const scrollController = require('./database/controller/scrollController.js');
+
 const recordingController = require('./database/controller/recordingController.js')
+const frameController = require('./database/controller/frameController.js')
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const cookieParser = require('cookie-parser')
@@ -19,9 +19,7 @@ let mongoURI = 'mongodb://localhost:27017/private-I';
 
 mongoose.connect(mongoURI);
 
-
-const Click = require('./database/model/clickModel');
-const Scroll = require('./database/model/scrollModel');
+const Frame = require('./database/model/frameModel.js')
 const Recording = require('./database/model/recordingModel.js')
 
 app.use(function (req, res, next) {
@@ -146,6 +144,9 @@ app.get('*/build/bundle.js', (req, res, next) => {
 app.get('/recordings',recordingController.findAll)
 app.get('/recordings/:recordingID', recordingController.findRecording)
 
+app.get('/frames',frameController.findAll)
+app.get('/frames/:recordingID',frameController.findFrame)
+
 io.on('connection', (client) => { 
     client.on('join', (data) => {
         console.log(data);
@@ -154,7 +155,13 @@ io.on('connection', (client) => {
     client.on('html', (data) => {
         recordingController.createRecording(data)
             .then((Response) => {
-                console.log("Html",Response);
+                frameController.createFrame(data)
+                    .then((Response) =>{
+                        console.log('Frame',Response)
+                    })
+                    .catch((err)=>{
+                        console.log(err)
+                    })
             }).catch((err) => {
                 console.log(err);
             })
@@ -164,7 +171,7 @@ io.on('connection', (client) => {
             return Object.values(element)[0]
         });
         console.log('RECORDING',result);
-        recordingController.updateRecordingBulk(id,result)
+        frameController.updateFrameBulk(id,result)
            .then((Response) => {
                console.log("Response",Response)
             }).catch((err) => {
@@ -176,13 +183,12 @@ io.on('connection', (client) => {
         let result = data.map(function(element) {
             return Object.values(element)[0]
         });
-        console.log("Last Item",lastitem);
-        console.log("RESULT",result);
-        recordingController.updateRecordingBulk(id,result)
+        console.log(result);
+        frameController.updateFrameBulk(id,result)
             .then((Response) => {
-                //console.log("Unload", Response)
+                console.log("Unload", Response)
             }).catch((err) => {
-                //console.log(err)
+                console.log(err)
             })
     })
     client.on('event',(data)=>{
