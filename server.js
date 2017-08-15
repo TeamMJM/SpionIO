@@ -12,7 +12,7 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
-let mongoURI = 'mongodb://localhost:27017/private-I';
+let mongoURI = 'mongodb://localhost:27017/mydb';
 
 // require('./passport')(passport); //pass passport for configuration
 

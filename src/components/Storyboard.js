@@ -8,13 +8,20 @@ import Paper from 'material-ui/Paper';
 import './../styles/Home.css';
 
 const style = {
-  card: {
-    width: '40%', 
-    minHeight: '100%',
-    float: 'right'
+  paper: {
+    width: '20%',
+    float: 'right',
+    height: '100%',
   },
-  title: {
-    backgroundColor: '#006CAA'
+  paperHead: {
+    backgroundColor: '#006CAA',
+    height: '50px',
+    textAlign: 'center',
+  },
+  pHead: {
+    color: 'white',
+    paddingTop: '6%',
+    letterSpacing: '2px',
   }
 }
 
@@ -36,8 +43,8 @@ class Storyboard extends Component {
     )
   })
     return(
-      <Paper style={style}>
-        <AppBar title="Storyboard" />
+      <Paper rounded={false} style={style.paper}>
+        <Paper style={style.paperHead}><p style={style.pHead}>STORYBOARD</p></Paper>
         {list}
       </Paper>
     )
