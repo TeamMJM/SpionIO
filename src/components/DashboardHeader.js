@@ -33,6 +33,7 @@ const style = {
     marginLeft: '20px',
     height: '40px',
     display: 'inline-block',
+    letterSpacing: '1px',
   },
   underlineStyle: {
     borderColor: 'white',
@@ -70,13 +71,13 @@ const recordings = [
 class DashboardHeader extends Component {
   render() {
     return(
-      <Paper style={style.paperHeader} zDepth={1} rounded={false}>
+      <Paper style={style.paperHeader} zDepth={0} rounded={false}>
       <header className='dashboard-header'>
         <div id="myTopnav dashboard-nav">
-        <Paper zDepth={0} style={style.paperHead} rounded={false}><p style={style.pHead}>PRIVATE-I</p></Paper>
+        <Paper zDepth={1} style={style.paperHead} rounded={false}><p style={style.pHead}>PRIVATE-I</p></Paper>
         <Paper className='search-bar' zDepth={1} style={style.paper} rounded={false}>
           <IconButton style={{padding: '0 auto', borderRight: '1px solid #BDC0C1', height: '30px'}} tooltip='Search'><ActionSearch className='search-icon'/></IconButton> 
-          <AutoComplete hintText='search for users, recordings, and more' underlineStyle={{border: 'white'}} hintStyle={{height: '15px', fontSize: '0.8em'}} textFieldStyle={{height: '30px', marginLeft: '1%'}} style={{width: '92%' , float: 'right'}} menuStyle={{height: '90px', overflow: 'scroll'}} listStyle={{width: '600px'}} filter={AutoComplete.caseInsensitiveFilter} dataSource={recordings}/>
+          <AutoComplete hintText='search for recordings ..' underlineStyle={{border: 'white'}} hintStyle={{height: '15px', fontSize: '0.8em'}} textFieldStyle={{height: '30px', marginLeft: '1%'}} style={{width: '92%' , float: 'right', letterSpacing: '1px'}} menuStyle={{height: '90px', overflow: 'scroll'}} listStyle={{width: '600px'}} filter={AutoComplete.caseInsensitiveFilter} dataSource={recordings}/>
         </Paper> 
     <IconMenu 
       className='nav-first'
