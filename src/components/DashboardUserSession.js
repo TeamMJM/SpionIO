@@ -1,22 +1,17 @@
-import React, {
-  Component
-} from 'react';
-import {
-  Card
-} from 'material-ui/Card';
+import React, { Component } from 'react';
+import { Card } from 'material-ui/Card';
 import Playback from './Playback';
 import Storyboard from './Storyboard';
-import {
-  fromJS
-} from "immutable";
+import DashboardHeader from './DashboardHeader';
+import PlaybackSidebar from './PlaybackSidebar';
+import { fromJS } from "immutable";
 import './../styles/Home.css';
 import axios from 'axios';
 import $ from 'jquery';
 
 const style = {
-  display: 'flex',
-  flexFlow: 'row nowrap',
-  flex: '1'
+  width: '100%',
+  margin: '0 auto'
 }
 
 
@@ -143,7 +138,7 @@ class DashboardUserSession extends Component {
   async frameScript(context) {
     let response = context.state.response;
     let $iframe = $('.react-iframe');
-    $iframe.height(1024);
+    $iframe.height(800);
     $iframe.width(response.width * REPLAY_SCALE);
     $iframe.css({
       '-ms-zoom': `${REPLAY_SCALE}`,
@@ -163,7 +158,7 @@ class DashboardUserSession extends Component {
    // let i = 0;
 
     const startPlay = Date.now();
-    let $fakeCursor = $('<div class="cursor"></div>')
+    // let $fakeCursor = $('<div class="cursor"></div>')
     context.drawAnimate($iframeDoc, $fakeCursor, startPlay, context)
   }
 
@@ -193,14 +188,14 @@ class DashboardUserSession extends Component {
       flag: false
     })
 
-  }
+  
 
     if (this.state.flag) {
       this.drawAnimate(this.state.$iframeDoc, this.state.$fakeCursor, this.state.startPlay, this)
     } else {
       console.log("False")
     }
-
+  }
 
   async play() {
     console.log('pausing');
@@ -243,9 +238,10 @@ class DashboardUserSession extends Component {
   render() {
     return (
       <div style={style}>
-         <Playback key={this.props.match.params.recordingID} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
-          <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />
-         
+        <DashboardHeader/>
+        <PlaybackSidebar/>
+        <Playback key={this.props.match.params.recordingID} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
+        <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />         
       </div>
     );
   }

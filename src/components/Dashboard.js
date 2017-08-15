@@ -8,7 +8,7 @@ import DashboardHeader from './DashboardHeader';
 import DashboardContent from './DashboardContent';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
-// import AVPlayCircleOutline from 'material-ui/svg-icons/AV/play-circle-outline';
+import AVPlayCircleOutline from 'material-ui/svg-icons/AV/play-circle-outline';
 import axios from 'axios';
 
 const style = {
@@ -72,14 +72,14 @@ class Dashboard extends Component {
               <img className='recording-icon' src={'./../../public/'+Math.floor((Math.random()*9)+1)+'.png'}/>
             </div>
             <div className='recording-description'>
-              <p className='recording-title'>{'User ' + recordings._id}</p>
+              <p className='recording-title'>{'User ' + recordings._id[0]}</p>
               <p className='recording-sub'>4567</p> 
             </div>
           </div>
           <div className='recording-playback'>
             <Link to={'/dashboard/' + recordings._id}>
               <IconButton tooltip='play session'>
-                {/* <AVPlayCircleOutline/> */}
+                <AVPlayCircleOutline/>
               </IconButton>
             </Link>
           </div>
@@ -95,7 +95,7 @@ class Dashboard extends Component {
         <DashboardHeader />
         <div style={style.inner}>
           <DashboardContent recordingNodes={this.generateRecordings()}/>
-          <Route path='/dashboard/:recordingID' component={DashboardUserSession}/>
+          {/* <Route path='/dashboard/:recordingID' component={DashboardUserSession}/> */}
         </div>
       </div>
     )
