@@ -25,8 +25,10 @@ class PlaybackBar extends Component {
     const slide = this.props.slide;
     const step = this.props.step;
     return (
-      <div>
+      <div style={{margin: '0 auto'}}>
         <Slider 
+          style={{margin: '0 auto'}}
+          sliderStyle={{margin: '0 auto'}}
           step={this.props.step} 
           value={value} 
           onChange={function() {

@@ -8,10 +8,10 @@ import { Link } from 'react-router-dom';
 const style = {
   paper: {
     width: '5%',
-    height: '650px',
+    height: '700px',
     float: 'left',
     textAlign: 'center',
-    paddingTop: '1%',
+    // paddingTop: '1%',
     backgroundColor: '#006CAA'
   },
   mediumIcon: {
