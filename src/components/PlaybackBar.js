@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Slider from 'material-ui/Slider';
 import IconButton from 'material-ui/IconButton';
+import FlatButton from 'material-ui/FlatButton';
 import {Toolbar, ToolbarSeparator} from 'material-ui/Toolbar';
 import AvPlayArrowIcon from 'material-ui/svg-icons/av/play-arrow';
 import AvPauseIcon from 'material-ui/svg-icons/av/pause';
@@ -73,12 +74,7 @@ class PlaybackBar extends Component {
           <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true} onTouchTap={this.togglePlay()}>
             {this.toggleIcon()}
           </IconButton>
-          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true}>
-            <AvSkipPreviousIcon />
-          </IconButton>
-          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true}>
-            <AvSkipNextIcon />
-          </IconButton>
+          <FlatButton style={{float: 'right', marginTop: '2%'}} label='Full Screen'></FlatButton>
         </Toolbar>
       </div>
     )

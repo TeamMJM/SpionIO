@@ -237,7 +237,7 @@ class DashboardUserSession extends Component {
       <div style={style}>
         {/* <DashboardHeader/> */}
         <PlaybackSidebar/>
-        <div id='customFade' className='animated fadeIn'>
+        <div id='customFade' className='animated fadeInRight'>
         <Playback key={this.props.match.params.recordingID} playing={this.state.flag} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
         <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />         
         </div>

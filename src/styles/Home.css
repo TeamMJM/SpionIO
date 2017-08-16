@@ -114,7 +114,7 @@
 
 
 #customFade {
-  -webkit-animation-duration: 4s;
-  -moz-animation-duration: 4s;
-  -ms-transition-animation-duration: 4s;
+  -webkit-animation-duration: 2s;
+  -moz-animation-duration: 2s;
+  -ms-transition-animation-duration: 2s;
 }

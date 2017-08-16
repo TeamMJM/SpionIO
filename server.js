@@ -108,6 +108,10 @@ app.get('/public/9.png', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/9.png'))
 })
 
+app.get('/public/linkedin.png', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/linkedin.png'))
+})
+
 function isLoggedIn(req, res, next) {
     console.log('checking token...')
     jwt.verify(req.cookies.token, secret,
