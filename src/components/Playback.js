@@ -23,8 +23,8 @@ const style = {
     padding: '2px'
   },
   iframe: {
-    width: '100%',
-    height: '40%',
+    width: '75%',
+    height: '100%',
     display: 'inline-block',
     margin: '0 auto',
     padding: '0',

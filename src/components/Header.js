@@ -20,6 +20,7 @@ const style = {
     letterSpacing: '1px',
   },
   label: {
+    // textTransform: 'none',
     fontSize: '30px',
     paddingRight: '5px',
     color: '#E0E1E5',
@@ -47,7 +48,7 @@ class Header extends Component {
         <Paper rounded={false} style={{backgroundColor: 'none'}} zDepth={1} className="topnav" id="myTopnav">
           <div className="topnav-content">
             <img className='logo' src='./../../logo.png'/>
-            <Link to='/'><FlatButton hoverColor='none' labelStyle={style.label} label='ScreenPlay' /></Link>
+            <Link to='/'><FlatButton hoverColor='none' labelStyle={style.label} label='FreePlay' /></Link>
             <Link to='/'><FlatButton hoverColor='none' labelStyle={style.sub} label='/ PROTOTYPE v0.0.1 /' /></Link>
             <div id='first'>
               {/* <Link to='/download'><FlatButton style={{border: '1px solid gray', borderRadius: '50px'}} labelStyle={{letterSpacing: '1px'}} labelColor='gray' backgroundColor='white' label='Download'></FlatButton></Link> */}

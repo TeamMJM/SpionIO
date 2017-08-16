@@ -174,7 +174,7 @@ class DashboardUserSession extends Component {
     let response = context.state.response;
     let recording = context.state.recording;
     let $iframe = $('.react-iframe');
-    $iframe.height(recording.height * (REPLAY_SCALE - .0529) );
+    $iframe.height(recording.height * (REPLAY_SCALE - .029) );
     $iframe.width(recording.width * REPLAY_SCALE);
 
     $iframe.css({
@@ -247,12 +247,7 @@ class DashboardUserSession extends Component {
         <PlaybackSidebar/>
 
         <div id='customFade' className='animated fadeInRight'>
-<<<<<<< HEAD
         <Playback key={this.props.match.params.recordingID} fullscreen={this.toggleFullscreen} playing={this.state.flag} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
-=======
-        <Playback key={this.props.match.params.recordingID} playing={this.state.flag} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
-
->>>>>>> 00c87697150b6c1f3acf28bf3a67e11afabaccfc
         <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />         
         </div>
       </div>
