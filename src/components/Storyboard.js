@@ -52,7 +52,6 @@ class Storyboard extends Component {
   // console.log("LISTz",typeof this.props.list); 
   const list = this.props.list.map((Element) => {
     let hintText = 'Clicked ' + Element.split('>')[0].split(' ')[0].split('').splice(1).join('').toUpperCase();
-    console.log(hintText);
     return (
       <Card>
         <CardHeader title={hintText} actAsExpander={true} showExpandableButton={true}/>
