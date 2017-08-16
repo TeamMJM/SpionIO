@@ -122,6 +122,19 @@ p {
   color: lightgray;
 }
 
+.linkedin-logo {
+  height: 42px;
+  width: 42px;
+  float: left;
+  margin-left: 30%;
+}
+
+.linkedin-logo2 {
+  height: 42px;
+  width: 42px;
+  float: left;
+  margin-left: 24%;
+}
 
 
 

@@ -17,7 +17,7 @@ const style = {
   },
   paperHead: {
     backgroundColor: '#006CAA',
-    height: '50px',
+    height: '52px',
     textAlign: 'center',
   },
   pHead: {

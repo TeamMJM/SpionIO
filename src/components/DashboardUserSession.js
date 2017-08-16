@@ -17,7 +17,7 @@ const style = {
 
 
 // let i = 0;
-const REPLAY_SCALE = .862;
+const REPLAY_SCALE = 0.863;
 
 
 const SPEED = 1;
@@ -158,8 +158,8 @@ class DashboardUserSession extends Component {
     let response = context.state.response;
     let recording = context.state.recording;
     let $iframe = $('.react-iframe');
-    $iframe.height(response.height * (REPLAY_SCALE-.053));
-    $iframe.width(response.width * REPLAY_SCALE);
+    $iframe.height(recording.height * (REPLAY_SCALE-.053));
+    $iframe.width(recording.width * REPLAY_SCALE);
 
     $iframe.css({
       '-ms-zoom': `${REPLAY_SCALE}`,
@@ -198,7 +198,7 @@ class DashboardUserSession extends Component {
   }
 
   async play() {
-    console.log('pausing');
+    console.log('playing');
     await this.setState({
       flag: true
     })
@@ -237,7 +237,7 @@ class DashboardUserSession extends Component {
       <div style={style}>
         {/* <DashboardHeader/> */}
         <PlaybackSidebar/>
-        <div id='customFade' className='animated fadeIn'>
+        <div id='customFade' className='animated fadeInRight'>
         <Playback key={this.props.match.params.recordingID} playing={this.state.flag} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
         <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />         
         </div>
