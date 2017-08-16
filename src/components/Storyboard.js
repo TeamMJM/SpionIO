@@ -25,36 +25,22 @@ class Storyboard extends Component {
 
   render() {
   // console.log("LISTz",typeof this.props.list); 
-  const list = this.props.list.map((Element) => {
-    let hintText = 'Clicked ' + Element.split('>')[0].split(' ')[0].split('').splice(1).join('').toUpperCase();
-    console.log(hintText);
-    return (
-      <Card>
-        <CardHeader title={hintText} actAsExpander={true} showExpandableButton={true}/>
-        <CardText expandable={true}>{Element}</CardText>
-      </Card>
-    )
-  })
+    const list = this.props.list.map((Element) => {
+      let hintText = 'Clicked ' + Element.split('>')[0].split(' ')[0].split('').splice(1).join('').toUpperCase();
+      console.log(hintText);
+      return(
+        <Card>
+          <CardHeader title={hintText} actAsExpander={true} showExpandableButton={true}/>
+          <CardText expandable={true}>{Element}</CardText>
+        </Card>
+      )
+    })
     return(
-<<<<<<< HEAD
-<<<<<<< HEAD
-      <Card style={style.card}>
-        <AppBar title="Storyboard" style={style.title}/>
-        <List>
-          {list}
-        </List>
-      </Card>
-=======
-=======
->>>>>>> 9b511dc95ccc595b4d5c4e1b0e11e403250dc89f
       <Paper style={style}>
         <AppBar title="Storyboard" />
         {list}
       </Paper>
-<<<<<<< HEAD
->>>>>>> ff8c021110e2902c3281678cd1e54dc7279b1cc2
-=======
->>>>>>> 9b511dc95ccc595b4d5c4e1b0e11e403250dc89f
+
     )
   }
 }

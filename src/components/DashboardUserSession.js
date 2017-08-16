@@ -163,7 +163,7 @@ class DashboardUserSession extends Component {
    // let i = 0;
 
     const startPlay = Date.now();
-    let $fakeCursor = $('<div class="cursor"></div>')
+    //let $fakeCursor = $('<div class="cursor"></div>')
     context.drawAnimate($iframeDoc, $fakeCursor, startPlay, context)
   }
 
@@ -192,15 +192,12 @@ class DashboardUserSession extends Component {
     this.setState({
       flag: false
     })
-
+    // if (this.state.flag) {
+    //   this.drawAnimate(this.state.$iframeDoc, this.state.$fakeCursor, this.state.startPlay, this)
+    // } else {
+    //   console.log("False")
+    // }
   }
-
-    if (this.state.flag) {
-      this.drawAnimate(this.state.$iframeDoc, this.state.$fakeCursor, this.state.startPlay, this)
-    } else {
-      console.log("False")
-    }
-
 
   async play() {
     console.log('pausing');
@@ -243,16 +240,11 @@ class DashboardUserSession extends Component {
   render() {
     return (
       <div style={style}>
-<<<<<<< HEAD
 
           <Playback key={this.props.match.params.recordingID} frameScript={this.frameScript} context={this} flag={this.updateFlag} id={this.props.match.params.recordingID} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide}  />
           <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />
           
-=======
-         <Playback key={this.props.match.params.recordingID} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
-          <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />
-         
->>>>>>> 9b511dc95ccc595b4d5c4e1b0e11e403250dc89f
+
       </div>
     );
   }
