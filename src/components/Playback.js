@@ -111,6 +111,7 @@ class Playback extends Component {
           step={this.props.step} 
           index={this.props.index} 
           slide={this.props.slide}
+          len={this.props.len}
           playing={this.props.playing}
           />
       </Card>

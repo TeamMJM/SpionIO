@@ -53,6 +53,7 @@ class DashboardUserSession extends Component {
     this.state = {
       targetList: [],
       flag: true,
+      len: 0,
       recording: null,
       startPlay: null,
       $iframeDoc: null,
@@ -69,36 +70,42 @@ class DashboardUserSession extends Component {
     this.slide = this.slide.bind(this);
   }
   drawAnimate($iframeDoc, $fakeCursor, startPlay, context) {
+    
     let recording = this.state.recording
     let response = this.state.response;
     (function draw() {
-      let event = response.Frame[i];
-      if (!event) {
-        return;
-      }
-      let offsetRecording = event.time -  recording.startTime;
 
-      let offsetPlay = (Date.now() - startPlay) * SPEED;
-      if (offsetPlay >= offsetRecording) {
-        drawEvent(event, $fakeCursor, $iframeDoc);
-        const newI = this.state.i + 1
-        //i++
+      if(!context.state.flag){
+          context.setState({
+            startPlay: startPlay,
+            $fakeCursor: $fakeCursor,
+            $iframeDoc: $iframeDoc
+          })
       }
+      else{
 
-      if (i < response.Frame.length && context.state.flag) {
-        requestAnimationFrame(draw);
-      } else if (!context.state.flag) {
-        context.setState({
-          startPlay: startPlay,
-          $fakeCursor: $fakeCursor,
-          $iframeDoc: $iframeDoc
-        })
-      }
+        let event = response.Frame[context.state.i];
+        if (!event) {
+          return;
+        }
+        let offsetRecording = event.time -  recording.startTime;
+        let offsetPlay = (Date.now() - startPlay) * SPEED;
+        if (offsetPlay >= offsetRecording) {
+          drawEvent(event, $fakeCursor, $iframeDoc);
+          context.setState({
+            i : context.state.i + 1
+          })
+        }
+        if (context.state.i < response.Frame.length) {
+          context.setState({flag:true})
+          requestAnimationFrame(draw);
+        }
+    }
     })();
 
     function drawEvent(event, $fakeCursor, $iframeDoc) {
-      console.log("DRAWING", event.event,event.ClickX,event.ClickY,event.movementX,
-    event.movementY);
+      //console.log("DRAWING", event.event,event.ClickX,event.ClickY,event.movementX,
+    //event.movementY);
       if (event.target) {
         context.addtoList(event.target)
       }
@@ -108,11 +115,10 @@ class DashboardUserSession extends Component {
       //   $iframeDoc.contents().scrollLeft(event.scrollLeft) }
       else if (event.event === 'click') {
         $fakeCursor.css({
-
           top: event.ClickY,
           left: event.ClickX
         },{
-          duration:50
+          duration:300
         })
       } else {
         if (event.event === 'mouseleave') {
@@ -120,7 +126,7 @@ class DashboardUserSession extends Component {
             top: event.ClickY,
             left: event.ClickX
           },{
-            duration:50
+            duration:300
           })
           $iframeDoc.find($fakeCursor).remove();
           mouseMade = false;
@@ -143,7 +149,7 @@ class DashboardUserSession extends Component {
             top: event.ClickY,
             left: event.ClickX
           },{
-            duration:50
+            duration:300
           })
         }
       }
@@ -186,19 +192,16 @@ class DashboardUserSession extends Component {
   }
 
   pause() {
+    console.log("here")
     this.setState({
       flag: false
     })
-
-    if (this.state.flag) {
-      this.drawAnimate(this.state.$iframeDoc, this.state.$fakeCursor, this.state.startPlay, this)
-    } else {
-      console.log("False")
-    }
   }
 
   async play() {
+
     console.log('playing');
+
     await this.setState({
       flag: true
     })
@@ -208,9 +211,9 @@ class DashboardUserSession extends Component {
   async getRecordingData() {
     let recording = await axios.get('/recordings/'+ this.props.match.params.recordingID)
     let response = await axios.get('/frames/' + this.props.match.params.recordingID);
-    const step = 1/(response.data.Frame.length ? response.data.Frame.length: 1);
-     console.log(step)
-    this.setState({
+    //const step = 1/(response.data.Frame.length ? response.data.Frame.length: 1);
+    await this.setState({
+      len: response.data.Frame.length,
       recording: recording.data,
       response: response.data,
     });
@@ -218,9 +221,9 @@ class DashboardUserSession extends Component {
   }
 
   async slide(newInd) {
-    console.log('Slider to new index:', newInd)
+    console.log("id",newInd)
 
-    await this.setState({ i: newInd })
+    await this.setState({ i: newInd, flag:true })
     this.drawAnimate(this.state.$iframeDoc,this.state.$fakeCursor,this.state.startPlay,this)
   }
 
@@ -237,8 +240,10 @@ class DashboardUserSession extends Component {
       <div style={style}>
         {/* <DashboardHeader/> */}
         <PlaybackSidebar/>
+
         <div id='customFade' className='animated fadeInRight'>
         <Playback key={this.props.match.params.recordingID} playing={this.state.flag} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
+
         <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />         
         </div>
       </div>
