@@ -6,8 +6,9 @@ import AvPlayArrowIcon from 'material-ui/svg-icons/av/play-arrow';
 import AvPauseIcon from 'material-ui/svg-icons/av/pause';
 import AvSkipNextIcon from 'material-ui/svg-icons/av/skip-next';
 import AvSkipPreviousIcon from 'material-ui/svg-icons/av/skip-previous';
-import ActionChromeReaderMode from 'material-ui/svg-icons/action/chrome-reader-mode';
-
+import ActionChromeReaderMode from 
+'material-ui/svg-icons/action/chrome-reader-mode';
+import LinearProgress from 'material-ui/LinearProgress';
 
 import './../styles/Home.css';
 
@@ -22,9 +23,6 @@ const style = {
     height: 56,
     pointerEvents: 'none',
     display: 'inline-block',
-    // float: 'left',
-    // marginLeft: '16%',
-    // padding: 0,
   },
 }
 
@@ -51,18 +49,17 @@ class PlaybackBar extends Component {
   }
   
   render() {
-    console.log("Enter");
-    console.log(this.props.len)
     return (
       <div style={{margin: '0 auto'}}>
-        <Slider 
+        {/* <LinearProgress mode="determinate" value={this.props.index} /> */}
+        {/* <Slider 
           style={{margin: '0 auto'}}
           sliderStyle={{margin: '0 auto'}}
           min={0}
           max={this.props.len}
           step={1} 
           value={this.props.val} 
-          onChange={this.handleSlide}/>
+          onChange={this.handleSlide}/> */}
         <Toolbar style={{backgroundColor: 'white', margin: '0, auto'}}>
           <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true} onTouchTap={this.props.play}>
             <AvPlayArrowIcon color='#006CAA'/>

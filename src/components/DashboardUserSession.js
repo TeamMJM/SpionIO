@@ -97,15 +97,15 @@ class DashboardUserSession extends Component {
           })
         }
         if (context.state.i < response.Frame.length) {
-          context.setState({flag:false})
+          context.setState({flag:true})
           requestAnimationFrame(draw);
         }
     }
     })();
 
     function drawEvent(event, $fakeCursor, $iframeDoc) {
-      console.log("DRAWING", event.event,event.ClickX,event.ClickY,event.movementX,
-    event.movementY);
+      //console.log("DRAWING", event.event,event.ClickX,event.ClickY,event.movementX,
+    //event.movementY);
       if (event.target) {
         context.addtoList(event.target)
       }
@@ -192,18 +192,14 @@ class DashboardUserSession extends Component {
   }
 
   pause() {
+    console.log("here")
     this.setState({
       flag: false
     })
-
-    if (this.state.flag) {
-      this.drawAnimate(this.state.$iframeDoc, this.state.$fakeCursor, this.state.startPlay, this)
-    } else {
-      console.log("False")
-    }
   }
 
   async play() {
+    console.log('play');
     await this.setState({
       flag: true
     })
@@ -243,7 +239,7 @@ class DashboardUserSession extends Component {
         {/* <DashboardHeader/> */}
         <PlaybackSidebar/>
         <div id='customFade' className='animated fadeIn'>
-        <Playback key={this.props.match.params.recordingID} playing={this.state.flag} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} len={this.state.len} slide={this.slide} id={this.props.match.params.recordingID}  />
+        <Playback key={this.props.match.params.recordingID} playing={this.state.flag} frameScript={this.frameScript} context={this} pause={this.pause} index = {this.state.i} play={this.play} len={this.state.len} slide={this.slide} id={this.props.match.params.recordingID}  />
         <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />         
         </div>
       </div>
