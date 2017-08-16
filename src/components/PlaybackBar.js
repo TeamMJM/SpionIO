@@ -33,6 +33,7 @@ class PlaybackBar extends Component {
     super(props)
     this.toggleIcon = this.toggleIcon.bind(this);
     this.togglePlay = this.togglePlay.bind(this);
+    this.requestFullScreen = this.requestFullScreen.bind(this);
   }
 
   toggleIcon() {
@@ -55,6 +56,23 @@ class PlaybackBar extends Component {
   componentDidMount() {
     this.toggleIcon();
   }
+
+  requestFullScreen(element) {
+    // Supports most browsers and their versions.
+    var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
+
+    if (requestMethod) { // Native full screen.
+        requestMethod.call(element);
+    } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
+        var wscript = new ActiveXObject("WScript.Shell");
+        if (wscript !== null) {
+            wscript.SendKeys("{F11}");
+        }
+    }
+}
+
+// var elem = document.body; // Make the body go full screen.
+// requestFullScreen(elem);
   
   render() {
     const value = this.props.step * this.props.index;
@@ -74,7 +92,12 @@ class PlaybackBar extends Component {
           <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true} onTouchTap={this.togglePlay()}>
             {this.toggleIcon()}
           </IconButton>
-          <FlatButton style={{float: 'right', marginTop: '2%'}} label='Full Screen'></FlatButton>
+          <FlatButton 
+            hoverColor='white' 
+            labelStyle={{color: '#006CAA', letterSpacing: '3px'}} 
+            style={{float: 'right', marginTop: '1.5%'}} 
+            label='Full Screen'
+          />
         </Toolbar>
       </div>
     )
