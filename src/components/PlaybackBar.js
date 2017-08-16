@@ -31,6 +31,10 @@ const style = {
 class PlaybackBar extends Component {
   constructor(props) {
     super(props)
+    this.state={
+      val: 0
+    };
+    this.handleSlide = this.handleSlide.bind(this);
   }
 
   toggleIcon() {
@@ -40,21 +44,25 @@ class PlaybackBar extends Component {
       return <AvPlayArrowIcon color='#006CAA'/>
     }
   }
+  handleSlide(event,value){
+    console.log("Hello");
+    this.setState({val:value});
+    this.props.slide(value);
+  }
   
   render() {
-    const value = this.props.step * this.props.index;
-    const slide = this.props.slide;
-    const step = this.props.step;
+    console.log("Enter");
+    console.log(this.props.len)
     return (
       <div style={{margin: '0 auto'}}>
         <Slider 
           style={{margin: '0 auto'}}
           sliderStyle={{margin: '0 auto'}}
-          step={this.props.step} 
-          value={value} 
-          onChange={function() {
-            slide(Math.floor(value / step))
-          }}/>
+          min={0}
+          max={this.props.len}
+          step={1} 
+          value={this.props.val} 
+          onChange={this.handleSlide}/>
         <Toolbar style={{backgroundColor: 'white', margin: '0, auto'}}>
           <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true} onTouchTap={this.props.play}>
             <AvPlayArrowIcon color='#006CAA'/>
