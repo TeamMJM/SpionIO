@@ -3,19 +3,44 @@ import { List, ListItem } from 'material-ui/List';
 import Divider from 'material-ui/Divider';
 import AppBar from 'material-ui/AppBar';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
+import IconButton from 'material-ui/IconButton';
+import ActionChromeReaderMode from 'material-ui/svg-icons/action/chrome-reader-mode';
 import Paper from 'material-ui/Paper';
 // import AVFiberManualRecordIcon from 'material-ui/svg-icons/AV/fiber-manual-record';
 import './../styles/Home.css';
 
 const style = {
-  card: {
-    width: '40%', 
-    minHeight: '100%',
-    float: 'right'
+  paper: {
+    width: '20%',
+    float: 'right',
+    height: '100%',
   },
-  title: {
-    backgroundColor: '#006CAA'
-  }
+  paperHead: {
+    backgroundColor: '#006CAA',
+    height: '52px',
+    textAlign: 'center',
+  },
+  pHead: {
+    color: 'white',
+    paddingTop: '6%',
+    letterSpacing: '2px',
+    display: 'inline-block',
+    float: 'right',
+    marginRight: '18%',
+  },
+  mediumIcon: {
+    width: 24,
+    height: 24,
+  },
+  medium: {
+    width: 36,
+    height: 36,
+    pointerEvents: 'none',
+    display: 'inline-block',
+    float: 'left',
+    marginLeft: '16%',
+    // padding: 0,
+  },
 }
 
 class Storyboard extends Component {
@@ -36,8 +61,11 @@ class Storyboard extends Component {
       )
     })
     return(
-      <Paper style={style}>
-        <AppBar title="Storyboard" />
+      <Paper rounded={false} style={style.paper}>
+        <Paper style={style.paperHead}>
+        <IconButton iconStyle={style.mediumIcon} style={style.medium}><ActionChromeReaderMode color='white'/></IconButton>
+          <p style={style.pHead}>STORYBOARD</p>
+          </Paper>
         {list}
       </Paper>
 

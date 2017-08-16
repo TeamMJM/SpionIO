@@ -44,7 +44,7 @@ class Header extends Component {
   render() {
     return (
       <header>
-        <Paper style={{backgroundColor: 'none'}}zDepth={1} className="topnav" id="myTopnav">
+        <Paper rounded={false} style={{backgroundColor: 'none'}} zDepth={1} className="topnav" id="myTopnav">
           <div className="topnav-content">
             <img className='logo' src='./../../logo.png'/>
             <Link to='/'><FlatButton hoverColor='none' labelStyle={style.label} label='Private-I' /></Link>

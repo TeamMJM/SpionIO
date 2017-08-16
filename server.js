@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const clickController = require('./database/controller/clickController.js');
-const scrollController = require('./database/controller/scrollController.js');
+
 const recordingController = require('./database/controller/recordingController.js')
+const frameController = require('./database/controller/frameController.js')
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const cookieParser = require('cookie-parser')
@@ -12,16 +12,14 @@ const session = require('express-session');
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
-let mongoURI = 'mongodb://localhost:27017/private-I';
+let mongoURI = 'mongodb://localhost:27017/mydb';
 
 // require('./passport')(passport); //pass passport for configuration
 
 
 mongoose.connect(mongoURI);
 
-
-const Click = require('./database/model/clickModel');
-const Scroll = require('./database/model/scrollModel');
+const Frame = require('./database/model/frameModel.js')
 const Recording = require('./database/model/recordingModel.js')
 
 app.use(function (req, res, next) {
@@ -110,6 +108,10 @@ app.get('/public/9.png', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/9.png'))
 })
 
+app.get('/public/linkedin.png', (req, res) => {
+    res.sendFile(path.join(__dirname, '/public/linkedin.png'))
+})
+
 function isLoggedIn(req, res, next) {
     console.log('checking token...')
     jwt.verify(req.cookies.token, secret,
@@ -146,6 +148,9 @@ app.get('*/build/bundle.js', (req, res, next) => {
 app.get('/recordings',recordingController.findAll)
 app.get('/recordings/:recordingID', recordingController.findRecording)
 
+app.get('/frames',frameController.findAll)
+app.get('/frames/:recordingID',frameController.findFrame)
+
 io.on('connection', (client) => { 
     client.on('join', (data) => {
         console.log(data);
@@ -154,7 +159,13 @@ io.on('connection', (client) => {
     client.on('html', (data) => {
         recordingController.createRecording(data)
             .then((Response) => {
-                console.log("Html",Response);
+                frameController.createFrame(data)
+                    .then((Response) =>{
+                        console.log('Frame',Response)
+                    })
+                    .catch((err)=>{
+                        console.log(err)
+                    })
             }).catch((err) => {
                 console.log(err);
             })
@@ -164,25 +175,24 @@ io.on('connection', (client) => {
             return Object.values(element)[0]
         });
         console.log('RECORDING',result);
-        recordingController.updateRecordingBulk(id,result)
+        frameController.updateFrameBulk(id,result)
            .then((Response) => {
                console.log("Response",Response)
             }).catch((err) => {
                console.log(err)
            })
     });
-    client.on('unload', (id,data,lastitem) => {
-
+    client.on('unload', (id,data) => {
+        console.log('INLOAD');
         let result = data.map(function(element) {
             return Object.values(element)[0]
         });
-        console.log("Last Item",lastitem);
-        console.log("RESULT",result);
-        recordingController.updateRecordingBulk(id,result)
+        console.log(result);
+        frameController.updateFrameBulk(id,result)
             .then((Response) => {
-                //console.log("Unload", Response)
+                console.log("Unload", Response)
             }).catch((err) => {
-                //console.log(err)
+                console.log(err)
             })
     })
     client.on('event',(data)=>{
@@ -190,4 +200,5 @@ io.on('connection', (client) => {
     })
 })
 
+// server.listen(3000, '192.168.0.66');
 server.listen(3000);

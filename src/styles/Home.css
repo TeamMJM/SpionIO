@@ -86,23 +86,26 @@
   height: 30px;
   width: 30px;
   margin-left: 2px;
+  color: #006CAA;
 }
 
 .recording-playback {
   float: right;
-  margin-right: 2%;
+  margin-right: 55%;
 }
 
 .recording-block {
-  width: 65%;
+  width: 40%;
   float: left;
+  margin-top: 1.5%;
 }
 
 .recording-latest-updates {
   margin-left: 1px;
   overflow: scroll;
   height: 630px;
-  width: 256px;
+  width: 1020px;
+  float: right;
 }
 
 .user-session { 
@@ -110,3 +113,8 @@
 }
 
 
+#customFade {
+  -webkit-animation-duration: 2s;
+  -moz-animation-duration: 2s;
+  -ms-transition-animation-duration: 2s;
+}
