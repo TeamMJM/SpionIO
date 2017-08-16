@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Slider from 'material-ui/Slider';
 import IconButton from 'material-ui/IconButton';
+import FlatButton from 'material-ui/FlatButton';
 import {Toolbar, ToolbarSeparator} from 'material-ui/Toolbar';
 import AvPlayArrowIcon from 'material-ui/svg-icons/av/play-arrow';
 import AvPauseIcon from 'material-ui/svg-icons/av/pause';
@@ -21,7 +22,6 @@ const style = {
   medium: {
     width: 56,
     height: 56,
-    pointerEvents: 'none',
     display: 'inline-block',
   },
 }
@@ -29,23 +29,43 @@ const style = {
 class PlaybackBar extends Component {
   constructor(props) {
     super(props)
+
+    this.toggleIcon = this.toggleIcon.bind(this);
+    this.togglePlay = this.togglePlay.bind(this);
+
     this.state={
       val: 0
     };
     this.handleSlide = this.handleSlide.bind(this);
+
   }
 
   toggleIcon() {
+    console.log(this.props.playing)
     if(this.props.playing) {
       return <AvPauseIcon color='#006CAA'/>
     } else {
       return <AvPlayArrowIcon color='#006CAA'/>
     }
   }
+
+
+  togglePlay() {
+    if(this.props.playing) {
+      return this.props.pause
+    } else {
+      return this.props.play
+    }
+  }
+
+  componentDidMount() {
+    this.toggleIcon();
+  }
   handleSlide(event,value){
     console.log("Hello");
     this.setState({val:value});
     this.props.slide(value);
+
   }
   
   render() {
@@ -61,18 +81,10 @@ class PlaybackBar extends Component {
           value={this.props.val} 
           onChange={this.handleSlide}/> */}
         <Toolbar style={{backgroundColor: 'white', margin: '0, auto'}}>
-          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true} onTouchTap={this.props.play}>
-            <AvPlayArrowIcon color='#006CAA'/>
+          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true} onTouchTap={this.togglePlay()}>
+            {this.toggleIcon()}
           </IconButton>
-          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true} onTouchTap={this.props.pause}>
-            <AvPauseIcon />
-          </IconButton>
-          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true}>
-            <AvSkipPreviousIcon />
-          </IconButton>
-          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true}>
-            <AvSkipNextIcon />
-          </IconButton>
+          <FlatButton style={{float: 'right', marginTop: '2%'}} label='Full Screen'></FlatButton>
         </Toolbar>
       </div>
     )

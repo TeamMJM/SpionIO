@@ -152,15 +152,15 @@ class Doc extends Component {
             <tr>
               <td className='td-welcome'>
                 <a href='https://github.com/morpherious'><Paper zDepth={2} style={style.team} circle={true}/></a><br/><br/><br/>
-                <FlatButton hoverColor='none' labelStyle={{letterSpacing: '3px'}} label='Mustafa Khan' href='https://github.com/morpherious'></FlatButton>
+                <img className='linkedin-logo' src='/public/linkedin.png'/><FlatButton style={{float: 'left', marginTop: '1%', margin: '0 auto'}} hoverColor='none' labelStyle={{letterSpacing: '3px', padding: '0'}} label='Mustafa Khan' href='https://www.linkedin.com/in/-mustafakhan/'></FlatButton>
               </td>
                 <td className='td-welcome'>
                 <a href='https://github.com/mm0nr0e'><Paper zDepth={2} style={style.team} circle={true}/></a><br/><br/><br/>
-                <FlatButton hoverColor='none' labelStyle={{letterSpacing: '3px'}} label='Miranda Monroe' href='https://github.com/mm0nr0e'></FlatButton>
+                <img className='linkedin-logo2' src='/public/linkedin.png'/><FlatButton style={{float: 'left', marginTop: '1%', margin: '0 auto'}} hoverColor='none' labelStyle={{letterSpacing: '3px', padding: '0'}} label='Miranda Monroe' href='https://www.linkedin.com/in/mirandajeanmonroe/'></FlatButton>
               </td>
               <td className='td-welcome'>
                 <a href='https://github.com/j3rryj'><Paper zDepth={2} style={style.team} circle={true}/></a><br/><br/><br/>
-                <FlatButton hoverColor='none' labelStyle={{letterSpacing: '3px'}} label='Jerry Jong' href='https://github.com/j3rryj'></FlatButton>
+                <img className='linkedin-logo' src='/public/linkedin.png'/><FlatButton style={{float: 'left', marginTop: '1%', margin: '0 auto'}} hoverColor='none' labelStyle={{letterSpacing: '3px', padding: '0'}} label='Jerry Jong' href='https://www.linkedin.com/in/jerry-jong-94055/'></FlatButton>
               </td>
             </tr>
           </table>
