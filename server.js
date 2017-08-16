@@ -4,6 +4,7 @@ const path = require('path');
 
 const recordingController = require('./database/controller/recordingController.js')
 const frameController = require('./database/controller/frameController.js')
+const logController = require ('./database/controller/logController')
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const cookieParser = require('cookie-parser')
@@ -11,16 +12,11 @@ const bodyParser = require('body-parser');
 const session = require('express-session');
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-
 let mongoURI = 'mongodb://localhost:27017/mydb';
 
 // require('./passport')(passport); //pass passport for configuration
 
-
 mongoose.connect(mongoURI);
-
-const Frame = require('./database/model/frameModel.js')
-const Recording = require('./database/model/recordingModel.js')
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -161,7 +157,13 @@ io.on('connection', (client) => {
             .then((Response) => {
                 frameController.createFrame(data)
                     .then((Response) =>{
-                        console.log('Frame',Response)
+                        logController.createLog(data)
+                            .then((Response) =>{
+                                console.log("created")
+                            })
+                            .catch((err)=>{
+                                console.log(err);
+                            })
                     })
                     .catch((err)=>{
                         console.log(err)
@@ -197,6 +199,16 @@ io.on('connection', (client) => {
     })
     client.on('event',(data)=>{
         console.log('EVENT',data);
+    })
+
+    client.on('log',(id,data)=>{
+        logController.updateLog(id,data)
+            .then((response) =>{
+                console.log(response)
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
     })
 })
 
