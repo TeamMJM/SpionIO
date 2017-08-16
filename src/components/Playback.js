@@ -24,9 +24,11 @@ const style = {
   },
   iframe: {
     width: '100%',
-    height: '100%',
-    display: 'block',
-    margin: '0 auto'
+    height: '40%',
+    display: 'inline-block',
+    margin: '0 auto',
+    padding: '0',
+    pointerEvents: 'none',
   },
   bar: {
     width: '100%',
@@ -79,11 +81,18 @@ const style = {
 class Playback extends Component {
   constructor(props) {
     super(props)
+    this.handleKeyDown = this.handleKeyDown.bind(this);
   }
 
-  handleDelete(e) {
-    e.preventDefault();
-  }
+  handleKeyDown() {
+    console.log('hi')
+    }
+
+
+
+  // handleDelete(e) {
+  //   e.preventDefault();
+  // }
 
   render() {
     return(
@@ -103,7 +112,7 @@ class Playback extends Component {
             <MenuItem hoverColor='white' style={{fontSize: '0.9em'}} primaryText="Delete" />
           </IconMenu>
         </Paper> 
-        <iframe style={{margin: '0 auto', pointerEvents: 'none'}} className="react-iframe"></iframe>  
+        <iframe style={style.iframe} className="react-iframe"></iframe>  
         <PlaybackBar 
           style={style.bar} 
           pause={this.props.pause} 
@@ -112,6 +121,7 @@ class Playback extends Component {
           index={this.props.index} 
           slide={this.props.slide}
           playing={this.props.playing}
+          fullscreen={this.props.fullscreen}
           />
       </Card>
     );

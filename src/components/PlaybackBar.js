@@ -10,6 +10,7 @@ import AvSkipPreviousIcon from 'material-ui/svg-icons/av/skip-previous';
 import ActionChromeReaderMode from 'material-ui/svg-icons/action/chrome-reader-mode';
 
 
+
 import './../styles/Home.css';
 
 
@@ -33,7 +34,6 @@ class PlaybackBar extends Component {
     super(props)
     this.toggleIcon = this.toggleIcon.bind(this);
     this.togglePlay = this.togglePlay.bind(this);
-    this.requestFullScreen = this.requestFullScreen.bind(this);
   }
 
   toggleIcon() {
@@ -57,29 +57,15 @@ class PlaybackBar extends Component {
     this.toggleIcon();
   }
 
-  requestFullScreen(element) {
-    // Supports most browsers and their versions.
-    var requestMethod = element.requestFullScreen || element.webkitRequestFullScreen || element.mozRequestFullScreen || element.msRequestFullScreen;
 
-    if (requestMethod) { // Native full screen.
-        requestMethod.call(element);
-    } else if (typeof window.ActiveXObject !== "undefined") { // Older IE.
-        var wscript = new ActiveXObject("WScript.Shell");
-        if (wscript !== null) {
-            wscript.SendKeys("{F11}");
-        }
-    }
-}
 
-// var elem = document.body; // Make the body go full screen.
-// requestFullScreen(elem);
   
   render() {
     const value = this.props.step * this.props.index;
     const slide = this.props.slide;
     const step = this.props.step;
     return (
-      <div style={{margin: '0 auto'}}>
+      <div className='slideded' style={{margin: '0 auto'}}>
         <Slider 
           style={{margin: '0 auto'}}
           sliderStyle={{margin: '0 auto'}}
@@ -97,6 +83,7 @@ class PlaybackBar extends Component {
             labelStyle={{color: '#006CAA', letterSpacing: '3px'}} 
             style={{float: 'right', marginTop: '1.5%'}} 
             label='Full Screen'
+            onClick={this.props.fullscreen}
           />
         </Toolbar>
       </div>
