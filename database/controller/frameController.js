@@ -7,7 +7,6 @@ frameController.createFrame = (data) => {
 };
 
 frameController.findFrame = (req, res, next) => {
-    console.log("params frame",req.params)
     Frame.findOne({_id:req.params.recordingID},(err, response) => {
         if (err) res.send(err)
         else {

@@ -41,7 +41,6 @@ class PlaybackBar extends Component {
   }
 
   toggleIcon() {
-    console.log(this.props.playing)
     if(this.props.playing) {
       return <AvPauseIcon color='#006CAA'/>
     } else {
@@ -62,7 +61,6 @@ class PlaybackBar extends Component {
     this.toggleIcon();
   }
   handleSlide(event,value){
-    console.log("Hello");
     this.setState({val:value});
     this.props.slide(value);
 
