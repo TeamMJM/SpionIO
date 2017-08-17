@@ -4,7 +4,7 @@ const path = require('path');
 
 const recordingController = require('./database/controller/recordingController.js')
 const frameController = require('./database/controller/frameController.js')
-const logController = require ('./database/controller/logController')
+const logController = require('./database/controller/logController')
 const feedBackController = require('./database/controller/feedBackController')
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -101,8 +101,9 @@ app.get('*/build/bundle.js', (req, res, next) => {
     res.sendfile('./build/bundle.js');
 })
 
-app.get('/recordings',recordingController.findAll)
+app.get('/recordings', recordingController.findAll)
 app.get('/recordings/:recordingID', recordingController.findRecording)
+
 
 // app.get('/frames',frameController.findAll)
 app.get('/frames/:recordingID',frameController.findFrame)
@@ -117,87 +118,88 @@ io.on('connection', (client) => {
         recordingController.createRecording(data)
             .then((Response) => {
                 frameController.createFrame(data)
-                    .then((Response) =>{
+                    .then((Response) => {
                         logController.createLog(data)
-                            .then((Response) =>{
+                            .then((Response) => {
                                 console.log("created")
                             })
-                            .catch((err)=>{
+                            .catch((err) => {
                                 console.log(err);
                             })
                     })
-                    .catch((err)=>{
+                    .catch((err) => {
                         console.log(err)
                     })
             }).catch((err) => {
                 console.log(err);
             })
     })
-    client.on('recording', (id,data) => {
-        let result = data.map(function(element) {
+    client.on('recording', (id, data) => {
+        let result = data.map(function (element) {
             return Object.values(element)[0]
         });
-        console.log('RECORDING',result);
-        frameController.updateFrameBulk(id,result)
-           .then((Response) => {
-               console.log("Response",Response)
+        console.log('RECORDING', result);
+        frameController.updateFrameBulk(id, result)
+            .then((Response) => {
+                console.log("Response", Response)
             }).catch((err) => {
-               console.log(err)
-           })
+                console.log(err)
+            })
     });
-    client.on('unload', (id,data) => {
+    client.on('unload', (id, data) => {
         console.log('INLOAD');
-        let result = data.map(function(element) {
+        let result = data.map(function (element) {
             return Object.values(element)[0]
         });
         console.log(result);
-        frameController.updateFrameBulk(id,result)
+        frameController.updateFrameBulk(id, result)
             .then((Response) => {
                 console.log("Unload", Response)
             }).catch((err) => {
                 console.log(err)
             })
     })
-    client.on('event',(data)=>{
-        console.log('EVENT',data);
+    client.on('event', (data) => {
+        console.log('EVENT', data);
     })
 
-    client.on('log',(id,data)=>{
-        logController.updateLog(id,data)
-            .then((response) =>{
+    client.on('log', (id, data) => {
+        logController.updateLog(id, data)
+            .then((response) => {
                 console.log(response)
             })
-            .catch((err)=>{
+            .catch((err) => {
                 console.log(err)
             })
     })
-    client.on('inactive',(id,data) =>{
-        frameController.updateSingle(id,data)
-            .then((response) =>{
+    client.on('inactive', (id, data) => {
+        frameController.updateSingle(id, data)
+            .then((response) => {
                 console.log("Response",
-            response)
-            }).catch((err)=>{
-                if(err) throw err
+                    response)
+            }).catch((err) => {
+                if (err) throw err
             })
     })
-    client.on('active',(id,data) =>{
-        frameController.updateSingle(id,data)
-            .then((response) =>{
-                console.log("Response",response)
-            }).catch((err)=>{
-                console.log("Err",err)
+    client.on('active', (id, data) => {
+        frameController.updateSingle(id, data)
+            .then((response) => {
+                console.log("Response", response)
+            }).catch((err) => {
+                console.log("Err", err)
             })
     })
 
-    client.on('createFeedback',(data) =>{
+    client.on('createFeedback', (data) => {
         feedBackController.createfeedBack(data)
-            .then((response)=>{
-                console.log("Created Feedback",response)
+            .then((response) => {
+                console.log("Created Feedback", response)
             })
-            .catch((err) =>{
+            .catch((err) => {
                 console.log(err)
-            })    
-    }) 
+            })
+    })
 })
+
 
 server.listen(3000);
