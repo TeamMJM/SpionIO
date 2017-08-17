@@ -6,6 +6,7 @@ import AppBar from 'material-ui/AppBar';
 import { Card, CardHeader, CardText } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import ActionChromeReaderMode from 'material-ui/svg-icons/action/chrome-reader-mode';
+import ActionFeedback from 'material-ui/svg-icons/action/feedback';
 import Paper from 'material-ui/Paper';
 import './../styles/Home.css';
 import $ from 'jquery';
@@ -80,17 +81,28 @@ class Storyboard extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      storyboard: true,
+      storyboard: false,
       feedback: false,
     }
     this.styleStoryboard = this.styleStoryboard.bind(this);
     this.styleFeedback = this.styleFeedback.bind(this);
     this.toggle = this.toggle.bind(this);
     this.toggleList = this.toggleList.bind(this);
+    this.initial = this.initial.bind(this);
   }
 
   toggle() {
     this.setState({storyboard: !this.state.storyboard, feedback: !this.state.feedback})
+  }
+
+  initial() {
+    let url = window.location.href.split('/').pop();
+    console.log(url)
+    if (url !== 'feedback') {
+      this.setState({storyboard: true, feedback: false})
+    } else {
+      this.setState({storyboard: false, feedback: true})
+    }
   }
 
   styleStoryboard() {
@@ -98,8 +110,8 @@ class Storyboard extends Component {
       return (
         <div>
           <Paper id='customFade1s' className='animated slideInRight' style={style.paperHeadStoryActive}/>
-          <div style={{zIndex: '100', position: 'fixed'}}><IconButton iconStyle={style.mediumIcon} style={style.mediumStory}><ActionChromeReaderMode color='white'/></IconButton></div>
-          <div style={{zIndex: '100', position: 'fixed', marginLeft: '3.5%', marginTop: '.75%'}}><p style={style.pHeadActive}>STORYBOARD</p></div>
+          <div id='customFade' className='animated fadeIn' style={{zIndex: '100', position: 'fixed'}}><IconButton iconStyle={style.mediumIcon} style={style.mediumStory}><ActionChromeReaderMode color='white'/></IconButton></div>
+          <div id='customFade' className='animated fadeIn' style={{zIndex: '100', position: 'fixed', marginLeft: '3.5%', marginTop: '.75%'}}><p style={style.pHeadActive}>STORYBOARD</p></div>
         </div>
       )
     } else {
@@ -118,15 +130,15 @@ class Storyboard extends Component {
       return (
         <div>
           <Paper id='customFade1s' className='animated slideInLeft' style={style.paperHeadFeedActive}/>
-          <div style={{zIndex: '100', position: 'fixed', marginLeft: '16.5%'}}><IconButton iconStyle={style.mediumIcon} style={style.mediumFeed}><ActionChromeReaderMode color='white'/></IconButton></div>
-          <div style={{zIndex: '100', position: 'fixed', marginLeft: '20%', marginTop: '.75%'}}><p style={style.pHeadActive}>FEEDBACK</p></div>
+          <div id='customFade' className='animated fadeIn' style={{zIndex: '100', position: 'fixed', marginLeft: '16.5%'}}><IconButton iconStyle={style.mediumIcon} style={style.mediumFeed}><ActionFeedback color='white'/></IconButton></div>
+          <div id='customFade' className='animated fadeIn' style={{zIndex: '100', position: 'fixed', marginLeft: '20%', marginTop: '.75%'}}><p style={style.pHeadActive}>FEEDBACK</p></div>
         </div>
       )
     } else {
       return (
         <div>
           <Paper id='customFade1s' className='animated slideInRight' style={style.paperHeadFeedInactive}/>
-          <div id='customFade1s' className='animated fadeIn' style={{zIndex: '100', position: 'fixed', marginLeft: '16.5%'}}><IconButton iconStyle={style.mediumIcon} style={style.mediumFeed}><ActionChromeReaderMode color='#006CAA'/></IconButton></div>
+          <div id='customFade1s' className='animated fadeIn' style={{zIndex: '100', position: 'fixed', marginLeft: '16.5%'}}><IconButton iconStyle={style.mediumIcon} style={style.mediumFeed}><ActionFeedback color='#006CAA'/></IconButton></div>
           <div id='customFade1s' className='animated fadeIn' style={{zIndex: '100', position: 'fixed', marginLeft: '20%', marginTop: '.75%'}}><p style={style.pHeadInactive}>FEEDBACK</p></div>
         </div>
       )      
@@ -141,7 +153,7 @@ class Storyboard extends Component {
       return(
         <div style={{textAlign: 'center', letterSpacing: '1px', fontSize: '.9em'}}>Welcome to the storyboard</div>
       )
-      // const list = this.props.list.map((Element) => {
+      // const targetList = this.props.targetList.map((Element) => {
       //   let hintText = 'Clicked ' + Element.split('>')[0].split(' ')[0].split('').splice(1).join('').toUpperCase();
       //   return (
       //     <Card>
@@ -159,6 +171,7 @@ class Storyboard extends Component {
   }
 
   componentDidMount() {
+    this.initial();
     this.styleFeedback();
     this.styleStoryboard();
     this.toggleList();

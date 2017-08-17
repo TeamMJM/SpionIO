@@ -2,16 +2,20 @@ import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom';
 import './../styles/Home.css';
 import './../styles/App.css';
+import axios from 'axios';
 
+// import our React components
 import DashboardUserSession from './DashboardUserSession';
 import DashboardHeader from './DashboardHeader';
 import DashboardContent from './DashboardContent';
 import DashboardSidebar from './DashboardSidebar';
+
+// import material-ui components
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
 import AVPlayCircleOutline from 'material-ui/svg-icons/AV/play-circle-outline';
 import HardwareDesktopWindows from 'material-ui/svg-icons/hardware/desktop-windows';
-import axios from 'axios';
+
 
 const style = {
   paper: {
@@ -96,7 +100,7 @@ class Dashboard extends Component {
           </div>
           <div className='recording-playback-wrapper'>
           <div className='recording-playback'>
-            <Link style={{float:'left'}}to={'/dashboard/' + recordings._id}>
+            <Link style={{float:'left'}} to={'/dashboard/' + recordings._id}>
               <IconButton iconStyle={style.mediumIcon} style={style.medium} tooltip='play session'>
                 <AVPlayCircleOutline color='#006CAA'/>
               </IconButton>
@@ -131,7 +135,6 @@ class Dashboard extends Component {
         <div>
           <DashboardSidebar/>
           <DashboardContent recordingNodes={this.generateRecordings()}/>
-          {/* <Route path='/dashboard/:recordingID' component={DashboardUserSession}/> */}
         </div>
       </div>
     )

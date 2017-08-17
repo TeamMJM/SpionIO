@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+
+// import material-ui components
 import Paper from 'material-ui/Paper';
 import { Card } from 'material-ui/Card';
-import { Link } from 'react-router-dom';
 
 class DashboardSidebar extends Component {
   constructor(props) {
@@ -36,7 +38,6 @@ class DashboardSidebar extends Component {
     this.setState({settings: !this.state.settings, storybook: !this.state.storybook})    
   }
 
-
   componentDidMount() {
     this.styleStorybook();
     this.styleSettings();
@@ -44,15 +45,33 @@ class DashboardSidebar extends Component {
 
   render() {
     return (
-    <Paper id='customFade2s' className='animated fadeIn' style={{float: 'left', width: '20%', height: '750px', backgroundColor: '#F4F7F5'}}>
-      <Paper zDepth={0} style={{height: '60px', margin: '0 auto', backgroundColor: '#F4F7F5'}}>
-        <Link style={{textDecoration: 'none', letterSpacing: '1px'}} to='/dashboard' onClick={this.toggle}>
-        {this.styleStorybook()}
+    <Paper 
+      id='customFade2s' 
+      className='animated fadeIn' 
+      style={{float: 'left', width: '20%', height: '750px', backgroundColor: '#F4F7F5'}}
+      >
+      <Paper 
+        zDepth={0} 
+        style={{height: '60px', margin: '0 auto', backgroundColor: '#F4F7F5'}}
+        >
+        <Link 
+          style={{textDecoration: 'none', letterSpacing: '1px'}} 
+          to='/dashboard' 
+          onClick={this.toggle}
+          >
+          {this.styleStorybook()}
         </Link>
       </Paper>
-      <Paper zDepth={0} style={{height: '60px', margin: '0 auto', backgroundColor: '#F4F7F5'}}>
-        <Link style={{textDecoration: 'none', letterSpacing: '1px'}} to='/dashboard' onClick={this.toggle}>
-        {this.styleSettings()}
+      <Paper 
+        zDepth={0} 
+        style={{height: '60px', margin: '0 auto', backgroundColor: '#F4F7F5'}}
+        >
+        <Link 
+          style={{textDecoration: 'none', letterSpacing: '1px'}} 
+          to='/dashboard' 
+          onClick={this.toggle}
+          >
+          {this.styleSettings()}
         </Link>
       </Paper>
     </Paper>
