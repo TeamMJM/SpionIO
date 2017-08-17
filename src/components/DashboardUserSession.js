@@ -74,64 +74,21 @@ class DashboardUserSession extends Component {
     $('.react-iframe').fullscreen();
     REPLAY_SCALE = 1;
     this.frameScript(this)
-    console.log(REPLAY_SCALE);
+
   }
 
 
   async animate(currentFrame, $fakeCursor, $iframeDoc) {
+    console.log(currentFrame)
     if (currentFrame.target) {
       this.addtoList(currentFrame.target)
     }
 
      if (currentFrame.event === "scroll") {
-       $iframeDoc.contents().scrollTop(currentFrame.scrollTop)
-       $iframeDoc.contents().scrollLeft(currentFrame.scrollLeft) 
-      }
-    
-    else if (currentFrame.event === 'click') {
-      $fakeCursor.css({
-        top: currentFrame.ClickY,
-        left: currentFrame.ClickX
-      },{
-        duration:300
-      })
-    } else {
-      if (currentFrame.event === 'mouseleave') {
-        await $fakeCursor.animate({
-          top: currentFrame.ClickY,
-          left: currentFrame.ClickX
-        },{
-          duration:300
-        }).promise()
-        $iframeDoc.find($fakeCursor).remove();
-        mouseMade = false;
-        await this.setState({
-          index: this.state.index +1
-        })
-        if (this.state.index < response.Frame.length) {
-          this.getFrame($iframeDoc,$fakeCursor,this,this.state.response,this.state.recording);
-        }
-      } else {
-
-        if (!mouseMade) {
-          $iframeDoc.find('body').append($fakeCursor);
-          $fakeCursor.css({
-              borderRadius: 50,
-              background: 'blue',
-              width: 10,
-              height: 10,
-              position: "fixed",
-              top: 0,
-              left: 0,
-          })
-          mouseMade = true;
-        }
-        await $fakeCursor.animate({
-          top: currentFrame.ClickY,
-          left: currentFrame.ClickX
-        },{
-          duration:300
-        }).promise()
+        await $iframeDoc.contents().animate({scrollTop:currentFrame.scrollTop}).promise()
+        
+        //  $iframeDoc.contents().scrollTop(currentFrame.scrollTop)
+        //  $iframeDoc.contents().scrollLeft(cukrrentFrame.scrollLeft) 
         await this.setState({
           index: this.state.index +1
         })
@@ -139,6 +96,61 @@ class DashboardUserSession extends Component {
           this.getFrame($iframeDoc,$fakeCursor,this,this.state.response,this.state.recording);
         }
       }
+      else {
+        if (currentFrame.event === 'mouseleave') {
+          await $fakeCursor.animate({
+            top: currentFrame.ClickY,
+            left: currentFrame.ClickX
+          },{
+            duration:100
+          }).promise()
+          $iframeDoc.find($fakeCursor).remove();
+          mouseMade = false;
+          await this.setState({
+            index: this.state.index +1
+          })
+          if (this.state.index < this.state.response.Frame.length) {
+            this.getFrame($iframeDoc,$fakeCursor,this,this.state.response,this.state.recording);
+          }
+        } else {
+
+          if (!mouseMade) {
+            $iframeDoc.find('body').append($fakeCursor);
+            $fakeCursor.css({
+                borderRadius: 50,
+                background: 'blue',
+                width: 10,
+                height: 10,
+                position: "fixed",
+                top: 0,
+                left: 0,
+            })
+            mouseMade = true;
+            await $fakeCursor.css({
+              top: currentFrame.ClickY,
+              left: currentFrame.ClickX
+            }).promise()
+            await this.setState({
+              index: this.state.index +1
+            })
+            if (this.state.index < this.state.response.Frame.length) {
+              this.getFrame($iframeDoc,$fakeCursor,this,this.state.response,this.state.recording);
+            }
+          }else{
+            await $fakeCursor.animate({
+              top: currentFrame.ClickY,
+              left: currentFrame.ClickX
+            },{
+              duration:100
+            }).promise()
+            await this.setState({
+              index: this.state.index +1
+            })
+            if (this.state.index < this.state.response.Frame.length) {
+              this.getFrame($iframeDoc,$fakeCursor,this,this.state.response,this.state.recording);
+            }
+          }
+        }
     }
 
   }
@@ -160,7 +172,7 @@ class DashboardUserSession extends Component {
     let $iframe = $('.react-iframe');
     $iframe.height(recording.height * REPLAY_SCALE);
     $iframe.width(recording.width * REPLAY_SCALE);
-    console.log("framesxript")
+  
     $iframe.css({
       '-ms-zoom': `${REPLAY_SCALE}`,
       '-moz-transform': `scale(${REPLAY_SCALE})`,
@@ -191,7 +203,6 @@ class DashboardUserSession extends Component {
   
   // does not work
   pause() {
-    console.log("pausing")
     this.setState({
       flag: false
     })
@@ -199,7 +210,7 @@ class DashboardUserSession extends Component {
 
   // starts animation
   async play() {
-    console.log("playing")
+ 
     await this.setState({
       flag: true
     })
@@ -211,7 +222,7 @@ class DashboardUserSession extends Component {
     let recording = await axios.get('/recordings/'+ this.props.match.params.recordingID)
     let response = await axios.get('/frames/' + this.props.match.params.recordingID);
     const step = 1/(response.data.Frame.length ? response.data.Frame.length: 1);
-    console.log(step)
+
     await this.setState({
       len: response.data.Frame.length,
       recording: recording.data,
@@ -224,10 +235,10 @@ class DashboardUserSession extends Component {
 
   // links position of where you are in the event array to where the slider is
   async slide(newInd) {
-    await this.setState({ index: newInd})
-    this.drawAnimate(this.state.$iframeDoc,this.state.$fakeCursor,this.state.startPlay,this)
+    await this.setState({ flag:true,index: newInd})
+    this.getFrame(this.state.$iframeDoc,this.state.$fakeCursor,this,this.state.response,this.state.recording)
 
-
+  }
   componentDidMount() {
     this.getRecordingData();
   }
@@ -247,7 +258,7 @@ class DashboardUserSession extends Component {
             pause={this.pause} 
             play={this.play} 
             step={this.state.step} 
-            index={this.state.i} 
+            index={this.state.index } 
             slide={this.slide}
           />
           <Storyboard 
