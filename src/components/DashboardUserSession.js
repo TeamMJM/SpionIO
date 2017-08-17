@@ -1,26 +1,22 @@
 import React, { Component } from 'react';
-import { Card } from 'material-ui/Card';
-import Playback from './Playback';
-import Storyboard from './Storyboard';
-import DashboardHeader from './DashboardHeader';
-import PlaybackSidebar from './PlaybackSidebar';
 import { fromJS } from "immutable";
 import './../styles/Home.css';
 import axios from 'axios';
 import $ from 'jquery';
 import 'jquery.fullscreen';
 
+// import our React components
+import Playback from './Playback';
+import Storyboard from './Storyboard';
+import DashboardHeader from './DashboardHeader';
+import PlaybackSidebar from './PlaybackSidebar';
+
 const style = {
   width: '100%',
   margin: '0 auto'
 }
 
-
-
-// let i = 0;
 let REPLAY_SCALE = 0.802;
-
-
 const SPEED = 1;
 let mouseMade = false;
 $.fn.getPath = function () {
@@ -74,13 +70,13 @@ class DashboardUserSession extends Component {
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
   }
 
-
   toggleFullscreen() {
     $('.react-iframe').fullscreen();
     REPLAY_SCALE = 1;
     this.frameScript(this)
     console.log(REPLAY_SCALE);
   }
+
 
   async animate(currentFrame, $fakeCursor, $iframeDoc) {
     if (currentFrame.target) {
@@ -116,6 +112,7 @@ class DashboardUserSession extends Component {
           this.getFrame($iframeDoc,$fakeCursor,this,this.state.response,this.state.recording);
         }
       } else {
+
         if (!mouseMade) {
           $iframeDoc.find('body').append($fakeCursor);
           $fakeCursor.css({
@@ -143,6 +140,7 @@ class DashboardUserSession extends Component {
         }
       }
     }
+
   }
 
   
@@ -158,6 +156,7 @@ class DashboardUserSession extends Component {
   };
 
   async frameScript(context,response,recording) {
+
     let $iframe = $('.react-iframe');
     $iframe.height(recording.height * REPLAY_SCALE);
     $iframe.width(recording.width * REPLAY_SCALE);
@@ -189,7 +188,8 @@ class DashboardUserSession extends Component {
       targetList: list
     })
   }
-
+  
+  // does not work
   pause() {
     console.log("pausing")
     this.setState({
@@ -197,6 +197,7 @@ class DashboardUserSession extends Component {
     })
   }
 
+  // starts animation
   async play() {
     console.log("playing")
     await this.setState({
@@ -205,39 +206,56 @@ class DashboardUserSession extends Component {
     this.getFrame(this.state.$iframeDoc,this.state.$fakeCursor,this,this.state.response,this.state.recording)
   }
 
+  // called on ComponentDidMount
   async getRecordingData() {
     let recording = await axios.get('/recordings/'+ this.props.match.params.recordingID)
     let response = await axios.get('/frames/' + this.props.match.params.recordingID);
+    const step = 1/(response.data.Frame.length ? response.data.Frame.length: 1);
+    console.log(step)
     await this.setState({
       len: response.data.Frame.length,
       recording: recording.data,
       response: response.data,
+      step: step,
     });
     this.frameScript(this,this.state.response,this.state.recording);
   }
 
-  slide(newInd) {
 
+  // links position of where you are in the event array to where the slider is
+  async slide(newInd) {
+    await this.setState({ index: newInd})
+    this.drawAnimate(this.state.$iframeDoc,this.state.$fakeCursor,this.state.startPlay,this)
 
-  }
 
   componentDidMount() {
     this.getRecordingData();
   }
 
-  componentWillUpdate() {
-    this.state.targetList = [];
-  }
-
   render() {
     return (
       <div style={style}>
-        {/* <DashboardHeader/> */}
         <PlaybackSidebar/>
-
         <div id='customFade' className='animated fadeIn'>
-        <Playback key={this.props.match.params.recordingID} fullscreen={this.toggleFullscreen} playing={this.state.flag} frameScript={this.frameScript} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
-        <Storyboard key={this.props.match.params.recordingID + '1'} recordingID={this.props.match.params.recordingID} list={this.state.targetList} />         
+
+          <Playback 
+            key={this.props.match.params.recordingID} 
+            fullscreen={this.toggleFullscreen} 
+            flag={this.state.flag} 
+            frameScript={this.frameScript} 
+            context={this} 
+            pause={this.pause} 
+            play={this.play} 
+            step={this.state.step} 
+            index={this.state.i} 
+            slide={this.slide}
+          />
+          <Storyboard 
+            key={this.props.match.params.recordingID + '1'} 
+            recordingID={this.props.match.params.recordingID} 
+            targetList={this.state.targetList} 
+          />         
+
         </div>
       </div>
     );
