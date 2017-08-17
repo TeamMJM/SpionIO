@@ -23,6 +23,14 @@ const style = {
     height: 56,
     display: 'inline-block',
   },
+  bar: {
+    backgroundColor: 'white', 
+    margin: '0, auto'
+  },
+  button: {
+    float: 'right', 
+    marginTop: '2%'
+  },
 }
 
 class PlaybackBar extends Component {
@@ -30,7 +38,7 @@ class PlaybackBar extends Component {
     super(props)
     this.state = {
       val: 0,
-      flag: true
+      flag: true,
     };
     this.handleSlide = this.handleSlide.bind(this);
     this.toggleIcon = this.toggleIcon.bind(this);
@@ -73,7 +81,7 @@ class PlaybackBar extends Component {
           value={this.props.index * this.props.step} 
           onChange={this.handleSlide}
         /> 
-        <Toolbar style={{backgroundColor: 'white', margin: '0, auto'}}>
+        <Toolbar style={style.bar}>
           <IconButton 
             iconStyle={style.mediumIcon} 
             style={style.medium} 
@@ -83,7 +91,7 @@ class PlaybackBar extends Component {
             {this.toggleIcon()}
           </IconButton>
           <FlatButton 
-            style={{float: 'right', marginTop: '2%'}} 
+            style={style.button} 
             label='Full Screen' 
             onClick={this.props.fullscreen}
           />
