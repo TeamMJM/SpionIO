@@ -8,6 +8,7 @@ import { fromJS } from "immutable";
 import './../styles/Home.css';
 import axios from 'axios';
 import $ from 'jquery';
+import 'jquery.fullscreen';
 
 const style = {
   width: '100%',
@@ -16,8 +17,8 @@ const style = {
 
 
 
-// let index = 0;
-const REPLAY_SCALE = 0.863;
+// let i = 0;
+let REPLAY_SCALE = 0.802;
 
 
 const SPEED = 1;
@@ -68,7 +69,18 @@ class DashboardUserSession extends Component {
     this.pause = this.pause.bind(this);
     this.getRecordingData = this.getRecordingData.bind(this);
     this.slide = this.slide.bind(this);
+    this.toggleFullscreen = this.toggleFullscreen.bind(this);
   }
+
+
+  toggleFullscreen() {
+    $('.react-iframe').fullscreen();
+    REPLAY_SCALE = 1;
+    this.frameScript(this)
+    console.log(REPLAY_SCALE);
+  }
+
+  
   drawAnimate($iframeDoc, $fakeCursor, startPlay, context) {
     
     let recording = this.state.recording
@@ -183,7 +195,7 @@ class DashboardUserSession extends Component {
     let response = context.state.response;
     let recording = context.state.recording;
     let $iframe = $('.react-iframe');
-    $iframe.height(recording.height * (REPLAY_SCALE-.053));
+    $iframe.height(recording.height * REPLAY_SCALE);
     $iframe.width(recording.width * REPLAY_SCALE);
 
     $iframe.css({
@@ -255,10 +267,9 @@ class DashboardUserSession extends Component {
         {/* <DashboardHeader/> */}
         <PlaybackSidebar/>
 
-        <div id='customFade' className='animated fadeInRight'>
-        <Playback key={this.props.match.params.recordingID} len={this.state.len} playing={this.state.flag} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.index} slide={this.slide} id={this.props.match.params.recordingID}  />
-
-        <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />         
+        <div id='customFade' className='animated fadeIn'>
+        <Playback key={this.props.match.params.recordingID} fullscreen={this.toggleFullscreen} playing={this.state.flag} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
+        <Storyboard key={this.props.match.params.recordingID + '1'} recordingID={this.props.match.params.recordingID} list={this.state.targetList} />         
         </div>
       </div>
     );

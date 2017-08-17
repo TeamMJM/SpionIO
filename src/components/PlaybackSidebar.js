@@ -28,7 +28,7 @@ const style = {
 class PlaybackSidebar extends Component {
   render() {
     return (
-      <Paper id='customFade' className='animated fadeInUp' zDepth={1} style={style.paper} rounded={false}>
+      <Paper id='customFade1s' className='animated fadeInUp' zDepth={1} style={style.paper} rounded={false}>
         <Link to='/dashboard'><IconButton iconStyle={style.mediumIcon} style={style.medium} tooltip='Go Back'><NavigationArrowBack color='lightgray'/></IconButton></Link>
         <Link to='/dashboard'><IconButton iconStyle={style.mediumIcon} style={style.medium} tooltip='Settings'><ActionSettings color='lightgray'/></IconButton></Link>
       </Paper>
