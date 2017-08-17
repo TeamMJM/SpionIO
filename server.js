@@ -5,6 +5,7 @@ const path = require('path');
 const recordingController = require('./database/controller/recordingController.js')
 const frameController = require('./database/controller/frameController.js')
 const logController = require ('./database/controller/logController')
+const feedBackController = require('./database/controller/feedBackController')
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 const cookieParser = require('cookie-parser')
@@ -179,6 +180,33 @@ io.on('connection', (client) => {
                 console.log(err)
             })
     })
+    client.on('inactive',(id,data) =>{
+        frameController.updateSingle(id,data)
+            .then((response) =>{
+                console.log("Response",
+            response)
+            }).catch((err)=>{
+                if(err) throw err
+            })
+    })
+    client.on('active',(id,data) =>{
+        frameController.updateSingle(id,data)
+            .then((response) =>{
+                console.log("Response",response)
+            }).catch((err)=>{
+                console.log("Err",err)
+            })
+    })
+
+    client.on('createFeedback',(data) =>{
+        feedBackController.createfeedBack(data)
+            .then((response)=>{
+                console.log("Created Feedback",response)
+            })
+            .catch((err) =>{
+                console.log(err)
+            })    
+    }) 
 })
 
 // server.listen(3000, '192.168.0.66');

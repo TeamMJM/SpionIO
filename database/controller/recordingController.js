@@ -22,8 +22,8 @@ recordingController.findAll = (req, res, next) => {
     })
 }
 
-recordingController.deleteRecording = (id) => {
-    return Recording.findByIdAndRemove(id)
+recordingController.deleteRecording = (req, res, next) => {
+    return Recording.findByIdAndRemove(req.body._id)
 }
 
 

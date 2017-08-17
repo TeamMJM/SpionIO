@@ -35,7 +35,8 @@ class PlaybackBar extends Component {
     this.togglePlay = this.togglePlay.bind(this);
 
     this.state={
-      val: 0
+      val: 0,
+      flag: true
     };
     this.handleSlide = this.handleSlide.bind(this);
 
@@ -52,9 +53,9 @@ class PlaybackBar extends Component {
 
   togglePlay() {
     if(this.props.playing) {
-      return this.props.pause
+      this.props.pause()
     } else {
-      return this.props.play
+      this.props.play()
     }
   }
 
@@ -62,37 +63,33 @@ class PlaybackBar extends Component {
     this.toggleIcon();
   }
   handleSlide(event,value){
-    this.setState({val:value});
+    console.log("value",value)
     this.props.slide(value);
 
   }
   
   render() {
-    return (
-      <div style={{margin: '0 auto'}}>
-        <LinearProgress mode="determinate" value={this.props.index} />
-        <Slider 
-          style={{margin: '0 auto'}}
-          sliderStyle={{margin: '0 auto'}}
-          min={0}
-          max={this.props.len}
-          step={1} 
-          value={this.props.val} 
-          onChange={this.handleSlide}/>
-        <Toolbar style={{backgroundColor: 'white', margin: '0, auto'}}>
-          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true} onTouchTap={this.togglePlay()}>
-            {this.toggleIcon()}
-          </IconButton>
-          <FlatButton 
-            hoverColor='white' 
-            labelStyle={{color: '#006CAA', letterSpacing: '3px'}} 
-            style={{float: 'right', marginTop: '1.5%'}} 
-            label='Full Screen'
-            onClick={this.props.fullscreen}
-          />
-        </Toolbar>
-      </div>
-    )
+        return(
+          
+          <div style={{margin: '0 auto'}}>
+             <Slider 
+            style={{margin: '0 auto'}}
+            sliderStyle={{margin: '0 auto'}}
+            min={0}
+            max={this.props.len}
+            step={1} 
+            value={this.props.index} 
+            onChange={this.handleSlide}
+            /> 
+          <Toolbar style={{backgroundColor: 'white', margin: '0, auto'}}>
+            <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true} onTouchTap={this.togglePlay}>
+              {this.toggleIcon()}
+            </IconButton>
+            <FlatButton style={{float: 'right', marginTop: '2%'}} label='Full Screen' onClick={this.props.fullscreen}></FlatButton>
+          </Toolbar>
+        </div>
+        )
+  
   }
 }
 
