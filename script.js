@@ -28,7 +28,7 @@ window.onload = (() => {
                 windowHeigth: window.innerHeight,
                 token: getCookie("token"),
             };
-            console.log(clickToken);
+
             socket.emit('storeClick', clickToken)
         }, false);
 

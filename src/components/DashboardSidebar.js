@@ -21,7 +21,6 @@ class DashboardSidebar extends Component {
     if (this.state.storybook) {
       return <p style={{marginTop: '5%', paddingTop: '5%', paddingBottom: '5%', fontSize: '.9em', width: '90%', backgroundColor: '#006CAA', borderRadius: '3px', color: 'white', paddingLeft: '4%'}}>Storybook</p>
     } else {
-      console.log('storybook not toggled')
       return <p style={{marginTop: '5%', paddingTop: '5%', paddingBottom: '5%', fontSize: '.9em', color: 'black', paddingLeft: '7%'}}>Storybook</p>
     }
   }
