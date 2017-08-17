@@ -145,7 +145,7 @@ class DashboardUserSession extends Component {
     }
   }
 
- 
+  
 
   getFrame($iframeDoc, $fakeCursor,context,response,recording) {
       let currentFrame = response.Frame[context.state.index];
