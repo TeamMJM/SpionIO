@@ -16,7 +16,7 @@ const style = {
 
 
 
-// let i = 0;
+// let index = 0;
 const REPLAY_SCALE = 0.863;
 
 
@@ -55,11 +55,12 @@ class DashboardUserSession extends Component {
       flag: false,
       len: 0,
       recording: null,
+      stop:false,
       startPlay: null,
       $iframeDoc: null,
       $fakeCursor: null,
       step: 1,
-      i: 0
+      index: 0
     }
     this.addtoList = this.addtoList.bind(this);
     this.frameScript = this.frameScript.bind(this);
@@ -73,7 +74,7 @@ class DashboardUserSession extends Component {
     let recording = this.state.recording
     let response = this.state.response;
     (function draw() {
-      console.log('Drawing')
+      //console.log('Drawing')
       if(!context.state.flag){
           context.setState({
             startPlay: startPlay,
@@ -83,7 +84,7 @@ class DashboardUserSession extends Component {
       }
       else{
 
-        let event = response.Frame[context.state.i];
+        let event = response.Frame[context.state.index];
         if (!event) {
           return;
         }
@@ -92,16 +93,19 @@ class DashboardUserSession extends Component {
         if (offsetPlay >= offsetRecording) {
           drawEvent(event, $fakeCursor, $iframeDoc);
           context.setState({
-            i : context.state.i + 1
+            index : context.state.index + 1
           })
         }
-        if (context.state.i < response.Frame.length) {
+        if (context.state.index < response.Frame.length) {
           requestAnimationFrame(draw);
         }
     }
     })();
 
     function drawEvent(event, $fakeCursor, $iframeDoc) {
+      context.setState({
+        flag: false
+      })
       if (event.target) {
         context.addtoList(event.target)
       }
@@ -117,6 +121,12 @@ class DashboardUserSession extends Component {
           left: event.ClickX
         },{
           duration:100
+        }).promise().done(()=>{
+          context.setState({
+            flag:true
+          })
+            console.log("Printing")
+            context.drawAnimate(context.state.$iframeDoc,context.state.$fakeCursor,context.state.startPlay,context)           
         })
       } else {
         if (event.event === 'mouseleave') {
@@ -125,6 +135,12 @@ class DashboardUserSession extends Component {
             left: event.ClickX
           },{
             duration:100
+          }).promise().done(()=>{
+            context.setState({
+              flag:true
+            })
+  
+              context.drawAnimate(context.state.$iframeDoc,context.state.$fakeCursor,context.state.startPlay,context)           
           })
           $iframeDoc.find($fakeCursor).remove();
           mouseMade = false;
@@ -142,12 +158,17 @@ class DashboardUserSession extends Component {
             })
             mouseMade = true;
           }
-
           $fakeCursor.animate({
             top: event.ClickY,
             left: event.ClickX
           },{
-            duration:100
+            duration:300
+          }).promise().done(()=>{
+            context.setState({
+              flag:true
+            })
+
+              context.drawAnimate(context.state.$iframeDoc,context.state.$fakeCursor,context.state.startPlay,context)           
           })
         }
       }
@@ -190,7 +211,7 @@ class DashboardUserSession extends Component {
   }
 
   pause() {
-    console.log("here")
+    console.log("pausing")
     this.setState({
       flag: false
     })
@@ -216,7 +237,7 @@ class DashboardUserSession extends Component {
   }
 
   async slide(newInd) {
-    await this.setState({ i: newInd, flag:true })
+    await this.setState({ index: newInd})
     this.drawAnimate(this.state.$iframeDoc,this.state.$fakeCursor,this.state.startPlay,this)
   }
 
@@ -235,7 +256,7 @@ class DashboardUserSession extends Component {
         <PlaybackSidebar/>
 
         <div id='customFade' className='animated fadeInRight'>
-        <Playback key={this.props.match.params.recordingID} playing={this.state.flag} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
+        <Playback key={this.props.match.params.recordingID} len={this.state.len} playing={this.state.flag} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.index} slide={this.slide} id={this.props.match.params.recordingID}  />
 
         <Storyboard key={this.props.match.params.recordingID + '1'} list={this.state.targetList} />         
         </div>
