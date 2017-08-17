@@ -30,8 +30,12 @@ frameController.updateFrameBulk = (id, Data) => {
     return bulk.execute()
 }
 
-frameController.deleteFrame = (id) => {
-    return Frame.findByIdAndRemove(id)
+frameController.updateSingle = (id,data)=>{
+    return Frame.findByIdAndUpdate(id,{$push:data});
+}
+
+frameController.deleteFrame = (req,res,next) => {
+    return Frame.findByIdAndRemove(req.body._id)
 }
 
 

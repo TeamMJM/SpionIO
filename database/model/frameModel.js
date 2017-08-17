@@ -8,7 +8,6 @@ const frameSchema = Schema({
         event: String,
         ClickX: Number,
         ClickY: Number,
-        movementX: Number,
         movementY: Number,
         scrollTop: Number,
         scrollLeft: Number,
