@@ -1,26 +1,22 @@
 import React, { Component } from 'react';
-import { Card } from 'material-ui/Card';
-import Playback from './Playback';
-import Storyboard from './Storyboard';
-import DashboardHeader from './DashboardHeader';
-import PlaybackSidebar from './PlaybackSidebar';
 import { fromJS } from "immutable";
 import './../styles/Home.css';
 import axios from 'axios';
 import $ from 'jquery';
 import 'jquery.fullscreen';
 
+// import our React components
+import Playback from './Playback';
+import Storyboard from './Storyboard';
+import DashboardHeader from './DashboardHeader';
+import PlaybackSidebar from './PlaybackSidebar';
+
 const style = {
   width: '100%',
   margin: '0 auto'
 }
 
-
-
-// let i = 0;
 let REPLAY_SCALE = 0.802;
-
-
 const SPEED = 1;
 let mouseMade = false;
 $.fn.getPath = function () {
@@ -72,7 +68,6 @@ class DashboardUserSession extends Component {
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
   }
 
-
   toggleFullscreen() {
     $('.react-iframe').fullscreen();
     REPLAY_SCALE = 1;
@@ -80,14 +75,13 @@ class DashboardUserSession extends Component {
     console.log(REPLAY_SCALE);
   }
 
-  
+  // paints the iFrame ONCE and loops through remaining events and animates the iFrame based on the data
   drawAnimate($iframeDoc, $fakeCursor, startPlay, context) {
     
     let recording = this.state.recording
     let response = this.state.response;
     (function draw() {
-      //console.log('Drawing')
-      if(!context.state.flag){
+      if(!context.state.flag) {
           context.setState({
             startPlay: startPlay,
             $fakeCursor: $fakeCursor,
@@ -114,7 +108,10 @@ class DashboardUserSession extends Component {
     }
     })();
 
+
+    // this function gets called by draw on line 104
     function drawEvent(event, $fakeCursor, $iframeDoc) {
+      // set flag to false at the beginning of each event to prevent slider getting ahead of animation
       context.setState({
         flag: false
       })
@@ -148,10 +145,11 @@ class DashboardUserSession extends Component {
           },{
             duration:100
           }).promise().done(()=>{
+            // set flag to true at the end of animating each event to progress onto next event
             context.setState({
               flag:true
             })
-  
+              // draw the next event
               context.drawAnimate(context.state.$iframeDoc,context.state.$fakeCursor,context.state.startPlay,context)           
           })
           $iframeDoc.find($fakeCursor).remove();
@@ -186,11 +184,15 @@ class DashboardUserSession extends Component {
       }
     }
 
+    // Does not currently work
+    // Should give a colored border on what the page visitor clicks on in the iFrame animation
     function flashClass($el, className) {
       $el.addClass(className).delay(200).queue(() => $el.removeClass(className).dequeue());
     }
   }
 
+  // targeting the iFrame that was made by the child component and injects the recording model's HTML and CSS
+  // called by getRecordingData() which is called on ComponentDidMount
   async frameScript(context) {
     let response = context.state.response;
     let recording = context.state.recording;
@@ -221,7 +223,8 @@ class DashboardUserSession extends Component {
       targetList: list
     })
   }
-
+  
+  // does not work
   pause() {
     console.log("pausing")
     this.setState({
@@ -229,6 +232,7 @@ class DashboardUserSession extends Component {
     })
   }
 
+  // starts animation
   async play() {
     console.log("playing")
     await this.setState({
@@ -237,17 +241,22 @@ class DashboardUserSession extends Component {
     this.drawAnimate(this.state.$iframeDoc,this.state.$fakeCursor,this.state.startPlay,this)
   }
 
+  // called on ComponentDidMount
   async getRecordingData() {
     let recording = await axios.get('/recordings/'+ this.props.match.params.recordingID)
     let response = await axios.get('/frames/' + this.props.match.params.recordingID);
+    const step = 1/(response.data.Frame.length ? response.data.Frame.length: 1);
+    console.log(step)
     await this.setState({
       len: response.data.Frame.length,
       recording: recording.data,
       response: response.data,
+      step: step,
     });
     this.frameScript(this);
   }
 
+  // links position of where you are in the event array to where the slider is
   async slide(newInd) {
     await this.setState({ index: newInd})
     this.drawAnimate(this.state.$iframeDoc,this.state.$fakeCursor,this.state.startPlay,this)
@@ -257,19 +266,28 @@ class DashboardUserSession extends Component {
     this.getRecordingData();
   }
 
-  componentWillUpdate() {
-    this.state.targetList = [];
-  }
-
   render() {
     return (
       <div style={style}>
-        {/* <DashboardHeader/> */}
         <PlaybackSidebar/>
-
         <div id='customFade' className='animated fadeIn'>
-        <Playback key={this.props.match.params.recordingID} fullscreen={this.toggleFullscreen} playing={this.state.flag} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
-        <Storyboard key={this.props.match.params.recordingID + '1'} recordingID={this.props.match.params.recordingID} list={this.state.targetList} />         
+          <Playback 
+            key={this.props.match.params.recordingID} 
+            fullscreen={this.toggleFullscreen} 
+            flag={this.state.flag} 
+            frameScript={this.frameScript} 
+            context={this} 
+            pause={this.pause} 
+            play={this.play} 
+            step={this.state.step} 
+            index={this.state.i} 
+            slide={this.slide}
+          />
+          <Storyboard 
+            key={this.props.match.params.recordingID + '1'} 
+            recordingID={this.props.match.params.recordingID} 
+            targetList={this.state.targetList} 
+          />         
         </div>
       </div>
     );
