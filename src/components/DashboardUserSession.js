@@ -85,71 +85,72 @@ class DashboardUserSession extends Component {
     }
 
      if (currentFrame.event === "scroll") {
-       $iframeDoc.contents().scrollTop(currentFrame.scrollTop)
-       $iframeDoc.contents().scrollLeft(currentFrame.scrollLeft) 
-      }
-    else if (currentFrame.event === 'click') {
-      $fakeCursor.css({
-        top: currentFrame.ClickY,
-        left: currentFrame.ClickX
-      },{
-        duration:300
-      })
-    } else {
-      if (currentFrame.event === 'mouseleave') {
-        await $fakeCursor.animate({
-          top: currentFrame.ClickY,
-          left: currentFrame.ClickX
-        },{
-          duration:300
-        }).promise()
-        $iframeDoc.find($fakeCursor).remove();
-        mouseMade = false;
+        await $iframeDoc.contents().animate({scrollTop:currentFrame.scrollTop}).promise()
+        
+        //  $iframeDoc.contents().scrollTop(currentFrame.scrollTop)
+        //  $iframeDoc.contents().scrollLeft(cukrrentFrame.scrollLeft) 
         await this.setState({
           index: this.state.index +1
         })
-        if (this.state.index < response.Frame.length) {
+        if (this.state.index < this.state.response.Frame.length) {
           this.getFrame($iframeDoc,$fakeCursor,this,this.state.response,this.state.recording);
         }
-      } else {
-
-        if (!mouseMade) {
-          $iframeDoc.find('body').append($fakeCursor);
-          $fakeCursor.css({
-              borderRadius: 50,
-              background: 'blue',
-              width: 10,
-              height: 10,
-              position: "fixed",
-              top: 0,
-              left: 0,
-          })
-          mouseMade = true;
-          await $fakeCursor.css({
-            top: currentFrame.ClickY,
-            left: currentFrame.ClickX
-          }).promise()
-          await this.setState({
-            index: this.state.index +1
-          })
-          if (this.state.index < this.state.response.Frame.length) {
-            this.getFrame($iframeDoc,$fakeCursor,this,this.state.response,this.state.recording);
-          }
-        }else{
+      }
+      else {
+        if (currentFrame.event === 'mouseleave') {
           await $fakeCursor.animate({
             top: currentFrame.ClickY,
             left: currentFrame.ClickX
           },{
-            duration:300
+            duration:100
           }).promise()
+          $iframeDoc.find($fakeCursor).remove();
+          mouseMade = false;
           await this.setState({
             index: this.state.index +1
           })
           if (this.state.index < this.state.response.Frame.length) {
             this.getFrame($iframeDoc,$fakeCursor,this,this.state.response,this.state.recording);
           }
+        } else {
+
+          if (!mouseMade) {
+            $iframeDoc.find('body').append($fakeCursor);
+            $fakeCursor.css({
+                borderRadius: 50,
+                background: 'blue',
+                width: 10,
+                height: 10,
+                position: "fixed",
+                top: 0,
+                left: 0,
+            })
+            mouseMade = true;
+            await $fakeCursor.css({
+              top: currentFrame.ClickY,
+              left: currentFrame.ClickX
+            }).promise()
+            await this.setState({
+              index: this.state.index +1
+            })
+            if (this.state.index < this.state.response.Frame.length) {
+              this.getFrame($iframeDoc,$fakeCursor,this,this.state.response,this.state.recording);
+            }
+          }else{
+            await $fakeCursor.animate({
+              top: currentFrame.ClickY,
+              left: currentFrame.ClickX
+            },{
+              duration:100
+            }).promise()
+            await this.setState({
+              index: this.state.index +1
+            })
+            if (this.state.index < this.state.response.Frame.length) {
+              this.getFrame($iframeDoc,$fakeCursor,this,this.state.response,this.state.recording);
+            }
+          }
         }
-      }
     }
 
   }
