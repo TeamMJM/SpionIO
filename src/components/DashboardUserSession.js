@@ -65,6 +65,8 @@ class DashboardUserSession extends Component {
     }
     this.addtoList = this.addtoList.bind(this);
     this.frameScript = this.frameScript.bind(this);
+    this.getFrame = this.getFrame.bind(this);
+    this.animate = this.animate.bind(this);
     this.play = this.play.bind(this);
     this.pause = this.pause.bind(this);
     this.getRecordingData = this.getRecordingData.bind(this);
@@ -80,124 +82,86 @@ class DashboardUserSession extends Component {
     console.log(REPLAY_SCALE);
   }
 
-  
-  drawAnimate($iframeDoc, $fakeCursor, startPlay, context) {
+  async animate(currentFrame, $fakeCursor, $iframeDoc) {
+    if (currentFrame.target) {
+      this.addtoList(currentFrame.target)
+    }
+
+     if (currentFrame.event === "scroll") {
+       $iframeDoc.contents().scrollTop(currentFrame.scrollTop)
+       $iframeDoc.contents().scrollLeft(currentFrame.scrollLeft) 
+      }
     
-    let recording = this.state.recording
-    let response = this.state.response;
-    (function draw() {
-      //console.log('Drawing')
-      if(!context.state.flag){
-          context.setState({
-            startPlay: startPlay,
-            $fakeCursor: $fakeCursor,
-            $iframeDoc: $iframeDoc
-          })
-      }
-      else{
-
-        let event = response.Frame[context.state.index];
-        if (!event) {
-          return;
-        }
-        let offsetRecording = event.time -  recording.startTime;
-        let offsetPlay = (Date.now() - startPlay) * SPEED;
-        if (offsetPlay >= offsetRecording) {
-          drawEvent(event, $fakeCursor, $iframeDoc);
-          context.setState({
-            index : context.state.index + 1
-          })
-        }
-        if (context.state.index < response.Frame.length) {
-          requestAnimationFrame(draw);
-        }
-    }
-    })();
-
-    function drawEvent(event, $fakeCursor, $iframeDoc) {
-      context.setState({
-        flag: false
+    else if (currentFrame.event === 'click') {
+      $fakeCursor.css({
+        top: currentFrame.ClickY,
+        left: currentFrame.ClickX
+      },{
+        duration:300
       })
-      if (event.target) {
-        context.addtoList(event.target)
-      }
-
-       if (event.event === "scroll") {
-         $iframeDoc.contents().scrollTop(event.scrollTop)
-         $iframeDoc.contents().scrollLeft(event.scrollLeft) 
-        }
-      
-      else if (event.event === 'click') {
-        $fakeCursor.css({
-          top: event.ClickY,
-          left: event.ClickX
+    } else {
+      if (currentFrame.event === 'mouseleave') {
+        await $fakeCursor.animate({
+          top: currentFrame.ClickY,
+          left: currentFrame.ClickX
         },{
-          duration:100
-        }).promise().done(()=>{
-          context.setState({
-            flag:true
-          })
-            console.log("Printing")
-            context.drawAnimate(context.state.$iframeDoc,context.state.$fakeCursor,context.state.startPlay,context)           
+          duration:300
+        }).promise()
+        $iframeDoc.find($fakeCursor).remove();
+        mouseMade = false;
+        await this.setState({
+          index: this.state.index +1
         })
+        if (this.state.index < response.Frame.length) {
+          this.getFrame($iframeDoc,$fakeCursor,this,this.state.response,this.state.recording);
+        }
       } else {
-        if (event.event === 'mouseleave') {
-          $fakeCursor.animate({
-            top: event.ClickY,
-            left: event.ClickX
-          },{
-            duration:100
-          }).promise().done(()=>{
-            context.setState({
-              flag:true
-            })
-  
-              context.drawAnimate(context.state.$iframeDoc,context.state.$fakeCursor,context.state.startPlay,context)           
+        if (!mouseMade) {
+          $iframeDoc.find('body').append($fakeCursor);
+          $fakeCursor.css({
+              borderRadius: 50,
+              background: 'blue',
+              width: 10,
+              height: 10,
+              position: "fixed",
+              top: 0,
+              left: 0,
           })
-          $iframeDoc.find($fakeCursor).remove();
-          mouseMade = false;
-        } else {
-          if (!mouseMade) {
-            $iframeDoc.find('body').append($fakeCursor);
-            $fakeCursor.css({
-                borderRadius: 50,
-                background: 'blue',
-                width: 10,
-                height: 10,
-                position: "fixed",
-                top: 0,
-                left: 0,
-            })
-            mouseMade = true;
-          }
-          $fakeCursor.animate({
-            top: event.ClickY,
-            left: event.ClickX
-          },{
-            duration:300
-          }).promise().done(()=>{
-            context.setState({
-              flag:true
-            })
-
-              context.drawAnimate(context.state.$iframeDoc,context.state.$fakeCursor,context.state.startPlay,context)           
-          })
+          mouseMade = true;
+        }
+        await $fakeCursor.animate({
+          top: currentFrame.ClickY,
+          left: currentFrame.ClickX
+        },{
+          duration:300
+        }).promise()
+        await this.setState({
+          index: this.state.index +1
+        })
+        if (this.state.index < this.state.response.Frame.length) {
+          this.getFrame($iframeDoc,$fakeCursor,this,this.state.response,this.state.recording);
         }
       }
-    }
-
-    function flashClass($el, className) {
-      $el.addClass(className).delay(200).queue(() => $el.removeClass(className).dequeue());
     }
   }
 
-  async frameScript(context) {
-    let response = context.state.response;
-    let recording = context.state.recording;
+ 
+
+  getFrame($iframeDoc, $fakeCursor,context,response,recording) {
+      let currentFrame = response.Frame[context.state.index];
+      if (!currentFrame) {
+        return;
+      }
+      if(context.state.flag){
+        context.animate(currentFrame, $fakeCursor, $iframeDoc);
+      }
+  };
+
+  async frameScript(context,response,recording) {
     let $iframe = $('.react-iframe');
     $iframe.height(recording.height * REPLAY_SCALE);
     $iframe.width(recording.width * REPLAY_SCALE);
-
+    console.log("framesxript")
     $iframe.css({
       '-ms-zoom': `${REPLAY_SCALE}`,
       '-moz-transform': `scale(${REPLAY_SCALE})`,
@@ -210,8 +174,12 @@ class DashboardUserSession extends Component {
     $iframe[0].contentDocument.documentElement.innerHTML = recording.htmlCopy;
     const $iframeDoc = $($iframe[0].contentDocument.documentElement);
     let $fakeCursor = $('<div class="cursor"></div>')
+    await context.setState({
+      $fakeCursor : $fakeCursor,
+      $iframeDoc : $iframeDoc
+    })
     const startPlay = Date.now();
-    context.drawAnimate($iframeDoc, $fakeCursor, startPlay, context)
+    context.getFrame($iframeDoc, $fakeCursor,context,response,recording)
   }
 
   addtoList(element) {
@@ -234,7 +202,7 @@ class DashboardUserSession extends Component {
     await this.setState({
       flag: true
     })
-    this.drawAnimate(this.state.$iframeDoc,this.state.$fakeCursor,this.state.startPlay,this)
+    this.getFrame(this.state.$iframeDoc,this.state.$fakeCursor,this,this.state.response,this.state.recording)
   }
 
   async getRecordingData() {
@@ -245,12 +213,12 @@ class DashboardUserSession extends Component {
       recording: recording.data,
       response: response.data,
     });
-    this.frameScript(this);
+    this.frameScript(this,this.state.response,this.state.recording);
   }
 
-  async slide(newInd) {
-    await this.setState({ index: newInd})
-    this.drawAnimate(this.state.$iframeDoc,this.state.$fakeCursor,this.state.startPlay,this)
+  slide(newInd) {
+
+
   }
 
   componentDidMount() {
@@ -268,7 +236,7 @@ class DashboardUserSession extends Component {
         <PlaybackSidebar/>
 
         <div id='customFade' className='animated fadeIn'>
-        <Playback key={this.props.match.params.recordingID} fullscreen={this.toggleFullscreen} playing={this.state.flag} frameScript={this.frameScript} context={this} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
+        <Playback key={this.props.match.params.recordingID} fullscreen={this.toggleFullscreen} playing={this.state.flag} frameScript={this.frameScript} pause={this.pause} play={this.play} step={this.state.step} index={this.state.i} slide={this.slide} id={this.props.match.params.recordingID}  />
         <Storyboard key={this.props.match.params.recordingID + '1'} recordingID={this.props.match.params.recordingID} list={this.state.targetList} />         
         </div>
       </div>
