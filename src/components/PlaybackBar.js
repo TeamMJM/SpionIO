@@ -11,6 +11,7 @@ import ActionChromeReaderMode from
 'material-ui/svg-icons/action/chrome-reader-mode';
 import LinearProgress from 'material-ui/LinearProgress';
 
+
 import './../styles/Home.css';
 
 
@@ -84,7 +85,7 @@ class PlaybackBar extends Component {
             <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true} onTouchTap={this.togglePlay}>
               {this.toggleIcon()}
             </IconButton>
-            <FlatButton style={{float: 'right', marginTop: '2%'}} label='Full Screen'></FlatButton>
+            <FlatButton style={{float: 'right', marginTop: '2%'}} label='Full Screen' onClick={this.props.fullscreen}></FlatButton>
           </Toolbar>
         </div>
         )
