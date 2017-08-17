@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import PlaybackBar from './PlaybackBar';
+import './../styles/Home.css';
+import axios from 'axios';
+
+// import material-ui components
 import { Card } from 'material-ui/Card';
 import Paper from 'material-ui/Paper';
 import IconButton from 'material-ui/IconButton';
@@ -7,26 +12,23 @@ import MenuItem from 'material-ui/MenuItem';
 import HardwareDesktopWindows from 'material-ui/svg-icons/hardware/desktop-windows';
 import ActionInput from 'material-ui/svg-icons/action/input';
 
-import PlaybackBar from './PlaybackBar';
-import './../styles/Home.css';
-import axios from 'axios';
-
 const style = {
   card: {
-    // flexFlow: 'column nowrap',
     float: 'left',
     justifyContent: 'center',
     alignContent: 'center',
-    width: '75%', 
+    width: '65%', 
     height: '100%',
     backgroundColor: 'lightgrey',
     padding: '2px'
   },
   iframe: {
-    width: '100%',
+    width: '75%',
     height: '100%',
-    display: 'block',
-    margin: '0 auto'
+    display: 'inline-block',
+    margin: '0 auto',
+    padding: '0',
+    pointerEvents: 'none',
   },
   bar: {
     width: '100%',
@@ -35,7 +37,6 @@ const style = {
   paper: {
     display: 'inline-block',
     marginTop: '1px',
-    // marginBottom: '15px',
     marginLeft: '1px',
     height: '48px',
     width: '99.7%',
@@ -48,13 +49,11 @@ const style = {
   medium: {
     float: 'left',
     marginLeft: '1%',
-    // marginRight: '3%',
     width: 118,
     height: 48,
     borderRight: '1px solid gray',
     padding: 0,
     pointerEvents: 'none',
-    // padding: 0,
   },
   medium2: {
     float: 'right',
@@ -75,35 +74,58 @@ const style = {
   }
 }
 
-
 class Playback extends Component {
   constructor(props) {
     super(props)
   }
 
-  handleDelete(e) {
-    e.preventDefault();
-  }
-
   render() {
     return(
       <Card style={style.card} >
-        <Paper zDepth={1} style={style.paper} rounded={false}>
-          <IconButton iconStyle={style.mediumIcon} style={style.medium}><HardwareDesktopWindows color='gray'/></IconButton>
+        <Paper 
+          zDepth={1} 
+          style={style.paper} 
+          rounded={false}
+          >
+          <IconButton 
+            iconStyle={style.mediumIcon} 
+            style={style.medium}
+            >
+            <HardwareDesktopWindows color='gray'/>
+          </IconButton>
           <p style={style.p}>http://localhost:4000/</p>
           <IconMenu
             style={{float: 'right', marginRight: '5%'}} 
-            iconButtonElement={<IconButton iconStyle={style.mediumIcon} style={style.medium2} tooltip='Export'><ActionInput color='gray'/></IconButton>}
+            iconButtonElement={
+              <IconButton 
+                iconStyle={style.mediumIcon} 
+                style={style.medium2} 
+                tooltip='Export'
+                >
+                <ActionInput color='gray'/>
+              </IconButton>
+            }
             anchorOrigin={{horizontal: 'right', vertical: 'top'}}
             targetOrigin={{horizontal: 'right', vertical: 'top'}}
             listStyle={{height: '5px' }}
             menuStyle={{height: '110px'}}
-          >
-            <MenuItem hoverColor='white' style={{fontSize: '0.9em'}} primaryText="Export as CSV" />
-            <MenuItem hoverColor='white' style={{fontSize: '0.9em'}} primaryText="Delete" />
+            >
+            <MenuItem 
+              hoverColor='white' 
+              style={{fontSize: '0.9em'}} 
+              primaryText="Export as CSV" 
+            />
+            <MenuItem 
+              hoverColor='white' 
+              style={{fontSize: '0.9em'}} 
+              primaryText="Delete" 
+            />
           </IconMenu>
         </Paper> 
-        <iframe style={{margin: '0 auto', pointerEvents: 'none'}} className="react-iframe"></iframe>  
+        <iframe 
+          style={style.iframe} 
+          className="react-iframe"
+        />  
         <PlaybackBar 
           style={style.bar} 
           pause={this.props.pause} 
@@ -111,7 +133,9 @@ class Playback extends Component {
           step={this.props.step} 
           index={this.props.index} 
           slide={this.props.slide}
-          playing={this.props.playing}
+          len={this.props.len}
+          flag={this.props.flag}
+          fullscreen={this.props.fullscreen}
           />
       </Card>
     );

@@ -210,9 +210,9 @@ class DashboardUserSession extends Component {
     let response = await axios.get('/frames/' + this.props.match.params.recordingID);
     const step = 1/(response.data.Frame.length ? response.data.Frame.length: 1);
      console.log(step)
-    this.setState({
+    await this.setState({
       recording: recording.data,
-      response: response.data,
+      response: response.data
     });
     this.frameScript(this);
   }

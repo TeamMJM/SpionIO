@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { HashRouter, Switch, Route, Link } from 'react-router-dom';
 import $ from 'jquery';
 
-/////////// import stylesheets ///////////
+// import stylesheets 
 import './../styles/Header.css';
 
-/////////// import UI ///////////
+// import material-ui components 
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
@@ -17,22 +17,20 @@ const style = {
     paddingLeft: '5px',
     color: 'gray',
     textTransform: 'none',
-    letterSpacing: '1px',
+    letterSpacing: '2px',
   },
   label: {
+    textTransform: 'none',
     fontSize: '30px',
     paddingRight: '5px',
     color: '#E0E1E5',
-    letterSpacing: '1px',
+    letterSpacing: '5px',
   },
 };
-
-
 
 class Header extends Component {
   componentDidMount() {
     $(window).on("scroll", function() {
-      // console.log('scrolling')
       if($(window).scrollTop() > 1) {
         $(".topnav").addClass("active");
       } else {
@@ -44,19 +42,37 @@ class Header extends Component {
   render() {
     return (
       <header>
-        <Paper rounded={false} style={{backgroundColor: 'none'}} zDepth={1} className="topnav" id="myTopnav">
+        <Paper 
+          rounded={false} style={{backgroundColor: 'none'}} 
+          zDepth={1} 
+          className="topnav" 
+          id="myTopnav"
+          >
           <div className="topnav-content">
             <img className='logo' src='./../../logo.png'/>
-            <Link to='/'><FlatButton hoverColor='none' labelStyle={style.label} label='Private-I' /></Link>
-            <Link to='/'><FlatButton hoverColor='none' labelStyle={style.sub} label='/ PROTOTYPE v0.0.1 /' /></Link>
+            <Link to='/'>
+              <FlatButton hoverColor='none' labelStyle={style.label} label='Kuva IO' />
+            </Link>
+            <Link to='/'>
+              <FlatButton hoverColor='none' labelStyle={style.sub} label='/ PROTOTYPE v0.0.1 /' />
+            </Link>
             <div id='first'>
-              {/* <Link to='/download'><FlatButton style={{border: '1px solid gray', borderRadius: '50px'}} labelStyle={{letterSpacing: '1px'}} labelColor='gray' backgroundColor='white' label='Download'></FlatButton></Link> */}
-              <Link to='/dashboard'><FlatButton hoverColor='none' style={{marginLeft: '5px', border: '1px solid gray', borderRadius: '50px'}} labelStyle={{letterSpacing: '1px'}} labelColor='gray' backgroundColor='white' label='Dashboard'></FlatButton></Link>
+              <Link to='/dashboard'>
+                <FlatButton 
+                  hoverColor='none' 
+                  style={{marginLeft: '5px', border: '1px solid gray', borderRadius: '50px'}} 
+                  labelStyle={{letterSpacing: '1px'}} 
+                  labelColor='gray' 
+                  backgroundColor='white' 
+                  label='Dashboard'
+                  />
+              </Link>
             </div>  
           </div>
         </Paper>
       </header>
-  )}
+    )
+  }
 }
 
 export default Header;

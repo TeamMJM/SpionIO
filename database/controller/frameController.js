@@ -7,7 +7,6 @@ frameController.createFrame = (data) => {
 };
 
 frameController.findFrame = (req, res, next) => {
-    console.log("params frame",req.params)
     Frame.findOne({_id:req.params.recordingID},(err, response) => {
         if (err) res.send(err)
         else {
@@ -31,8 +30,12 @@ frameController.updateFrameBulk = (id, Data) => {
     return bulk.execute()
 }
 
-frameController.deleteFrame = (id) => {
-    return Frame.findByIdAndRemove(id)
+frameController.updateSingle = (id,data)=>{
+    return Frame.findByIdAndUpdate(id,{$push:data});
+}
+
+frameController.deleteFrame = (req,res,next) => {
+    return Frame.findByIdAndRemove(req.body._id)
 }
 
 
