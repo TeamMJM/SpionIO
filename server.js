@@ -8,14 +8,10 @@ const logController = require ('./database/controller/logController')
 const feedBackController = require('./database/controller/feedBackController')
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
-const session = require('express-session');
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 let mongoURI = 'mongodb://localhost:27017/mydb';
-
-// require('./passport')(passport); //pass passport for configuration
 
 mongoose.connect(mongoURI);
 
@@ -27,7 +23,6 @@ app.use(function (req, res, next) {
 
 app.use('/', express.static(__dirname + './../'));
 app.use(bodyParser.json());
-app.use(cookieParser())
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
@@ -49,6 +44,7 @@ app.get('/machinelearningicon.png', (req, res) => {
     res.sendFile(path.join(__dirname, 'machinelearningicon.png'))
 })
 
+// user icon pictures
 app.get('/public/1.png', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/1.png'))
 })
@@ -90,10 +86,8 @@ app.get('/public/linkedin.png', (req, res) => {
 })
 
 app.get('/dashboard', (req, res) => {
-    console.log('sending....');
     res.sendFile(path.join(__dirname, '/index.html'));
 })
-
 
 app.get('/dashboard/:recordingID', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
@@ -103,10 +97,6 @@ app.get('/dashboard/:recordingID/feedback', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'))
 })
 
-app.get('/script.js', (req, res, next) => {
-    res.sendfile('./script.js');
-})
-
 app.get('*/build/bundle.js', (req, res, next) => {
     res.sendfile('./build/bundle.js');
 })
@@ -114,9 +104,10 @@ app.get('*/build/bundle.js', (req, res, next) => {
 app.get('/recordings',recordingController.findAll)
 app.get('/recordings/:recordingID', recordingController.findRecording)
 
-app.get('/frames',frameController.findAll)
+// app.get('/frames',frameController.findAll)
 app.get('/frames/:recordingID',frameController.findFrame)
 
+// websocket connection
 io.on('connection', (client) => { 
     client.on('join', (data) => {
         console.log(data);
@@ -209,5 +200,4 @@ io.on('connection', (client) => {
     }) 
 })
 
-// server.listen(3000, '192.168.0.66');
 server.listen(3000);
