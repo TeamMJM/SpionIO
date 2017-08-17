@@ -32,20 +32,8 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
 })
 
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, '/index.html'))
-})
-
-app.get('/signup', (req, res) => {
-    res.sendFile(path.join(__dirname, '/index.html'))
-})
-
 app.get('/logo.png', (req, res) => {
     res.sendFile(path.join(__dirname, 'logo.png'));
-})
-
-app.get('/screenshot.png', (req, res) => {
-    res.sendFile(path.join(__dirname, 'screenshot.png'))
 })
 
 app.get('/websiteicon.png', (req, res) => {
@@ -58,14 +46,6 @@ app.get('/databaseicon.png', (req, res) => {
 
 app.get('/machinelearningicon.png', (req, res) => {
     res.sendFile(path.join(__dirname, 'machinelearningicon.png'))
-})
-
-app.get('/stockexample.png', (req, res) => {
-    res.sendFile(path.join(__dirname, '/stockexample.png'))
-})
-
-app.get('/welcomelogo.png', (req, res) => {
-    res.sendFile(path.join(__dirname, 'welcomelogo.png'))
 })
 
 app.get('/public/1.png', (req, res) => {
@@ -108,29 +88,18 @@ app.get('/public/linkedin.png', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/linkedin.png'))
 })
 
-function isLoggedIn(req, res, next) {
-    console.log('checking token...')
-    jwt.verify(req.cookies.token, secret,
-        function (err, decoded) {
-            if (err) {
-                res.send(err)
-                res.redirect('/signup');
-            } else {
-                console.log('good token')
-                return next();
-            }
-        }
-    )
-};
-
-
 app.get('/dashboard', (req, res) => {
     console.log('sending....');
     res.sendFile(path.join(__dirname, '/index.html'));
 })
 
+
 app.get('/dashboard/:recordingID', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
+})
+
+app.get('/dashboard/:recordingID/feedback', (req, res) => {
+    res.sendFile(path.join(__dirname, '/index.html'))
 })
 
 app.get('/script.js', (req, res, next) => {

@@ -70,15 +70,15 @@ class PlaybackBar extends Component {
   render() {
     return (
       <div style={{margin: '0 auto'}}>
-        {/* <LinearProgress mode="determinate" value={this.props.index} /> */}
-        {/* <Slider 
+        <LinearProgress mode="determinate" value={this.props.index} />
+        <Slider 
           style={{margin: '0 auto'}}
           sliderStyle={{margin: '0 auto'}}
           min={0}
           max={this.props.len}
           step={1} 
           value={this.props.val} 
-          onChange={this.handleSlide}/> */}
+          onChange={this.handleSlide}/>
         <Toolbar style={{backgroundColor: 'white', margin: '0, auto'}}>
           <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true} onTouchTap={this.togglePlay()}>
             {this.toggleIcon()}

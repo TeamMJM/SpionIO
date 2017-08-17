@@ -17,7 +17,7 @@ const style = {
     float: 'left',
     justifyContent: 'center',
     alignContent: 'center',
-    width: '75%', 
+    width: '65%', 
     height: '100%',
     backgroundColor: 'lightgrey',
     padding: '2px'

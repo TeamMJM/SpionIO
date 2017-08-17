@@ -29,7 +29,7 @@ class App extends Component {
           <Route exact path='/dashboard' component={Dashboard}/>
         </MuiThemeProvider>
         <MuiThemeProvider>
-          <Route exact path='/dashboard/:recordingID' component={DashboardUserSession}/>
+          <Route path='/dashboard/:recordingID' component={DashboardUserSession}/>
         </MuiThemeProvider>
       </div>
 
