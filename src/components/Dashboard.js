@@ -94,7 +94,6 @@ class Dashboard extends Component {
         date[1] = 'Aug'
       }
       date = date.reverse().join(' ');
-      console.log('this is the date', date);
       if (time[0] > 12) {
         time[0] = (time[0] - 12).toString();
         time = time.slice(0, 2).join(':');
@@ -103,7 +102,7 @@ class Dashboard extends Component {
         time = time.slice(0, 2).join(':');
         time += 'AM';
       }
-      console.log('this is the time', time)
+
       
       return (
         <Paper 

@@ -96,7 +96,7 @@ class Storyboard extends Component {
 
   initialize() {
     let url = window.location.href.split('/').pop();
-    console.log(url)
+
     if (url !== 'feedback') {
       this.setState({storyboard: true, feedback: false})
     } else {
@@ -226,9 +226,9 @@ class Storyboard extends Component {
 
   toggleList() {
     let url = window.location.href.split('/').pop();
-    console.log(url)
+ 
     if (url !== 'feedback') {
-      console.log('returning storyboard')
+    
       return(
         <div style={{textAlign: 'center', letterSpacing: '1px', fontSize: '.9em'}}>Welcome to the storyboard</div>
       )
@@ -242,7 +242,7 @@ class Storyboard extends Component {
       //   )
       // })
     } else {
-      console.log('returning feedback')
+     
       return(
         <div style={{textAlign: 'center', letterSpacing: '1px', fontSize: '.9em'}}>Welcome to the feedback</div>
       )

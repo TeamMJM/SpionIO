@@ -40,9 +40,11 @@ class PlaybackBar extends Component {
       val: 0,
       flag: true,
     };
-    this.handleSlide = this.handleSlide.bind(this);
     this.toggleIcon = this.toggleIcon.bind(this);
     this.togglePlay = this.togglePlay.bind(this);
+    this.endSlide = this.endSlide.bind(this);
+    this.startSlide = this.startSlide.bind(this);
+    this.setVal = this.setVal.bind(this)
   }
 
   toggleIcon() {
@@ -65,8 +67,18 @@ class PlaybackBar extends Component {
     this.toggleIcon();
   }
 
-  handleSlide(event,value){
-    this.props.slide(value);
+  startSlide(event){
+    this.props.pause()
+  }
+
+  endSlide(event){
+    this.props.slide(this.state.val)
+  }
+
+  setVal(event,value){
+    this.setState({
+      val: Math.ceil(value/this.props.step)
+    })
   }
   
   render() {
@@ -79,7 +91,9 @@ class PlaybackBar extends Component {
           max={this.props.len}
           step={this.props.step} 
           value={this.props.index * this.props.step} 
-          onChange={this.handleSlide}
+          onChange={this.setVal}
+          onDragStart={this.startSlide}
+          onDragStop={this.endSlide}
         /> 
         <Toolbar style={style.bar}>
           <IconButton 
