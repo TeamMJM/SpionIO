@@ -38,8 +38,26 @@ const style = {
     width: 30,
     height: 30,
     float: 'left'
+  },
+  p1 : {
+    fontSize: '.7em', 
+    float: 'right', 
+    width: '100px', 
+    paddingTop: '13%'
+  },
+  p2: {
+    fontSize: '.8em', 
+    margin: '0 auto', 
+    letterSpacing: '2px', 
+    marginLeft: '6.5%', 
+    marginTop: '10%'
+  },
+  p3: {
+    fontSize: '.6em', 
+    margin: '0 auto', 
+    float: 'right', 
+    marginTop: '10%'
   }
-
 }
 ////////// Separate component that is similar to App.js but for whne a client has successfully signed into his specific dashboard //////////
 class Dashboard extends Component {
@@ -87,7 +105,11 @@ class Dashboard extends Component {
 
       
       return (
-        <Paper className='animated fadeIn' key={recordings._id} style={style.paper}>
+        <Paper 
+          className='animated fadeIn' 
+          key={recordings._id} 
+          style={style.paper}
+          >
           <div className='recording-block'>
             <div className='recording-avatar'>
               <img className='recording-icon' src={'./../../public/'+Math.floor((Math.random()*9)+1)+'.png'}/>
@@ -104,18 +126,18 @@ class Dashboard extends Component {
                 <AVPlayCircleOutline color='#006CAA'/>
               </IconButton>
             </Link>
-            <p style={{fontSize: '.7em', float: 'right', width: '100px', paddingTop: '13%'}}>{time}</p>
+            <p style={style.p1}>{time}</p>
           </div>
 
           <div className='recording-platform'>
             <div className='recording-platform-text'>
-              <p style={{fontSize: '.8em', margin: '0 auto', letterSpacing: '2px', marginLeft: '6.5%', marginTop: '10%'}}>Los Angeles</p>
+              <p style={style.p2}>Los Angeles</p>
             </div>
             <div className='recording-platform-icon'>
             <IconButton iconStyle={style.smallIcon} style={style.small}>
               <HardwareDesktopWindows color='lightgray'/>
             </IconButton>
-            <p style={{fontSize: '.6em', margin: '0 auto', float: 'right', marginTop: '10%'}}>OS X · CHROME</p>
+            <p style={style.p3}>OS X · CHROME</p>
             </div>
           </div>
 
