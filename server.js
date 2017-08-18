@@ -106,15 +106,16 @@ app.get('/recordings/:recordingID', recordingController.findRecording)
 
 
 // app.get('/frames',frameController.findAll)
-app.get('/frames/:recordingID',frameController.findFrame)
+app.get('/frames/:recordingID', frameController.findFrame)
 
 // websocket connection
-io.on('connection', (client) => { 
+io.on('connection', (client) => {
     client.on('join', (data) => {
         console.log(data);
         client.emit('messages', 'Hello from server');
     });
     client.on('html', (data) => {
+        console.log(data)
         recordingController.createRecording(data)
             .then((Response) => {
                 frameController.createFrame(data)
@@ -147,7 +148,7 @@ io.on('connection', (client) => {
             })
     });
     client.on('unload', (id, data) => {
-        console.log('INLOAD');
+
         let result = data.map(function (element) {
             return Object.values(element)[0]
         });
@@ -156,19 +157,6 @@ io.on('connection', (client) => {
             .then((Response) => {
                 console.log("Unload", Response)
             }).catch((err) => {
-                console.log(err)
-            })
-    })
-    client.on('event', (data) => {
-        console.log('EVENT', data);
-    })
-
-    client.on('log', (id, data) => {
-        logController.updateLog(id, data)
-            .then((response) => {
-                console.log(response)
-            })
-            .catch((err) => {
                 console.log(err)
             })
     })
