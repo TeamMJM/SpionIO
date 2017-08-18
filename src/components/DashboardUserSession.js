@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
-import { fromJS } from "immutable";
-import './../styles/Home.css';
-import axios from 'axios';
-import $ from 'jquery';
-import 'jquery.fullscreen';
-
-// import our React components
+import { Card } from 'material-ui/Card';
 import Playback from './Playback';
 import Storyboard from './Storyboard';
 import DashboardHeader from './DashboardHeader';
 import PlaybackSidebar from './PlaybackSidebar';
+import { fromJS } from "immutable";
+import './../styles/Home.css';
+import axios from 'axios';
+import $ from 'jquery';
 
 const style = {
   width: '100%',
   margin: '0 auto'
 }
 
-let REPLAY_SCALE = 0.802;
+
+
+// let i = 0;
+const REPLAY_SCALE = 0.863;
+
+
 const SPEED = 1;
 let mouseMade = false;
 $.fn.getPath = function () {
@@ -49,15 +52,13 @@ class DashboardUserSession extends Component {
     super(props);
     this.state = {
       targetList: [],
-      flag: false,
-      len: 0,
+      flag: true,
       recording: null,
-      stop:false,
       startPlay: null,
       $iframeDoc: null,
       $fakeCursor: null,
       step: 1,
-      index: 0
+      i: 0
     }
     this.addtoList = this.addtoList.bind(this);
     this.frameScript = this.frameScript.bind(this);
@@ -68,13 +69,6 @@ class DashboardUserSession extends Component {
     this.getRecordingData = this.getRecordingData.bind(this);
     this.slide = this.slide.bind(this);
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
-  }
-
-  toggleFullscreen() {
-    $('.react-iframe').fullscreen();
-    REPLAY_SCALE = 1;
-    this.frameScript(this)
-
   }
 
 
@@ -153,6 +147,16 @@ class DashboardUserSession extends Component {
         }
     }
 
+
+    function flashClass($el, className) {
+      $el.addClass(className).delay(200).queue(() => $el.removeClass(className).dequeue());
+    }
+  }
+
+  async frameScript(context) {
+    let response = context.state.response;
+    let recording = context.state.recording;
+
   }
 
   
@@ -168,9 +172,8 @@ class DashboardUserSession extends Component {
   };
 
   async frameScript(context,response,recording) {
-
     let $iframe = $('.react-iframe');
-    $iframe.height(recording.height * REPLAY_SCALE);
+    $iframe.height(recording.height * (REPLAY_SCALE-.053));
     $iframe.width(recording.width * REPLAY_SCALE);
   
     $iframe.css({
@@ -200,34 +203,33 @@ class DashboardUserSession extends Component {
       targetList: list
     })
   }
-  
-  // does not work
+
   pause() {
     this.setState({
       flag: false
     })
+
+    if (this.state.flag) {
+      this.drawAnimate(this.state.$iframeDoc, this.state.$fakeCursor, this.state.startPlay, this)
+    } else {
+      console.log("False")
+    }
   }
 
-  // starts animation
   async play() {
- 
     await this.setState({
       flag: true
     })
     this.getFrame(this.state.$iframeDoc,this.state.$fakeCursor,this,this.state.response,this.state.recording)
   }
 
-  // called on ComponentDidMount
   async getRecordingData() {
     let recording = await axios.get('/recordings/'+ this.props.match.params.recordingID)
     let response = await axios.get('/frames/' + this.props.match.params.recordingID);
     const step = 1/(response.data.Frame.length ? response.data.Frame.length: 1);
-
     await this.setState({
-      len: response.data.Frame.length,
       recording: recording.data,
-      response: response.data,
-      step: step,
+      response: response.data
     });
     this.frameScript(this,this.state.response,this.state.recording);
   }
@@ -235,17 +237,22 @@ class DashboardUserSession extends Component {
 
   // links position of where you are in the event array to where the slider is
   async slide(newInd) {
-    await this.setState({ flag:true,index: newInd})
-    this.getFrame(this.state.$iframeDoc,this.state.$fakeCursor,this,this.state.response,this.state.recording)
-
+    await this.setState({ i: newInd })
+    this.drawAnimate(this.state.$iframeDoc,this.state.$fakeCursor,this.state.startPlay,this)
   }
+  
   componentDidMount() {
     this.getRecordingData();
+  }
+
+  componentWillUpdate() {
+    this.state.targetList = [];
   }
 
   render() {
     return (
       <div style={style}>
+        {/* <DashboardHeader/> */}
         <PlaybackSidebar/>
         <div id='customFade' className='animated fadeIn'>
 
@@ -271,6 +278,6 @@ class DashboardUserSession extends Component {
       </div>
     );
   }
-}
+};
 
 export default DashboardUserSession;

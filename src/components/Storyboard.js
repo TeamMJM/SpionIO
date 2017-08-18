@@ -267,6 +267,7 @@ class Storyboard extends Component {
         </Link>
         {this.toggleList()}
       </Paper>
+
     )
   }
 }
