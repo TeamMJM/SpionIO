@@ -3,11 +3,12 @@ mongoose.Promise = require('bluebird');
 const Schema = mongoose.Schema;
 
 const frameSchema = Schema({
-    _id:String,
+    _id: String,
     Frame: [{
         event: String,
         ClickX: Number,
         ClickY: Number,
+        logStr: String,
         movementY: Number,
         scrollTop: Number,
         scrollLeft: Number,

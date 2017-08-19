@@ -26,6 +26,11 @@ const style = {
     color: '#E0E1E5',
     letterSpacing: '5px',
   },
+  button: {
+    marginLeft: '5px', 
+    border: '1px solid gray', 
+    borderRadius: '50px'
+  }
 };
 
 class Header extends Component {
@@ -60,7 +65,7 @@ class Header extends Component {
               <Link to='/dashboard'>
                 <FlatButton 
                   hoverColor='none' 
-                  style={{marginLeft: '5px', border: '1px solid gray', borderRadius: '50px'}} 
+                  style={style.button} 
                   labelStyle={{letterSpacing: '1px'}} 
                   labelColor='gray' 
                   backgroundColor='white' 
