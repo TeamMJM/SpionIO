@@ -9,6 +9,7 @@ const frameSchema = Schema({
         ClickX: Number,
         ClickY: Number,
         logStr: String,
+        movementX: Number,
         movementY: Number,
         scrollTop: Number,
         scrollLeft: Number,
