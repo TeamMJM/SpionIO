@@ -51,7 +51,7 @@ class Header extends Component {
           <div className="topnav-content">
             <img className='logo' src='./../../logo.png'/>
             <Link to='/'>
-              <FlatButton hoverColor='none' labelStyle={style.label} label='Kuva IO' />
+              <FlatButton hoverColor='none' labelStyle={style.label} label='Spion IO' />
             </Link>
             <Link to='/'>
               <FlatButton hoverColor='none' labelStyle={style.sub} label='/ PROTOTYPE v0.0.1 /' />

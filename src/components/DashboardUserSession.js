@@ -16,8 +16,8 @@ const style = {
   margin: '0 auto'
 }
 
-let REPLAY_SCALE = 0.802;
-const SPEED = 1;
+let REPLAY_SCALE = 0.803;
+const SPEED = 0.7;
 let mouseMade = false;
 $.fn.getPath = function () {
   // stolen from http://stackoverflow.com/a/2068381/1376627
@@ -44,7 +44,6 @@ $.fn.getPath = function () {
 };
 
 class DashboardUserSession extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -52,6 +51,7 @@ class DashboardUserSession extends Component {
       flag: false,
       len: 0,
       recording: null,
+      response: null,
       stop:false,
       startPlay: null,
       $iframeDoc: null,
@@ -73,10 +73,8 @@ class DashboardUserSession extends Component {
   toggleFullscreen() {
     $('.react-iframe').fullscreen();
     REPLAY_SCALE = 1;
-    this.frameScript(this)
-
+    this.frameScript(this, this.state.response, this.state.recording)
   }
-
 
   async animate(currentFrame, $fakeCursor, $iframeDoc) {
     console.log(currentFrame)
@@ -85,8 +83,7 @@ class DashboardUserSession extends Component {
     }
 
      if (currentFrame.event === "scroll") {
-        await $iframeDoc.contents().animate({scrollTop:currentFrame.scrollTop}).promise()
-        
+        await $iframeDoc.contents().animate({scrollTop:currentFrame.scrollTop}).promise()        
         //  $iframeDoc.contents().scrollTop(currentFrame.scrollTop)
         //  $iframeDoc.contents().scrollLeft(cukrrentFrame.scrollLeft) 
         await this.setState({
@@ -110,10 +107,9 @@ class DashboardUserSession extends Component {
             index: this.state.index +1
           })
           if (this.state.index < this.state.response.Frame.length) {
-            this.getFrame($iframeDoc,$fakeCursor,this,this.state.response,this.state.recording);
+            this.getFrame($iframeDoc, $fakeCursor, this, this.state.response, this.state.recording);
           }
         } else {
-
           if (!mouseMade) {
             $iframeDoc.find('body').append($fakeCursor);
             $fakeCursor.css({
@@ -152,10 +148,7 @@ class DashboardUserSession extends Component {
           }
         }
     }
-
-  }
-
-  
+  }  
 
   getFrame($iframeDoc, $fakeCursor,context,response,recording) {
       let currentFrame = response.Frame[context.state.index];
@@ -193,6 +186,7 @@ class DashboardUserSession extends Component {
     context.getFrame($iframeDoc, $fakeCursor,context,response,recording)
   }
 
+  // adding to list array for storyboard to render
   addtoList(element) {
     let list = this.state.targetList;
     list.push(element)
@@ -239,8 +233,15 @@ class DashboardUserSession extends Component {
     this.getFrame(this.state.$iframeDoc,this.state.$fakeCursor,this,this.state.response,this.state.recording)
 
   }
+
+  // gathers data and calls frameScript()
   componentDidMount() {
     this.getRecordingData();
+    $('.react-iframe').on('fscreenclose', () => {
+      console.log('exiting fullscreen')
+      REPLAY_SCALE = .802;
+      this.frameScript(this, this.state.response, this.state.recording);
+    })
   }
 
   render() {

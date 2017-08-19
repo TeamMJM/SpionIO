@@ -76,7 +76,7 @@ class DashboardHeader extends Component {
             style={style.paperHead} 
             rounded={false}
             >
-            <p style={style.pHead}>Kuva IO</p>
+            <p style={style.pHead}>Spion IO</p>
           </Paper>
           <Paper 
             className='search-bar' 
