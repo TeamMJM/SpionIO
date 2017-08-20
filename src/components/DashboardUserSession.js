@@ -1,9 +1,5 @@
-import React, {
-  Component
-} from 'react';
-import {
-  fromJS
-} from "immutable";
+import React, { Component } from 'react';
+import { fromJS } from "immutable";
 import './../styles/Home.css';
 import axios from 'axios';
 import $ from 'jquery';
@@ -16,6 +12,7 @@ import Storyboard from './Storyboard';
 import DashboardHeader from './DashboardHeader';
 import PlaybackSidebar from './PlaybackSidebar';
 
+
 const style = {
   width: '100%',
   margin: '0 auto'
@@ -24,17 +21,20 @@ const style = {
 
 
 // let i = 0;
+
 const REPLAY_SCALE = 0.863;
 let mouseMade = false;
 
 class DashboardUserSession extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       targetList: [],
       flag: true,
       recording: null,
+
+      response: null,
+      stop:false,
       stop: false,
       startPlay: null,
       $iframeDoc: null,
@@ -57,6 +57,11 @@ class DashboardUserSession extends Component {
     //this.toggleFullscreen = this.toggleFullscreen.bind(this);
   }
 
+  toggleFullscreen() {
+    $('.react-iframe').fullscreen();
+    REPLAY_SCALE = 1;
+    this.frameScript(this, this.state.response, this.state.recording)
+  }
 
   async animate(currentFrame, $fakeCursor, $iframeDoc) {
     const animationRate = 100 * Math.abs(currentFrame.movementX - currentFrame.movementY) / 100;
@@ -167,7 +172,9 @@ class DashboardUserSession extends Component {
     if (context.state.flag) {
       context.animate(currentFrame, $fakeCursor, $iframeDoc);
     }
+
   }
+
 
   async frameScript(context,response,recording) {
     let $iframe = $('.react-iframe');
@@ -194,6 +201,7 @@ class DashboardUserSession extends Component {
     context.getFrame($iframeDoc, $fakeCursor, context, response, recording)
   }
 
+  // adding to list array for storyboard to render
   addtoList(element) {
     console.log("element",element)
     let list = this.state.targetList;
@@ -204,7 +212,7 @@ class DashboardUserSession extends Component {
     })
   }
 
-  // does not work
+
   pause() {
     this.setState({
       flag: false
@@ -226,6 +234,7 @@ class DashboardUserSession extends Component {
     if(response.data.Frame[response.data.Frame.length-1].event !== 'unload'){
       islive = true;
     }
+
     await this.setState({
       recording: recording.data,
       response: response.data,
@@ -264,11 +273,16 @@ class DashboardUserSession extends Component {
       index: newInd
     })
     this.getFrame(this.state.$iframeDoc, this.state.$fakeCursor, this, this.state.response, this.state.recording)
-
   }
-  
+
+  // gathers data and calls frameScript()
   componentDidMount() {
     this.getRecordingData();
+    $('.react-iframe').on('fscreenclose', () => {
+      console.log('exiting fullscreen')
+      REPLAY_SCALE = .802;
+      this.frameScript(this, this.state.response, this.state.recording);
+    })
   }
 
   componentWillUpdate() {
@@ -280,7 +294,6 @@ class DashboardUserSession extends Component {
       <div style={style}>
       <PlaybackSidebar/>
       <div id='customFade' className='animated fadeIn'>
-
         <Playback 
           key={this.props.match.params.recordingID} 
           fullscreen={this.toggleFullscreen} 
@@ -300,9 +313,7 @@ class DashboardUserSession extends Component {
           recordingID={this.props.match.params.recordingID} 
           targetList={this.state.targetList} 
         />         
-
       </div>
-    </div>
     );
   }
 };
