@@ -148,7 +148,7 @@ class DashboardContent extends Component {
           {/* {this.generateRecordings()} */}
           <Paper 
           className='animated fadeIn' 
-          key={recordings._id} 
+          /* key={recordings._id}  */
           style={style.paper}
           >
           <div className='recording-block'>
@@ -156,18 +156,18 @@ class DashboardContent extends Component {
               <img className='recording-icon' src={'./../../public/'+Math.floor((Math.random()*9)+1)+'.png'}/>
             </div>
             <div className='recording-description'>
-              <p style={{letterSpacing: '1px'}} className='recording-title'>{'User ' + recordings._id.slice(0, 5)}</p>
-              <p style={{letterSpacing: '1px'}} className='recording-sub'>{'Visited on ' + date}</p> 
+              <p style={{letterSpacing: '1px'}} className='recording-title'>{'User Example'}</p>
+              <p style={{letterSpacing: '1px'}} className='recording-sub'>{'Visited on Aug 20'}</p> 
             </div>
           </div>
           <div className='recording-playback-wrapper'>
           <div className='recording-playback'>
-            <Link style={{float:'left'}} to={'/dashboard/recordings/' + recordings._id}>
+            <Link style={{float:'left'}} to={'/dashboard/recordings/1232uiashdfkj'}>
               <IconButton iconStyle={style.mediumIcon} style={style.medium} tooltip='play session'>
                 <AVPlayCircleOutline color='#006CAA'/>
               </IconButton>
             </Link>
-            <p style={style.p1}>{time}</p>
+            <p style={style.p1}>{'6:00 PM'}</p>
           </div>
 
           <div className='recording-platform'>
