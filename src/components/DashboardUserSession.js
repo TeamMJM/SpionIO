@@ -243,6 +243,7 @@ class DashboardUserSession extends Component {
   async getRecordingData() {
     let recording = await axios.get('/recordings/' + this.props.match.params.recordingID)
     let response = await axios.get('/frames/' + this.props.match.params.recordingID);
+
     const step = 1 / (response.data.Frame.length ? response.data.Frame.length : 1);
     let islive = false;
     if(response.data.Frame[response.data.Frame.length-1].event !== 'unload'){

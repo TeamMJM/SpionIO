@@ -138,10 +138,10 @@ io.on('connection', (client) => {
         let result = data.map(function (element) {
             return Object.values(element)[0]
         });
-        //console.log('RECORDING', result);
+        console.log('RECORDING', result.length);
         frameController.updateFrameBulk(id, result)
             .then((Response) => {
-                console.log("Response", Response)
+                //console.log("Response",'\n\n\n\n', Response)
             }).catch((err) => {
                 console.log(err)
             })
@@ -150,10 +150,10 @@ io.on('connection', (client) => {
         let result = data.map(function (element) {
             return Object.values(element)[0]
         });
-        //console.log(result);
+
         frameController.updateFrameBulk(id, result)
             .then((Response) => {
-                console.log("Unload", Response)
+                //console.log("Unload",'\n\n\n\n', Response)
             }).catch((err) => {
                 console.log(err)
             })
