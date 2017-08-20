@@ -234,10 +234,7 @@ class Storyboard extends Component {
         <div style={{textAlign: 'center', letterSpacing: '1px', fontSize: '.9em'}}>Welcome to the storyboard</div>
       )
       const targetList = this.props.targetList.map((Element) => {
-<<<<<<< HEAD
         console.log(element)
-=======
->>>>>>> c4f2adc993b3b139667ffb45d32601b8e77cc794
         let hintText = 'Clicked ' + Element.split('>')[0].split(' ')[0].split('').splice(1).join('').toUpperCase();
         return (
           <Card>
