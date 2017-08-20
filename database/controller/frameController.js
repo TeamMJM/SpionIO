@@ -7,7 +7,9 @@ frameController.createFrame = (data) => {
 };
 
 frameController.findFrame = (req, res, next) => {
-    Frame.findOne({_id:req.params.recordingID},(err, response) => {
+    Frame.findOne({
+        _id: req.params.recordingID
+    }, (err, response) => {
         if (err) res.send(err)
         else {
             res.send(response);
@@ -24,17 +26,23 @@ frameController.findAll = (req, res, next) => {
 
 frameController.updateFrameBulk = (id, Data) => {
     let bulk = Frame.collection.initializeOrderedBulkOp();
-    Data.forEach(function(element) {
-        bulk.find({'_id':id}).update({$push:element})        
+    Data.forEach(function (element) {
+        bulk.find({
+            '_id': id
+        }).update({
+            $push: element
+        })
     });
     return bulk.execute()
 }
 
-frameController.updateSingle = (id,data)=>{
-    return Frame.findByIdAndUpdate(id,{$push:data});
+frameController.updateSingle = (id, data) => {
+    return Frame.findByIdAndUpdate(id, {
+        $push: data
+    });
 }
 
-frameController.deleteFrame = (req,res,next) => {
+frameController.deleteFrame = (req, res, next) => {
     return Frame.findByIdAndRemove(req.body._id)
 }
 

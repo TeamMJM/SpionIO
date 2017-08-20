@@ -44,7 +44,6 @@
   padding-left: 15%;
 }
 
-
 .dashboard-header {
   height: 60px;
 }
@@ -54,20 +53,19 @@
 }
 
 
-
 /* ///////////////////////////////////
    /////////////Dashboard/////////// */
 
 .recording-title {
-   margin: 0 auto;
-   color: #1B2228;
-   font-size: .8em;
+  margin: 0 auto;
+  color: #1B2228;
+  font-size: .8em;
 }
 
 .recording-sub {
-   margin-top: 3px; 
-   color: gray;
-   font-size: .7em;
+  margin-top: 3px;
+  color: gray;
+  font-size: .7em;
 }
 
 .recording-description {
@@ -117,10 +115,9 @@
   float: right;
 }
 
-.user-session { 
+.user-session {
   float: right;
 }
-
 
 #customFade {
   -webkit-animation-duration: 2.5s;
