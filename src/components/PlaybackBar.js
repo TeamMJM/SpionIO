@@ -39,12 +39,14 @@ class PlaybackBar extends Component {
     this.state = {
       val: 0,
       flag: true,
+      index:0
     };
     this.toggleIcon = this.toggleIcon.bind(this);
     this.togglePlay = this.togglePlay.bind(this);
     this.endSlide = this.endSlide.bind(this);
     this.startSlide = this.startSlide.bind(this);
-    this.setVal = this.setVal.bind(this)
+    this.setVal = this.setVal.bind(this);
+    this.valueHandler = this.valueHandler.bind(this)
   }
 
   toggleIcon() {
@@ -61,6 +63,10 @@ class PlaybackBar extends Component {
     } else {
       this.props.play()
     }
+  }
+
+  componentWilllRecieveProps(){
+    valueHandler()
   }
 
   componentDidMount() {
@@ -80,6 +86,12 @@ class PlaybackBar extends Component {
       val: Math.ceil(value/this.props.step)
     })
   }
+
+  async valueHandler(){
+    if(this.props.liveStarted){
+      await this.setState({index: this.props.index * this.props.step})
+    }
+  }
   
   render() {
     return (          
@@ -90,7 +102,7 @@ class PlaybackBar extends Component {
           min={0}
           max={this.props.len}
           step={this.props.step} 
-          value={this.props.index * this.props.step} 
+          value={this.state.index} 
           onChange={this.setVal}
           onDragStart={this.startSlide}
           onDragStop={this.endSlide}
@@ -108,6 +120,11 @@ class PlaybackBar extends Component {
             style={style.button} 
             label='Full Screen' 
             onClick={this.props.fullscreen}
+          />
+          <FlatButton
+            style={style.button}
+            label="Live"
+            onClick={this.props.isLive}
           />
         </Toolbar>
       </div>

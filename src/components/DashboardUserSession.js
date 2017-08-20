@@ -15,10 +15,6 @@ import Playback from './Playback';
 import Storyboard from './Storyboard';
 import DashboardHeader from './DashboardHeader';
 import PlaybackSidebar from './PlaybackSidebar';
-import { fromJS } from "immutable";
-import './../styles/Home.css';
-import axios from 'axios';
-import $ from 'jquery';
 
 const style = {
   width: '100%',
@@ -29,9 +25,6 @@ const style = {
 
 // let i = 0;
 const REPLAY_SCALE = 0.863;
-
-
-const SPEED = 1;
 let mouseMade = false;
 
 class DashboardUserSession extends Component {
@@ -42,15 +35,15 @@ class DashboardUserSession extends Component {
       targetList: [],
       flag: true,
       recording: null,
-<<<<<<< HEAD
       stop: false,
-=======
->>>>>>> c9a553806382d39be80691455e5a0e5622a84d18
       startPlay: null,
       $iframeDoc: null,
       $fakeCursor: null,
+      stopPlay:false,      
       step: 1,
-      i: 0
+      liveStarted: false,
+      index: 0,
+      isLive: false
     }
     this.addtoList = this.addtoList.bind(this);
     this.frameScript = this.frameScript.bind(this);
@@ -58,9 +51,10 @@ class DashboardUserSession extends Component {
     this.animate = this.animate.bind(this);
     this.play = this.play.bind(this);
     this.pause = this.pause.bind(this);
+    this.isLiveHandler = this.isLiveHandler.bind(this);
     this.getRecordingData = this.getRecordingData.bind(this);
     this.slide = this.slide.bind(this);
-    this.toggleFullscreen = this.toggleFullscreen.bind(this);
+    //this.toggleFullscreen = this.toggleFullscreen.bind(this);
   }
 
 
@@ -99,6 +93,11 @@ class DashboardUserSession extends Component {
         if (this.state.index < this.state.response.Frame.length) {
           this.getFrame($iframeDoc, $fakeCursor, this, this.state.response, this.state.recording);
         }
+        else{
+          this.setState({
+            stopPlay: true
+          })
+        }
       } else {
 
         if (!mouseMade) {
@@ -123,6 +122,11 @@ class DashboardUserSession extends Component {
           if (this.state.index < this.state.response.Frame.length) {
             this.getFrame($iframeDoc, $fakeCursor, this, this.state.response, this.state.recording);
           }
+          else{
+            this.setState({
+              stopPlay: true
+            })
+          }
         } else {
           await $fakeCursor.animate({
             top: currentFrame.ClickY,
@@ -136,13 +140,13 @@ class DashboardUserSession extends Component {
           if (this.state.index < this.state.response.Frame.length) {
             this.getFrame($iframeDoc, $fakeCursor, this, this.state.response, this.state.recording);
           }
+          else{
+            this.setState({
+              stopPlay: true
+            })
+          }
         }
       }
-    }
-
-
-    function flashClass($el, className) {
-      $el.addClass(className).delay(200).queue(() => $el.removeClass(className).dequeue());
     }
   }
 
@@ -162,14 +166,9 @@ class DashboardUserSession extends Component {
     if (context.state.flag) {
       context.animate(currentFrame, $fakeCursor, $iframeDoc);
     }
-  };
+  }
 
-<<<<<<< HEAD
-  async frameScript(context, response, recording) {
-
-=======
   async frameScript(context,response,recording) {
->>>>>>> c9a553806382d39be80691455e5a0e5622a84d18
     let $iframe = $('.react-iframe');
     $iframe.height(recording.height * (REPLAY_SCALE-.053));
     $iframe.width(recording.width * REPLAY_SCALE);
@@ -202,27 +201,14 @@ class DashboardUserSession extends Component {
     })
   }
 
-<<<<<<< HEAD
   // does not work
-=======
->>>>>>> c9a553806382d39be80691455e5a0e5622a84d18
   pause() {
     this.setState({
       flag: false
     })
-
-    if (this.state.flag) {
-      this.drawAnimate(this.state.$iframeDoc, this.state.$fakeCursor, this.state.startPlay, this)
-    } else {
-      console.log("False")
-    }
   }
 
   async play() {
-<<<<<<< HEAD
-
-=======
->>>>>>> c9a553806382d39be80691455e5a0e5622a84d18
     await this.setState({
       flag: true
     })
@@ -232,33 +218,48 @@ class DashboardUserSession extends Component {
   async getRecordingData() {
     let recording = await axios.get('/recordings/' + this.props.match.params.recordingID)
     let response = await axios.get('/frames/' + this.props.match.params.recordingID);
-<<<<<<< HEAD
     const step = 1 / (response.data.Frame.length ? response.data.Frame.length : 1);
-
-=======
-    const step = 1/(response.data.Frame.length ? response.data.Frame.length: 1);
->>>>>>> c9a553806382d39be80691455e5a0e5622a84d18
+    let islive = false;
+    if(response.data.Frame[response.data.Frame.length-1].event !== 'unload'){
+      islive = true;
+    }
     await this.setState({
       recording: recording.data,
-      response: response.data
+      response: response.data,
+      isLive: islive,
     });
     this.frameScript(this, this.state.response, this.state.recording);
   }
 
+  isLiveHandler(){
+    console.log("Button click")
+    if(this.state.isLive){
+      //need to get data again
+      console.log("I is live bro!")
+      let interval = setInterval( async ()=>{
+          if(this.response.Frame[this.response.Frame.length-1].event !== 'unload'){
+            let response = await axios.get('/frames/' + this.props.match.params.recordingID); 
+            await (this.setState({liveStarted:true,response:response.data}))        
+            if(this.state.stopPlay){
+              this.getFrame(this.state.$iframeDoc, this.state.$fakeCursor, this, this.state.response, this.state.recording)
+            }
+          }else{
+            this.setState({islive:this.state.isLive})
+            clearInterval(interval);
+          }
+      },1000);
+
+    }
+  }
 
   // links position of where you are in the event array to where the slider is
   async slide(newInd) {
-<<<<<<< HEAD
     await this.setState({
       flag: true,
       index: newInd
     })
     this.getFrame(this.state.$iframeDoc, this.state.$fakeCursor, this, this.state.response, this.state.recording)
 
-=======
-    await this.setState({ i: newInd })
-    this.drawAnimate(this.state.$iframeDoc,this.state.$fakeCursor,this.state.startPlay,this)
->>>>>>> c9a553806382d39be80691455e5a0e5622a84d18
   }
   
   componentDidMount() {
@@ -272,7 +273,6 @@ class DashboardUserSession extends Component {
   render() {
     return (
       <div style={style}>
-<<<<<<< HEAD
       <PlaybackSidebar/>
       <div id='customFade' className='animated fadeIn'>
 
@@ -283,7 +283,9 @@ class DashboardUserSession extends Component {
           frameScript={this.frameScript} 
           context={this} 
           pause={this.pause} 
+          liveStarted={this.state.liveStarted}
           play={this.play} 
+          isLive={this.isLiveHandler}
           step={this.state.step} 
           index={this.state.index } 
           slide={this.slide}
@@ -294,31 +296,6 @@ class DashboardUserSession extends Component {
           targetList={this.state.targetList} 
         />         
 
-=======
-        {/* <DashboardHeader/> */}
-        <PlaybackSidebar/>
-        <div id='customFade' className='animated fadeIn'>
-
-          <Playback 
-            key={this.props.match.params.recordingID} 
-            fullscreen={this.toggleFullscreen} 
-            flag={this.state.flag} 
-            frameScript={this.frameScript} 
-            context={this} 
-            pause={this.pause} 
-            play={this.play} 
-            step={this.state.step} 
-            index={this.state.index } 
-            slide={this.slide}
-          />
-          <Storyboard 
-            key={this.props.match.params.recordingID + '1'} 
-            recordingID={this.props.match.params.recordingID} 
-            targetList={this.state.targetList} 
-          />         
-
-        </div>
->>>>>>> c9a553806382d39be80691455e5a0e5622a84d18
       </div>
     </div>
     );
