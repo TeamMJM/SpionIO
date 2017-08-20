@@ -11,7 +11,7 @@ import Playback from './Playback';
 import Storyboard from './Storyboard';
 import DashboardHeader from './DashboardHeader';
 import PlaybackSidebar from './PlaybackSidebar';
-import './../styles/Home.css';
+
 
 const style = {
   width: '100%',
@@ -21,10 +21,8 @@ const style = {
 
 
 // let i = 0;
-let REPLAY_SCALE = 0.803;
 
-
-const SPEED = 1;
+const REPLAY_SCALE = 0.863;
 let mouseMade = false;
 
 class DashboardUserSession extends Component {
@@ -34,14 +32,18 @@ class DashboardUserSession extends Component {
       targetList: [],
       flag: true,
       recording: null,
+
       response: null,
       stop:false,
       stop: false,
       startPlay: null,
       $iframeDoc: null,
       $fakeCursor: null,
+      stopPlay:false,      
       step: 1,
-      i: 0
+      liveStarted: false,
+      index: 0,
+      isLive: false
     }
     this.addtoList = this.addtoList.bind(this);
     this.frameScript = this.frameScript.bind(this);
@@ -49,9 +51,10 @@ class DashboardUserSession extends Component {
     this.animate = this.animate.bind(this);
     this.play = this.play.bind(this);
     this.pause = this.pause.bind(this);
+    this.isLiveHandler = this.isLiveHandler.bind(this);
     this.getRecordingData = this.getRecordingData.bind(this);
     this.slide = this.slide.bind(this);
-    this.toggleFullscreen = this.toggleFullscreen.bind(this);
+    //this.toggleFullscreen = this.toggleFullscreen.bind(this);
   }
 
   toggleFullscreen() {
@@ -95,6 +98,11 @@ class DashboardUserSession extends Component {
         if (this.state.index < this.state.response.Frame.length) {
           this.getFrame($iframeDoc, $fakeCursor, this, this.state.response, this.state.recording);
         }
+        else{
+          this.setState({
+            stopPlay: true
+          })
+        }
       } else {
 
         if (!mouseMade) {
@@ -119,6 +127,11 @@ class DashboardUserSession extends Component {
           if (this.state.index < this.state.response.Frame.length) {
             this.getFrame($iframeDoc, $fakeCursor, this, this.state.response, this.state.recording);
           }
+          else{
+            this.setState({
+              stopPlay: true
+            })
+          }
         } else {
           await $fakeCursor.animate({
             top: currentFrame.ClickY,
@@ -132,13 +145,13 @@ class DashboardUserSession extends Component {
           if (this.state.index < this.state.response.Frame.length) {
             this.getFrame($iframeDoc, $fakeCursor, this, this.state.response, this.state.recording);
           }
+          else{
+            this.setState({
+              stopPlay: true
+            })
+          }
         }
       }
-    }
-
-
-    function flashClass($el, className) {
-      $el.addClass(className).delay(200).queue(() => $el.removeClass(className).dequeue());
     }
   }
 
@@ -158,7 +171,9 @@ class DashboardUserSession extends Component {
     if (context.state.flag) {
       context.animate(currentFrame, $fakeCursor, $iframeDoc);
     }
-  };
+
+  }
+
 
   async frameScript(context,response,recording) {
     let $iframe = $('.react-iframe');
@@ -194,16 +209,11 @@ class DashboardUserSession extends Component {
     })
   }
 
+
   pause() {
     this.setState({
       flag: false
     })
-
-    if (this.state.flag) {
-      this.drawAnimate(this.state.$iframeDoc, this.state.$fakeCursor, this.state.startPlay, this)
-    } else {
-      console.log("False")
-    }
   }
 
   async play() {
@@ -216,19 +226,48 @@ class DashboardUserSession extends Component {
   async getRecordingData() {
     let recording = await axios.get('/recordings/' + this.props.match.params.recordingID)
     let response = await axios.get('/frames/' + this.props.match.params.recordingID);
-    const step = 1/(response.data.Frame.length ? response.data.Frame.length: 1);
+    const step = 1 / (response.data.Frame.length ? response.data.Frame.length : 1);
+    let islive = false;
+    if(response.data.Frame[response.data.Frame.length-1].event !== 'unload'){
+      islive = true;
+    }
+
     await this.setState({
       recording: recording.data,
-      response: response.data
+      response: response.data,
+      isLive: islive,
     });
     this.frameScript(this, this.state.response, this.state.recording);
   }
 
+  isLiveHandler(){
+    console.log("Button click")
+    if(this.state.isLive){
+      //need to get data again
+      console.log("I is live bro!")
+      let interval = setInterval( async ()=>{
+          if(this.response.Frame[this.response.Frame.length-1].event !== 'unload'){
+            let response = await axios.get('/frames/' + this.props.match.params.recordingID); 
+            await (this.setState({liveStarted:true,response:response.data}))        
+            if(this.state.stopPlay){
+              this.getFrame(this.state.$iframeDoc, this.state.$fakeCursor, this, this.state.response, this.state.recording)
+            }
+          }else{
+            this.setState({islive:this.state.isLive})
+            clearInterval(interval);
+          }
+      },1000);
+
+    }
+  }
 
   // links position of where you are in the event array to where the slider is
   async slide(newInd) {
-    await this.setState({ i: newInd })
-    this.drawAnimate(this.state.$iframeDoc,this.state.$fakeCursor,this.state.startPlay,this)
+    await this.setState({
+      flag: true,
+      index: newInd
+    })
+    this.getFrame(this.state.$iframeDoc, this.state.$fakeCursor, this, this.state.response, this.state.recording)
   }
 
   // gathers data and calls frameScript()
@@ -248,29 +287,27 @@ class DashboardUserSession extends Component {
   render() {
     return (
       <div style={style}>
-        {/* <DashboardHeader/> */}
-        <PlaybackSidebar/>
-        <div id='customFade' className='animated fadeIn'>
-
-          <Playback 
-            key={this.props.match.params.recordingID} 
-            fullscreen={this.toggleFullscreen} 
-            flag={this.state.flag} 
-            frameScript={this.frameScript} 
-            context={this} 
-            pause={this.pause} 
-            play={this.play} 
-            step={this.state.step} 
-            index={this.state.index } 
-            slide={this.slide}
-          />
-          <Storyboard 
-            key={this.props.match.params.recordingID + '1'} 
-            recordingID={this.props.match.params.recordingID} 
-            targetList={this.state.targetList} 
-          />         
-
-        </div>
+      <PlaybackSidebar/>
+      <div id='customFade' className='animated fadeIn'>
+        <Playback 
+          key={this.props.match.params.recordingID} 
+          fullscreen={this.toggleFullscreen} 
+          flag={this.state.flag} 
+          frameScript={this.frameScript} 
+          context={this} 
+          pause={this.pause} 
+          liveStarted={this.state.liveStarted}
+          play={this.play} 
+          isLive={this.isLiveHandler}
+          step={this.state.step} 
+          index={this.state.index } 
+          slide={this.slide}
+        />
+        <Storyboard 
+          key={this.props.match.params.recordingID + '1'} 
+          recordingID={this.props.match.params.recordingID} 
+          targetList={this.state.targetList} 
+        />         
       </div>
     );
   }

@@ -137,6 +137,8 @@ class Playback extends Component {
           step={this.props.step} 
           index={this.props.index} 
           slide={this.props.slide}
+          isLive={this.props.isLive}
+          liveStarted={this.props.liveStarted}
           len={this.props.len}
           flag={this.props.flag}
           fullscreen={this.props.fullscreen}
