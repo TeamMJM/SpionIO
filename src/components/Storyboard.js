@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import './../styles/Home.css';
 import $ from 'jquery';
+
 
 // import material-ui components
 import { Card, CardHeader, CardText } from 'material-ui/Card';
@@ -232,15 +233,15 @@ class Storyboard extends Component {
       return(
         <div style={{textAlign: 'center', letterSpacing: '1px', fontSize: '.9em'}}>Welcome to the storyboard</div>
       )
-      // const targetList = this.props.targetList.map((Element) => {
-      //   let hintText = 'Clicked ' + Element.split('>')[0].split(' ')[0].split('').splice(1).join('').toUpperCase();
-      //   return (
-      //     <Card>
-      //       <CardHeader title={hintText} actAsExpander={true} showExpandableButton={true}/>
-      //       <CardText expandable={true}>{Element}</CardText>
-      //     </Card>
-      //   )
-      // })
+      const targetList = this.props.targetList.map((Element) => {
+        let hintText = 'Clicked ' + Element.split('>')[0].split(' ')[0].split('').splice(1).join('').toUpperCase();
+        return (
+          <Card>
+            <CardHeader title={hintText} actAsExpander={true} showExpandableButton={true}/>
+            <CardText expandable={true}>{Element}</CardText>
+          </Card>
+        )
+      })
     } else {
      
       return(
@@ -250,6 +251,7 @@ class Storyboard extends Component {
   }
 
   componentDidMount() {
+    console.log(this.props.targetList)
     this.initialize();
     this.styleFeedback();
     this.styleStoryboard();
@@ -257,15 +259,32 @@ class Storyboard extends Component {
   }
 
   render() {
-    return(
+    let url = window.location.href.split('/').pop();    
+    const targetList = this.props.targetList.map((Element) => {
+      let hintText = 'Clicked ' + Element.split('>')[0].split(' ')[0].split('').splice(1).join('').toUpperCase();
+      if (url === 'feedback') {
+        return (
+          <div></div>
+        )
+      } else {
+        return (
+          <Card style={{margin: '0 auto'}}>
+            <CardHeader title={hintText} actAsExpander={true} showExpandableButton={true}/>
+            <CardText expandable={true}>{Element}</CardText>
+          </Card>
+        )
+      }
+    })
+
+    return (
       <Paper rounded={false} style={style.paper}>
         <Link to={'/dashboard/' + this.props.recordingID} onClick={this.toggle}>
           {this.styleStoryboard()}
         </Link>
         <Link to={'/dashboard/' + this.props.recordingID + '/feedback'} onClick={this.toggle}>
           {this.styleFeedback()}
-        </Link>
-        {this.toggleList()}
+        </Link><br/><br/><br/>
+        {targetList}
       </Paper>
 
     )
