@@ -3,6 +3,7 @@ import PlaybackBar from './PlaybackBar';
 import './../styles/Home.css';
 import axios from 'axios';
 import $ from 'jquery';
+import 'jquery.fullscreen';
 
 // import material-ui components
 import { Card } from 'material-ui/Card';

@@ -14,18 +14,13 @@ const style = {
   margin: '0 auto'
 }
 
-<<<<<<< HEAD
-let REPLAY_SCALE = 0.803;
-const SPEED = 0.7;
-=======
 
 
 // let i = 0;
-const REPLAY_SCALE = 0.863;
+let REPLAY_SCALE = 0.803;
 
 
 const SPEED = 1;
->>>>>>> 667209a540c58270591d0604e46e14c4711bae96
 let mouseMade = false;
 $.fn.getPath = function () {
   // stolen from http://stackoverflow.com/a/2068381/1376627
@@ -58,11 +53,8 @@ class DashboardUserSession extends Component {
       targetList: [],
       flag: true,
       recording: null,
-<<<<<<< HEAD
       response: null,
       stop:false,
-=======
->>>>>>> 667209a540c58270591d0604e46e14c4711bae96
       startPlay: null,
       $iframeDoc: null,
       $fakeCursor: null,
@@ -80,14 +72,11 @@ class DashboardUserSession extends Component {
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
   }
 
-<<<<<<< HEAD
   toggleFullscreen() {
     $('.react-iframe').fullscreen();
     REPLAY_SCALE = 1;
     this.frameScript(this, this.state.response, this.state.recording)
   }
-=======
->>>>>>> 667209a540c58270591d0604e46e14c4711bae96
 
   async animate(currentFrame, $fakeCursor, $iframeDoc) {
     console.log(currentFrame)
@@ -161,9 +150,6 @@ class DashboardUserSession extends Component {
           }
         }
     }
-<<<<<<< HEAD
-  }  
-=======
 
 
     function flashClass($el, className) {
@@ -178,7 +164,6 @@ class DashboardUserSession extends Component {
   }
 
   
->>>>>>> 667209a540c58270591d0604e46e14c4711bae96
 
   getFrame($iframeDoc, $fakeCursor,context,response,recording) {
       let currentFrame = response.Frame[context.state.index];
@@ -260,12 +245,8 @@ class DashboardUserSession extends Component {
     await this.setState({ i: newInd })
     this.drawAnimate(this.state.$iframeDoc,this.state.$fakeCursor,this.state.startPlay,this)
   }
-<<<<<<< HEAD
 
   // gathers data and calls frameScript()
-=======
-  
->>>>>>> 667209a540c58270591d0604e46e14c4711bae96
   componentDidMount() {
     this.getRecordingData();
     $('.react-iframe').on('fscreenclose', () => {
