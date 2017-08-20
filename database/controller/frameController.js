@@ -25,6 +25,7 @@ frameController.findAll = (req, res, next) => {
 }
 
 frameController.updateFrameBulk = (id, Data) => {
+
     let bulk = Frame.collection.initializeOrderedBulkOp();
     Data.forEach(function (element) {
         bulk.find({
