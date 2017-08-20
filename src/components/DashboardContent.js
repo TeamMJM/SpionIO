@@ -145,7 +145,46 @@ class DashboardContent extends Component {
     return (
       <div>
         <div className='recording-latest-updates'>
-          {this.generateRecordings()}
+          {/* {this.generateRecordings()} */}
+          <Paper 
+          className='animated fadeIn' 
+          key={recordings._id} 
+          style={style.paper}
+          >
+          <div className='recording-block'>
+            <div className='recording-avatar'>
+              <img className='recording-icon' src={'./../../public/'+Math.floor((Math.random()*9)+1)+'.png'}/>
+            </div>
+            <div className='recording-description'>
+              <p style={{letterSpacing: '1px'}} className='recording-title'>{'User ' + recordings._id.slice(0, 5)}</p>
+              <p style={{letterSpacing: '1px'}} className='recording-sub'>{'Visited on ' + date}</p> 
+            </div>
+          </div>
+          <div className='recording-playback-wrapper'>
+          <div className='recording-playback'>
+            <Link style={{float:'left'}} to={'/dashboard/recordings/' + recordings._id}>
+              <IconButton iconStyle={style.mediumIcon} style={style.medium} tooltip='play session'>
+                <AVPlayCircleOutline color='#006CAA'/>
+              </IconButton>
+            </Link>
+            <p style={style.p1}>{time}</p>
+          </div>
+
+          <div className='recording-platform'>
+            <div className='recording-platform-text'>
+              <p style={style.p2}>Los Angeles</p>
+            </div>
+            <div className='recording-platform-icon'>
+            <IconButton iconStyle={style.smallIcon} style={style.small}>
+              <HardwareDesktopWindows color='lightgray'/>
+            </IconButton>
+            <p style={style.p3}>OS X · CHROME</p>
+            </div>
+          </div>
+
+
+          </div>
+        </Paper>
         </div>
       </div>
     )
