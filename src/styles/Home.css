@@ -108,11 +108,12 @@
 }
 
 .recording-latest-updates {
-  margin-left: 1px;
+  /* margin-left: 1px; */
   overflow: scroll;
-  height: 630px;
+  height: 670px;
   width: 1020px;
   float: right;
+  background-color: #F4F7F5;
 }
 
 .user-session {

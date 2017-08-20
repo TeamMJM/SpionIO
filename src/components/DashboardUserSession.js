@@ -1,9 +1,5 @@
-import React, {
-  Component
-} from 'react';
-import {
-  fromJS
-} from "immutable";
+import React, { Component } from 'react';
+import { fromJS } from "immutable";
 import './../styles/Home.css';
 import axios from 'axios';
 import $ from 'jquery';
@@ -15,10 +11,7 @@ import Playback from './Playback';
 import Storyboard from './Storyboard';
 import DashboardHeader from './DashboardHeader';
 import PlaybackSidebar from './PlaybackSidebar';
-import { fromJS } from "immutable";
 import './../styles/Home.css';
-import axios from 'axios';
-import $ from 'jquery';
 
 const style = {
   width: '100%',
@@ -28,24 +21,22 @@ const style = {
 
 
 // let i = 0;
-const REPLAY_SCALE = 0.863;
+let REPLAY_SCALE = 0.803;
 
 
 const SPEED = 1;
 let mouseMade = false;
 
 class DashboardUserSession extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
       targetList: [],
       flag: true,
       recording: null,
-<<<<<<< HEAD
+      response: null,
+      stop:false,
       stop: false,
-=======
->>>>>>> c9a553806382d39be80691455e5a0e5622a84d18
       startPlay: null,
       $iframeDoc: null,
       $fakeCursor: null,
@@ -63,6 +54,11 @@ class DashboardUserSession extends Component {
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
   }
 
+  toggleFullscreen() {
+    $('.react-iframe').fullscreen();
+    REPLAY_SCALE = 1;
+    this.frameScript(this, this.state.response, this.state.recording)
+  }
 
   async animate(currentFrame, $fakeCursor, $iframeDoc) {
     const animationRate = 100 * Math.abs(currentFrame.movementX - currentFrame.movementY) / 100;
@@ -164,12 +160,7 @@ class DashboardUserSession extends Component {
     }
   };
 
-<<<<<<< HEAD
-  async frameScript(context, response, recording) {
-
-=======
   async frameScript(context,response,recording) {
->>>>>>> c9a553806382d39be80691455e5a0e5622a84d18
     let $iframe = $('.react-iframe');
     $iframe.height(recording.height * (REPLAY_SCALE-.053));
     $iframe.width(recording.width * REPLAY_SCALE);
@@ -194,6 +185,7 @@ class DashboardUserSession extends Component {
     context.getFrame($iframeDoc, $fakeCursor, context, response, recording)
   }
 
+  // adding to list array for storyboard to render
   addtoList(element) {
     let list = this.state.targetList;
     list.push(element)
@@ -202,10 +194,6 @@ class DashboardUserSession extends Component {
     })
   }
 
-<<<<<<< HEAD
-  // does not work
-=======
->>>>>>> c9a553806382d39be80691455e5a0e5622a84d18
   pause() {
     this.setState({
       flag: false
@@ -219,10 +207,6 @@ class DashboardUserSession extends Component {
   }
 
   async play() {
-<<<<<<< HEAD
-
-=======
->>>>>>> c9a553806382d39be80691455e5a0e5622a84d18
     await this.setState({
       flag: true
     })
@@ -232,12 +216,7 @@ class DashboardUserSession extends Component {
   async getRecordingData() {
     let recording = await axios.get('/recordings/' + this.props.match.params.recordingID)
     let response = await axios.get('/frames/' + this.props.match.params.recordingID);
-<<<<<<< HEAD
-    const step = 1 / (response.data.Frame.length ? response.data.Frame.length : 1);
-
-=======
     const step = 1/(response.data.Frame.length ? response.data.Frame.length: 1);
->>>>>>> c9a553806382d39be80691455e5a0e5622a84d18
     await this.setState({
       recording: recording.data,
       response: response.data
@@ -248,21 +227,18 @@ class DashboardUserSession extends Component {
 
   // links position of where you are in the event array to where the slider is
   async slide(newInd) {
-<<<<<<< HEAD
-    await this.setState({
-      flag: true,
-      index: newInd
-    })
-    this.getFrame(this.state.$iframeDoc, this.state.$fakeCursor, this, this.state.response, this.state.recording)
-
-=======
     await this.setState({ i: newInd })
     this.drawAnimate(this.state.$iframeDoc,this.state.$fakeCursor,this.state.startPlay,this)
->>>>>>> c9a553806382d39be80691455e5a0e5622a84d18
   }
-  
+
+  // gathers data and calls frameScript()
   componentDidMount() {
     this.getRecordingData();
+    $('.react-iframe').on('fscreenclose', () => {
+      console.log('exiting fullscreen')
+      REPLAY_SCALE = .802;
+      this.frameScript(this, this.state.response, this.state.recording);
+    })
   }
 
   componentWillUpdate() {
@@ -272,29 +248,6 @@ class DashboardUserSession extends Component {
   render() {
     return (
       <div style={style}>
-<<<<<<< HEAD
-      <PlaybackSidebar/>
-      <div id='customFade' className='animated fadeIn'>
-
-        <Playback 
-          key={this.props.match.params.recordingID} 
-          fullscreen={this.toggleFullscreen} 
-          flag={this.state.flag} 
-          frameScript={this.frameScript} 
-          context={this} 
-          pause={this.pause} 
-          play={this.play} 
-          step={this.state.step} 
-          index={this.state.index } 
-          slide={this.slide}
-        />
-        <Storyboard 
-          key={this.props.match.params.recordingID + '1'} 
-          recordingID={this.props.match.params.recordingID} 
-          targetList={this.state.targetList} 
-        />         
-
-=======
         {/* <DashboardHeader/> */}
         <PlaybackSidebar/>
         <div id='customFade' className='animated fadeIn'>
@@ -318,9 +271,7 @@ class DashboardUserSession extends Component {
           />         
 
         </div>
->>>>>>> c9a553806382d39be80691455e5a0e5622a84d18
       </div>
-    </div>
     );
   }
 };

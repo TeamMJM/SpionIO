@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PlaybackBar from './PlaybackBar';
 import './../styles/Home.css';
 import axios from 'axios';
+import $ from 'jquery';
+import 'jquery.fullscreen';
 
 // import material-ui components
 import { Card } from 'material-ui/Card';
@@ -122,10 +124,12 @@ class Playback extends Component {
             />
           </IconMenu>
         </Paper> 
-        <iframe 
-          style={style.iframe} 
-          className="react-iframe"
-        />  
+        <div>
+          <iframe 
+            style={style.iframe} 
+            className="react-iframe"
+          />  
+        </div>
         <PlaybackBar 
           style={style.bar} 
           pause={this.props.pause} 
