@@ -10,9 +10,9 @@ const io = require('socket.io')(server);
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-let mongoURI = 'mongodb://localhost:27017/mydb';
+// let mongoURI = 'mongodb://localhost:27017/mydb';
 
-mongoose.connect(mongoURI);
+// mongoose.connect(mongoURI);
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -171,4 +171,6 @@ io.on('connection', (client) => {
 })
 
 
-server.listen(3000);
+server.listen(3000, () => {
+    console.log('App listening http://localhost:3000')
+});

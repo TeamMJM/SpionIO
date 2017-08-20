@@ -94,7 +94,7 @@ class Doc extends Component {
         <h2 className='doc-title'>FOCUS GROUP MANAGEMENT PLATFORM</h2>
 
           <p className='doc-sub-2'>Open source developer tool for capturing<br/>and analyzing user interaction to<br/>radically improve UX</p>
-        <RaisedButton style={{marginTop: '4%'}} label='Github' href='http://github.com/Duckasaurus/private-i'></RaisedButton>
+        <RaisedButton style={{marginTop: '4%'}} label='Github' href='http://github.com/TeamMJM/SpionIO'></RaisedButton>
         <RaisedButton style={{marginTop: '4%', marginLeft: '2%'}} label='NPM' href='http://npmjs.com'></RaisedButton>
 
         <div className='scroll demo' id='section07'>
