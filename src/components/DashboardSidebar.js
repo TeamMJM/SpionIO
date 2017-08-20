@@ -11,7 +11,7 @@ import MapsLayers from 'material-ui/svg-icons/maps/layers';
 const style = {
   paper1: {
     float: 'left', 
-    width: '20%', 
+    width: '20.3%', 
     height: '670px', 
     backgroundColor: '#F4F7F5'
   },
@@ -166,6 +166,7 @@ class DashboardSidebar extends Component {
   render() {
     return (
     <Paper 
+      zDepth={0}
       id='customFade2s' 
       className='animated fadeIn' 
       style={style.paper1}
