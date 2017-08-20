@@ -44,7 +44,6 @@
   padding-left: 15%;
 }
 
-
 .dashboard-header {
   height: 60px;
 }
@@ -54,20 +53,19 @@
 }
 
 
-
 /* ///////////////////////////////////
    /////////////Dashboard/////////// */
 
 .recording-title {
-   margin: 0 auto;
-   color: #1B2228;
-   font-size: .8em;
+  margin: 0 auto;
+  color: #1B2228;
+  font-size: .8em;
 }
 
 .recording-sub {
-   margin-top: 3px; 
-   color: gray;
-   font-size: .7em;
+  margin-top: 3px;
+  color: gray;
+  font-size: .7em;
 }
 
 .recording-description {
@@ -110,17 +108,17 @@
 }
 
 .recording-latest-updates {
-  margin-left: 1px;
+  /* margin-left: 1px; */
   overflow: scroll;
-  height: 630px;
+  height: 670px;
   width: 1020px;
   float: right;
+  background-color: #F4F7F5;
 }
 
-.user-session { 
+.user-session {
   float: right;
 }
-
 
 #customFade {
   -webkit-animation-duration: 2.5s;

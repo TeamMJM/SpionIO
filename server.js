@@ -4,7 +4,6 @@ const path = require('path');
 
 const recordingController = require('./database/controller/recordingController.js')
 const frameController = require('./database/controller/frameController.js')
-const logController = require('./database/controller/logController')
 const feedBackController = require('./database/controller/feedBackController')
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
@@ -111,22 +110,14 @@ app.get('/frames/:recordingID', frameController.findFrame)
 // websocket connection
 io.on('connection', (client) => {
     client.on('join', (data) => {
-        console.log(data);
         client.emit('messages', 'Hello from server');
     });
     client.on('html', (data) => {
-        console.log(data)
         recordingController.createRecording(data)
             .then((Response) => {
                 frameController.createFrame(data)
                     .then((Response) => {
-                        logController.createLog(data)
-                            .then((Response) => {
-                                console.log("created")
-                            })
-                            .catch((err) => {
-                                console.log(err);
-                            })
+
                     })
                     .catch((err) => {
                         console.log(err)
@@ -139,7 +130,7 @@ io.on('connection', (client) => {
         let result = data.map(function (element) {
             return Object.values(element)[0]
         });
-        console.log('RECORDING', result);
+        //console.log('RECORDING', result);
         frameController.updateFrameBulk(id, result)
             .then((Response) => {
                 console.log("Response", Response)
@@ -148,33 +139,15 @@ io.on('connection', (client) => {
             })
     });
     client.on('unload', (id, data) => {
-
         let result = data.map(function (element) {
             return Object.values(element)[0]
         });
-        console.log(result);
+        //console.log(result);
         frameController.updateFrameBulk(id, result)
             .then((Response) => {
                 console.log("Unload", Response)
             }).catch((err) => {
                 console.log(err)
-            })
-    })
-    client.on('inactive', (id, data) => {
-        frameController.updateSingle(id, data)
-            .then((response) => {
-                console.log("Response",
-                    response)
-            }).catch((err) => {
-                if (err) throw err
-            })
-    })
-    client.on('active', (id, data) => {
-        frameController.updateSingle(id, data)
-            .then((response) => {
-                console.log("Response", response)
-            }).catch((err) => {
-                console.log("Err", err)
             })
     })
 

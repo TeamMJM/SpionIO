@@ -64,7 +64,7 @@ class DashboardHeader extends Component {
     return(
       <Paper 
         id='customFade1s' 
-        className="animated fadeInDown" 
+        className="animated fadeIn" 
         style={style.paperHeader} 
         zDepth={0} 
         rounded={false}

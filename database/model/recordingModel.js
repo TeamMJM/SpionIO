@@ -12,7 +12,6 @@ const recordingSchema = Schema({
         type: Date,
         default: Date.now()
     },
-    styleSheet: String,
     position: String
 })
 
