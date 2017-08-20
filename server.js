@@ -84,15 +84,23 @@ app.get('/public/linkedin.png', (req, res) => {
     res.sendFile(path.join(__dirname, '/public/linkedin.png'))
 })
 
+app.get('/public/fakecursor.png', (req, res) => {
+    res.sendfile(path.join(__dirname, '/public/fakecursor.png'))
+})
+
 app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
 })
 
-app.get('/dashboard/:recordingID', (req, res) => {
+app.get('/dashboard/settings', (req, res) => {
+    res.sendfile(path.join(__dirname, '/index.html'));
+})
+
+app.get('/dashboard/recordings/:recordingID', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
 })
 
-app.get('/dashboard/:recordingID/feedback', (req, res) => {
+app.get('/dashboard/recordings/:recordingID/feedback', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'))
 })
 

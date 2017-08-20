@@ -22,7 +22,7 @@ const style = {
 
 // let i = 0;
 
-const REPLAY_SCALE = 0.863;
+let REPLAY_SCALE = 0.803;
 let mouseMade = false;
 
 class DashboardUserSession extends Component {
@@ -109,7 +109,7 @@ class DashboardUserSession extends Component {
           $iframeDoc.find('body').append($fakeCursor);
           $fakeCursor.css({
             borderRadius: 50,
-            background: 'blue',
+            // backgroundImage: 'url(./../../public/fakecursor.png)',
             width: 10,
             height: 10,
             position: "fixed",
@@ -308,6 +308,7 @@ class DashboardUserSession extends Component {
           recordingID={this.props.match.params.recordingID} 
           targetList={this.state.targetList} 
         />         
+      </div>
       </div>
     );
   }
