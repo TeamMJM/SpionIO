@@ -21,30 +21,8 @@ const style = {
 }
 
 let REPLAY_SCALE = 0.802;
+const SPEED = 1;
 let mouseMade = false;
-$.fn.getPath = function () {
-  // stolen from http://stackoverflow.com/a/2068381/1376627
-  if (this.length != 1) throw 'Requires one element.';
-  var path, node = this;
-  while (node.length) {
-    var realNode = node[0],
-      name = realNode.localName;
-    if (!name) break;
-    name = name.toLowerCase();
-
-    var parent = node.parent();
-
-    var siblings = parent.children(name);
-    if (siblings.length > 1) {
-      name += ':eq(' + siblings.index(realNode) + ')';
-    }
-
-    path = name + (path ? '>' + path : '');
-    node = parent;
-  }
-
-  return path.split('html>')[1];
-};
 
 class DashboardUserSession extends Component {
 
@@ -122,7 +100,7 @@ class DashboardUserSession extends Component {
           $iframeDoc.find('body').append($fakeCursor);
           $fakeCursor.css({
             borderRadius: 50,
-            background: 'red',
+            background: 'blue',
             width: 10,
             height: 10,
             position: "fixed",
