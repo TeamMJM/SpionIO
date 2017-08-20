@@ -88,11 +88,11 @@ app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
 })
 
-app.get('/dashboard/:recordingID', (req, res) => {
+app.get('/dashboard/recordings/:recordingID', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
 })
 
-app.get('/dashboard/:recordingID/feedback', (req, res) => {
+app.get('/dashboard/recordings/:recordingID/feedback', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'))
 })
 
