@@ -60,8 +60,9 @@ class DashboardUserSession extends Component {
 
   async animate(currentFrame, $fakeCursor, $iframeDoc) {
     const animationRate = 100 * Math.abs(currentFrame.movementX - currentFrame.movementY) / 100;
-    console.log(animationRate)
-    if (currentFrame.target) {
+    if (currentFrame.target && currentFrame.event === 'click') {
+      console.log("inside event")
+      console.log(currentFrame)
       this.addtoList(currentFrame.target)
     }
 
@@ -194,7 +195,9 @@ class DashboardUserSession extends Component {
   }
 
   addtoList(element) {
+    console.log("element",element)
     let list = this.state.targetList;
+
     list.push(element)
     this.setState({
       targetList: list
@@ -234,17 +237,19 @@ class DashboardUserSession extends Component {
   isLiveHandler(){
     console.log("Button click")
     if(this.state.isLive){
+      const context = this;
       //need to get data again
       console.log("I is live bro!")
       let interval = setInterval( async ()=>{
-          if(this.response.Frame[this.response.Frame.length-1].event !== 'unload'){
-            let response = await axios.get('/frames/' + this.props.match.params.recordingID); 
-            await (this.setState({liveStarted:true,response:response.data}))        
-            if(this.state.stopPlay){
-              this.getFrame(this.state.$iframeDoc, this.state.$fakeCursor, this, this.state.response, this.state.recording)
+       
+          if(context.response.Frame[context.response.Frame.length-1].event !== 'unload'){
+            let response = await axios.get('/frames/' + context.props.match.params.recordingID); 
+            await (context.setState({liveStarted:true,response:response.data}))        
+            if(context.state.stopPlay){
+              context.getFrame(context.state.$iframeDoc, context.state.$fakeCursor, context, context.state.response, context.state.recording)
             }
           }else{
-            this.setState({islive:this.state.isLive})
+            context.setState({islive:context.state.isLive})
             clearInterval(interval);
           }
       },1000);
