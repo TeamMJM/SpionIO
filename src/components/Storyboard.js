@@ -229,11 +229,12 @@ class Storyboard extends Component {
     let url = window.location.href.split('/').pop();
  
     if (url !== 'feedback') {
-    
+      console.log(this.props.targetList);
       return(
         <div style={{textAlign: 'center', letterSpacing: '1px', fontSize: '.9em'}}>Welcome to the storyboard</div>
       )
       const targetList = this.props.targetList.map((Element) => {
+        console.log(element)
         let hintText = 'Clicked ' + Element.split('>')[0].split(' ')[0].split('').splice(1).join('').toUpperCase();
         return (
           <Card>

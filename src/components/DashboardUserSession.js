@@ -65,8 +65,22 @@ class DashboardUserSession extends Component {
 
   async animate(currentFrame, $fakeCursor, $iframeDoc) {
     const animationRate = 100 * Math.abs(currentFrame.movementX - currentFrame.movementY) / 100;
-    console.log(animationRate)
-    if (currentFrame.target) {
+    if (currentFrame.target && currentFrame.event === 'click') {
+      console.log("inside event")
+      console.log(currentFrame)
+      $fakeCursor.css({
+        backgroundColor: '#006CAA',
+        transition: 'background-color .05s linear'
+      })
+      setTimeout(()=> {
+        console.log('running setTimeout')
+        $fakeCursor.css({
+        backgroundColor: 'transparent',
+        // transition: 'background-color .05s linear'
+      })
+      }, 64)
+
+
       this.addtoList(currentFrame.target)
     }
 
@@ -109,9 +123,10 @@ class DashboardUserSession extends Component {
           $iframeDoc.find('body').append($fakeCursor);
           $fakeCursor.css({
             borderRadius: 50,
-            // backgroundImage: 'url(./../../public/fakecursor.png)',
-            width: 10,
-            height: 10,
+            // backgroundColor: 'lightgray',
+            // backgroundImage: "url(http://www.freeiconspng.com/uploads/pointer-photo-by-darockness--photobucket-24.png)",
+            width: 24,
+            height: 24,
             position: "fixed",
             top: 0,
             left: 0,
@@ -191,7 +206,7 @@ class DashboardUserSession extends Component {
     })
     $iframe[0].contentDocument.documentElement.innerHTML = recording.htmlCopy;
     const $iframeDoc = $($iframe[0].contentDocument.documentElement);
-    let $fakeCursor = $('<div class="cursor"></div>')
+    let $fakeCursor = $('<img class="fake-cursor" src="./../../public/fakecursor.png"/>')
     await context.setState({
       $fakeCursor: $fakeCursor,
       $iframeDoc: $iframeDoc
@@ -202,7 +217,9 @@ class DashboardUserSession extends Component {
 
   // adding to list array for storyboard to render
   addtoList(element) {
+    console.log("element",element)
     let list = this.state.targetList;
+
     list.push(element)
     this.setState({
       targetList: list
@@ -243,17 +260,19 @@ class DashboardUserSession extends Component {
   isLiveHandler(){
     console.log("Button click")
     if(this.state.isLive){
+      const context = this;
       //need to get data again
       console.log("I is live bro!")
       let interval = setInterval( async ()=>{
-          if(this.response.Frame[this.response.Frame.length-1].event !== 'unload'){
-            let response = await axios.get('/frames/' + this.props.match.params.recordingID); 
-            await (this.setState({liveStarted:true,response:response.data}))        
-            if(this.state.stopPlay){
-              this.getFrame(this.state.$iframeDoc, this.state.$fakeCursor, this, this.state.response, this.state.recording)
+       
+          if(context.response.Frame[context.response.Frame.length-1].event !== 'unload'){
+            let response = await axios.get('/frames/' + context.props.match.params.recordingID); 
+            await (context.setState({liveStarted:true,response:response.data}))        
+            if(context.state.stopPlay){
+              context.getFrame(context.state.$iframeDoc, context.state.$fakeCursor, context, context.state.response, context.state.recording)
             }
           }else{
-            this.setState({islive:this.state.isLive})
+            context.setState({islive:context.state.isLive})
             clearInterval(interval);
           }
       },1000);
