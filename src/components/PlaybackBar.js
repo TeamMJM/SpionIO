@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
+import './../styles/Home.css';
+
+// import material-ui components
 import Slider from 'material-ui/Slider';
 import IconButton from 'material-ui/IconButton';
+import FlatButton from 'material-ui/FlatButton';
 import {Toolbar, ToolbarSeparator} from 'material-ui/Toolbar';
+import LinearProgress from 'material-ui/LinearProgress';
 import AvPlayArrowIcon from 'material-ui/svg-icons/av/play-arrow';
 import AvPauseIcon from 'material-ui/svg-icons/av/pause';
 import AvSkipNextIcon from 'material-ui/svg-icons/av/skip-next';
 import AvSkipPreviousIcon from 'material-ui/svg-icons/av/skip-previous';
 import ActionChromeReaderMode from 'material-ui/svg-icons/action/chrome-reader-mode';
-
-
-import './../styles/Home.css';
-
 
 const style = {
   mediumIcon: {
@@ -20,54 +21,111 @@ const style = {
   medium: {
     width: 56,
     height: 56,
-    pointerEvents: 'none',
     display: 'inline-block',
-    // float: 'left',
-    // marginLeft: '16%',
-    // padding: 0,
+  },
+  bar: {
+    backgroundColor: 'white', 
+    margin: '0, auto'
+  },
+  button: {
+    float: 'right', 
+    marginTop: '2%'
   },
 }
 
 class PlaybackBar extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      val: 0,
+      flag: true,
+      index:0
+    };
+    this.toggleIcon = this.toggleIcon.bind(this);
+    this.togglePlay = this.togglePlay.bind(this);
+    this.endSlide = this.endSlide.bind(this);
+    this.startSlide = this.startSlide.bind(this);
+    this.setVal = this.setVal.bind(this);
+    this.valueHandler = this.valueHandler.bind(this)
   }
 
   toggleIcon() {
-    if(this.props.playing) {
+    if(this.props.flag) {
       return <AvPauseIcon color='#006CAA'/>
     } else {
       return <AvPlayArrowIcon color='#006CAA'/>
     }
   }
+
+  togglePlay() {
+    if(this.props.flag) {
+      this.props.pause()
+    } else {
+      this.props.play()
+    }
+  }
+
+  componentWilllRecieveProps(){
+    valueHandler()
+  }
+
+  componentDidMount() {
+    this.toggleIcon();
+  }
+
+  startSlide(event){
+    this.props.pause()
+  }
+
+  endSlide(event){
+    this.props.slide(this.state.val)
+  }
+
+  setVal(event,value){
+    this.setState({
+      val: Math.ceil(value/this.props.step)
+    })
+  }
+
+  async valueHandler(){
+    if(this.props.liveStarted){
+      await this.setState({index: this.props.index * this.props.step})
+    }
+  }
   
   render() {
-    const value = this.props.step * this.props.index;
-    const slide = this.props.slide;
-    const step = this.props.step;
-    return (
+    return (          
       <div style={{margin: '0 auto'}}>
         <Slider 
           style={{margin: '0 auto'}}
           sliderStyle={{margin: '0 auto'}}
+          min={0}
+          max={this.props.len}
           step={this.props.step} 
-          value={value} 
-          onChange={function() {
-            slide(Math.floor(value / step))
-          }}/>
-        <Toolbar style={{backgroundColor: 'white', margin: '0, auto'}}>
-          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true} onTouchTap={this.props.play}>
-            <AvPlayArrowIcon color='#006CAA'/>
+          value={this.state.index} 
+          onChange={this.setVal}
+          onDragStart={this.startSlide}
+          onDragStop={this.endSlide}
+        /> 
+        <Toolbar style={style.bar}>
+          <IconButton 
+            iconStyle={style.mediumIcon} 
+            style={style.medium} 
+            touch={true} 
+            onTouchTap={this.togglePlay}
+          >
+            {this.toggleIcon()}
           </IconButton>
-          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true} onTouchTap={this.props.pause}>
-            <AvPauseIcon />
-          </IconButton>
-          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true}>
-            <AvSkipPreviousIcon />
-          </IconButton>
-          <IconButton iconStyle={style.mediumIcon} style={style.medium} touch={true}>
-            <AvSkipNextIcon />
-          </IconButton>
+          <FlatButton 
+            style={style.button} 
+            label='Full Screen' 
+            onClick={this.props.fullscreen}
+          />
+          <FlatButton
+            style={style.button}
+            label="Live"
+            onClick={this.props.isLive}
+          />
         </Toolbar>
       </div>
     )

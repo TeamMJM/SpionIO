@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
-// ES6 Imports
+
+// import react-scroll found on Github that helps with 'Get Started' scroll animation
 import Scroll from 'react-scroll';
 let scroll     = Scroll.animateScroll;
 
+// import material-ui components
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
 import Paper from 'material-ui/Paper';
 
-
+// import stylesheets
 import './../styles/Doc.css';
 import './../styles/Welcome.css';
 
@@ -42,9 +44,10 @@ const style = {
 };
 
 class Doc extends Component {
+
+  // handle individual section animations
   componentDidMount() {
     $(window).on("scroll", function() {
-      // console.log('scrolling')
       if( ($(window).scrollTop() > 225) && ($(window).scrollTop() < 1300 ) )  {
         $(".doc-section2").removeClass("doc-section2-visible");
         $(".doc-section2").addClass("animated zoomIn");
@@ -52,7 +55,6 @@ class Doc extends Component {
         $(".doc-section2").addClass("doc-section2-visible");
         $(".doc-section2").removeClass("animated zoomIn");
       }
-
       if ( ($(window).scrollTop() > 970 ) && ($(window).scrollTop() < 2000) ) {
         $(".doc-section3-content").removeClass("doc-section3-visible");
         $(".doc-section3-content").addClass("animated fadeInLeftBig");
@@ -60,7 +62,6 @@ class Doc extends Component {
         $(".doc-section3-content").addClass("doc-section3-visible");
         $(".doc-section3-content").removeClass("animated fadeInLeftBig")
       }
-
       // if ( ($(window).scrollTop() > 1700 ) && ($(window).scrollTop() < 3200) ) {
       //   $(".doc-section4").removeClass("doc-section4-visible");
       //   $(".doc-section4").addClass("animated fadeIn");
@@ -76,7 +77,6 @@ class Doc extends Component {
       //   $(".doc-section4-team").addClass("doc-section4-team-visible");
       //   $(".doc-section4-team").removeClass("animated fadeInRight")
       // }
-
       if ( ($(window).scrollTop() > 2630 ) && ($(window).scrollTop() < 3200) ) {
         $(".doc-section4-letsbuild").removeClass("doc-section4-letsbuild-visible");
         $(".doc-section4-letsbuild").addClass("animated zoomIn");
@@ -84,10 +84,8 @@ class Doc extends Component {
         $(".doc-section4-letsbuild").addClass("doc-section4-letsbuild-visible");
         $(".doc-section4-letsbuild").removeClass("animated zoomIn")
       }
-      
     });
   }
-
 
   render() {
     return(
@@ -152,15 +150,15 @@ class Doc extends Component {
             <tr>
               <td className='td-welcome'>
                 <a href='https://github.com/morpherious'><Paper zDepth={2} style={style.team} circle={true}/></a><br/><br/><br/>
-                <FlatButton hoverColor='none' labelStyle={{letterSpacing: '3px'}} label='Mustafa Khan' href='https://github.com/morpherious'></FlatButton>
+                <img className='linkedin-logo' src='/public/linkedin.png'/><FlatButton style={{float: 'left', marginTop: '1%', margin: '0 auto'}} hoverColor='none' labelStyle={{letterSpacing: '3px', padding: '0'}} label='Mustafa Khan' href='https://www.linkedin.com/in/-mustafakhan/'></FlatButton>
               </td>
                 <td className='td-welcome'>
                 <a href='https://github.com/mm0nr0e'><Paper zDepth={2} style={style.team} circle={true}/></a><br/><br/><br/>
-                <FlatButton hoverColor='none' labelStyle={{letterSpacing: '3px'}} label='Miranda Monroe' href='https://github.com/mm0nr0e'></FlatButton>
+                <img className='linkedin-logo2' src='/public/linkedin.png'/><FlatButton style={{float: 'left', marginTop: '1%', margin: '0 auto'}} hoverColor='none' labelStyle={{letterSpacing: '3px', padding: '0'}} label='Miranda Monroe' href='https://www.linkedin.com/in/mirandajeanmonroe/'></FlatButton>
               </td>
               <td className='td-welcome'>
                 <a href='https://github.com/j3rryj'><Paper zDepth={2} style={style.team} circle={true}/></a><br/><br/><br/>
-                <FlatButton hoverColor='none' labelStyle={{letterSpacing: '3px'}} label='Jerry Jong' href='https://github.com/j3rryj'></FlatButton>
+                <img className='linkedin-logo' src='/public/linkedin.png'/><FlatButton style={{float: 'left', marginTop: '1%', margin: '0 auto'}} hoverColor='none' labelStyle={{letterSpacing: '3px', padding: '0'}} label='Jerry Jong' href='https://www.linkedin.com/in/jerry-jong-94055/'></FlatButton>
               </td>
             </tr>
           </table>
