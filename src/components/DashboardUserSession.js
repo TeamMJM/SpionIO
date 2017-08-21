@@ -22,7 +22,7 @@ const style = {
 
 // let i = 0;
 
-let REPLAY_SCALE = 0.863;
+let REPLAY_SCALE = 0.803;
 let mouseMade = false;
 
 class DashboardUserSession extends Component {
@@ -66,8 +66,26 @@ class DashboardUserSession extends Component {
 
     const animationRate = 100 * Math.abs(currentFrame.movementX - currentFrame.movementY) / 100;
     if (currentFrame.target && currentFrame.event === 'click') {
+<<<<<<< HEAD
     
      
+=======
+      console.log("inside event")
+      console.log(currentFrame)
+      $fakeCursor.css({
+        backgroundColor: '#006CAA',
+        transition: 'background-color .05s linear'
+      })
+      setTimeout(()=> {
+        console.log('running setTimeout')
+        $fakeCursor.css({
+        backgroundColor: 'transparent',
+        // transition: 'background-color .05s linear'
+      })
+      }, 64)
+
+
+>>>>>>> 1fa0e25beff70f73eddcd2eb40b7d0d792af5349
       this.addtoList(currentFrame.target)
     }
 
@@ -114,9 +132,10 @@ class DashboardUserSession extends Component {
           $iframeDoc.find('body').append($fakeCursor);
           $fakeCursor.css({
             borderRadius: 50,
-            background: 'blue',
-            width: 10,
-            height: 10,
+            // backgroundColor: 'lightgray',
+            // backgroundImage: "url(http://www.freeiconspng.com/uploads/pointer-photo-by-darockness--photobucket-24.png)",
+            width: 24,
+            height: 24,
             position: "fixed",
             top: 0,
             left: 0,
@@ -219,7 +238,7 @@ class DashboardUserSession extends Component {
     })
     $iframe[0].contentDocument.documentElement.innerHTML = recording.htmlCopy;
     const $iframeDoc = $($iframe[0].contentDocument.documentElement);
-    let $fakeCursor = $('<div class="cursor"></div>')
+    let $fakeCursor = $('<img class="fake-cursor" src="./../../public/fakecursor.png"/>')
     await context.setState({
       $iframeDoc: $iframeDoc
     })

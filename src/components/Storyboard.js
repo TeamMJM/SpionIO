@@ -262,6 +262,7 @@ class Storyboard extends Component {
   render() {
     let url = window.location.href.split('/').pop();    
     const targetList = this.props.targetList.map((Element) => {
+      console.log('hi')
       let hintText = 'Clicked ' + Element.split('>')[0].split(' ')[0].split('').splice(1).join('').toUpperCase();
       if (url === 'feedback') {
         return (
@@ -279,10 +280,10 @@ class Storyboard extends Component {
 
     return (
       <Paper rounded={false} style={style.paper}>
-        <Link to={'/dashboard/' + this.props.recordingID} onClick={this.toggle}>
+        <Link to={'/dashboard/recordings/' + this.props.recordingID} onClick={this.toggle}>
           {this.styleStoryboard()}
         </Link>
-        <Link to={'/dashboard/' + this.props.recordingID + '/feedback'} onClick={this.toggle}>
+        <Link to={'/dashboard/recordings/' + this.props.recordingID + '/feedback'} onClick={this.toggle}>
           {this.styleFeedback()}
         </Link><br/><br/><br/>
         {targetList}
