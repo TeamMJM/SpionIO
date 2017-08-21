@@ -46,7 +46,6 @@ class PlaybackBar extends Component {
     this.endSlide = this.endSlide.bind(this);
     this.startSlide = this.startSlide.bind(this);
     this.setVal = this.setVal.bind(this);
-    this.valueHandler = this.valueHandler.bind(this)
   }
 
   toggleIcon() {
@@ -57,16 +56,23 @@ class PlaybackBar extends Component {
     }
   }
 
+  componentWillReceiveProps(nextProps){
+    if(nextProps.index > this.props.len){
+      this.setState({
+        index: this.props.len
+      })
+    }else{
+      this.setState({
+        index: this.props.index
+      })
+    }
+  }
   togglePlay() {
     if(this.props.flag) {
       this.props.pause()
     } else {
       this.props.play()
     }
-  }
-
-  componentWilllRecieveProps(){
-    valueHandler()
   }
 
   componentDidMount() {
@@ -86,12 +92,7 @@ class PlaybackBar extends Component {
       val: Math.ceil(value/this.props.step)
     })
   }
-
-  async valueHandler(){
-    if(this.props.liveStarted){
-      await this.setState({index: this.props.index * this.props.step})
-    }
-  }
+  
   
   render() {
     return (          
