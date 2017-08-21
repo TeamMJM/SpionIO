@@ -22,7 +22,7 @@ const style = {
 
 // let i = 0;
 
-let REPLAY_SCALE = 0.863;
+let REPLAY_SCALE = 0.803;
 let mouseMade = false;
 
 class DashboardUserSession extends Component {
@@ -68,6 +68,19 @@ class DashboardUserSession extends Component {
     if (currentFrame.target && currentFrame.event === 'click') {
       console.log("inside event")
       console.log(currentFrame)
+      $fakeCursor.css({
+        backgroundColor: '#006CAA',
+        transition: 'background-color .05s linear'
+      })
+      setTimeout(()=> {
+        console.log('running setTimeout')
+        $fakeCursor.css({
+        backgroundColor: 'transparent',
+        // transition: 'background-color .05s linear'
+      })
+      }, 64)
+
+
       this.addtoList(currentFrame.target)
     }
 
@@ -110,9 +123,10 @@ class DashboardUserSession extends Component {
           $iframeDoc.find('body').append($fakeCursor);
           $fakeCursor.css({
             borderRadius: 50,
-            background: 'blue',
-            width: 10,
-            height: 10,
+            // backgroundColor: 'lightgray',
+            // backgroundImage: "url(http://www.freeiconspng.com/uploads/pointer-photo-by-darockness--photobucket-24.png)",
+            width: 24,
+            height: 24,
             position: "fixed",
             top: 0,
             left: 0,
@@ -192,7 +206,7 @@ class DashboardUserSession extends Component {
     })
     $iframe[0].contentDocument.documentElement.innerHTML = recording.htmlCopy;
     const $iframeDoc = $($iframe[0].contentDocument.documentElement);
-    let $fakeCursor = $('<div class="cursor"></div>')
+    let $fakeCursor = $('<img class="fake-cursor" src="./../../public/fakecursor.png"/>')
     await context.setState({
       $fakeCursor: $fakeCursor,
       $iframeDoc: $iframeDoc
