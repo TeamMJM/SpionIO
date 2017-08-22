@@ -63,18 +63,16 @@ class DashboardUserSession extends Component {
   }
 
   async animate(currentFrame, $fakeCursor, $iframeDoc) {
-    console.log(currentFrame)
+   
     const animationRate = 100 * Math.abs(currentFrame.movementX - currentFrame.movementY) / 100;
-    currentFrame.ClickX  *= REPLAY_SCALE
-    if (currentFrame.target && currentFrame.event === 'click') {
-      console.log("inside event")
-      console.log(currentFrame)
+    let localClickX  =currentFrame.ClickX*  REPLAY_SCALE
+    if (currentFrame.target && currentFrame.event === 'click') {   
       $fakeCursor.css({
         backgroundColor: '#006CAA',
         transition: 'background-color .05s linear'
       })
       setTimeout(()=> {
-        console.log('running setTimeout')
+
         $fakeCursor.css({
         backgroundColor: 'transparent',
         // transition: 'background-color .05s linear'
@@ -103,7 +101,7 @@ class DashboardUserSession extends Component {
 
         await $fakeCursor.animate({
           top: currentFrame.ClickY,
-          left: currentFrame.ClickX
+          left: localClickX
         }, {
           duration: animationRate
         }).promise()
@@ -141,7 +139,7 @@ class DashboardUserSession extends Component {
           mouseMade = true;
           await $fakeCursor.css({
             top: currentFrame.ClickY,
-            left: currentFrame.ClickX
+            left: localClickX
           }).promise()
           await this.setState({
             index: this.state.index + 1
@@ -157,7 +155,7 @@ class DashboardUserSession extends Component {
         } else {
           await $fakeCursor.animate({
             top: currentFrame.ClickY,
-            left: currentFrame.ClickX
+            left: localClickX
           }, {
             duration: animationRate
           }).promise()
