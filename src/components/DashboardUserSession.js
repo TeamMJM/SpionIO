@@ -53,7 +53,7 @@ class DashboardUserSession extends Component {
     this.isLiveHandler = this.isLiveHandler.bind(this);
     this.getRecordingData = this.getRecordingData.bind(this);
     this.slide = this.slide.bind(this);
-    //this.toggleFullscreen = this.toggleFullscreen.bind(this);
+    this.toggleFullscreen = this.toggleFullscreen.bind(this);
   }
 
   toggleFullscreen() {
@@ -63,13 +63,10 @@ class DashboardUserSession extends Component {
   }
 
   async animate(currentFrame, $fakeCursor, $iframeDoc) {
-
+    console.log(currentFrame)
     const animationRate = 100 * Math.abs(currentFrame.movementX - currentFrame.movementY) / 100;
+    currentFrame.ClickX  *= REPLAY_SCALE
     if (currentFrame.target && currentFrame.event === 'click') {
-<<<<<<< HEAD
-    
-     
-=======
       console.log("inside event")
       console.log(currentFrame)
       $fakeCursor.css({
@@ -85,15 +82,16 @@ class DashboardUserSession extends Component {
       }, 64)
 
 
->>>>>>> 1fa0e25beff70f73eddcd2eb40b7d0d792af5349
       this.addtoList(currentFrame.target)
     }
 
     if (currentFrame.event === "scroll") {
-      //await $iframeDoc.contents().animate({scrollTop:currentFrame.scrollTop}).promise()
+      await $iframeDoc.contents().animate({scrollTop:currentFrame.scrollTop},{duration:50}).promise()
+      await $iframeDoc.contents().animate({scrollLeft:currentFrame.scrollLeft},{duration:50}).promise()
 
-      $iframeDoc.contents().scrollTop(currentFrame.scrollTop)
-      $iframeDoc.contents().scrollLeft(cukrrentFrame.scrollLeft)
+      
+      // $iframeDoc.contents().scrollTop(currentFrame.scrollTop)
+      // $iframeDoc.contents().scrollLeft(currentFrame.scrollLeft)
       await this.setState({
         index: this.state.index + 1
       })
@@ -204,7 +202,7 @@ class DashboardUserSession extends Component {
 
   async getFrame($iframeDoc, context, response, recording) {
     if(this.state.$fakeCursor === null){
-      let $fakeCursor = $('<div class="cursor"></div>')
+      let $fakeCursor = $('<img class="fake-cursor" src="./../../public/fakecursor.png"/>')
       await this.setState({
         $fakeCursor: $fakeCursor
       })
@@ -224,7 +222,7 @@ class DashboardUserSession extends Component {
 
   async frameScript(context,response,recording) {
     let $iframe = $('.react-iframe');
-    $iframe.height(recording.height * (REPLAY_SCALE-.053));
+    $iframe.height(recording.height);
     $iframe.width(recording.width * REPLAY_SCALE);
 
     $iframe.css({
@@ -238,7 +236,6 @@ class DashboardUserSession extends Component {
     })
     $iframe[0].contentDocument.documentElement.innerHTML = recording.htmlCopy;
     const $iframeDoc = $($iframe[0].contentDocument.documentElement);
-    let $fakeCursor = $('<img class="fake-cursor" src="./../../public/fakecursor.png"/>')
     await context.setState({
       $iframeDoc: $iframeDoc
     })

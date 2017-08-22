@@ -13,6 +13,7 @@ const style = {
   paper: {
     verticalAlign: 'middle',
     height: '60px',
+    
   },
   mediumIcon: {
     width: 30,
@@ -143,7 +144,7 @@ class DashboardContent extends Component {
 
   render() {
     return (
-      <div>
+      <div >
         <div className='recording-latest-updates'>
           {this.generateRecordings()}
         </div>
