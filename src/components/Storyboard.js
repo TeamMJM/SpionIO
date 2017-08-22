@@ -104,7 +104,14 @@ class Storyboard extends Component {
       this.setState({storyboard: false, feedback: true})
     }
   }
-
+  // styleMap(){
+  //   AIzaSyCfeBGuR3VOBLOQBJjcNavZmhs1ic1GD24
+  //   if(this.state.position){
+  //     return(
+  //       AIzaSyCfeBGuR3VOBLOQBJjcNavZmhs1ic1GD24
+  //     )
+  //   }
+  // }
   styleStoryboard() {
     if (this.state.storyboard) {
       return (
@@ -280,6 +287,7 @@ class Storyboard extends Component {
 
     return (
       <Paper rounded={false} style={style.paper}>
+
         <Link to={'/dashboard/recordings/' + this.props.recordingID} onClick={this.toggle}>
           {this.styleStoryboard()}
         </Link>
