@@ -30,12 +30,11 @@ class DashboardUserSession extends Component {
     super(props);
     this.state = {
       targetList: [],
-      flag: true,
+      flag: false,
       recording: null,
-
+      len:0,
       response: null,
       stop:false,
-      stop: false,
       startPlay: null,
       $iframeDoc: null,
       $fakeCursor: null,
@@ -54,7 +53,7 @@ class DashboardUserSession extends Component {
     this.isLiveHandler = this.isLiveHandler.bind(this);
     this.getRecordingData = this.getRecordingData.bind(this);
     this.slide = this.slide.bind(this);
-    //this.toggleFullscreen = this.toggleFullscreen.bind(this);
+    this.toggleFullscreen = this.toggleFullscreen.bind(this);
   }
 
   toggleFullscreen() {
@@ -64,7 +63,9 @@ class DashboardUserSession extends Component {
   }
 
   async animate(currentFrame, $fakeCursor, $iframeDoc) {
+    console.log(currentFrame)
     const animationRate = 100 * Math.abs(currentFrame.movementX - currentFrame.movementY) / 100;
+    currentFrame.ClickX  *= REPLAY_SCALE
     if (currentFrame.target && currentFrame.event === 'click') {
       console.log("inside event")
       console.log(currentFrame)
@@ -85,17 +86,19 @@ class DashboardUserSession extends Component {
     }
 
     if (currentFrame.event === "scroll") {
-      //await $iframeDoc.contents().animate({scrollTop:currentFrame.scrollTop}).promise()
+      await $iframeDoc.contents().animate({scrollTop:currentFrame.scrollTop},{duration:50}).promise()
+      await $iframeDoc.contents().animate({scrollLeft:currentFrame.scrollLeft},{duration:50}).promise()
 
-      $iframeDoc.contents().scrollTop(currentFrame.scrollTop)
-      $iframeDoc.contents().scrollLeft(cukrrentFrame.scrollLeft)
+      
+      // $iframeDoc.contents().scrollTop(currentFrame.scrollTop)
+      // $iframeDoc.contents().scrollLeft(currentFrame.scrollLeft)
       await this.setState({
         index: this.state.index + 1
       })
       if (this.state.index < this.state.response.Frame.length) {
-        this.getFrame($iframeDoc, $fakeCursor, this, this.state.response, this.state.recording);
+        this.getFrame($iframeDoc, this, this.state.response, this.state.recording);
       }
-    } else {
+    } else if(currentFrame.event === 'mousemove' || currentFrame.event === "mouseenter" || currentFrame.event === "keypress" || currentFrame.event === 'mouseleave' || currentFrame.event === 'click'){
       if (currentFrame.event === 'mouseleave') {
 
         await $fakeCursor.animate({
@@ -105,12 +108,16 @@ class DashboardUserSession extends Component {
           duration: animationRate
         }).promise()
         $iframeDoc.find($fakeCursor).remove();
+        this.setState({
+          $fakeCursor:null
+        })
         mouseMade = false;
+       
         await this.setState({
           index: this.state.index + 1
         })
         if (this.state.index < this.state.response.Frame.length) {
-          this.getFrame($iframeDoc, $fakeCursor, this, this.state.response, this.state.recording);
+          this.getFrame($iframeDoc, this, this.state.response, this.state.recording);
         }
         else{
           this.setState({
@@ -140,7 +147,7 @@ class DashboardUserSession extends Component {
             index: this.state.index + 1
           })
           if (this.state.index < this.state.response.Frame.length) {
-            this.getFrame($iframeDoc, $fakeCursor, this, this.state.response, this.state.recording);
+            this.getFrame($iframeDoc, this, this.state.response, this.state.recording);
           }
           else{
             this.setState({
@@ -158,7 +165,7 @@ class DashboardUserSession extends Component {
             index: this.state.index + 1
           })
           if (this.state.index < this.state.response.Frame.length) {
-            this.getFrame($iframeDoc, $fakeCursor, this, this.state.response, this.state.recording);
+            this.getFrame($iframeDoc,  this, this.state.response, this.state.recording);
           }
           else{
             this.setState({
@@ -167,6 +174,21 @@ class DashboardUserSession extends Component {
           }
         }
       }
+    }else{
+      await this.setState({
+        index: this.state.index + 1
+      })
+      setTimeout(()=>{
+        if (this.state.index < this.state.response.Frame.length) {
+          this.getFrame($iframeDoc,  this, this.state.response, this.state.recording);
+        }
+        else{
+          this.setState({
+            stopPlay: true
+          })
+        }
+      },60 )
+
     }
   }
 
@@ -178,13 +200,21 @@ class DashboardUserSession extends Component {
 
 
 
-  getFrame($iframeDoc, $fakeCursor, context, response, recording) {
+  async getFrame($iframeDoc, context, response, recording) {
+    if(this.state.$fakeCursor === null){
+      let $fakeCursor = $('<img class="fake-cursor" src="./../../public/fakecursor.png"/>')
+      await this.setState({
+        $fakeCursor: $fakeCursor
+      })
+   
+    }
+
     let currentFrame = response.Frame[context.state.index];
     if (!currentFrame) {
       return;
     }
     if (context.state.flag) {
-      context.animate(currentFrame, $fakeCursor, $iframeDoc);
+      context.animate(currentFrame, this.state.$fakeCursor, $iframeDoc);
     }
 
   }
@@ -192,7 +222,7 @@ class DashboardUserSession extends Component {
 
   async frameScript(context,response,recording) {
     let $iframe = $('.react-iframe');
-    $iframe.height(recording.height * (REPLAY_SCALE-.053));
+    $iframe.height(recording.height);
     $iframe.width(recording.width * REPLAY_SCALE);
 
     $iframe.css({
@@ -206,18 +236,16 @@ class DashboardUserSession extends Component {
     })
     $iframe[0].contentDocument.documentElement.innerHTML = recording.htmlCopy;
     const $iframeDoc = $($iframe[0].contentDocument.documentElement);
-    let $fakeCursor = $('<img class="fake-cursor" src="./../../public/fakecursor.png"/>')
     await context.setState({
-      $fakeCursor: $fakeCursor,
       $iframeDoc: $iframeDoc
     })
     const startPlay = Date.now();
-    context.getFrame($iframeDoc, $fakeCursor, context, response, recording)
+    context.getFrame($iframeDoc,context, response, recording)
   }
 
   // adding to list array for storyboard to render
   addtoList(element) {
-    console.log("element",element)
+
     let list = this.state.targetList;
 
     list.push(element)
@@ -237,7 +265,7 @@ class DashboardUserSession extends Component {
     await this.setState({
       flag: true
     })
-    this.getFrame(this.state.$iframeDoc, this.state.$fakeCursor, this, this.state.response, this.state.recording)
+    this.getFrame(this.state.$iframeDoc, this, this.state.response, this.state.recording)
   }
 
   async getRecordingData() {
@@ -246,33 +274,36 @@ class DashboardUserSession extends Component {
 
     const step = 1 / (response.data.Frame.length ? response.data.Frame.length : 1);
     let islive = false;
+
     if(response.data.Frame[response.data.Frame.length-1].event !== 'unload'){
       islive = true;
     }
-
+    
     await this.setState({
       recording: recording.data,
       response: response.data,
       isLive: islive,
+      len:response.data.Frame.length
     });
     this.frameScript(this, this.state.response, this.state.recording);
   }
 
   isLiveHandler(){
-    console.log("Button click")
+
     if(this.state.isLive){
       const context = this;
       //need to get data again
-      console.log("I is live bro!")
+
       let interval = setInterval( async ()=>{
-       
-          if(context.response.Frame[context.response.Frame.length-1].event !== 'unload'){
+  
+          if(context.state.response.Frame[context.state.response.Frame.length-1].event !== 'unload'){
             let response = await axios.get('/frames/' + context.props.match.params.recordingID); 
             await (context.setState({liveStarted:true,response:response.data}))        
             if(context.state.stopPlay){
-              context.getFrame(context.state.$iframeDoc, context.state.$fakeCursor, context, context.state.response, context.state.recording)
+              context.getFrame(context.state.$iframeDoc,  context, context.state.response, context.state.recording)
             }
           }else{
+        
             context.setState({islive:context.state.isLive})
             clearInterval(interval);
           }
@@ -287,14 +318,14 @@ class DashboardUserSession extends Component {
       flag: true,
       index: newInd
     })
-    this.getFrame(this.state.$iframeDoc, this.state.$fakeCursor, this, this.state.response, this.state.recording)
+    this.getFrame(this.state.$iframeDoc, this, this.state.response, this.state.recording)
   }
 
   // gathers data and calls frameScript()
   componentDidMount() {
     this.getRecordingData();
     $('.react-iframe').on('fscreenclose', () => {
-      console.log('exiting fullscreen')
+    
       REPLAY_SCALE = .802;
       this.frameScript(this, this.state.response, this.state.recording);
     })
@@ -315,6 +346,7 @@ class DashboardUserSession extends Component {
           flag={this.state.flag} 
           frameScript={this.frameScript} 
           context={this} 
+          len={this.state.len}
           pause={this.pause} 
           liveStarted={this.state.liveStarted}
           play={this.play} 
