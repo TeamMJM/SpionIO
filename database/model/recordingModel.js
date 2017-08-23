@@ -7,7 +7,6 @@ const recordingSchema = Schema({
     width: Number,
     height: Number,
     htmlCopy: String,
-    startTime: Number,
     createdTime: {
         type: Date,
         default: Date.now()

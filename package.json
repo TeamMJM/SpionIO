@@ -33,6 +33,7 @@
     "jquery": "^3.2.1",
     "jquery.fullscreen": "^0.6.0",
     "jsonwebtoken": "^7.4.1",
+    "jump.js": "^1.0.2",
     "lodash": "^4.17.4",
     "material-ui-search-bar": "^0.3.0",
     "mensch": "^0.3.3",

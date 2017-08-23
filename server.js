@@ -10,9 +10,9 @@ const io = require('socket.io')(server);
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-// let mongoURI = 'mongodb://localhost:27017/mydb';
+let mongoURI = 'mongodb://localhost:27017/mydb';
 
-// mongoose.connect(mongoURI);
+mongoose.connect(mongoURI);
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
@@ -117,15 +117,17 @@ app.get('/frames/:recordingID', frameController.findFrame)
 
 // websocket connection
 io.on('connection', (client) => {
+    console.log("connected")
     client.on('join', (data) => {
         client.emit('messages', 'Hello from server');
-    });
+    }); 
     client.on('html', (data) => {
+        
         recordingController.createRecording(data)
             .then((Response) => {
                 frameController.createFrame(data)
                     .then((Response) => {
-
+                        //console.log("Frame",Response)
                     })
                     .catch((err) => {
                         console.log(err)
@@ -138,7 +140,6 @@ io.on('connection', (client) => {
         let result = data.map(function (element) {
             return Object.values(element)[0]
         });
-        console.log('RECORDING', result.length);
         frameController.updateFrameBulk(id, result)
             .then((Response) => {
                 //console.log("Response",'\n\n\n\n', Response)
@@ -153,7 +154,7 @@ io.on('connection', (client) => {
 
         frameController.updateFrameBulk(id, result)
             .then((Response) => {
-                //console.log("Unload",'\n\n\n\n', Response)
+                console.log("Unload",'\n\n\n\n', Response)
             }).catch((err) => {
                 console.log(err)
             })
