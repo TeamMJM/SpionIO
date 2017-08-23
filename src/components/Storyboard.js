@@ -3,6 +3,8 @@ import { Link, Route } from 'react-router-dom';
 import './../styles/Home.css';
 import $ from 'jquery';
 
+import Geolocation from './Geolocation';
+
 
 // import material-ui components
 import { Card, CardHeader, CardText } from 'material-ui/Card';
@@ -15,7 +17,8 @@ const style = {
   paper: {
     width: '30%',
     float: 'right',
-    height: '52px',
+    // height: '52px',
+    height: '154px',
   },
   paperHeadStoryActive: {
     backgroundColor: '#006CAA',
@@ -149,6 +152,7 @@ class Storyboard extends Component {
             className='animated slideOutRight' 
             style={style.paperHeadStoryInactive}
           />
+          <div className='test'>
           <div 
             id='customFade1s' 
             className='animated fadeIn' 
@@ -166,6 +170,7 @@ class Storyboard extends Component {
             <p style={style.pHeadInactive}>
               STORYBOARD
             </p>
+          </div>
           </div>
         </div>
       )      
@@ -209,6 +214,7 @@ class Storyboard extends Component {
             className='animated slideInRight' 
             style={style.paperHeadFeedInactive}
           />
+          <div className='test'>
           <div 
             id='customFade1s' 
             className='animated fadeIn' 
@@ -227,6 +233,7 @@ class Storyboard extends Component {
               FEEDBACK
             </p>
           </div>
+          </div>
         </div>
       )      
     }
@@ -236,12 +243,10 @@ class Storyboard extends Component {
     let url = window.location.href.split('/').pop();
  
     if (url !== 'feedback') {
-      console.log(this.props.targetList);
       return(
         <div style={{textAlign: 'center', letterSpacing: '1px', fontSize: '.9em'}}>Welcome to the storyboard</div>
       )
       const targetList = this.props.targetList.map((Element) => {
-        console.log(element)
         let hintText = 'Clicked ' + Element.split('>')[0].split(' ')[0].split('').splice(1).join('').toUpperCase();
         return (
           <Card>
@@ -259,17 +264,24 @@ class Storyboard extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.targetList)
     this.initialize();
     this.styleFeedback();
     this.styleStoryboard();
     this.toggleList();
+    $(window).on('scroll', () => {
+      if ($(window).scrollTop() > 15) {
+        $('.test').removeClass('animated fadeIn');
+        $('.test').addClass('animated fadeOut');
+      } else {
+        $('.test').removeClass('animated fadeOut');
+        // $('.test').addClass('animated fadeIn')
+      }
+    })
   }
 
   render() {
     let url = window.location.href.split('/').pop();    
     const targetList = this.props.targetList.map((Element) => {
-      console.log('hi')
       let hintText = 'Clicked ' + Element.split('>')[0].split(' ')[0].split('').splice(1).join('').toUpperCase();
       if (url === 'feedback') {
         return (
@@ -287,7 +299,7 @@ class Storyboard extends Component {
 
     return (
       <Paper rounded={false} style={style.paper}>
-
+        {/* <Geolocation/> */}
         <Link to={'/dashboard/recordings/' + this.props.recordingID} onClick={this.toggle}>
           {this.styleStoryboard()}
         </Link>

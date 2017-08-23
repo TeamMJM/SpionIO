@@ -50,6 +50,7 @@ class DashboardUserSession extends Component {
     this.play = this.play.bind(this);
     this.pause = this.pause.bind(this);
     this.isLiveHandler = this.isLiveHandler.bind(this);
+    this.isLiveStyler = this.isLiveStyler.bind(this);
     this.getRecordingData = this.getRecordingData.bind(this);
     this.slide = this.slide.bind(this);
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
@@ -265,7 +266,7 @@ class DashboardUserSession extends Component {
     if(response.data.Frame[response.data.Frame.length-1].event !== 'unload'){
       islive = true;
     }
-    
+
     await this.setState({
       recording: recording.data,
       response: response.data,
@@ -297,6 +298,19 @@ class DashboardUserSession extends Component {
     }
   }
 
+  isLiveStyler() {
+    if (this.state.isLive) {
+      setInterval(() => {
+        $('.live-btn').removeClass('red animated fadeOut')
+        $('.live-btn').addClass('red animated fadeIn');
+      }, 600)
+      setInterval(() => {
+        $('.live-btn').removeClass('red animated fadeIn')
+        $('.live-btn').addClass('red animated fadeOut');
+      }, 900)
+    }
+  }
+
   // links position of where you are in the event array to where the slider is
   async slide(newInd) {
     await this.setState({
@@ -307,13 +321,16 @@ class DashboardUserSession extends Component {
   }
 
   // gathers data and calls frameScript()
-  componentDidMount() {
-    this.getRecordingData();
+  async componentDidMount() {
+    await this.getRecordingData();
+    console.log(this.state.recording)
+    // console.log(this.state.recording.position)
     $('.react-iframe').on('fscreenclose', () => {
     
       REPLAY_SCALE = .802;
       this.frameScript(this);
     })
+    await this.isLiveStyler();
   }
 
   componentWillUpdate() {
@@ -325,7 +342,8 @@ class DashboardUserSession extends Component {
       <div style={style}>
       <PlaybackSidebar/>
       <div id='customFade' className='animated fadeIn'>
-        <Playback 
+        <Playback
+          style={{height: '600px'}} 
           key={this.props.match.params.recordingID} 
           fullscreen={this.toggleFullscreen} 
           flag={this.state.flag} 
@@ -339,6 +357,7 @@ class DashboardUserSession extends Component {
           step={this.state.step} 
           index={this.state.index } 
           slide={this.slide}
+          live={this.state.isLive}
         />
         <Storyboard 
           key={this.props.match.params.recordingID + '1'} 
