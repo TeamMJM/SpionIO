@@ -18,7 +18,14 @@ npm install create-spion
 ```
 Will give you the CLI. or visit http://npmjs.com/create-spion
 
-3. Clone our interface from http://github.com/SpionInterface
+3. Clone our interface from http://github.com/SpionIO and run the following in the directory.
+
+```
+npm install
+npm run webpack
+npm start
+```
+Now visit http://localhost:3000/dashboard
 
 ### Installing
 
