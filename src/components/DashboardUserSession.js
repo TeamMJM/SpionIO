@@ -11,7 +11,7 @@ import Playback from './Playback';
 import Storyboard from './Storyboard';
 import DashboardHeader from './DashboardHeader';
 import PlaybackSidebar from './PlaybackSidebar';
-
+import jump from 'jump.js'
 
 const style = {
   width: '100%',
@@ -46,8 +46,7 @@ class DashboardUserSession extends Component {
     }
     this.addtoList = this.addtoList.bind(this);
     this.frameScript = this.frameScript.bind(this);
-    this.getFrame = this.getFrame.bind(this);
-    this.animate = this.animate.bind(this);
+    this.animateFrame = this.animateFrame.bind(this);
     this.play = this.play.bind(this);
     this.pause = this.pause.bind(this);
     this.isLiveHandler = this.isLiveHandler.bind(this);
@@ -59,169 +58,160 @@ class DashboardUserSession extends Component {
   toggleFullscreen() {
     $('.react-iframe').fullscreen();
     REPLAY_SCALE = 1;
-    this.frameScript(this, this.state.response, this.state.recording)
+    this.frameScript(this)
   }
 
-  async animate(currentFrame, $fakeCursor, $iframeDoc) {
-   
-    const animationRate = 100 * Math.abs(currentFrame.movementX - currentFrame.movementY) / 100;
-    let localClickX  =currentFrame.ClickX*  REPLAY_SCALE
-    if (currentFrame.target && currentFrame.event === 'click') {   
-      $fakeCursor.css({
-        backgroundColor: '#006CAA',
-        transition: 'background-color .05s linear'
-      })
-      setTimeout(()=> {
+  async animateFrame() {
 
-        $fakeCursor.css({
-        backgroundColor: 'transparent',
-        // transition: 'background-color .05s linear'
-      })
-      }, 64)
-
-
-      this.addtoList(currentFrame.target)
-    }
-
-    if (currentFrame.event === "scroll") {
-      await $iframeDoc.contents().animate({scrollTop:currentFrame.scrollTop},{duration:50}).promise()
-      await $iframeDoc.contents().animate({scrollLeft:currentFrame.scrollLeft},{duration:50}).promise()
-
-      
-      // $iframeDoc.contents().scrollTop(currentFrame.scrollTop)
-      // $iframeDoc.contents().scrollLeft(currentFrame.scrollLeft)
-      await this.setState({
-        index: this.state.index + 1
-      })
-      if (this.state.index < this.state.response.Frame.length) {
-        this.getFrame($iframeDoc, this, this.state.response, this.state.recording);
-      }
-    } else if(currentFrame.event === 'mousemove' || currentFrame.event === "mouseenter" || currentFrame.event === "keypress" || currentFrame.event === 'mouseleave' || currentFrame.event === 'click'){
-      if (currentFrame.event === 'mouseleave') {
-
-        await $fakeCursor.animate({
-          top: currentFrame.ClickY,
-          left: localClickX
-        }, {
-          duration: animationRate
-        }).promise()
-        $iframeDoc.find($fakeCursor).remove();
-        this.setState({
-          $fakeCursor:null
-        })
-        mouseMade = false;
-       
-        await this.setState({
-          index: this.state.index + 1
-        })
-        if (this.state.index < this.state.response.Frame.length) {
-          this.getFrame($iframeDoc, this, this.state.response, this.state.recording);
-        }
-        else{
-          this.setState({
-            stopPlay: true
-          })
-        }
-      } else {
-
-        if (!mouseMade) {
-          $iframeDoc.find('body').append($fakeCursor);
-          $fakeCursor.css({
-            borderRadius: 50,
-            // backgroundColor: 'lightgray',
-            // backgroundImage: "url(http://www.freeiconspng.com/uploads/pointer-photo-by-darockness--photobucket-24.png)",
-            width: 24,
-            height: 24,
-            position: "fixed",
-            top: 0,
-            left: 0,
-          })
-          mouseMade = true;
-          await $fakeCursor.css({
-            top: currentFrame.ClickY,
-            left: localClickX
-          }).promise()
-          await this.setState({
-            index: this.state.index + 1
-          })
-          if (this.state.index < this.state.response.Frame.length) {
-            this.getFrame($iframeDoc, this, this.state.response, this.state.recording);
-          }
-          else{
-            this.setState({
-              stopPlay: true
-            })
-          }
-        } else {
-          await $fakeCursor.animate({
-            top: currentFrame.ClickY,
-            left: localClickX
-          }, {
-            duration: animationRate
-          }).promise()
-          await this.setState({
-            index: this.state.index + 1
-          })
-          if (this.state.index < this.state.response.Frame.length) {
-            this.getFrame($iframeDoc,  this, this.state.response, this.state.recording);
-          }
-          else{
-            this.setState({
-              stopPlay: true
-            })
-          }
-        }
-      }
-    }else{
-      await this.setState({
-        index: this.state.index + 1
-      })
-      setTimeout(()=>{
-        if (this.state.index < this.state.response.Frame.length) {
-          this.getFrame($iframeDoc,  this, this.state.response, this.state.recording);
-        }
-        else{
-          this.setState({
-            stopPlay: true
-          })
-        }
-      },60 )
-
-    }
-  }
-
-  async frameScript(context) {
-    let response = context.state.response;
-    let recording = context.state.recording;
-
-  }
-
-
-
-  async getFrame($iframeDoc, context, response, recording) {
+    let $iframeDoc = this.state.$iframeDoc
+    let response = this.state.response
+    let index = this.state.index
+    let flag = this.state.flag
     if(this.state.$fakeCursor === null){
       let $fakeCursor = $('<img class="fake-cursor" src="./../../public/fakecursor.png"/>')
       await this.setState({
         $fakeCursor: $fakeCursor
       })
-   
-    }
 
-    let currentFrame = response.Frame[context.state.index];
+    }
+    let currentFrame = response.Frame[index];
     if (!currentFrame) {
       return;
     }
-    if (context.state.flag) {
-      context.animate(currentFrame, this.state.$fakeCursor, $iframeDoc);
+
+    if (flag) {
+      let localClickX  =currentFrame.ClickX*  REPLAY_SCALE
+      if (currentFrame.target && currentFrame.event === 'click') {   
+        this.state.$fakeCursor.css({
+          backgroundColor: '#006CAA',
+          transition: 'background-color .05s linear'
+        })
+        setTimeout(()=> {
+          this.state.$fakeCursor.css({
+          backgroundColor: 'transparent',
+        })
+        }, 64)
+  
+        this.addtoList(currentFrame.target)
+      }
+  
+      if (currentFrame.event === "scroll") {
+
+        $iframeDoc.contents().scrollLeft(currentFrame.scrollLeft)
+        $iframeDoc.contents().scrollTop(currentFrame.scrollTop)
+        //scrollToFunc(currentFrame.scrollTop,$iframeDoc,20)
+       
+        this.setState({
+          index: index + 1
+        })
+        if(this.state.index >= response.Frame.length){
+          console.log("stop")
+          this.setState({
+            stopPlay: true
+          })
+        }
+        else{
+            requestAnimationFrame(this.animateFrame.bind(this))
+        }
+      } else if(currentFrame.event === 'mousemove' || currentFrame.event === "mouseenter" || currentFrame.event === "keypress" || currentFrame.event === 'mouseleave' || currentFrame.event === 'click'){
+        if (currentFrame.event === 'mouseleave') {
+  
+          this.state.$fakeCursor.css({
+            top: currentFrame.ClickY,
+            left: localClickX
+          })
+          $iframeDoc.find(this.state.$fakeCursor).remove();
+          this.setState({
+            $fakeCursor:null
+          })
+          mouseMade = false;
+         
+         this.setState({
+            index: index + 1
+          })
+          if(this.state.index >= response.Frame.length){
+            console.log("stop")
+            this.setState({
+              stopPlay: true
+            })
+          }
+          else{
+              requestAnimationFrame(this.animateFrame.bind(this))
+          }
+        } else {
+          if (!mouseMade) {
+            $iframeDoc.find('body').append(this.state.$fakeCursor);
+            this.state.$fakeCursor.css({
+              borderRadius: 50,
+              width: 24,
+              height: 24,
+              position: "fixed",
+              top: 0,
+              left: 0,
+            })
+            mouseMade = true;
+            this.state.$fakeCursor.css({
+              top: currentFrame.ClickY,
+              left: localClickX
+            })
+            this.setState({
+              index: index + 1
+            })
+            if(this.state.index >= response.Frame.length){
+              console.log("stop")
+              this.setState({
+                stopPlay: true
+              })
+            }
+            else{
+                requestAnimationFrame(this.animateFrame.bind(this))
+            }
+          } else {
+            this.state.$fakeCursor.css({
+              top: currentFrame.ClickY,
+              left: localClickX
+            })
+            this.setState({
+              index: index + 1
+            })
+            if(this.state.index >= response.Frame.length){
+              console.log("stop")
+              this.setState({
+                stopPlay: true
+              })
+            }
+            else{
+                requestAnimationFrame(this.animateFrame.bind(this))
+            }
+          }
+        }
+      }else{
+        await this.setState({
+          index: index + 1
+        })
+        setTimeout(() =>{
+          if(this.state.index >= response.Frame.length){
+            console.log("stop")
+            this.setState({
+              stopPlay: true
+            })
+          }
+          else{
+              requestAnimationFrame(this.animateFrame.bind(this))
+          }
+        },40);
+
+
+      }
     }
 
   }
 
-
-  async frameScript(context,response,recording) {
+  async frameScript(context) {
+    let recording = this.state.recording
     let $iframe = $('.react-iframe');
-    $iframe.height(recording.height);
-    $iframe.width(recording.width * REPLAY_SCALE);
+    $iframe.height(this.state.recording.height);
+    $iframe.width(this.state.recording.width * REPLAY_SCALE);
 
     $iframe.css({
       '-ms-zoom': `${REPLAY_SCALE}`,
@@ -237,8 +227,7 @@ class DashboardUserSession extends Component {
     await context.setState({
       $iframeDoc: $iframeDoc
     })
-    const startPlay = Date.now();
-    context.getFrame($iframeDoc,context, response, recording)
+    context.animateFrame()
   }
 
   // adding to list array for storyboard to render
@@ -263,7 +252,7 @@ class DashboardUserSession extends Component {
     await this.setState({
       flag: true
     })
-    this.getFrame(this.state.$iframeDoc, this, this.state.response, this.state.recording)
+    this.animateFrame()
   }
 
   async getRecordingData() {
@@ -283,7 +272,7 @@ class DashboardUserSession extends Component {
       isLive: islive,
       len:response.data.Frame.length
     });
-    this.frameScript(this, this.state.response, this.state.recording);
+    this.frameScript(this);
   }
 
   isLiveHandler(){
@@ -291,18 +280,16 @@ class DashboardUserSession extends Component {
     if(this.state.isLive){
       const context = this;
       //need to get data again
-
       let interval = setInterval( async ()=>{
-  
           if(context.state.response.Frame[context.state.response.Frame.length-1].event !== 'unload'){
             let response = await axios.get('/frames/' + context.props.match.params.recordingID); 
             await (context.setState({liveStarted:true,response:response.data}))        
             if(context.state.stopPlay){
-              context.getFrame(context.state.$iframeDoc,  context, context.state.response, context.state.recording)
+              console.log("animate frame")
+              context.animateFrame()
             }
           }else{
-        
-            context.setState({islive:context.state.isLive})
+            context.setState({islive: !context.state.isLive})
             clearInterval(interval);
           }
       },1000);
@@ -316,7 +303,7 @@ class DashboardUserSession extends Component {
       flag: true,
       index: newInd
     })
-    this.getFrame(this.state.$iframeDoc, this, this.state.response, this.state.recording)
+    this.animateFrame()
   }
 
   // gathers data and calls frameScript()
@@ -325,7 +312,7 @@ class DashboardUserSession extends Component {
     $('.react-iframe').on('fscreenclose', () => {
     
       REPLAY_SCALE = .802;
-      this.frameScript(this, this.state.response, this.state.recording);
+      this.frameScript(this);
     })
   }
 
@@ -363,5 +350,58 @@ class DashboardUserSession extends Component {
     );
   }
 };
+// easing functions http://goo.gl/5HLl8
+Math.easeInOutQuad = function (t, b, c, d) {
+  t /= d/2;
+  if (t < 1) {
+    return c/2*t*t + b
+  }
+  t--;
+  return -c/2 * (t*(t-2) - 1) + b;
+};
+
+Math.easeInCubic = function(t, b, c, d) {
+  var tc = (t/=d)*t*t;
+  return b+c*(tc);
+};
+
+Math.inOutQuintic = function(t, b, c, d) {
+  var ts = (t/=d)*t,
+  tc = ts*t;
+  return b+c*(6*tc*ts + -15*ts*ts + 10*tc);
+};
+
+// requestAnimationFrame for Smart Animating http://goo.gl/sx5sts
+var requestAnimFrame = (function(){
+  return  window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function( callback ){ window.setTimeout(callback, 1000 / 60); };
+})();
+
+function scrollToFunc(to,$iframeDoc,duration) {
+  // because it's so fucking difficult to detect the scrolling element, just move them all
+  function move(amount) {
+    $iframeDoc.contents().scrollTop(amount)
+  }
+  function position() {
+    return $iframeDoc.contents().scrollTop() 
+  }
+  var start = position(),
+    change = to - start,
+    currentTime = 0,
+    increment = 20;
+  duration = (typeof(duration) === 'undefined') ? 500 : duration;
+  var animateScroll = function() {
+    // increment the time
+    currentTime += increment;
+    // find the value with the quadratic in-out easing function
+    var val = Math.easeInOutQuad(currentTime, start, change, duration);
+    // move the document.body
+    move(val);
+    // do the animation unless its over
+    if (currentTime < duration) {
+      requestAnimFrame(animateScroll);
+    }
+  };
+}
+
 
 export default DashboardUserSession;

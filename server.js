@@ -153,7 +153,7 @@ io.on('connection', (client) => {
 
         frameController.updateFrameBulk(id, result)
             .then((Response) => {
-                //console.log("Unload",'\n\n\n\n', Response)
+                console.log("Unload",'\n\n\n\n', Response)
             }).catch((err) => {
                 console.log(err)
             })
