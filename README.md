@@ -24,15 +24,15 @@ Give the example
 
 ## Features
 
-* **Live** 
+* **Live** -
 By establishing a connection through Websockets, we open a real-time, highly-concurrent stream of data between the developer's             web page and our interface. This allows for a 'live' stream of the user's interaction and a display to check if a user is live             on your site.
-* **Storyboard** 
+* **Storyboard** -
 When managing click events and console log events, we extract strings from the developer's code or the user's console,                     respectively, and display each event as they happen, which when clicked, will expand to show the exact string of code that                 was seen.
-* **Feedback**
+* **Feedback** -
 Our script also injects a feedback input section on the developer's website that allows users to supply feedback that will                 relay back to our interface for the developer to review and take into consideration.
-* **Fullscreen**
+* **Fullscreen** -
 Says it all
-* **Geolocation**
+* **Geolocation** -
 Script will prompt for user's geolocation and our interface will display their location through the Google Maps API
 
 ## Built With
