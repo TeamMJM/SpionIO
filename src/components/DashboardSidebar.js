@@ -7,6 +7,7 @@ import { Card } from 'material-ui/Card';
 import IconButton from 'material-ui/IconButton';
 import ActionSettings from 'material-ui/svg-icons/action/settings';
 import MapsLayers from 'material-ui/svg-icons/maps/layers';
+import AVPlayCircleOutline from 'material-ui/svg-icons/AV/play-circle-outline';
 
 const style = {
   paper1: {
@@ -193,6 +194,30 @@ class DashboardSidebar extends Component {
           onClick={this.toggle}
           >
           {this.styleSettings()}
+        </Link>
+      </Paper>
+
+      <Paper 
+        zDepth={0} 
+        style={style.paper2}
+        >
+        <Link 
+          style={{textDecoration: 'none', letterSpacing: '1px'}} 
+          to='/dashboard/recordings/:recordingID' 
+          onClick={this.toggle}
+          >
+          {/* {this.styleSettings()} */}
+          <Link to='/dashboard/recordings/:recordingID'>
+          <p style={style.p4}>
+          <IconButton 
+            iconStyle={style.mediumIcon} 
+            style={style.medium} 
+            tooltip='Demo Playback'
+          >
+            <AVPlayCircleOutline color='black'/>
+          </IconButton>
+          <p style={{margin: '0 auto', float: 'right', marginRight: '58%', marginTop: '1.5%'}}>For SS</p>
+        </p></Link>
         </Link>
       </Paper>
     </Paper>

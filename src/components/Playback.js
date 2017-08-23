@@ -20,22 +20,20 @@ const style = {
     justifyContent: 'center',
     alignContent: 'center',
     width: '65%', 
-    height: '100%',
+    // height: '70%',
     backgroundColor: 'lightgrey',
     padding: '2px'
   },
   iframe: {
     width: '75%',
-    height: '100%',
-    display: 'inline-block',
     margin: '0 auto',
     padding: '0',
     pointerEvents: 'none',
-    overflowX: 'scroll'
+    display: 'block',
   },
   bar: {
     width: '100%',
-    margin: '0 auto'
+    margin: '0 auto',
   },
   paper: {
     display: 'inline-block',
@@ -125,12 +123,10 @@ class Playback extends Component {
             />
           </IconMenu>
         </Paper> 
-        <div>
-          <iframe 
-            style={style.iframe} 
-            className="react-iframe"
-          />  
-        </div>
+        <iframe 
+          style={style.iframe} 
+          className="react-iframe"
+        />  
         <PlaybackBar 
           style={style.bar} 
           pause={this.props.pause} 
@@ -143,6 +139,7 @@ class Playback extends Component {
           len={this.props.len}
           flag={this.props.flag}
           fullscreen={this.props.fullscreen}
+          live={this.props.live}
           />
       </Card>
     );

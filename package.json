@@ -44,6 +44,7 @@
     "raf": "^3.3.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
+    "react-google-maps": "^7.2.0",
     "react-iframe": "^1.0.7",
     "react-iframe-comm": "^1.2.2",
     "react-key-handler": "^0.3.0",

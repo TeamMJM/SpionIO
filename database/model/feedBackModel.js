@@ -4,8 +4,6 @@ const Schema = mongoose.Schema;
 
 const feedBackSchema = Schema({
     _id:String,
-    firstName:{type:String,required:true,trim:true},
-    lastName:{type:String,required:true,trim:true},
     description:String,
     createdTime:{type:Date,default:Date.now()},
 })
