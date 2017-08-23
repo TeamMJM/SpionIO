@@ -12,6 +12,12 @@ https://cdn.rawgit.com/morpherious/client-template/master/script.js
 ```
 
 2. Run our CLI and follow the commands to set up a MongoDB and import our controllers and models into your project directory
+
+```
+npm install create-spion
+```
+Will give you the CLI. or visit http://npmjs.com/create-spion
+
 3. Clone our interface from http://github.com/SpionInterface
 
 ### Installing
