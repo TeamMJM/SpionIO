@@ -29,7 +29,7 @@ const style = {
   },
   button: {
     float: 'right', 
-    marginTop: '2%'
+    marginTop: '2%',
   },
 }
 
@@ -46,6 +46,7 @@ class PlaybackBar extends Component {
     this.endSlide = this.endSlide.bind(this);
     this.startSlide = this.startSlide.bind(this);
     this.setVal = this.setVal.bind(this);
+    this.style = this.style.bind(this);
   }
 
   toggleIcon() {
@@ -77,6 +78,7 @@ class PlaybackBar extends Component {
 
   componentDidMount() {
     this.toggleIcon();
+    this.style();
   }
 
   startSlide(event){
@@ -92,11 +94,35 @@ class PlaybackBar extends Component {
       val: Math.ceil(value/this.props.step)
     })
   }
+
+  style() {
+    if(this.props.live) {
+      return (
+        <FlatButton
+          style={style.button}
+          className='live-btn'
+          labelStyle={{color: 'red', fontSize: '1em'}}
+          label="Live"
+          onClick={this.props.isLive}
+        />
+      )
+    } else {
+      return (
+        <FlatButton
+          style={style.button}
+          className='live-btn'
+          labelStyle={{fontSize: '1em'}}
+          label="Live"
+          onClick={this.props.isLive}
+        />
+      )
+    }
+  }
   
   
   render() {
     return (          
-      <div style={{margin: '0 auto'}}>
+      <div style={{margin: '0 auto', display: 'block'}}>
         <Slider 
           style={{margin: '0 auto'}}
           sliderStyle={{margin: '0 auto'}}
@@ -118,15 +144,14 @@ class PlaybackBar extends Component {
             {this.toggleIcon()}
           </IconButton>
           <FlatButton 
-            style={style.button} 
+            style={style.button}
+            labelStyle={{fontSize: '1em'}} 
             label='Full Screen' 
             onClick={this.props.fullscreen}
           />
-          <FlatButton
-            style={style.button}
-            label="Live"
-            onClick={this.props.isLive}
-          />
+
+          {this.style()}
+
         </Toolbar>
       </div>
     )

@@ -131,3 +131,11 @@
   -moz-animation-duration: 1s;
   -ms-transition-animation-duration: 1s;
 }
+
+.hidden {
+  visibility: hidden;
+}
+
+iframe {
+  display: block;
+}

@@ -81,6 +81,10 @@ class DashboardContent extends Component {
   generateRecordings() {
     console.log('generating recordings')
     let recordingNodes = this.state.recordings.map((recordings) => {
+      console.log(recordings.createdTime)
+      console.log(typeof recordings.createdTime)
+      // let test = recordings.createdTime.parse()
+      // console.log(test)
       let date = recordings.createdTime.split('T')[0].split('-').reverse().slice(0, 2);
       let time = recordings.createdTime.split('T')[1].split('.')[0].split(':');
       if(date[1] === '08') {
