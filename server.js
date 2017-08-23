@@ -142,7 +142,7 @@ io.on('connection', (client) => {
         });
         frameController.updateFrameBulk(id, result)
             .then((Response) => {
-                //console.log("Response",'\n\n\n\n', Response)
+                console.log("Response",'\n\n\n\n', Response)
             }).catch((err) => {
                 console.log(err)
             })
@@ -172,6 +172,4 @@ io.on('connection', (client) => {
 })
 
 
-server.listen(3000, () => {
-    console.log('App listening http://localhost:3000')
-});
+server.listen(3000, '192.168.0.105');

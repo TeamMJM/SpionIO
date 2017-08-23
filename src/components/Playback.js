@@ -94,7 +94,7 @@ class Playback extends Component {
             >
             <HardwareDesktopWindows color='gray'/>
           </IconButton>
-          <p style={style.p}>http://localhost:4000/</p>
+          <p style={style.p}>http://192.168.0.105:4000/</p>
           <IconMenu
             style={{float: 'right', marginRight: '5%'}} 
             iconButtonElement={
