@@ -81,10 +81,6 @@ class DashboardContent extends Component {
   generateRecordings() {
     console.log('generating recordings')
     let recordingNodes = this.state.recordings.map((recordings) => {
-      console.log(recordings.createdTime)
-      console.log(typeof recordings.createdTime)
-      // let test = recordings.createdTime.parse()
-      // console.log(test)
       let date = recordings.createdTime.split('T')[0].split('-').reverse().slice(0, 2);
       let time = recordings.createdTime.split('T')[1].split('.')[0].split(':');
       if(date[1] === '08') {
@@ -150,46 +146,7 @@ class DashboardContent extends Component {
     return (
       <div >
         <div className='recording-latest-updates'>
-          {/* {this.generateRecordings()} */}
-          <Paper 
-          className='animated fadeIn' 
-          /* key={recordings._id}  */
-          style={style.paper}
-          >
-          <div className='recording-block'>
-            <div className='recording-avatar'>
-              <img className='recording-icon' src={'./../../public/'+Math.floor((Math.random()*9)+1)+'.png'}/>
-            </div>
-            <div className='recording-description'>
-              <p style={{letterSpacing: '1px'}} className='recording-title'>{'User Example'}</p>
-              <p style={{letterSpacing: '1px'}} className='recording-sub'>{'Visited on Aug 20'}</p> 
-            </div>
-          </div>
-          <div className='recording-playback-wrapper'>
-          <div className='recording-playback'>
-            <Link style={{float:'left'}} to={'/dashboard/recordings/1232uiashdfkj'}>
-              <IconButton iconStyle={style.mediumIcon} style={style.medium} tooltip='play session'>
-                <AVPlayCircleOutline color='#006CAA'/>
-              </IconButton>
-            </Link>
-            <p style={style.p1}>{'6:00 PM'}</p>
-          </div>
-
-          <div className='recording-platform'>
-            <div className='recording-platform-text'>
-              <p style={style.p2}>Los Angeles</p>
-            </div>
-            <div className='recording-platform-icon'>
-            <IconButton iconStyle={style.smallIcon} style={style.small}>
-              <HardwareDesktopWindows color='lightgray'/>
-            </IconButton>
-            <p style={style.p3}>OS X · CHROME</p>
-            </div>
-          </div>
-
-
-          </div>
-        </Paper>
+          {this.generateRecordings()}
         </div>
       </div>
     )

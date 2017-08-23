@@ -81,7 +81,7 @@ class DashboardUserSession extends Component {
     }
 
     if (flag) {
-      let localClickX  =currentFrame.ClickX*  REPLAY_SCALE
+      let localClickX  =currentFrame.ClickX* 0.843;
       if (currentFrame.target && currentFrame.event === 'click') {   
         this.state.$fakeCursor.css({
           backgroundColor: '#006CAA',

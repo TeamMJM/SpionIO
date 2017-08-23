@@ -21,16 +21,15 @@ frameController.findAll = (req, res, next) => {
     Frame.find((err, response) => {
         if (err) res.send(err)
         else res.send(response);
-    })
+    }) 
 }
 
 frameController.updateFrameBulk = (id, Data) => {
-
     let bulk = Frame.collection.initializeOrderedBulkOp();
     Data.forEach(function (element) {
         bulk.find({
             '_id': id
-        }).update({
+        }).update({ 
             $push: element
         })
     });
