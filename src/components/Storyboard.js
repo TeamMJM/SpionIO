@@ -17,8 +17,8 @@ const style = {
   paper: {
     width: '30%',
     float: 'right',
-    // height: '52px',
-    height: '154px',
+    height: '52px',
+    // height: '154px',
   },
   paperHeadStoryActive: {
     backgroundColor: '#006CAA',

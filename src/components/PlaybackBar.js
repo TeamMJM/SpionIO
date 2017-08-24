@@ -122,7 +122,7 @@ class PlaybackBar extends Component {
   
   render() {
     return (          
-      <div style={{margin: '0 auto', display: 'block'}}>
+      <div style={{margin: '0 auto', display: 'block', position: 'fixed', bottom: 0, width: '65%'}}>
         <Slider 
           style={{margin: '0 auto'}}
           sliderStyle={{margin: '0 auto'}}
