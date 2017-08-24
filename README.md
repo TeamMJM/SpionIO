@@ -1,5 +1,7 @@
 # Spion IO
 
+![alt text](https://github.com/TeamMJM/SpionIO/blob/master/public/screen.png)
+
 Focus Group management API that can capture and replay user interaction to improve the UX in everything you build!
 
 ## Getting Started
