@@ -33,14 +33,6 @@ npm start
 ```
 Now visit http://localhost:3000/dashboard
 
-### Installing
-
-Run our CLI to install and setup MongoDB with the correct backend controllers and models into your project directory.
-
-```
-Give the example
-```
-
 ## Features
 
 * **Live** -
