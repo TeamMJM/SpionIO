@@ -5,10 +5,10 @@ const Schema = mongoose.Schema;
 const frameSchema = Schema({
     _id: String,
     Frame: [{
-        event: String,
+        event: String, // 'logs' for console log events
         ClickX: Number,
         ClickY: Number,
-        logStr: String,
+        logStr: String, // extraction of console log
         movementX: Number,
         movementY: Number,
         scrollTop: Number,
