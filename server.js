@@ -172,4 +172,6 @@ io.on('connection', (client) => {
 })
 
 
-server.listen(3000, '192.168.0.114');
+server.listen(3000, () => {
+    console.log('App listening on port 3000!')
+});
