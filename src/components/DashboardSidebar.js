@@ -12,7 +12,7 @@ import AVPlayCircleOutline from 'material-ui/svg-icons/AV/play-circle-outline';
 const style = {
   paper1: {
     float: 'left', 
-    width: '20.3%', 
+    width: '17.6%', 
     height: '670px', 
     backgroundColor: '#F4F7F5'
   },
