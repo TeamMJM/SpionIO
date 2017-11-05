@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 /////////// import our React components ///////////
-import Documentation from './Documentation.js';
 import Dashboard from './Dashboard.js';
 import DashboardUserSession from './DashboardUserSession.js';
 
@@ -19,16 +18,13 @@ class App extends Component {
 
       <div> 
         <MuiThemeProvider>
-          <Route exact path='/' component={Documentation}/>
+          <Route exact path='/' component={Dashboard}/>
         </MuiThemeProvider>
         <MuiThemeProvider>
-          <Route exact path='/dashboard' component={Dashboard}/>
+          <Route exact path='/settings' component={Dashboard}/>
         </MuiThemeProvider>
         <MuiThemeProvider>
-          <Route exact path='/dashboard/settings' component={Dashboard}/>
-        </MuiThemeProvider>
-        <MuiThemeProvider>
-          <Route path='/dashboard/recordings/:recordingID' component={DashboardUserSession}/>
+          <Route path='/recordings/:recordingID' component={DashboardUserSession}/>
         </MuiThemeProvider>
       </div>
 

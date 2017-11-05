@@ -114,7 +114,7 @@ class DashboardContent extends Component {
           </div>
           <div className='recording-playback-wrapper'>
           <div className='recording-playback'>
-            <Link style={{float:'left'}} to={'/dashboard/recordings/' + recordings._id}>
+            <Link style={{float:'left'}} to={'/recordings/' + recordings._id}>
               <IconButton iconStyle={style.mediumIcon} style={style.medium} tooltip='play session'>
                 <AVPlayCircleOutline color='#006CAA'/>
               </IconButton>

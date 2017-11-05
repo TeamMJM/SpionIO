@@ -67,8 +67,8 @@ class Dashboard extends Component {
         <DashboardHeader />
         <div>
           <DashboardSidebar/>
-          <Route exact path='/dashboard' component={DashboardContent}/>
-          <Route exact path='/dashboard/settings' component={DashboardSettings}/>
+          <Route exact path='/' component={DashboardContent}/>
+          <Route exact path='/settings' component={DashboardSettings}/>
         </div>
       </div>
     )

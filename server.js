@@ -20,27 +20,11 @@ app.use(function (req, res, next) {
     next();
 });
 
-app.use('/', express.static(__dirname + './../'));
+app.use('/', express.static(__dirname));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '/index.html'));
-})
-
-app.get('/logo.png', (req, res) => {
-    res.sendFile(path.join(__dirname, 'logo.png'));
-})
-
-app.get('/websiteicon.png', (req, res) => {
-    res.sendFile(path.join(__dirname, 'websiteicon.png'));
-})
-
-app.get('/databaseicon.png', (req, res) => {
-    res.sendFile(path.join(__dirname, 'databaseicon.png'))
-})
-
-app.get('/machinelearningicon.png', (req, res) => {
-    res.sendFile(path.join(__dirname, 'machinelearningicon.png'))
 })
 
 // user icon pictures
