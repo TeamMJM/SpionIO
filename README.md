@@ -1,7 +1,7 @@
 # Spion IO 
 <br/><br/>
 
-![alt text](https://github.com/TeamMJM/SpionIO/blob/master/public/screen.png)
+![alt text](https://github.com/TeamMJM/SpionIO/blob/master/demo.gif)
 
 <br/><br/>
 
