@@ -95,6 +95,13 @@ class DashboardUserSession extends Component {
   
         this.addtoList(currentFrame.target)
       }
+
+      // if (currentFrame.event === "log") {
+      //   console.log('logstr is: ', currentFrame.logStr);
+      //   console.log('type is:', typeof currentFrame.logStr);
+      //   this.addtoList(currentFrame.logStr)
+      // }
+
   
       if (currentFrame.event === "scroll") {
 
@@ -163,9 +170,8 @@ class DashboardUserSession extends Component {
               this.setState({
                 stopPlay: true
               })
-            }
-            else{
-                requestAnimationFrame(this.animateFrame.bind(this))
+            } else {
+              requestAnimationFrame(this.animateFrame.bind(this))
             }
           } else {
             this.state.$fakeCursor.css({
@@ -180,13 +186,12 @@ class DashboardUserSession extends Component {
               this.setState({
                 stopPlay: true
               })
-            }
-            else{
-                requestAnimationFrame(this.animateFrame.bind(this))
+            } else {
+              requestAnimationFrame(this.animateFrame.bind(this))
             }
           }
         }
-      }else{
+      } else {
         await this.setState({
           index: index + 1
         })
@@ -201,11 +206,8 @@ class DashboardUserSession extends Component {
               requestAnimationFrame(this.animateFrame.bind(this))
           }
         },40);
-
-
       }
     }
-
   }
 
   async frameScript(context) {
@@ -233,15 +235,12 @@ class DashboardUserSession extends Component {
 
   // adding to list array for storyboard to render
   addtoList(element) {
-
     let list = this.state.targetList;
-
     list.push(element)
     this.setState({
       targetList: list
     })
   }
-
 
   pause() {
     this.setState({
@@ -277,7 +276,6 @@ class DashboardUserSession extends Component {
   }
 
   isLiveHandler(){
-
     if(this.state.isLive){
       const context = this;
       //need to get data again
@@ -326,101 +324,43 @@ class DashboardUserSession extends Component {
     console.log(this.state.recording)
     // console.log(this.state.recording.position)
     $('.react-iframe').on('fscreenclose', () => {
-    
       REPLAY_SCALE = .802;
       this.frameScript(this);
     })
     await this.isLiveStyler();
   }
 
-  componentWillUpdate() {
-    this.state.targetList = [];
-  }
-
   render() {
     return (
       <div style={style}>
-      <PlaybackSidebar/>
-      <div id='customFade' className='animated fadeIn'>
-        <Playback
-          style={{height: '600px'}} 
-          key={this.props.match.params.recordingID} 
-          fullscreen={this.toggleFullscreen} 
-          flag={this.state.flag} 
-          frameScript={this.frameScript} 
-          context={this} 
-          len={this.state.len}
-          pause={this.pause} 
-          liveStarted={this.state.liveStarted}
-          play={this.play} 
-          isLive={this.isLiveHandler}
-          step={this.state.step} 
-          index={this.state.index } 
-          slide={this.slide}
-          live={this.state.isLive}
-        />
-        <Storyboard 
-          key={this.props.match.params.recordingID + '1'} 
-          recordingID={this.props.match.params.recordingID} 
-          targetList={this.state.targetList} 
-        />         
-      </div>
+        <PlaybackSidebar/>
+          <div id='customFade' className='animated fadeIn'>
+            <Playback
+              style={{height: '600px'}} 
+              key={this.props.match.params.recordingID} 
+              fullscreen={this.toggleFullscreen} 
+              flag={this.state.flag} 
+              frameScript={this.frameScript} 
+              context={this} 
+              len={this.state.len}
+              pause={this.pause} 
+              liveStarted={this.state.liveStarted}
+              play={this.play} 
+              isLive={this.isLiveHandler}
+              step={this.state.step} 
+              index={this.state.index } 
+              slide={this.slide}
+              live={this.state.isLive}
+            />
+            <Storyboard 
+              key={this.props.match.params.recordingID + '1'} 
+              recordingID={this.props.match.params.recordingID} 
+              targetList={this.state.targetList} 
+            />         
+        </div>
       </div>
     );
   }
 };
-// easing functions http://goo.gl/5HLl8
-Math.easeInOutQuad = function (t, b, c, d) {
-  t /= d/2;
-  if (t < 1) {
-    return c/2*t*t + b
-  }
-  t--;
-  return -c/2 * (t*(t-2) - 1) + b;
-};
-
-Math.easeInCubic = function(t, b, c, d) {
-  var tc = (t/=d)*t*t;
-  return b+c*(tc);
-};
-
-Math.inOutQuintic = function(t, b, c, d) {
-  var ts = (t/=d)*t,
-  tc = ts*t;
-  return b+c*(6*tc*ts + -15*ts*ts + 10*tc);
-};
-
-// requestAnimationFrame for Smart Animating http://goo.gl/sx5sts
-var requestAnimFrame = (function(){
-  return  window.requestAnimationFrame || window.webkitRequestAnimationFrame || window.mozRequestAnimationFrame || function( callback ){ window.setTimeout(callback, 1000 / 60); };
-})();
-
-function scrollToFunc(to,$iframeDoc,duration) {
-  // because it's so fucking difficult to detect the scrolling element, just move them all
-  function move(amount) {
-    $iframeDoc.contents().scrollTop(amount)
-  }
-  function position() {
-    return $iframeDoc.contents().scrollTop() 
-  }
-  var start = position(),
-    change = to - start,
-    currentTime = 0,
-    increment = 20;
-  duration = (typeof(duration) === 'undefined') ? 500 : duration;
-  var animateScroll = function() {
-    // increment the time
-    currentTime += increment;
-    // find the value with the quadratic in-out easing function
-    var val = Math.easeInOutQuad(currentTime, start, change, duration);
-    // move the document.body
-    move(val);
-    // do the animation unless its over
-    if (currentTime < duration) {
-      requestAnimFrame(animateScroll);
-    }
-  };
-}
-
 
 export default DashboardUserSession;

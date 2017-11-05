@@ -107,14 +107,7 @@ class Storyboard extends Component {
       this.setState({storyboard: false, feedback: true})
     }
   }
-  // styleMap(){
-  //   AIzaSyCfeBGuR3VOBLOQBJjcNavZmhs1ic1GD24
-  //   if(this.state.position){
-  //     return(
-  //       AIzaSyCfeBGuR3VOBLOQBJjcNavZmhs1ic1GD24
-  //     )
-  //   }
-  // }
+
   styleStoryboard() {
     if (this.state.storyboard) {
       return (
