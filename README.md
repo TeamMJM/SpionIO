@@ -1,4 +1,9 @@
-# Spion IO
+# Spion IO 
+<br/><br/>
+
+![alt text](https://github.com/TeamMJM/SpionIO/blob/master/public/screen.png)
+
+<br/><br/>
 
 Focus Group management API that can capture and replay user interaction to improve the UX in everything you build!
 
@@ -11,12 +16,13 @@ To use our API, there is a easy three-step process,
 https://cdn.rawgit.com/morpherious/client-template/master/script.js
 ```
 
-2. Run our CLI and follow the commands to set up a MongoDB and import our controllers and models into your project directory
+2. Run our CLI in your directory and follow the commands to set up a MongoDB and import our controllers and models into your project directory
 
 ```
 npm install create-spion
+create-spion <enter-random-db-name-here>
 ```
-Will give you the CLI. or visit http://npmjs.com/create-spion
+or visit npmjs.com/create-spion
 
 3. Clone our interface from http://github.com/SpionIO and run the following in the directory.
 
@@ -26,14 +32,6 @@ npm run webpack
 npm start
 ```
 Now visit http://localhost:3000/dashboard
-
-### Installing
-
-Run our CLI to install and setup MongoDB with the correct backend controllers and models into your project directory.
-
-```
-Give the example
-```
 
 ## Features
 
