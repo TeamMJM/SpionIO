@@ -107,7 +107,7 @@ class Dashboard extends Component {
     return (
       <div>
         <DashboardHeader />
-        <div>
+        <div className="dashboard-container">
           <DashboardSidebar/>
           <Route exact path='/' render={(props) => (
             <DashboardContent {...props} generateRecordings={this.generateRecordings} />
