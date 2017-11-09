@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PlaybackBar from './PlaybackBar';
-import './../styles/Home.css';
 import axios from 'axios';
 import $ from 'jquery';
 import 'jquery.fullscreen';

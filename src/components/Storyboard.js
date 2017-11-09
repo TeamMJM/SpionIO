@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom';
-import './../styles/Home.css';
 import $ from 'jquery';
 
 import Geolocation from './Geolocation';

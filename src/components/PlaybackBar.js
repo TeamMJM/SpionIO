@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './../styles/Home.css';
 
 // import material-ui components
 import Slider from 'material-ui/Slider';

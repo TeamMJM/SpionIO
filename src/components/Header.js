@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { HashRouter, Switch, Route, Link } from 'react-router-dom';
 import $ from 'jquery';
 
-// import stylesheets 
-import './../styles/Header.css';
-
 // import material-ui components 
 import RaisedButton from 'material-ui/RaisedButton';
 import FlatButton from 'material-ui/FlatButton';
