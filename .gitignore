@@ -4,3 +4,5 @@ yarn.lock
 
 sds.js
 build/bundle.js
+.DS_STORE
+.vscode
