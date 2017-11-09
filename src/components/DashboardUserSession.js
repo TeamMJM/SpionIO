@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { fromJS } from "immutable";
-import './../styles/Home.css';
 import axios from 'axios';
 import $ from 'jquery';
 import 'jquery.fullscreen';

@@ -11,13 +11,16 @@ import AVPlayCircleOutline from 'material-ui/svg-icons/AV/play-circle-outline';
 
 const style = {
   paper1: {
-    float: 'left', 
-    width: '17.6%', 
+    display: 'flex',
+    flexDirection: 'column',
+    width: '15%', 
     height: '670px', 
-    backgroundColor: '#F4F7F5'
+    backgroundColor: '#F4F7F5',
+    padding: '12px',
   },
   paper2: {
-    height: '60px', 
+    height: '60px',
+    width: '100%', 
     margin: '0 auto', 
     backgroundColor: '#F4F7F5'
   },
@@ -139,7 +142,7 @@ class DashboardSidebar extends Component {
       )  
     } else {
       return (
-        <Link to='/dashboard/settings'>
+        <Link to='/settings'>
         <p style={style.p4}>
           <IconButton 
             iconStyle={style.mediumIcon} 
@@ -178,7 +181,7 @@ class DashboardSidebar extends Component {
         >
         <Link 
           style={{textDecoration: 'none', letterSpacing: '1px'}} 
-          to='/dashboard' 
+          to='/' 
           onClick={this.toggle}
           >
           {this.styleStorybook()}
@@ -190,7 +193,7 @@ class DashboardSidebar extends Component {
         >
         <Link 
           style={{textDecoration: 'none', letterSpacing: '1px'}} 
-          to='/dashboard' 
+          to='/' 
           onClick={this.toggle}
           >
           {this.styleSettings()}
