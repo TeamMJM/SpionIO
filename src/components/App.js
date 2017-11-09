@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
@@ -10,12 +10,9 @@ import DashboardUserSession from './DashboardUserSession.js';
 import './../styles/App.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-class App extends Component { 
-  render() {
-    return(
-
-      <Router>
-
+const App = () => { 
+  return(
+    <Router>
       <div> 
         <MuiThemeProvider>
           <Route exact path='/' component={Dashboard}/>
@@ -27,11 +24,8 @@ class App extends Component {
           <Route path='/recordings/:recordingID' component={DashboardUserSession}/>
         </MuiThemeProvider>
       </div>
-
-      </Router>
-
-    )
-  }
+    </Router>
+  )
 }
 
 export default App;
