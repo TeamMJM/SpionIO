@@ -25,6 +25,10 @@ body {
   padding-top: 60px;
 }
 
+.dashboard-container {
+  display: flex;
+}
+
 .dashboard-title {
   padding-left: 25px;
   padding-top: 15px;
@@ -198,7 +202,7 @@ body {
   overflow: scroll;
   height: 670px;
   width: 1400px;
-  float: right;
+  float: left;
   background-color: #F4F7F5;
 }
 
