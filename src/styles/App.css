@@ -441,3 +441,24 @@ ul {
   width: 60 !important;
   height: 60 !important;
 }
+
+.paper-1 {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 14% !important; 
+  height: 670px !important; 
+  background-color: #F4F7F5 !important;
+  padding: 12px !important;
+}
+
+.paper-2 {
+  height: 60px !important;
+  width: 100% !important; 
+  margin: 0 auto !important; 
+  background-color: #F4F7F5 !important;
+}
+
+.paper-link {
+  text-decoration: none !important;
+  letter-spacing: 1px !important;
+}
