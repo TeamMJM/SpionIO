@@ -200,7 +200,7 @@ body {
 .recording-latest-updates {
   /* margin-left: 1px; */
   overflow: scroll;
-  height: 670px;
+  height: 900px;
   width: 1400px;
   float: left;
   background-color: #F4F7F5;
@@ -275,6 +275,37 @@ ul {
 }
 
 /* SETTINGS */
+.settings-paper {
+  margin-top: 3%;
+  margin-left: 3%;
+  height: 480px;
+  width: 80%;
+}
+
+.settings-paper hr {
+  border-color: lightgray;
+  color: lightgray;
+  margin-top: 2%;
+  margin-bottom: 3%;
+}
+
+.settings-block {
+  margin-left: 3%;
+  margin-top: 3%;
+  background-color: #F4F7F5;
+  height: 200px;
+  width: 94%;
+  border: 1px solid #006CAA;
+}
+
+.settings-title {
+  text-align: left;
+  margin-left: 4%;
+  padding-top: 4%;
+  font-size: 1.5em;
+  letter-spacing: 1px;
+}
+
 .settings-beginning {
   margin-left: 3%;
 }
@@ -288,3 +319,8 @@ ul {
   margin-left: 1%;
 }
 
+.settings-beginning, .settings-code, .settings-end {
+  display: inline-block;
+  font-size: .9em;
+  letter-spacing: 1px;
+}
