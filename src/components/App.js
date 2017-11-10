@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 /////////// import our React components ///////////
-import Dashboard from './Dashboard.js';
+import Dashboard from '../containers/Dashboard.js';
 import DashboardUserSession from './DashboardUserSession.js';
 
 /////////// import stylesheets ///////////
