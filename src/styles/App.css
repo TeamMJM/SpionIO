@@ -423,3 +423,21 @@ ul {
   float: right !important;
   margin-right: 5% !important;
 }
+
+.playback-sidebar-paper {
+  width: 5% !important;
+  height: 700px !important;
+  float: left !important;
+  text-align: center !important;
+  background-color: #006CAA !important;
+}
+
+.playback-sidebar-icon div svg {
+  width: 30 !important;
+  height: 30 !important;
+}
+
+.playback-sidebar-icon {
+  width: 60 !important;
+  height: 60 !important;
+}

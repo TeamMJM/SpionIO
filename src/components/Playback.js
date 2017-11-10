@@ -12,7 +12,7 @@ import HardwareDesktopWindows from 'material-ui/svg-icons/hardware/desktop-windo
 import ActionInput from 'material-ui/svg-icons/action/input';
 
 // import React Components
-import PlaybackBar from './PlaybackBar';
+import PlaybackBar from '../containers/PlaybackBar';
 
 const Playback = (props) => {
   return(
