@@ -25,20 +25,20 @@ class Dashboard extends Component {
       recordings: [],
       storybook: false,
       settings: false,
-    }
+    };
     this.generateRecordings = this.generateRecordings.bind(this);
     this.initialize = this.initialize.bind(this);
     this.styleStorybook = this.styleStorybook.bind(this);
     this.styleSettings = this.styleSettings.bind(this);
     this.toggle = this.toggle.bind(this);
-  }
+  };
 
   componentDidMount() {
     this.initialize();
     this.styleStorybook();
     this.styleSettings();
     this.getRecordings();
-  }
+  };
 
   initialize() {
     let url = window.location.href.split('/').pop();
@@ -46,21 +46,20 @@ class Dashboard extends Component {
       this.setState({storybook: false, settings: true})
     } else {
       this.setState({storybook: true, settings: false})
-    }
-  }
+    };
+  };
 
   toggle() {
     this.setState({settings: !this.state.settings, storybook: !this.state.storybook})    
-  }
+  };
 
   styleStorybook() {
     if (this.state.storybook) {
       return (
         <div>
-        <p style={style.p1}>
+        <p className="playback-sidebar-p1">
         <IconButton 
-            iconStyle={style.mediumIcon} 
-            style={style.medium} 
+            className="playback-sidebar-iconbtn"
             tooltip='Storybook'
           >
             <MapsLayers color='white'/>
@@ -72,27 +71,25 @@ class Dashboard extends Component {
     } else {
       console.log('storybook not toggled')
       return (
-        <p style={style.p2}>
+        <p className="playback-sidebar-p2">
           <IconButton 
-            iconStyle={style.mediumIcon} 
-            style={style.medium} 
+            className="playback-sidebar-iconbtn"
             tooltip='Storybook'
           >
             <MapsLayers color='black'/>
           </IconButton>
           <p style={{margin: '0 auto', float: 'right', marginRight: '53%', marginTop: '1.5%'}}>Storybook</p>
         </p>
-      )
-    }
-  }
+      );
+    };
+  };
 
   styleSettings() {
     if (this.state.settings) {
     return (
-        <p style={style.p3}>
+        <p className="playback-sidebar-p3">
           <IconButton 
-            iconStyle={style.mediumIcon} 
-            style={style.medium} 
+            className="playback-sidebar-iconbtn"
             tooltip='Settings'
           >
             <ActionSettings color='white'/>
@@ -103,19 +100,18 @@ class Dashboard extends Component {
     } else {
       return (
         <Link to='/settings'>
-        <p style={style.p4}>
+        <p className="playback-sidebar-p4">
           <IconButton 
-            iconStyle={style.mediumIcon} 
-            style={style.medium} 
+            className="playback-sidebar-iconbtn"
             tooltip='Settings'
           >
             <ActionSettings color='black'/>
           </IconButton>
           <p style={{margin: '0 auto', float: 'right', marginRight: '58%', marginTop: '1.5%'}}>Settings</p>
         </p></Link>
-      )
-    }
-  }
+      );
+    };
+  };
 
   getRecordings() {
     console.log('getting recordings')
@@ -125,26 +121,26 @@ class Dashboard extends Component {
     })
     .catch((err) => {
       return console.error(err);
-    })
-  }
+    });
+  };
 
   generateRecordings() {
     console.log('generating recordings')
     let recordingNodes = this.state.recordings.map((recordings) => {
-      let date = recordings.createdTime.split('T')[0].split('-').reverse().slice(0, 2);
-      let time = recordings.createdTime.split('T')[1].split('.')[0].split(':');
-      if(date[1] === '08') {
-        date[1] = 'Aug'
-      }
-      date = date.reverse().join(' ');
-      if (time[0] > 12) {
-        time[0] = (time[0] - 12).toString();
-        time = time.slice(0, 2).join(':');
-        time += 'PM';
-      } else {
-        time = time.slice(0, 2).join(':');
-        time += 'AM';
-      }
+    let date = recordings.createdTime.split('T')[0].split('-').reverse().slice(0, 2);
+    let time = recordings.createdTime.split('T')[1].split('.')[0].split(':');
+    if(date[1] === '08') {
+      date[1] = 'Aug'
+    };
+    date = date.reverse().join(' ');
+    if (time[0] > 12) {
+      time[0] = (time[0] - 12).toString();
+      time = time.slice(0, 2).join(':');
+      time += 'PM';
+    } else {
+      time = time.slice(0, 2).join(':');
+      time += 'AM';
+    };
 
       
       return (
@@ -213,67 +209,5 @@ class Dashboard extends Component {
     );
   };
 };
-
-const style = {
-  paper1: {
-    display: 'flex',
-    flexDirection: 'column',
-    width: '15%', 
-    height: '670px', 
-    backgroundColor: '#F4F7F5',
-    padding: '12px',
-  },
-  paper2: {
-    height: '60px',
-    width: '100%', 
-    margin: '0 auto', 
-    backgroundColor: '#F4F7F5'
-  },
-  p1: {
-    marginTop: '5%', 
-    paddingTop: '4%', 
-    paddingBottom: '2%', 
-    fontSize: '.9em', 
-    width: '90%', 
-    backgroundColor: '#006CAA', 
-    borderRadius: '3px', 
-    color: 'white', 
-    paddingLeft: '4%'
-  }, 
-  p2: {
-    marginTop: '5%', 
-    paddingTop: '5%', 
-    paddingBottom: '5%', 
-    fontSize: '.9em', 
-    color: 'black', 
-    paddingLeft: '7%'
-  },
-  p3: {
-    paddingTop: '5%', 
-    paddingBottom: '5%', 
-    fontSize: '.9em', 
-    width: '90%', 
-    backgroundColor: '#006CAA', 
-    borderRadius: '3px', 
-    color: 'white', 
-    paddingLeft: '4%'
-  },
-  p4: {
-    paddingTop: '5%', 
-    paddingBottom: '5%', 
-    fontSize: '.9em', 
-    color: 'black', 
-    paddingLeft: '7%'
-  },
-  mediumIcon: {
-    width: 22,
-    height: 22,
-  },
-  medium: {
-    width: 22,
-    height: 22,
-    padding: 0,
-  },
-}
 
 export default Dashboard;

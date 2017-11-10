@@ -462,3 +462,41 @@ ul {
   text-decoration: none !important;
   letter-spacing: 1px !important;
 }
+
+.playback-sidebar-p1, .playback-sidebar-p2, .playback-sidebar-p3, .playback-sidebar-p4 {
+  font-size: .9em;
+  padding-top: 5%;
+}
+
+.playback-sidebar-p1, .playback-sidebar-p2 {
+  margin-top: 5%;
+}
+
+.playback-sidebar-p1, .playback-sidebar-p3 {
+  background-color: #006CAA;
+  color: white;
+  border-radius: 3px;
+  padding-left: 4%;
+  width: 90%;
+}
+.playback-sidebar-p2, .playback-sidebar-p3, .playback-sidebar-p4 {
+  padding-bottom: 5%;
+}
+
+.playback-sidebar-p2, .playback-sidebar-p4 {
+  color: black;
+  padding-left: 7%;
+}
+
+.playback-sidebar-p1 {
+  padding-bottom: 2%;
+}
+
+.playback-sidebar-iconbtn div svg, .playback-sidebar-iconbtn  {
+  width: 22 !important;
+  height: 22 !important;
+}
+
+.playback-sidebar-iconbtn {
+  padding: 0 !important;
+}
