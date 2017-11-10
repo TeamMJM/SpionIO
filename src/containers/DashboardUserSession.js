@@ -3,30 +3,20 @@ import { fromJS } from "immutable";
 import axios from 'axios';
 import $ from 'jquery';
 import 'jquery.fullscreen';
-
-// import our React components
-import { Card } from 'material-ui/Card';
-import Playback from './Playback';
-import Storyboard from './Storyboard';
-import DashboardHeader from './DashboardHeader';
-import PlaybackSidebar from './PlaybackSidebar';
 import jump from 'jump.js'
 
-const style = {
-  width: '100%',
-  margin: '0 auto'
-}
-
-
-
-// let i = 0;
+// import our React components
+import Playback from '../components/Playback';
+import Storyboard from '../components/Storyboard';
+import DashboardHeader from '../components/DashboardHeader';
+import PlaybackSidebar from '../components/PlaybackSidebar';
 
 let REPLAY_SCALE = 0.803;
 let mouseMade = false;
 
 class DashboardUserSession extends Component {
   constructor(props) {
-    super(props);
+    super(props); 
     this.state = {
       targetList: [],
       flag: false,
@@ -331,31 +321,31 @@ class DashboardUserSession extends Component {
 
   render() {
     return (
-      <div style={style}>
+      <div className="user-session-container">
         <PlaybackSidebar/>
-          <div id='customFade' className='animated fadeIn'>
-            <Playback
-              style={{height: '600px'}} 
-              key={this.props.match.params.recordingID} 
-              fullscreen={this.toggleFullscreen} 
-              flag={this.state.flag} 
-              frameScript={this.frameScript} 
-              context={this} 
-              len={this.state.len}
-              pause={this.pause} 
-              liveStarted={this.state.liveStarted}
-              play={this.play} 
-              isLive={this.isLiveHandler}
-              step={this.state.step} 
-              index={this.state.index } 
-              slide={this.slide}
-              live={this.state.isLive}
-            />
-            <Storyboard 
-              key={this.props.match.params.recordingID + '1'} 
-              recordingID={this.props.match.params.recordingID} 
-              targetList={this.state.targetList} 
-            />         
+        <div id='customFade' className='animated fadeIn'>
+          <Playback
+            style={{height: '600px'}} 
+            key={this.props.match.params.recordingID} 
+            fullscreen={this.toggleFullscreen} 
+            flag={this.state.flag} 
+            frameScript={this.frameScript} 
+            context={this} 
+            len={this.state.len}
+            pause={this.pause} 
+            liveStarted={this.state.liveStarted}
+            play={this.play} 
+            isLive={this.isLiveHandler}
+            step={this.state.step} 
+            index={this.state.index } 
+            slide={this.slide}
+            live={this.state.isLive}
+          />
+          <Storyboard 
+            key={this.props.match.params.recordingID + '1'} 
+            recordingID={this.props.match.params.recordingID} 
+            targetList={this.state.targetList} 
+          />         
         </div>
       </div>
     );

@@ -9,7 +9,6 @@ import AVPlayCircleOutline from 'material-ui/svg-icons/AV/play-circle-outline';
 import HardwareDesktopWindows from 'material-ui/svg-icons/hardware/desktop-windows';
 
 // import our React components
-import DashboardUserSession from '../components/DashboardUserSession';
 import DashboardHeader from '../components/DashboardHeader';
 import DashboardContent from '../components/DashboardContent';
 import DashboardSettings from '../components/DashboardSettings';
@@ -74,26 +73,26 @@ class Dashboard extends Component {
             </div>
           </div>
           <div className="recording-playback-wrapper">
-          <div className="recording-playback">
-            <Link className="recording-link" to={'/recordings/' + recordings._id}>
-              <IconButton iconStyle={style.mediumIcon} style={style.medium} tooltip='play session'>
-                <AVPlayCircleOutline color='#006CAA'/>
-              </IconButton>
-            </Link>
-            <p>{time}</p>
-          </div>
+            <div className="recording-playback">
+              <Link className="recording-link" to={'/recordings/' + recordings._id}>
+                <IconButton className="recording-icon-med" tooltip='play session'>
+                  <AVPlayCircleOutline color='#006CAA'/>
+                </IconButton>
+              </Link>
+              <p>{time}</p>
+            </div>
 
-          <div className="recording-platform">
-            <div className="recording-platform-text">
-              <p>Los Angeles</p>
+            <div className="recording-platform">
+              <div className="recording-platform-text">
+                <p>Los Angeles</p>
+              </div>
+              <div className="recording-platform-icon">
+                <IconButton className="recording-icon-small">
+                  <HardwareDesktopWindows color='lightgray'/>
+                </IconButton>
+                <p>OS X · CHROME</p>
+              </div>
             </div>
-            <div className="recording-platform-icon">
-            <IconButton iconStyle={style.smallIcon} style={style.small}>
-              <HardwareDesktopWindows color='lightgray'/>
-            </IconButton>
-            <p>OS X · CHROME</p>
-            </div>
-          </div>
 
 
           </div>
@@ -118,25 +117,5 @@ class Dashboard extends Component {
     );
   };
 };
-
-const style = {
-  mediumIcon: {
-    width: 30,
-    height: 30,
-  },
-  medium: {
-    padding: 0,
-  },
-  smallIcon: {
-    width: 16,
-    height: 16,
-  },
-  small: {
-    padding: 0,
-    width: 30,
-    height: 30,
-    float: 'left'
-  },
-}
 
 export default Dashboard;

@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 
 /////////// import our React components ///////////
 import Dashboard from '../containers/Dashboard.js';
-import DashboardUserSession from './DashboardUserSession.js';
+import DashboardUserSession from '../containers/DashboardUserSession.js';
 
 /////////// import stylesheets ///////////
 import './../styles/App.css';
