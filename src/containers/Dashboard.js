@@ -56,30 +56,28 @@ class Dashboard extends Component {
   styleStorybook() {
     if (this.state.storybook) {
       return (
-        <div>
-        <p className="playback-sidebar-p1">
-        <IconButton 
-            className="playback-sidebar-iconbtn"
-            tooltip='Storybook'
-          >
-            <MapsLayers color='white'/>
-          </IconButton>
-          <p style={{margin: '0 auto', float: 'right', marginRight: '50%', marginTop: '1.5%'}}>Storybook</p>
-        </p>
+        <div className="settings-container c1">
+          <IconButton 
+              className="playback-sidebar-iconbtn"
+              tooltip='Storybook'
+            >
+              <MapsLayers color='white'/>
+            </IconButton>
+            <p className="settings-text">Storybook</p>
         </div>
       )
     } else {
       console.log('storybook not toggled')
       return (
-        <p className="playback-sidebar-p2">
+        <div className="settings-container c2">
           <IconButton 
             className="playback-sidebar-iconbtn"
             tooltip='Storybook'
           >
             <MapsLayers color='black'/>
           </IconButton>
-          <p style={{margin: '0 auto', float: 'right', marginRight: '53%', marginTop: '1.5%'}}>Storybook</p>
-        </p>
+          <p className="settings-text">Storybook</p>
+        </div>
       );
     };
   };
@@ -87,28 +85,28 @@ class Dashboard extends Component {
   styleSettings() {
     if (this.state.settings) {
     return (
-        <p className="playback-sidebar-p3">
+        <div className="settings-container c1">
           <IconButton 
             className="playback-sidebar-iconbtn"
             tooltip='Settings'
           >
             <ActionSettings color='white'/>
           </IconButton>
-          <p style={{margin: '0 auto', float: 'right', marginRight: '57%', marginTop: '1.5%'}}>Settings</p>
-        </p>
+          <p className="settings-text">Settings</p>
+        </div>
       )  
     } else {
       return (
-        <Link to='/settings'>
-        <p className="playback-sidebar-p4">
+        <Link className="settings-link" to='/settings'>
+        <div className="settings-container c2">
           <IconButton 
             className="playback-sidebar-iconbtn"
             tooltip='Settings'
           >
             <ActionSettings color='black'/>
           </IconButton>
-          <p style={{margin: '0 auto', float: 'right', marginRight: '58%', marginTop: '1.5%'}}>Settings</p>
-        </p></Link>
+          <p className="settings-text">Settings</p>
+        </div></Link>
       );
     };
   };
