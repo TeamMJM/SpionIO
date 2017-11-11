@@ -12,125 +12,35 @@ import ActionChromeReaderMode from 'material-ui/svg-icons/action/chrome-reader-m
 import ActionFeedback from 'material-ui/svg-icons/action/feedback';
 import Paper from 'material-ui/Paper';
 
-const style = {
-  paper: {
-    width: '30%',
-    float: 'right',
-    height: '52px',
-    // height: '154px',
-  },
-  paperHeadStoryActive: {
-    backgroundColor: '#006CAA',
-    height: '52px',
-    textAlign: 'center',
-    width: '50%',
-    float: 'left',
-  },
-  paperHeadStoryInactive: {
-    backgroundColor: 'white',
-    height: '52px',
-    textAlign: 'center',
-    width: '50%',
-    float: 'left',
-  },
-  paperHeadFeedInactive: {
-    backgroundColor: 'white',
-    height: '52px',
-    textAlign: 'center',
-    width: '50%',
-    float: 'right'
-  },
-  paperHeadFeedActive: {
-    backgroundColor: '#006CAA',
-    height: '52px',
-    textAlign: 'center',
-    width: '50%',
-    float: 'right',
-  },
-  pHeadActive: {
-    color: 'white',
-    paddingTop: '10%',
-    letterSpacing: '2px',
-    fontSize: '.7em',
-    marginLeft: '5%',
-  },
-  pHeadInactive: {
-    color: '#006CAA',
-    paddingTop: '10%',
-    letterSpacing: '2px',
-    fontSize: '.7em',
-    marginLeft: '5%',
-  },
-  mediumIcon: {
-    width: 24,
-    height: 24,
-  },
-  mediumStory: {
-    width: 36,
-    height: 36,
-    display: 'inline-block',
-    marginLeft: '8%'
-  },
-  mediumFeed: {
-    width: 36,
-    height: 36,
-    display: 'inline-block',
-    marginLeft: '8%'
-  },
-}
-
 class Storyboard extends Component {
   constructor(props) {
-    super(props)
-    this.state = {
-      storyboard: false,
-      feedback: false,
-    }
+    super(props);
     this.styleStoryboard = this.styleStoryboard.bind(this);
     this.styleFeedback = this.styleFeedback.bind(this);
-    this.toggle = this.toggle.bind(this);
     this.toggleList = this.toggleList.bind(this);
-    this.initialize = this.initialize.bind(this);
-  }
-
-  toggle() {
-    this.setState({storyboard: !this.state.storyboard, feedback: !this.state.feedback})
-  }
-
-  initialize() {
-    let url = window.location.href.split('/').pop();
-
-    if (url !== 'feedback') {
-      this.setState({storyboard: true, feedback: false})
-    } else {
-      this.setState({storyboard: false, feedback: true})
-    }
-  }
+  };
 
   styleStoryboard() {
-    if (this.state.storyboard) {
+    if (this.props.storyboard) {
       return (
-        <div>
+        <div className="storyboard-header-container">
           <Paper 
-            id='customFade1s' 
-            className='animated slideInRight' 
-            style={style.paperHeadStoryActive}
+            id="customFade1s" 
+            className="animated slideInRight storyboard-paper-active" 
           />
           <div 
-            id='customFade' 
-            className='animated fadeIn' 
-            style={{zIndex: '100', position: 'fixed'}}
+            id="customFade" 
+            className="animated fadeIn storyboard-header-div"
             >
-            <IconButton iconStyle={style.mediumIcon} style={style.mediumStory}>
+            <IconButton className="storyboard-iconbtn">
               <ActionChromeReaderMode color='white'/>
             </IconButton>
           </div>
           <div 
-            id='customFade' 
-            className='animated fadeIn' 
-            style={{zIndex: '100', position: 'fixed', marginLeft: '3.5%', marginTop: '.75%'}}
+            id="customFade" 
+            className="animated fadeIn storyboard-header-div2"
             >
-            <p style={style.pHeadActive}>
+            <p className="storyboard-p-active">
               STORYBOARD
             </p>
           </div>
@@ -138,28 +48,25 @@ class Storyboard extends Component {
       )
     } else {
       return (
-        <div>
+        <div className="storyboard-header-container">
           <Paper 
-            id='customFade1s' 
-            className='animated slideOutRight' 
-            style={style.paperHeadStoryInactive}
+            id="customFade1s" 
+            className="animated slideOutRight storyboard-paper-inactive"
           />
-          <div className='test'>
+          <div className="test">
           <div 
-            id='customFade1s' 
-            className='animated fadeIn' 
-            style={{zIndex: '100', position: 'fixed'}}
+            id="customFade1s" 
+            className="animated fadeIn storyboard-header-div"
             >
-            <IconButton iconStyle={style.mediumIcon} style={style.mediumStory}>
+            <IconButton className="storyboard-iconbtn">
               <ActionChromeReaderMode color='#006CAA'/>
             </IconButton>
           </div>
           <div 
-            id='customFade1s' 
-            className='animated fadeIn' 
-            style={{zIndex: '100', position: 'fixed', marginLeft: '3.5%', marginTop: '.75%'}}
+            id="customFade1s" 
+            className="animated fadeIn storyboard-header-div2"
             >
-            <p style={style.pHeadInactive}>
+            <p className="storyboard-p-inactive">
               STORYBOARD
             </p>
           </div>
@@ -170,29 +77,26 @@ class Storyboard extends Component {
   }
 
   styleFeedback() {
-    if (this.state.feedback) {
+    if (this.props.feedback) {
       return (
-        <div>
+        <div className="storyboard-header-container">
           <Paper 
-            id='customFade1s' 
-            className='animated slideInLeft' 
-            style={style.paperHeadFeedActive}
+            id="customFade1s" 
+            className="animated slideInLeft feedback-paper-active" 
           />
           <div 
-            id='customFade' 
-            className='animated fadeIn' 
-            style={{zIndex: '100', position: 'fixed', marginLeft: '16.5%'}}
+            id="customFade" 
+            className="animated fadeIn feedback-header-div"
             >
-            <IconButton iconStyle={style.mediumIcon} style={style.mediumFeed}>
+            <IconButton className="storyboard-iconbtn">
               <ActionFeedback color='white'/>
             </IconButton>
           </div>
           <div 
-            id='customFade' 
-            className='animated fadeIn' 
-            style={{zIndex: '100', position: 'fixed', marginLeft: '20%', marginTop: '.75%'}}
+            id="customFade" 
+            className="animated fadeIn feedback-header-div2"
             >
-            <p style={style.pHeadActive}>
+            <p className="storyboard-p-active">
               FEEDBACK
             </p>
           </div>
@@ -200,28 +104,25 @@ class Storyboard extends Component {
       )
     } else {
       return (
-        <div>
+        <div className="storyboard-header-container">
           <Paper 
-            id='customFade1s' 
-            className='animated slideInRight' 
-            style={style.paperHeadFeedInactive}
+            id="customFade1s" 
+            className="animated slideInRight feedback-paper-inactive" 
           />
-          <div className='test'>
+          <div className="test">
           <div 
-            id='customFade1s' 
-            className='animated fadeIn' 
-            style={{zIndex: '100', position: 'fixed', marginLeft: '16.5%'}}
+            id="customFade1s" 
+            className="animated fadeIn feedback-header-div"
             >
-            <IconButton iconStyle={style.mediumIcon} style={style.mediumFeed}>
+            <IconButton className="storyboard-iconbtn">
               <ActionFeedback color='#006CAA'/>
             </IconButton>
           </div>
           <div 
-            id='customFade1s' 
-            className='animated fadeIn' 
-            style={{zIndex: '100', position: 'fixed', marginLeft: '20%', marginTop: '.75%'}}
+            id="customFade1s" 
+            className="animated fadeIn feedback-header-div2"
             >
-            <p style={style.pHeadInactive}>
+            <p className="storyboard-p-inactive">
               FEEDBACK
             </p>
           </div>
@@ -236,8 +137,8 @@ class Storyboard extends Component {
  
     if (url !== 'feedback') {
       return(
-        <div style={{textAlign: 'center', letterSpacing: '1px', fontSize: '.9em'}}>Welcome to the storyboard</div>
-      )
+        <div className="storyboard-list-div">Welcome to the storyboard</div>
+      );
       const targetList = this.props.targetList.map((Element) => {
         let hintText = 'Clicked ' + Element.split('>')[0].split(' ')[0].split('').splice(1).join('').toUpperCase();
         return (
@@ -245,18 +146,16 @@ class Storyboard extends Component {
             <CardHeader title={hintText} actAsExpander={true} showExpandableButton={true}/>
             <CardText expandable={true}>{Element}</CardText>
           </Card>
-        )
-      })
-    } else {
-     
-      return(
-        <div style={{textAlign: 'center', letterSpacing: '1px', fontSize: '.9em'}}>Welcome to the feedback</div>
-      )
-    }
-  }
+        );
+      });
+    } else {     
+      return (
+        <div className="storyboard-list-div">Welcome to the feedback</div>
+      );
+    };
+  };
 
   componentDidMount() {
-    this.initialize();
     this.styleFeedback();
     this.styleStoryboard();
     this.toggleList();
@@ -290,12 +189,12 @@ class Storyboard extends Component {
     })
 
     return (
-      <Paper rounded={false} style={style.paper}>
+      <Paper rounded={false} className="story-paper">
         {/* <Geolocation/> */}
-        <Link to={'/dashboard/recordings/' + this.props.recordingID} onClick={this.toggle}>
+        <Link to={'/dashboard/recordings/' + this.props.recordingID} onClick={this.props.toggle}>
           {this.styleStoryboard()}
         </Link>
-        <Link to={'/dashboard/recordings/' + this.props.recordingID + '/feedback'} onClick={this.toggle}>
+        <Link to={'/dashboard/recordings/' + this.props.recordingID + '/feedback'} onClick={this.props.toggle}>
           {this.styleFeedback()}
         </Link><br/><br/><br/>
         {targetList}

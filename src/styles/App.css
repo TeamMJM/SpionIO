@@ -141,6 +141,7 @@ body {
 
 .recording-paper {
   display: flex;
+  width:100%;
   justify-content: space-between;
   align-content: center;
   align-items: center;
@@ -200,11 +201,9 @@ body {
 }
 
 .recording-latest-updates {
-  /* margin-left: 1px; */
+  width: 1000px;
   overflow: scroll;
-  height: 900px;
-  width: 1400px;
-  float: left;
+  height: 640px;
   background-color: #F4F7F5;
 }
 
@@ -477,9 +476,6 @@ ul {
   align-items: center;
 }
 
-.settings-text {
-}
-
 .c1 {
   background-color: #006CAA;
   border-radius: 4px;
@@ -493,4 +489,96 @@ ul {
 
 .settings-link {
   text-decoration: none !important;
+}
+
+/**** Storyboard ****/
+.storyboard-paper-active {
+  background-color: #006CAA !important;
+  height: 52px !important;
+  text-align: center !important;
+  width: 50% !important;
+  float: left !important;
+}
+
+.storyboard-paper-inactive {
+  background-color: white !important;
+  height: 52px !important;
+  text-align: center !important;
+  width: 50% !important;
+  float: left !important;
+}
+
+.storyboard-p-active {
+  color: white;
+  padding-top: 10%;
+  letter-spacing: 2px;
+  font-size: .7em;
+  margin-left: 5%;
+}
+
+.storyboard-p-inactive {
+  color: #006CAA;
+  padding-top: 10%;
+  letter-spacing: 2px;
+  font-size: .7em;
+  margin-left: 5%;
+}
+
+.feedback-paper-active {
+  background-color: #006CAA !important;
+  height: 52px !important;
+  text-align: center !important;
+  width: 50% !important;
+  float: right !important;
+}
+
+.feedback-paper-inactive {
+  background-color: white !important;
+  height: 52px !important;
+  text-align: center !important;
+  width: 50% !important;
+  float: right !important;
+}
+
+.story-paper {
+  width: 30% !important;
+  float: right !important;
+  height: 52px !important;
+}
+
+.storyboard-iconbtn {
+  width: 36 !important;
+  height: 36 !important;
+  display: inline-block !important;
+  margin-left: 8% !important;
+}
+
+.storyboard-iconbtn div svg {
+  height: 24 !important;
+  width: 24 !important;
+}
+
+.storyboard-list-div {
+  text-align: center;
+  letter-spacing: 1px;
+  font-size: .9em;
+}
+
+.storyboard-header-div, .storyboard-header-div2, .feedback-header-div, .feedback-header-div2 {
+  z-index: 100;
+  position: fixed;
+}
+
+.feedback-header-div {
+  margin-left: 16.5%;  
+}
+
+.feedback-header-div2 {
+  margin-left: 20%;
+  margin-top: .75%;
+}
+
+.storyboard-header-div2 {
+  margin-left: 3.5%;
+  margin-top: .75%;
 }
