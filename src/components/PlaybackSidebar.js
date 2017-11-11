@@ -15,7 +15,7 @@ const PlaybackSidebar = () => {
       zDepth={1} 
       rounded={false}
       >
-      <Link to='/dashboard'>
+      <Link to='/'>
         <IconButton
           className="playback-sidebar-icon"
           tooltip='Go Back'
@@ -23,7 +23,7 @@ const PlaybackSidebar = () => {
           <NavigationArrowBack color='lightgray'/>
         </IconButton>
       </Link>
-      <Link to='/dashboard'>
+      <Link to='/'>
         <IconButton
           className="playback-sidebar-icon"
           tooltip='Settings'
@@ -32,7 +32,7 @@ const PlaybackSidebar = () => {
         </IconButton>
       </Link>
     </Paper>
-  )
-}
+  );
+};
 
 export default PlaybackSidebar;
