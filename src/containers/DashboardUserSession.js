@@ -31,8 +31,10 @@ class DashboardUserSession extends Component {
       step: 1,
       liveStarted: false,
       index: 0,
-      isLive: false
-    }
+      isLive: false,
+      storyboard: false,
+      feedback: false,
+    };
     this.addtoList = this.addtoList.bind(this);
     this.frameScript = this.frameScript.bind(this);
     this.animateFrame = this.animateFrame.bind(this);
@@ -43,7 +45,24 @@ class DashboardUserSession extends Component {
     this.getRecordingData = this.getRecordingData.bind(this);
     this.slide = this.slide.bind(this);
     this.toggleFullscreen = this.toggleFullscreen.bind(this);
+    this.toggle = this.toggle.bind(this);
+  };
+
+  initialize() {
+    let url = window.location.href.split('/').pop();
+    if (url !== 'feedback') {
+      this.setState({storyboard: true, feedback: false})
+    } else {
+      this.setState({storyboard: false, feedback: true})
+    }
   }
+
+  toggle() {
+    this.setState({
+      storyboard: !this.state.storyboard, 
+      feedback: !this.state.feedback
+    });
+  };
 
   toggleFullscreen() {
     $('.react-iframe').fullscreen();
@@ -309,6 +328,7 @@ class DashboardUserSession extends Component {
 
   // gathers data and calls frameScript()
   async componentDidMount() {
+    this.initialize();
     await this.getRecordingData();
     console.log(this.state.recording)
     // console.log(this.state.recording.position)
@@ -342,9 +362,12 @@ class DashboardUserSession extends Component {
             live={this.state.isLive}
           />
           <Storyboard 
-            key={this.props.match.params.recordingID + '1'} 
+            key={this.props.match.params.recordingID + '1'}
+            storyboard={this.state.storyboard}
+            feedback={this.state.feedback}
             recordingID={this.props.match.params.recordingID} 
-            targetList={this.state.targetList} 
+            targetList={this.state.targetList}
+            toggle={this.toggle}
           />         
         </div>
       </div>
